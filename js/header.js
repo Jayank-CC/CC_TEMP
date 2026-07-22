@@ -88,8 +88,8 @@ window.__PARTIALS.header = `
         <div class="mega-tab-panel is-active" id="tab-product-eng" role="tabpanel">
           <div class="mega-cat"><div class="mega-cat-title">Product Engineering &amp; Solution Development</div><p class="mega-cat-sub">Building intelligent, user experience driven, and cloud-native solutions at scale.</p>
           <ul class="mega-links">
-            <li><a href="/web-app-development-services.html">Web Application Development</a></li>
-            <li><a href="custom-web-development.html">Custom Web Development</a></li>
+            <li><a href="./web-app-development-services.html">Web Application Development</a></li>
+            <li><a href="./custom-web-development.html">Custom Web Development</a></li>
             <li><a href="#mobile-app-development">Mobile App Development</a></li>
             <li><a href="#iphone-app-development">iPhone / iOS App Development</a></li>
             <li><a href="#umbraco-development-services">Umbraco Implementation Services</a></li>
