@@ -279,3 +279,137 @@
     transition: none;
   }
 }
+
+/* Narrow mobile calibration: prevent the hero callout and content sections
+   from exceeding the device viewport. */
+@media (max-width: 767px) {
+  .webapp-page .header-inner {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .webapp-page .mobile-toggle {
+    left: 15px;
+  }
+  .webapp-hero,
+  .webapp-hero-inner {
+    width: 100%;
+    max-width: 100%;
+  }
+  .webapp-hero-inner {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .webapp-hero-cta {
+    right: 0;
+    bottom: 18px;
+    width: calc(100% - 16px);
+    max-width: 310px;
+    height: 100px;
+    padding: 0;
+    overflow: hidden;
+  }
+  .webapp-hero-quote-track article {
+    padding: 12px 16px;
+  }
+  .webapp-hero-quote-track h2 {
+    font-size: 15px;
+    line-height: 20px;
+  }
+  .webapp-hero-quote-track p {
+    margin-top: 2px;
+    font-size: 13px;
+    line-height: 18px;
+  }
+  .webapp-hero-cta-final {
+    padding: 12px 16px;
+  }
+  .webapp-hero-cta strong {
+    margin: 0 0 7px;
+    font-size: 13px;
+    line-height: 18px;
+  }
+  .webapp-hero-cta a {
+    margin-top: 0;
+    padding: 6px 10px;
+    font-size: 10px;
+    line-height: 16px;
+  }
+  .webapp-breadcrumb .container {
+    width: 100%;
+    max-width: 100%;
+    padding-right: 12px;
+    padding-left: 12px;
+    gap: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .webapp-services > .container,
+  .webapp-detail-row,
+  .webapp-work > .container,
+  .webapp-stat-grid,
+  .webapp-testimonials > .container {
+    width: 100%;
+    max-width: 100%;
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+  .webapp-services h2,
+  .webapp-work h2 {
+    font-size: 24px;
+    line-height: 31px;
+  }
+  .webapp-layout,
+  .webapp-service-grid,
+  .webapp-service-card,
+  .webapp-service-card > div,
+  .webapp-detail-media,
+  .webapp-detail-copy,
+  .webapp-project-slider,
+  .webapp-project-slides,
+  .webapp-testimonial-carousel,
+  .webapp-testimonial-viewport {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .webapp-service-card {
+    gap: 12px;
+  }
+  .webapp-service-card p,
+  .webapp-detail-copy p,
+  .webapp-testimonial blockquote {
+    overflow-wrap: anywhere;
+  }
+  .webapp-consult {
+    width: 100%;
+    max-width: 340px;
+  }
+  .webapp-project-prev {
+    left: 0;
+  }
+  .webapp-project-next {
+    right: 0;
+  }
+  .webapp-testimonial-carousel {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 390px) {
+  .webapp-page .header-logo img {
+    width: 140px;
+  }
+  .webapp-services > .container,
+  .webapp-detail-row,
+  .webapp-work > .container,
+  .webapp-stat-grid,
+  .webapp-testimonials > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .webapp-stat-grid article {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+}

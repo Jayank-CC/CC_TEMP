@@ -2,26 +2,34 @@
 
 ## Current task
 
-- **Reference:** https://www.cloudconverge.io/custom-web-development/
-- **Local target:** `custom-web-development.html`
-- **State:** Complete
+- **Reference:** https://www.cloudconverge.io/mobile-app-development/
+- **Local target:** `mobile-app-development.html`
+- **State:** Corrected and verified at the available desktop viewport
 - **Last updated:** 2026-07-22
 
 ## Architecture
 
 - Shared header/footer are injected through `js/header.js`, `js/footer.js`, and `js/include.js`.
 - Shared CSS remains in `css/style.css` and `css/responsive.css`.
-- The new page will load its dedicated stylesheet, `css/pages/custom-web-development.css`, plus page-specific JavaScript only where interaction requires it.
+- The page loads its dedicated stylesheet, `css/pages/mobile-app-development.css`, plus `js/mobile-app-development.js` for page-specific interactions.
 - HTML, CSS, and vanilla JavaScript only.
 
 ## Latest correction
 
-- Service-card hover precedence was corrected so the visible-card reveal state no longer suppresses the upward lift.
-- Hovering a service card now reveals its blue top line, lifts the complete card by 5px, and lifts its text panel by an additional 5px with a 300ms transition.
-- Service-card headings use the reference semibold Poppins weight at desktop and mobile sizes.
-- Statistics are no longer hidden behind an unreliable viewport reveal state.
-- The four statistic icons now match the reference artwork and use the reference 55px display size.
-- Desktop column widths, separators, typography, and vertical spacing were matched against the live reference measurements.
+- Added `mobile-app-development.html` with a dedicated stylesheet and JavaScript file; shared header/footer files remain unchanged.
+- Bundled the exact mobile hero and eight service-card illustrations locally under `assets/images/`.
+- Replicated the breadcrumb, long-form introduction and consultation form, eight development cards, factors columns, sliding portfolio, statistics, industries, awards, testimonials, and shared contact/footer.
+- Re-audited the local page directly beside the live reference at a 1281px browser viewport instead of relying on the earlier completion note.
+- Corrected the page-wide 10px Elementor content inset, the exact 686.8px/383.2px introduction columns, the 50px column gap, and the reference consultation-card dimensions.
+- Corrected the factors section to two 570px columns with 10px inner padding, restoring the reference 550px text measures and wrapping.
+- Top-aligned the one-line service-card headings, corrected the progressive-card copy baseline, and preserved the already-matched service image positions.
+- Removed inherited title capitalization so wording such as “Why Develop a mobile app” and “Some of our Client Reviews” matches the source exactly.
+- Corrected statistics heading weights and inner widths, expanded the awards grid to the reference 1140px track, and aligned all four award marks including the Microsoft Partner artwork.
+- Corrected the desktop header inset and navigation spacing without changing the shared header partial.
+- Added the reference card lift/top-line/text motion, a directional portfolio slider, and a draggable infinite testimonial loop with bounded clones and transition fallback.
+- Updated the mobile intro and form from the live page's own `max-width: 767px` rules: 30px/15px section padding, 25px effective copy inset, and 30px/20px/40px form spacing; restored the reference shared 66px mobile header and 300px hero geometry.
+- Matched the live testimonial behavior by keeping the initial Samuel Correns/Kabu Projects pair stationary until the user drags; the reference carousel does not autoplay.
+- Verified no broken images, no console errors, no horizontal overflow at the tested desktop viewport, valid page JavaScript syntax, local-only runtime assets, directional portfolio movement, and a testimonial track containing six originals plus four prebuilt edge clones.
 
 ## Previous completed page
 
