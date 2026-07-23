@@ -1,0 +1,744 @@
+/* ==========================================================================
+   iPhone App Development page — dedicated styles
+   Shares the service-page pattern with mobile-app-development; upper sections
+   (centered intro, 3-column service cards, two-column factors) are unique.
+   ========================================================================== */
+.iphone-app-page {
+  overflow-x: clip;
+  background: #fff;
+  color: #252525;
+  font-family: "DM Sans", sans-serif;
+}
+.iphone-app-page .container {
+  max-width: 1140px;
+}
+.iphone-app-page h1,
+.iphone-app-page h2,
+.iphone-app-page h3,
+.iphone-app-page h4,
+.iphone-app-page h5,
+.iphone-app-page h6 {
+  text-transform: none;
+}
+
+/* transparent header over the dark hero banner */
+.iphone-app-page .site-header {
+  position: absolute;
+  background: transparent;
+}
+.iphone-app-page .site-header:not(.is-sticky) .logo-light {
+  display: block;
+}
+.iphone-app-page .site-header:not(.is-sticky) .logo-dark {
+  display: none;
+}
+.iphone-app-page .site-header:not(.is-sticky) .menu-item > a {
+  color: #fff;
+}
+.iphone-app-page .site-header.is-sticky {
+  position: fixed;
+  background: #fff;
+}
+
+/* ---------- Hero + breadcrumb ---------- */
+.iad-hero {
+  height: 375px;
+  background: url("../../assets/images/iphone-app-development.webp")
+    center/cover no-repeat;
+}
+.iad-breadcrumb {
+  height: 46px;
+  background: #fbfbfb;
+  color: #252525;
+  font:
+    400 14px/46px "DM Sans",
+    sans-serif;
+}
+.iad-breadcrumb .container {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  height: 100%;
+}
+.iad-breadcrumb a {
+  color: #252525;
+  text-decoration: none;
+}
+.iad-breadcrumb a:hover {
+  color: #1e4ec4;
+}
+.iad-breadcrumb span[aria-hidden] {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid #777;
+  font-size: 0;
+}
+
+/* ---------- Intro (centered, full width) ---------- */
+.iad-intro {
+  padding: 50px 0 0;
+  text-align: center;
+}
+.iad-intro h1 {
+  margin: 0 0 20px;
+  color: #1d1a4e;
+  font-family: "Poppins", sans-serif;
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+.iad-intro h2 {
+  margin: 0 0 20px;
+  color: #1d1a4e;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.iad-intro p {
+  margin: 0 0 20px;
+  font-size: 16px;
+  line-height: 26px;
+  color: #252525;
+}
+
+/* ---------- Service cards (2 rows of 3) ---------- */
+.iad-services {
+  padding: 40px 0 20px;
+}
+.iad-service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+.iad-service-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 14px 46px rgba(0, 26, 87, 0.08);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.iad-service-card::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4px;
+  background: #1e4ec4;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+.iad-service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 42px rgba(0, 26, 87, 0.13);
+}
+.iad-service-card:hover::before {
+  transform: scaleX(1);
+}
+.iad-service-copy {
+  padding: 30px 30px 0;
+  transition: transform 0.3s ease;
+}
+.iad-service-card:hover .iad-service-copy {
+  transform: translateY(-5px);
+}
+.iad-service-card h2 {
+  margin: 0 0 18px;
+  color: #1d1a4e;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 600;
+  text-align: center;
+}
+.iad-service-card p {
+  margin: 0;
+  color: #282828;
+  font-size: 16px;
+  line-height: 26px;
+}
+.iad-service-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 26px;
+  object-fit: cover;
+}
+
+/* ---------- Other Factors ---------- */
+.iad-factors-head {
+  padding: 60px 0 0;
+}
+.iad-factors-head h2 {
+  margin: 0;
+  color: #1d1a4e;
+  font-family: "Poppins", sans-serif;
+  font-size: 40px;
+  line-height: 50px;
+  font-weight: 600;
+  text-align: center;
+  text-transform: capitalize;
+}
+.iad-factors {
+  padding: 34px 0 0;
+}
+.iad-factor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.iad-factor-col > h3 {
+  margin: 0 0 20px;
+  color: #1d1a4e;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+}
+.iad-factor-col article {
+  margin: 0 0 20px;
+}
+.iad-factor-col h4 {
+  margin: 0 0 6px;
+  color: #1d1a4e;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+}
+.iad-factor-col p {
+  margin: 0;
+  color: #292929;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* ---------- Work carousel ---------- */
+.iad-work {
+  position: relative;
+  height: 914px;
+  overflow: hidden;
+  background: #fff;
+  margin-top: 40px;
+}
+.iad-work-viewport {
+  width: calc(100% - 72px);
+  max-width: 1194px;
+  height: 843px;
+  margin: 35px auto 0;
+  overflow: hidden;
+}
+.iad-work-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+.iad-work figure {
+  flex: 0 0 100%;
+  height: 100%;
+  margin: 0;
+}
+.iad-work figure img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.iad-work-arrow {
+  position: absolute;
+  z-index: 2;
+  top: 48%;
+  padding: 10px;
+  border: 0;
+  background: transparent;
+  color: #2059da;
+  font: 300 58px/1 Arial;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+.iad-work-prev {
+  left: 15px;
+}
+.iad-work-next {
+  right: 15px;
+}
+
+/* ---------- Stats ---------- */
+.iad-stats {
+  height: 522px;
+  padding: 119px 0 120px;
+  box-sizing: border-box;
+}
+.iad-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 283px;
+}
+.iad-stat-grid article {
+  padding: 0 20px;
+  border-right: 1px solid #ddd;
+  text-align: center;
+}
+.iad-stat-grid article:last-child {
+  border-right: 0;
+}
+.iad-stat-grid img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+  object-fit: contain;
+}
+.iad-stat-grid strong {
+  display: block;
+  color: #171717;
+  font:
+    600 32px/48px "Poppins",
+    sans-serif;
+}
+.iad-stat-grid h3 {
+  margin: 0 0 8px;
+  color: #171717;
+  font:
+    600 16px/24px "Poppins",
+    sans-serif;
+}
+.iad-stat-grid p {
+  margin: 0;
+  color: #252525;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* ---------- Industries ---------- */
+.iad-industries {
+  height: 645px;
+  text-align: center;
+}
+.iad-industries h2 {
+  height: 50px;
+  color: #1d1a4e;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  line-height: 50px;
+  font-weight: 600;
+}
+.iad-industries img {
+  display: block;
+  width: 960px;
+  height: 575px;
+  margin: 10px auto 0;
+  object-fit: contain;
+}
+
+/* ---------- Awards ---------- */
+.iad-awards {
+  height: 321px;
+  text-align: center;
+}
+.iad-awards h2 {
+  height: 113px;
+  color: #1d1a4e;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  line-height: 113px;
+  font-weight: 600;
+}
+.iad-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  height: 208px;
+  padding: 0 36px;
+}
+.iad-award-grid img {
+  justify-self: center;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+.iad-award-grid .iad-microsoft {
+  width: 265px;
+  height: 68px;
+}
+
+/* ---------- Reviews ---------- */
+.iad-reviews {
+  height: 697px;
+  overflow: hidden;
+}
+.iad-reviews h2 {
+  height: 59px;
+  color: #1d1a4e;
+  font-family: "Poppins", sans-serif;
+  font-size: 26px;
+  line-height: 59px;
+  font-weight: 600;
+  text-align: center;
+}
+.iad-review-viewport {
+  height: 578px;
+  margin-top: 30px;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+.iad-review-viewport.is-dragging {
+  cursor: grabbing;
+}
+.iad-review-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  will-change: transform;
+}
+.iad-review-card {
+  flex: 0 0 540px;
+  height: 400px;
+  padding: 37px 35px 47px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #f4f4f4;
+}
+.iad-review-long {
+  height: 502px;
+}
+.iad-stars {
+  margin-bottom: 5px;
+  color: #f5bd00;
+  font-size: 14px;
+  line-height: 26px;
+  letter-spacing: 2px;
+}
+.iad-review-card blockquote {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+  line-height: 26px;
+}
+.iad-review-person {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-top: 12px;
+}
+.iad-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #fff;
+  object-fit: contain;
+}
+.iad-review-person p {
+  margin: 0;
+}
+.iad-review-person strong,
+.iad-review-person span {
+  display: block;
+}
+.iad-review-person strong {
+  color: #1d1a4e;
+  font-size: 17px;
+  line-height: 27px;
+  font-weight: 600;
+}
+.iad-review-person span {
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* ---------- Scroll reveal ---------- */
+.iad-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s ease;
+}
+.iad-service-card.iad-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.65s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.iad-service-card.iad-reveal.is-visible:hover {
+  transform: translateY(-5px);
+}
+
+/* ---------- Desktop calibration ---------- */
+@media (min-width: 1200px) {
+  .iphone-app-page .header-inner {
+    padding-right: 45px;
+    padding-left: 45px;
+  }
+  .iphone-app-page .header-cta {
+    margin-left: 40px;
+  }
+  .iphone-app-page .container {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .iad-award-grid {
+    transform: translateY(-19px);
+  }
+  .iad-award-grid .iad-microsoft {
+    transform: translateY(19px);
+  }
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 1199px) {
+  .iphone-app-page .container {
+    max-width: 940px;
+  }
+  .iad-service-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .iad-work {
+    height: auto;
+    padding-bottom: 35px;
+  }
+  .iad-work-viewport {
+    height: auto;
+    aspect-ratio: 1450/1024;
+  }
+  .iad-stats {
+    height: auto;
+    padding: 90px 0;
+  }
+  .iad-industries {
+    height: auto;
+    padding-bottom: 60px;
+  }
+  .iad-industries img {
+    max-width: 100%;
+    height: auto;
+  }
+  .iad-review-card {
+    flex-basis: 455px;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 767px) {
+  .iphone-app-page .site-header {
+    position: relative;
+    height: 56px;
+    min-height: 56px;
+    background: #1d1a4e;
+  }
+  .iphone-app-page .header-inner {
+    height: 56px;
+    min-height: 56px;
+  }
+  .iphone-app-page .header-logo img {
+    width: 150px;
+    height: auto;
+  }
+  .iad-hero {
+    height: 300px;
+    background-position: center;
+  }
+  .iad-breadcrumb {
+    height: 48px;
+    font-size: 12px;
+    line-height: 48px;
+  }
+  .iad-breadcrumb .container {
+    gap: 10px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .iad-intro {
+    padding: 32px 0 0;
+  }
+  .iad-intro h1 {
+    font-size: 30px;
+    line-height: 38px;
+  }
+  .iad-intro h2 {
+    font-size: 18px;
+    line-height: 27px;
+  }
+  .iad-intro p {
+    font-size: 15px;
+    line-height: 26px;
+    text-align: left;
+  }
+  .iad-services {
+    padding: 30px 0 10px;
+  }
+  .iad-service-grid {
+    grid-template-columns: minmax(0, 350px);
+    justify-content: center;
+    gap: 30px;
+  }
+  .iad-service-copy {
+    padding: 30px 25px 25px;
+  }
+  .iad-service-card img {
+    margin-top: 0;
+  }
+  .iad-factors-head {
+    padding: 40px 0 0;
+  }
+  .iad-factors-head h2 {
+    font-size: 30px;
+    line-height: 39px;
+  }
+  .iad-factors {
+    padding: 30px 0 0;
+  }
+  .iad-factor-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .iad-factor-col p {
+    font-size: 15px;
+  }
+  .iad-work {
+    padding-bottom: 0;
+  }
+  .iad-work-viewport {
+    width: 100%;
+    margin-top: 0;
+  }
+  .iad-work-arrow {
+    font-size: 38px;
+  }
+  .iad-work-prev {
+    left: 2px;
+  }
+  .iad-work-next {
+    right: 2px;
+  }
+  .iad-stats {
+    padding: 70px 0;
+  }
+  .iad-stat-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 65px;
+  }
+  .iad-stat-grid article {
+    padding: 0 15px;
+    border: 0;
+  }
+  .iad-stat-grid p {
+    max-width: 350px;
+    margin: 0 auto;
+    font-size: 15px;
+  }
+  .iad-industries {
+    padding: 0 0 65px;
+  }
+  .iad-industries h2 {
+    margin-bottom: 20px;
+  }
+  .iad-industries img {
+    width: 100%;
+    margin: 0;
+  }
+  .iad-awards {
+    height: auto;
+    padding-bottom: 35px;
+  }
+  .iad-awards h2 {
+    height: 80px;
+    line-height: 80px;
+  }
+  .iad-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    height: auto;
+    padding: 0 15px;
+  }
+  .iad-award-grid .iad-microsoft {
+    width: 190px;
+    height: auto;
+  }
+  .iad-reviews {
+    height: 720px;
+  }
+  .iad-reviews h2 {
+    height: auto;
+    padding: 0 25px;
+    font-size: 22px;
+    line-height: 34px;
+  }
+  .iad-review-viewport {
+    height: 610px;
+    margin: 30px 15px 0;
+  }
+  .iad-review-track {
+    gap: 0;
+  }
+  .iad-review-card {
+    flex-basis: 100%;
+    height: 480px;
+    padding: 30px 24px;
+  }
+  .iad-review-long {
+    height: 585px;
+  }
+  .iad-review-card blockquote {
+    font-size: 15px;
+    line-height: 25px;
+  }
+}
+@media (max-width: 380px) {
+  .iad-hero {
+    height: 256px;
+  }
+  .iad-intro h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  .iad-service-grid {
+    grid-template-columns: minmax(0, 290px);
+  }
+  .iad-service-copy {
+    padding-right: 25px;
+    padding-left: 25px;
+  }
+  .iad-award-grid img {
+    width: 125px;
+    height: 125px;
+  }
+  .iad-award-grid .iad-microsoft {
+    width: 145px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .iad-service-card,
+  .iad-service-card::before,
+  .iad-service-copy,
+  .iad-work-track,
+  .iad-review-track {
+    transition: none !important;
+  }
+  .iad-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .iad-service-card:hover,
+  .iad-service-card:hover .iad-service-copy {
+    transform: none;
+  }
+}
