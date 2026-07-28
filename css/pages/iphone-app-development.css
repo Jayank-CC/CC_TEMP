@@ -42,7 +42,7 @@
 
 /* ---------- Hero + breadcrumb ---------- */
 .iad-hero {
-  height: 500px;
+  height: 380px;
   background: url("../../assets/images/iphone-app-development-banner.webp") 50%
     50% / cover no-repeat;
 }
@@ -82,10 +82,10 @@
   text-align: center;
 }
 .iad-intro h1 {
-  margin: 0 0 20px;
+  margin: 0 0 6px;
   color: #1d1a4e;
   font-family: "Poppins", sans-serif;
-  font-size: 40px;
+  font-size: 45px;
   line-height: 1.2;
   font-weight: 600;
 }
@@ -350,7 +350,7 @@
 
 /* ---------- Industries ---------- */
 .iad-industries {
-  height: 1030px;
+  /* height: 1030px; */
   text-align: center;
 }
 .iad-industries h2 {
@@ -363,8 +363,8 @@
 }
 .iad-industries img {
   display: block;
-  width: 960px;
-  height: 960px;
+  /* width: 960px; */
+  /* height: 960px; */
   margin: 10px auto 0;
   object-fit: contain;
 }
@@ -510,7 +510,7 @@
 @media (min-width: 1200px) {
   .iphone-app-page .header-inner {
     padding-right: 45px;
-    padding-left: 45px;
+    padding-left: 60px;
   }
   .iphone-app-page .header-cta {
     margin-left: 40px;
