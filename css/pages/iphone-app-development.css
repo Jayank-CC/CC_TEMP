@@ -43,8 +43,8 @@
 /* ---------- Hero + breadcrumb ---------- */
 .iad-hero {
   height: 500px;
-  background: url("../../assets/images/iphone-app-development-banner.webp")
-    50% 50% / cover no-repeat;
+  background: url("../../assets/images/iphone-app-development-banner.webp") 50%
+    50% / cover no-repeat;
 }
 .iad-breadcrumb {
   height: 46px;
@@ -605,7 +605,7 @@
   .iad-intro p {
     font-size: 15px;
     line-height: 26px;
-    text-align: left;
+    text-align: justify;
   }
   .iad-services {
     padding: 30px 0 10px;
