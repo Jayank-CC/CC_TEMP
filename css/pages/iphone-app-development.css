@@ -42,9 +42,9 @@
 
 /* ---------- Hero + breadcrumb ---------- */
 .iad-hero {
-  height: 380px;
+  height: 500px;
   background: url("../../assets/images/iphone-app-development-banner.webp")
-    center/cover no-repeat;
+    50% 50% / cover no-repeat;
 }
 .iad-breadcrumb {
   height: 46px;
@@ -106,18 +106,35 @@
 
 /* ---------- Service cards (2 rows of 3) ---------- */
 .iad-services {
-  padding: 40px 0 20px;
+  padding: 10px 0 0;
+}
+/* the grid spans the full 1140px track; cards are inset 15px like the reference */
+.iad-services .container {
+  padding: 0;
 }
 .iad-service-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 30px;
+}
+/* reference row sections: 60px top padding on row 1, 21px on row 2 */
+.iad-service-row1 {
+  padding-top: 50px;
+}
+.iad-service-row2 {
+  padding-top: 21px;
+}
+.iad-service-row1 .iad-service-card {
+  height: 552px;
+}
+.iad-service-row2 .iad-service-card {
+  height: 582px;
 }
 .iad-service-card {
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  margin: 0 15px;
   background: #fff;
   border-radius: 4px;
   box-shadow: 0 14px 46px rgba(0, 26, 87, 0.08);
@@ -146,7 +163,7 @@
   transform: scaleX(1);
 }
 .iad-service-copy {
-  padding: 30px 30px 0;
+  padding: 30px 35px 0;
   transition: transform 0.3s ease;
 }
 .iad-service-card:hover .iad-service-copy {
@@ -154,24 +171,25 @@
 }
 .iad-service-card h2 {
   margin: 0 0 18px;
-  color: #1d1a4e;
+  color: #191919;
   font-family: "Poppins", sans-serif;
   font-size: 20px;
-  line-height: 30px;
-  font-weight: 600;
+  line-height: normal;
+  font-weight: 400;
   text-align: center;
 }
 .iad-service-card p {
   margin: 0;
-  color: #282828;
+  color: #191919;
   font-size: 16px;
   line-height: 26px;
 }
 .iad-service-card img {
   display: block;
-  width: 100%;
-  height: auto;
-  margin-top: 26px;
+  width: 350px;
+  max-width: 100%;
+  height: 215px;
+  margin-top: auto;
   object-fit: cover;
 }
 
@@ -195,15 +213,25 @@
 .iad-factor-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
+}
+.iad-factor-col {
+  padding: 0 10px;
 }
 .iad-factor-col > h3 {
   margin: 0 0 20px;
   color: #1d1a4e;
   font-family: "Poppins", sans-serif;
   font-size: 18px;
-  line-height: 28px;
+  line-height: 27px;
   font-weight: 600;
+}
+/* the reference title-cases only the left column's subheading */
+.iad-factor-col:first-child > h3 {
+  text-transform: capitalize;
+}
+/* the second column's own heading renders unbolded on the reference */
+.iad-factor-col:nth-child(2) > h3 {
+  font-weight: 400;
 }
 .iad-factor-col article {
   margin: 0 0 20px;
@@ -213,12 +241,12 @@
   color: #1d1a4e;
   font-family: "Poppins", sans-serif;
   font-size: 18px;
-  line-height: 26px;
-  font-weight: 600;
+  line-height: normal;
+  font-weight: 400;
 }
 .iad-factor-col p {
   margin: 0;
-  color: #292929;
+  color: #191919;
   font-size: 16px;
   line-height: 26px;
 }
@@ -226,16 +254,15 @@
 /* ---------- Work carousel ---------- */
 .iad-work {
   position: relative;
-  height: 914px;
+  height: 1096px;
   overflow: hidden;
   background: #fff;
-  margin-top: 40px;
 }
 .iad-work-viewport {
-  width: calc(100% - 72px);
-  max-width: 1194px;
-  height: 843px;
-  margin: 35px auto 0;
+  width: 100%;
+  max-width: 1885px;
+  height: 1076px;
+  margin: 10px auto 0;
   overflow: hidden;
 }
 .iad-work-track {
@@ -323,7 +350,7 @@
 
 /* ---------- Industries ---------- */
 .iad-industries {
-  height: 645px;
+  height: 1030px;
   text-align: center;
 }
 .iad-industries h2 {
@@ -337,7 +364,7 @@
 .iad-industries img {
   display: block;
   width: 960px;
-  height: 575px;
+  height: 960px;
   margin: 10px auto 0;
   object-fit: contain;
 }
