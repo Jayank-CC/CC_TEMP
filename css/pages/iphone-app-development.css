@@ -42,8 +42,8 @@
 
 /* ---------- Hero + breadcrumb ---------- */
 .iad-hero {
-  height: 375px;
-  background: url("../../assets/images/iphone-app-development.webp")
+  height: 380px;
+  background: url("../../assets/images/iphone-app-development-banner.webp")
     center/cover no-repeat;
 }
 .iad-breadcrumb {
