@@ -745,13 +745,22 @@
   right: 0;
 }
 
-/* Case-study tabs */
+/* Case-study tabs.
+   Reference widget: 1200px centred box, bg #1e4ec4, radius 25px, padding-left 50px.
+   Tab column 459px (padding-top 60px, 20px gaps); 50px gutter; panel 639px on #14255b
+   with radius 0 30px 30px 0 and padding 60px 75px. */
+
+.erp-tabs-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
 .erp-tabs {
   display: flex;
   gap: 50px;
-  padding: 50px 50px 50px 50px;
+  padding: 0 0 0 50px;
   background: #1e4ec4;
+  border-radius: 25px;
 }
 
 .erp-tab-list {
@@ -759,21 +768,25 @@
   flex-direction: column;
   gap: 20px;
   flex: 0 0 459px;
+  padding: 60px 0 0;
 }
 
 .erp-tab {
-  display: block;
+  display: grid;
+  grid-template-columns: 1fr 92px;
+  align-items: center;
   width: 100%;
   min-height: 74px;
   padding: 0 0 20px;
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
+  font-family: "DM Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 26px;
   color: #fff;
   text-align: left;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  border-bottom: 0.877193px solid #8dc1fb;
   cursor: pointer;
   transition: opacity 0.25s ease;
 }
@@ -783,17 +796,47 @@
 }
 
 .erp-tab.is-active {
-  font-weight: 500;
-  border-bottom-color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.62);
+}
+
+/* Plus on collapsed tabs, minus on the open one. */
+.erp-tab-icon {
+  position: relative;
+  display: block;
+  width: 10px;
+  height: 10px;
+}
+
+.erp-tab-icon::before,
+.erp-tab-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 10px;
+  height: 2px;
+  margin-top: -1px;
+  background: #fff;
+}
+
+.erp-tab-icon::after {
+  transform: rotate(90deg);
+}
+
+.erp-tab.is-active .erp-tab-icon::after {
+  display: none;
 }
 
 .erp-tab-panels {
-  flex: 1 1 auto;
+  flex: 0 0 639px;
   min-width: 0;
 }
 
 .erp-tab-panel {
+  padding: 60px 75px;
   color: #fff;
+  background: #14255b;
+  border-radius: 0 30px 30px 0;
 }
 
 .erp-tab-panel[hidden] {
@@ -801,36 +844,62 @@
 }
 
 .erp-tab-title {
-  margin: 0 0 14px;
+  margin: 0 0 20px;
   font-family: "Poppins", sans-serif;
   font-size: 20px;
-  font-weight: 500;
-  line-height: 28px;
+  font-weight: 400;
+  line-height: 24px;
   color: #fff;
 }
 
 .erp-tab-panel p {
-  margin: 0 0 14px;
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
   font-size: 16px;
+  font-weight: 400;
   line-height: 26px;
   color: #fff;
+  text-align: justify;
 }
 
 .erp-tab-list-items {
-  margin: 0;
-  padding: 0 0 0 18px;
-  list-style: disc;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
 }
 
 .erp-tab-list-items li {
-  margin-bottom: 10px;
+  position: relative;
+  margin: 0 0 20px;
+  padding-left: 19px;
+  font-family: "DM Sans", sans-serif;
   font-size: 16px;
-  line-height: 26px;
+  font-weight: 400;
+  line-height: 20px;
   color: #fff;
 }
 
+.erp-tab-list-items li::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.erp-tab-list-items li:last-child {
+  margin-bottom: 0;
+}
+
+.erp-tab-list-items strong {
+  font-weight: 700;
+}
+
 .erp-tab-outro {
-  margin-top: 14px;
+  margin-top: 20px;
 }
 
 /* ---------- Pricing ---------- */
