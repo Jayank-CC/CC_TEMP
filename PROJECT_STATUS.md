@@ -2,10 +2,131 @@
 
 ## Current task
 
-- **Reference:** https://www.cloudconverge.io/mobile-app-development/
-- **Local target:** `mobile-app-development.html`
-- **State:** Corrected and verified at the available desktop viewport
-- **Last updated:** 2026-07-22
+- **Reference:** https://www.cloudconverge.io/erpnext-service-provider/
+- **Local target:** `erpnext-service-provider.html` (new page, first build)
+- **State:** BUILT BUT NOT VISUALLY VERIFIED — blocked on assets and on any way to render the page
+- **Last updated:** 2026-07-29
+
+### Next action
+
+1. Add the 37 images listed in `ERPNEXT_ASSETS_TODO.md` to `assets/images/`, then delete that file.
+2. Render `erpnext-service-provider.html` beside the reference and compare at 1920/1440/1366/1280/1024/768/480/390/360.
+3. Correct measured differences, then re-run the reuse/dead-code audit.
+
+### ERPNext build — what was done
+
+Files added:
+
+- `erpnext-service-provider.html`
+- `css/pages/erpnext-service-provider.css`
+- `js/erpnext-service-provider.js`
+- `ERPNEXT_ASSETS_TODO.md` (temporary; delete once assets land)
+
+Files changed: `js/header.js` (2 hrefs), `js/footer.js` (1 href) — the previously dead
+`#erpnext-service-provider` anchors in the mega menu and footer now point at the real page. No other
+shared-partial change; all ten pages still carry both placeholders and the four shared scripts.
+
+This page does NOT follow the other service-page pattern. The reference has no statistics, industries
+artwork, awards, testimonials, or work-carousel sections, so nothing was lifted from the `mad-*`
+family and `js/mobile-app-development.js` is not reused. New `erp-*` prefix and a dedicated page
+script were required for the three widgets the other pages do not have.
+
+Section order (28 reference top-level sections consolidated into 12 local sections): hero, breadcrumb,
+intro + consultation form, ERPNext Clients, Accelerate Growth, ERPNext Modules, Our ERPNext Services,
+infographic, Industries We Serve, Case Studies (carousel + tabs), Pricing & Cost, FAQ. Contact and
+footer come from the shared partial as usual.
+
+### Measurements taken from the reference (viewport 1685px, content box 1670px)
+
+- Boxed container `max-width: 1140px`, `padding: 0 15px` — matches the existing shared `.container`.
+  Hero uses the 1600px wide container; the carousel wrapper and FAQ row use 1230px.
+- Hero: `padding: 120px 90px 100px`, height 675px, columns 536 / 954, graphic 797×455.
+  H1 56/600/62 white. Subheads 28/500/38 and 22/500/38. Body 16/400/22. CTA 291×50, `#1e4ec4`,
+  `padding: 16px 30px`, `border-radius: 24px`.
+- Intro: `padding: 90px 0 20px`, columns 798 / 342 (`padding: 10px 20px 10px 10px` and `30px`).
+  Heading row is a 143 / 625 inner grid — certified-partner badge 123×80 sits left of the H2.
+  H2 40/600/50 `#1d1a4e`. Form card `padding: 30px`, shadow `0 6px 60px rgba(0,0,0,.05)`.
+- Clients: 6 logos 144×61 on a 188px column pitch.
+- Accelerate Growth: `#f7fbff`. Two 550px columns at x=10 and x=580 (20px column gap, 30px row gap),
+  bullet icon is the FontAwesome angle-double-right glyph, 13.994px, fill `#2654c6`, inlined as SVG.
+- Modules: 3×3, boxes 360 wide in 380 columns (10px padding), centered, icon 65×64, 15px gap,
+  title 18/400/18, text 15/400/18.
+- Services: cards 350px at x=280/660/1040 (30px gap), `#fff`, radius 4px,
+  shadow `0 14px 46px rgba(0,26,87,.08)`. Head block `padding: 30px 30px 20px`, min-height 125px.
+  Row 2 is offset by a 190px leading spacer.
+- Industries: `hm-one-bg.jpg` cover, `padding: 60px 0`, 3×350px boxes, icon 63×63 left-aligned,
+  all copy white, body text justified.
+- Case studies: Swiper — 8 slides, autoplay 5000ms, transition 500ms, infinite, arrows only,
+  no pagination, pauses on hover/interaction. Tabs — 3 vertical tabs, widget bg `#1e4ec4`,
+  `gap: 50px`, tab list 459px, panes 639px, first tab open, click only, no autoplay.
+- Pricing: `#f7fbff`, `padding: 90px 0`, three 380px columns (copy / image 350×436 / factor list).
+- FAQ: 9 single-open accordion cards, first open by default, `margin-bottom: 10px`,
+  question 20/500 `#000`, `+` / `−` glyph at right.
+- Heading levels deliberately mirror the reference's own non-sequential outline
+  (h1, h2, h3, h4, then six h5) rather than being normalised.
+
+### Verified so far (static only)
+
+- HTML parses with no error recovery; no duplicate ids; every `aria-controls` resolves.
+- Element counts match the reference: 6 clients, 6 benefits, 9 modules, 5 service cards,
+  3 industries, 8 slides, 3 tabs / 3 panels, 9 accordion items with exactly one open.
+- Every `<img>` has `alt`, explicit `width` and `height`; the hero graphic is not lazy-loaded and
+  carries `fetchpriority="high"`.
+- `node --check` passes on the new page script and on the edited `header.js` / `footer.js`.
+- CSS parses with 0 errors (140 rules).
+- No remote runtime asset references. The only external URLs are three intentional content links
+  (hire-erpnext-consultant, docs.frappe.io, wikipedia).
+- Script order is the required `header → footer → script → include → page`, all `defer`.
+- Page script is wrapped in an IIFE and guarded by `window.__erpnextPageInit`, so a repeat run
+  cannot double-bind listeners or timers.
+
+### NOT verified — do not treat this page as complete
+
+- No rendered screenshot comparison at any viewport. Nothing below has been checked visually:
+  section boundaries, typography, gaps, responsive behavior, horizontal overflow, hover states,
+  carousel/tab/accordion behavior in a real browser, console output, network results.
+- 37 referenced images do not exist yet, so the page currently renders with broken media.
+- Responsive rules at 1199 / 767 / 380 are reasoned from the reference's Elementor breakpoints, not
+  measured. Expect these to need correction once the page can be rendered.
+
+### Session blockers encountered
+
+- The sandbox HTTP proxy rejects `cloudconverge.io` with `blocked-by-allowlist`, so the reference
+  images could not be downloaded. `ERPNEXT_ASSETS_TODO.md` lists every source URL and target filename.
+- The browser extension refuses `file://` URLs, and the Chrome-for-Testing download host is also
+  proxy-blocked, so neither the in-app browser nor a headless Chrome could open the local page.
+  Visual comparison is impossible until one of those paths is available.
+
+## Previous completed page
+
+### Umbraco refinement pass
+
+Files changed: `umbraco-development-services.html`, `css/pages/umbraco-development-services.css`.
+
+Corrections applied:
+
+- Removed a leftover mobile-app subheading ("Creating Smart User Experience Across all Devices…") from the intro; the reference goes straight from the `h1` to "Key advantages of working with Umbraco are:".
+- Service-card headings: colour corrected to `#191919` (was `#1D1A4E`), confirmed by sampling glyph pixels in the reference screenshot.
+- Service-card body copy: colour `#191919` and `text-align: center` (was `#282828`, left-aligned).
+- Consultation card: border `#e7e7e7` and shadow `0 6px 60px rgba(0,0,0,.05)` to match the reference widget wrap.
+- Factors grid: column gap 20px (reference columns measure 550px at x=73 and x=643 inside the 1120px container); factor body copy `#191919`.
+
+Measurement lesson recorded for future passes: the in-app browser pane does not load the reference's
+lazy images (`naturalWidth === 0`), so any image-dependent geometry read from it is wrong. Two
+early "fixes" from those readings were reverted after screenshot comparison proved them wrong —
+the industries artwork (pane reported a 960x960 box; the real render is 960x575) and font weights
+(pane reported 400 for card and factor headings; the reference renders both bold/600). Use the
+headless-Chrome screenshots, or pixel sampling, for anything involving images or weights.
+
+Verified: header/footer injected via the shared partials, `window.initSite` present, work carousel and
+six-review testimonial track built (8 nodes incl. clones), consultation form present, all 24 referenced
+assets resolve locally, no remote runtime references, no console errors, no horizontal overflow at
+1280px or 390px, footer matches the reference (the reference's extra ~2.1k px of page height is an
+empty region below a floating reCAPTCHA badge, not content).
+
+Known deviation kept intentionally: this page reuses `body.mobile-app-page`, the `mad-*` class family
+and `js/mobile-app-development.js` rather than introducing an `umbraco-*` prefix and a near-identical
+page script. The layouts are the same service-page pattern, so this is reuse rather than duplication.
 
 ## Architecture
 

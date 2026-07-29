@@ -90,12 +90,12 @@ window.__PARTIALS.header = `
           <ul class="mega-links">
             <li><a href="./web-app-development-services.html">Web Application Development</a></li>
             <li><a href="./custom-web-development.html">Custom Web Development</a></li>
-            <li><a href="#mobile-app-development">Mobile App Development</a></li>
+            <li><a href="mobile-app-development.html">Mobile App Development</a></li>
             <li><a href="iphone-app-development.html">iPhone / iOS App Development</a></li>
-            <li><a href="#umbraco-development-services">Umbraco Implementation Services</a></li>
-            <li><a href="#erpnext-service-provider">ERPNext Services</a></li>
-            <li><a href="#hire-erpnext-developer">Hire ERPNext Developer</a></li>
-            <li><a href="#hire-erpnext-consultant">Hire ERPNext Consultant</a></li>
+            <li><a href="umbraco-development-services.html">Umbraco Implementation Services</a></li>
+            <li><a href="erpnext-service-provider.html">ERPNext Services</a></li>
+            <li><a href="hire-erpnext-developer.html">Hire ERPNext Developer</a></li>
+            <li><a href="hire-erpnext-consultant.html">Hire ERPNext Consultant</a></li>
           </ul></div>
           <div class="mega-cases">
             <a class="mega-card" href="#case-ozone">
@@ -264,8 +264,8 @@ window.__PARTIALS.header = `
               <li><a href="#custom-web-development">Custom Web Development</a></li>
               <li><a href="#mobile-app-development">Mobile App Development</a></li>
               <li><a href="#iphone-app-development">iPhone App Development</a></li>
-              <li><a href="#umbraco-development-services">Umbraco Implementation Services</a></li>
-              <li><a href="#erpnext-service-provider">ERPNext Services</a></li>
+              <li><a href="umbraco-development-services.html">Umbraco Implementation Services</a></li>
+              <li><a href="erpnext-service-provider.html">ERPNext Services</a></li>
               <li><a href="#hire-erpnext-developer">Hire ERPNext Developer</a></li>
               <li><a href="#hire-erpnext-consultant">Hire ERPNext Consultant</a></li>
             </ul>

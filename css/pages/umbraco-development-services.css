@@ -99,9 +99,9 @@
   min-height: 538px;
   padding: 30px;
   box-sizing: border-box;
-  border: 1px solid #dedede;
+  border: 1px solid #e7e7e7;
   background: #fff;
-  box-shadow: 0 12px 35px rgba(25, 35, 70, 0.05);
+  box-shadow: 0 6px 60px rgba(0, 0, 0, 0.05);
 }
 .mad-eyebrow {
   margin: 0 0 7px;
@@ -234,7 +234,7 @@
   justify-content: center;
   min-height: 60px;
   margin: 0 0 20px;
-  color: #1d1a4e;
+  color: #191919;
   font-size: 20px;
   line-height: 30px;
   font-weight: 600;
@@ -242,9 +242,10 @@
 }
 .mad-service-card p {
   margin: 0;
-  color: #282828;
+  color: #191919;
   font-size: 16px;
   line-height: 26px;
+  text-align: center;
 }
 .mad-service-card img {
   display: block;
@@ -281,7 +282,7 @@
 .mad-factor-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 55px;
+  gap: 20px;
   padding-top: 29px;
 }
 .mad-factor-grid > div > h3 {
@@ -304,7 +305,7 @@
 }
 .mad-factor-grid p {
   margin: 0;
-  color: #292929;
+  color: #191919;
   font-size: 16px;
   line-height: 26px;
 }
@@ -902,32 +903,11 @@
     padding-right: 0;
     padding-left: 0;
   }
+  /* reference: two equal 550px columns with a 20px gap inside the 1120px container */
   .mad-factor-grid {
-    grid-template-columns: 510px 575px;
-    gap: 55px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
     padding-top: 30px;
-  }
-  .mad-service-card:nth-child(1) img {
-    margin-top: 75px;
-  }
-  .mad-service-card:nth-child(2) img,
-  .mad-service-card:nth-child(4) img {
-    margin-top: 23px;
-  }
-  .mad-service-card:nth-child(3) img {
-    margin-top: 3px;
-  }
-  .mad-service-card:nth-child(5) img {
-    margin-top: 11px;
-  }
-  .mad-service-card:nth-child(6) img {
-    margin-top: 57px;
-  }
-  .mad-service-card:nth-child(7) img {
-    margin-top: 35px;
-  }
-  .mad-service-card:nth-child(8) img {
-    margin-top: -5px;
   }
 }
 
