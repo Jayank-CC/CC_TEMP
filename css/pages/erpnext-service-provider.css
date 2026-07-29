@@ -43,16 +43,18 @@
   background-size: cover;
 }
 
+/* Reference columns are 36% / 64% of the 1490px inner width (536px / 954px),
+   vertically centred against the 455px hero graphic. */
 .erp-hero-inner {
   display: grid;
-  grid-template-columns: 536px 954px;
+  grid-template-columns: 36% 64%;
   align-items: center;
   max-width: 1600px;
   margin: 0 auto;
 }
 
 .erp-hero h1 {
-  margin: 0 0 12px;
+  margin: 0 0 20px;
   font-family: "Poppins", sans-serif;
   font-size: 56px;
   font-weight: 600;
@@ -61,8 +63,8 @@
 }
 
 .erp-hero-sub {
-  margin: 0 0 10px;
-  font-family: "Poppins", sans-serif;
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
   font-size: 28px;
   font-weight: 500;
   line-height: 38px;
@@ -70,21 +72,32 @@
 }
 
 .erp-hero-lead {
-  margin: 0 0 10px;
-  font-family: "Poppins", sans-serif;
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
   font-size: 22px;
   font-weight: 500;
   line-height: 38px;
   color: #fff;
 }
 
+/* 20px own margin + the reference's 1px spacer widget and its 20px margin. */
 .erp-hero-text {
-  margin: 0 0 24px;
-  font-family: "Poppins", sans-serif;
+  margin: 0 0 41px;
+  font-family: "DM Sans", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 22px;
   color: #fff;
+}
+
+.erp-hero-text a {
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+}
+
+.erp-hero-text a:hover {
+  text-decoration: underline;
 }
 
 .erp-hero-cta {
@@ -93,11 +106,11 @@
   font-family: "Poppins", sans-serif;
   font-size: 16px;
   font-weight: 400;
-  line-height: 1;
+  line-height: 16px;
   color: #fff;
   text-decoration: none;
   background: #1e4ec4;
-  border: 0.877px solid #1e4ec4;
+  border: 0.877193px solid #1e4ec4;
   border-radius: 24px;
   transition:
     background-color 0.25s ease,
@@ -116,6 +129,7 @@
 .erp-hero-media img {
   display: block;
   width: 797px;
+  max-width: 100%;
   height: auto;
   margin-left: auto;
 }
