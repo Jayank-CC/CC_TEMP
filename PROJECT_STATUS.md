@@ -2,6 +2,159 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/shopify-development-services/
+- **Local target:** `shopify-development-services.html`
+- **State:** Built and screenshot-verified section-by-section against the live reference at
+  1670px (hero, intro, annotated illustration, 8-item services list, "Why Cloud Converge"
+  row, "Engage Our Shopify Developers" 8-item list, awards, testimonials all pixel-matched).
+  One structural bug found and fixed in the "Previous Development Work" carousel (see below).
+  **Blocked on 2 of 7 new images**: `shombhob-portfolio-item.webp` and
+  `packedwithpurpose-portfolio-item.webp` were fetched into a second zip
+  (`shopify-dev-assets-2.zip`) and a download was triggered, but as of this update they have
+  not yet appeared in `assets/images/` (confirmed via repeated `ls` checks). The other 5 new
+  images (`CC-ecommerce-header.webp`, `shopify-theme-work.webp`,
+  `shopify-development-process.webp`, plus the first zip's contents) are already in place and
+  verified.
+- **Last updated:** 2026-07-30 (later session)
+
+### New class prefix: `shpd-*`
+
+This page reuses the proven "cardless 2-column list" pattern from
+`hire-erpnext-consultant.html` for both its 8-item services list and its 8-item "Engage Our
+Shopify Developers" list (title + paragraph, no card background/shadow, `minmax(0,550px)`
+columns, 20px column-gap / 50px row-gap) rather than the image-card pattern from
+`custom-web-development.html`/`mobile-app-development.html` — confirmed via direct DOM
+inspection that the reference's `.elementor-heading-title` items here have **no** surrounding
+card, unlike those two pages' `mad-service-card`/`cwd-service-card` widgets.
+
+Reused without modification: the 4 award images, and all 6 client-review assets/copy
+(reordered to open with Samuel Correns/Kabu Projects, matching this page's own reference
+order rather than the cwd/mad/ecom pages' order).
+
+Files added: `shopify-development-services.html`, `css/pages/shopify-development-services.css`,
+`js/shopify-development-services.js`.
+
+Files changed: `js/header.js` and `js/footer.js` — each had one dead
+`#shopify-development-services` mobile-menu/footer anchor now pointing at the real page. The
+three sibling Shopify pages (`shopify-integration-services.html`,
+`shopify-migration-services.html`, `shopify-support-and-maintenance-services.html`) are linked
+from both the nav and three inline body links but intentionally left unbuilt/dead for now,
+consistent with how other pages have linked to not-yet-built siblings.
+
+### Bug found and fixed: "Previous Development Work" carousel structure
+
+Screenshots initially showed a blank white gap where a slide should be, and the user flagged
+that the carousel "is not as in the reference." Investigation via the reference's own
+`data-settings` JSON (`slides_to_show:"1"`) and measured slide/image rects revealed the real
+behavior: this is a **single-slide-per-view** carousel (not 2-up like the `cwd-work`/`mad-work`
+pattern I'd assumed from a screenshot). Each image is rendered at its own natural width
+(~1450px) inside a full-viewport-width slide (~1650px) with no `width:100%` stretch, so the
+*next* slide's image visibly peeks in through the ~200px gap the current image leaves — that's
+what made it look like "2 slides visible" in a static screenshot. Rebuilt
+`.shpd-work-track figure` from `flex:0 0 50%` + `padding:0 10px` to `flex:0 0 100%` + no
+padding, changed the image rule from `width:100%` to `width:auto;max-width:100%`, and changed
+the JS carousel's `visible` constant from 2 to a fixed 1 (both in `build()` and the initial
+declaration) so the clone-based infinite loop steps by full slide widths. Verified after the
+fix: clicking "next" now advances exactly one full-width image at a time with the following
+slide's image bleeding in from the right edge, matching the reference's own peek-through
+behavior frame-for-frame.
+
+**Lesson for future carousels:** don't infer `slidesPerView` from a static screenshot alone —
+an image narrower than its slide container will make two adjacent slides appear
+simultaneously even when only one slide is "active." Check the widget's own
+`data-settings`/`swiper` config (or measure the delta between consecutive slide-container
+rects, not just the images) before assuming a 2-up layout.
+
+### Also caught this session: reused a different bug-diagnosis technique — DOM text search giving false negatives
+
+While auditing this page, several `textContent`/`innerText` searches for known heading text
+(e.g. "Some Of Our Previous Development Work") returned nothing via `querySelectorAll` +
+`textContent.includes(...)`, even though `document.body.innerText` and the earlier
+`get_page_text` output both contained the phrase. Root cause: the real heading text in the
+DOM is **lowercase** (`"Some of our previous development work"`) with
+`text-transform: capitalize` applied via CSS — the same "capitalize leaks from base styles"
+gotcha already documented for other pages, just discovered a different way this time (via a
+failed text search rather than a visual wrapping bug). Resolved by using
+`document.elementFromPoint()` at the heading's known screen coordinates instead of a text
+search, which found the real `H5.elementor-heading-title` element directly. Hardcoded the
+properly-capitalized text into the HTML rather than relying on `text-transform`, consistent
+with prior pages' fix for this same issue.
+
+### NOT verified — exact next action
+
+1. Confirm `shombhob-portfolio-item.webp` and `packedwithpurpose-portfolio-item.webp` have
+   landed in `assets/images/` (from `shopify-dev-assets-2.zip`) and re-check the "Previous
+   Development Work" carousel's first and fourth slides once they're real images instead of
+   broken-image placeholders.
+2. Responsive breakpoints below desktop — same long-standing open item as every other page
+   this session; `resize_window` does not change the true rendered viewport in this
+   environment.
+3. Hover states on the "Engage"/"services" list links and the work-carousel arrows were not
+   explicitly diffed against the reference's own hover treatment (only default state was
+   screenshot-compared).
+
+### Follow-up fixes after further user screenshot comparison
+
+- **"Previous Development Work" carousel image alignment**: the user reported the reference
+  centers each slide's image within its full-width slide box while my build left-aligned it.
+  Direct measurement of the reference (`.swiper-slide-active`, `text-align: center` on the
+  slide, image symmetrically inset ~100px on both sides of its 1650px slide) confirmed this.
+  Fixed by adding `margin: 0 auto` to `.shpd-work-track img` (previously relied on default
+  block left-alignment). Verified after the fix: 100.1px gap on both sides, matching the
+  reference's own 100px/100px split exactly.
+- **Award logos had the wrong spacing model**: built as a `flex` row with a flat `gap: 60px`,
+  but the reference is actually 4 equal 25%-width columns (`elementor-col-25`, ~285px each in
+  the 1140px container) with **zero gap between columns** — each logo is simply centered
+  within its own wide column, which is what creates the visual (uneven, image-width-dependent)
+  spacing. Rebuilt `.shpd-award-grid` from `display:flex;gap:60px` to
+  `display:grid;grid-template-columns:repeat(4,1fr);justify-items:center` with no gap.
+- **"Some of Our Client Reviews" heading was left-aligned**, should be centered — the
+  `.shpd-reviews` section (unlike `.shpd-awards`) never had `text-align:center` applied to
+  itself or its `h2`. Confirmed centered on the reference via direct DOM query (case-sensitive
+  text match failed again due to the same `text-transform:capitalize`-on-lowercase-source
+  pattern noted earlier — had to search case-insensitively). Added `text-align: center` to
+  `.shpd-reviews h2`.
+- **Added the missing hover interaction** on the "Why Cloud Converge" process-diagram image
+  (`shopify-development-process.webp`): confirmed the reference wraps it in the same
+  `move-image-left-right` class used elsewhere on this page and the ecommerce page
+  (`transform: translate3d(-10px,0,0)` on hover, `0.3s ease-in-out`). Added to
+  `.shpd-why-media:hover img`.
+
+**Lesson reinforced:** default browser alignment (block-left for images, flex `gap` for
+gallery rows) is an easy trap when the reference actually uses `text-align:center` +
+zero-gap equal columns, or explicit `margin:auto` — always measure the actual left/right
+insets on both sides rather than assuming a "looks roughly centered/spaced" screenshot glance
+is exact.
+
+- **"Awards & Recognition" and "Some of Our Client Reviews" headings were oversized**: both
+  had been built at `34px/600` (copied from the equivalent headings on other pages), but
+  measuring the actual reference elements directly gave `20px/400` for "Awards & Recognition"
+  and `26px/400` for "Some of Our Client Reviews" — this page uses noticeably smaller,
+  lighter-weight section headings than `custom-web-development.html`/`ecommerce-development-services.html`
+  for these two sections specifically, confirmed via `getComputedStyle` on the live reference
+  rather than assumed from the other pages' pattern. Fixed `.shpd-awards h2` and
+  `.shpd-reviews h2` accordingly.
+
+**Lesson reinforced again:** don't carry over a heading's font-size/weight from a sibling
+page's equivalent section just because the content and position look similar — measure each
+page's own instance, since CloudConverge's marketing team clearly doesn't use one consistent
+type scale for repeated section labels across every service page.
+
+### Also fixed this session: `ecommerce-development-services.html`'s carousel arrows
+
+The user flagged (via screenshot) that the "Why Choose Us" screenshot carousel's prev/next
+buttons looked different from the reference. Confirmed on the live reference: its
+`.elementor-swiper-button-prev/next` are flat 42×42 chevron icons, `color: rgb(30,78,196)`,
+fully transparent background, `border-radius: 0` — not the circular white
+`background:rgba(255,255,255,.85)` buttons `.ecom-carousel-arrow` had been built with.
+Replaced the `&lsaquo;`/`&rsaquo;` text-character buttons with the same chevron SVG markup
+used on the new Shopify page's work carousel, and rewrote `.ecom-carousel-arrow` to drop the
+circle/background/font-based glyph entirely in favor of an inline SVG sized 42×42 with
+`fill: currentColor`. Verified via screenshot — arrows now render as flat blue chevrons
+matching the reference.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/ecommerce-development-services/
 - **Local target:** `ecommerce-development-services.html`
 - **State:** Complete. The 6 missing page images were extracted from
