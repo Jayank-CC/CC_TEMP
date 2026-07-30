@@ -116,11 +116,11 @@ window.__PARTIALS.header = `
         <div class="mega-tab-panel" id="tab-ecommerce" role="tabpanel" hidden>
           <div class="mega-cat"><div class="mega-cat-title">Ecommerce Solutions</div><p class="mega-cat-sub">Building e-commerce platforms that convert, retain, and grow.</p>
           <ul class="mega-links">
-            <li><a href="#ecommerce-development-services">Ecommerce Web &amp; App Development</a></li>
-            <li><a href="#shopify-development-services">Shopify Development Services</a></li>
-            <li><a href="#shopify-integration-services">Shopify Integration Services</a></li>
-            <li><a href="#shopify-migration-services">Shopify Migration Services</a></li>
-            <li><a href="#shopify-support-and-maintenance-services">Shopify Support &amp; Maintenance Services</a></li>
+            <li><a href="ecommerce-development-services.html">Ecommerce Web &amp; App Development</a></li>
+            <li><a href="shopify-development-services.html">Shopify Development Services</a></li>
+            <li><a href="shopify-integration-services.html">Shopify Integration Services</a></li>
+            <li><a href="shopify-migration-services.html">Shopify Migration Services</a></li>
+            <li><a href="shopify-support-and-maintenance-services.html">Shopify Support &amp; Maintenance Services</a></li>
           </ul></div>
           <div class="mega-cases">
             <a class="mega-card" href="#case-helm-boots">
@@ -273,7 +273,7 @@ window.__PARTIALS.header = `
           <li class="m-group">
             <a href="#">Ecommerce Solutions</a>
             <ul class="m-sub">
-              <li><a href="#ecommerce-development-services">Ecommerce Web &amp; App Development</a></li>
+              <li><a href="ecommerce-development-services.html">Ecommerce Web &amp; App Development</a></li>
               <li><a href="#shopify-development-services">Shopify Development Services</a></li>
               <li><a href="#shopify-integration-services">Shopify Integration Services</a></li>
               <li><a href="#shopify-migration-services">Shopify Migration Services</a></li>

@@ -1,0 +1,649 @@
+/* ==========================================================================
+   Ecommerce Development Services — page-scoped styles
+   ========================================================================== */
+
+@font-face {
+  font-family: "PoppinsRef";
+  src: url("../../assets/fonts/poppins-600-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@media (min-width: 1200px) {
+  .ecom-page .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.ecom-page main :is(h1, h2, h3, h4, h5, h6) {
+  text-transform: none;
+}
+
+.ecom-page {
+  font-family: "DM Sans", sans-serif;
+  color: #191919;
+  background: #fff;
+}
+
+/* ---- hero ---- */
+
+.ecom-hero {
+  height: 380px;
+  background: url("../../assets/images/ecommerceheader.webp") center center /
+    cover no-repeat;
+}
+
+/* ---- breadcrumb ---- */
+
+.ecom-breadcrumb {
+  padding: 16px 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  background: #fbfbfb;
+  border: 0;
+}
+
+.ecom-breadcrumb-list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ecom-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.ecom-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.ecom-breadcrumb a:hover {
+  color: rgb(30, 78, 196);
+}
+
+.ecom-breadcrumb-list li:last-child span:not(.ecom-breadcrumb-sep) {
+  color: #191919;
+}
+
+.ecom-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.ecom-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- intro ---- */
+
+.ecom-intro {
+  padding: 60px 0;
+  background: #f7f7f7;
+}
+
+.ecom-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: start;
+}
+
+.ecom-intro-media {
+  padding: 10px;
+}
+
+.ecom-intro-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ecom-intro-copy {
+  padding: 10px 10px 10px 50px;
+}
+
+.ecom-intro-copy h1 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 52px;
+  color: #1d1a4e;
+}
+
+.ecom-intro-copy p {
+  margin: 0 0 24px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.ecom-intro-copy a:not(.ecom-connect-btn) {
+  color: #000;
+  text-decoration: underline;
+}
+
+.ecom-assist-heading {
+  margin: 0 0 16px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #191919;
+}
+
+.ecom-chevron-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+
+.ecom-chevron-list li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #191919;
+}
+
+.ecom-chevron-badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 27px;
+  background: #ddd;
+  border-radius: 50%;
+}
+
+.ecom-chevron-badge svg {
+  width: 9px;
+  height: 14px;
+  fill: #0c0c31;
+}
+
+.ecom-connect-btn {
+  display: inline-block;
+  padding: 14px 32px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  background: rgb(30, 78, 196);
+  border-radius: 4px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.ecom-connect-btn:hover {
+  transform: translateY(-5px);
+}
+
+/* ---- shopping experience heading ---- */
+
+.ecom-shopping-head {
+  padding: 70px 0 0;
+  text-align: center;
+}
+
+.ecom-shopping-head h2 {
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 42px;
+  color: #1d1a4e;
+}
+
+/* ---- shopping experience detail ---- */
+
+.ecom-shopping-detail {
+  padding: 50px 0 90px;
+}
+
+.ecom-shopping-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 480px) 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.ecom-shopping-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.ecom-shopping-media:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+.ecom-shopping-copy > p {
+  margin: 0 0 30px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.ecom-breadcrumb-list li a {
+  text-decoration: none;
+}
+
+.ecom-check-item {
+  margin: 0 0 26px;
+}
+
+.ecom-check-item:last-child {
+  margin-bottom: 0;
+}
+
+.ecom-check-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 8px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.ecom-check-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+}
+
+.ecom-check-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: #191919;
+}
+
+.ecom-check-text {
+  margin: 0 0 0 34px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+/* ---- why choose us ---- */
+
+.ecom-why {
+  padding: 20px 0 90px;
+}
+
+.ecom-why h3 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.ecom-why-intro {
+  max-width: 900px;
+  margin: 0 0 50px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.ecom-why-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.ecom-list-group {
+  margin: 0 0 28px;
+}
+
+.ecom-list-group:last-child {
+  margin-bottom: 0;
+}
+
+.ecom-list-heading {
+  margin: 0 0 10px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.ecom-dash-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ecom-dash-list li {
+  position: relative;
+  margin: 0 0 6px;
+  padding-left: 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #191919;
+}
+
+.ecom-dash-list li::before {
+  content: "\2013";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* ---- why-choose carousel ---- */
+
+.ecom-why-carousel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e2e2e2;
+  box-shadow: 0 8px 30px rgba(37, 52, 83, 0.09);
+}
+
+.ecom-carousel-viewport {
+  overflow: hidden;
+}
+
+.ecom-carousel-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ecom-why-carousel figure {
+  flex: 0 0 100%;
+  margin: 0;
+}
+
+.ecom-why-carousel img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ecom-carousel-arrow {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: rgba(255, 255, 255, 0.85);
+  color: rgb(30, 78, 196);
+  font: 400 26px/1 Arial;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.ecom-carousel-prev {
+  left: 10px;
+}
+
+.ecom-carousel-next {
+  right: 10px;
+}
+
+/* ---- why choose cloudconverge (right column) ---- */
+
+.ecom-why-choose-heading {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.ecom-feature-item {
+  margin: 0 0 22px;
+}
+
+.ecom-feature-item:last-child {
+  margin-bottom: 0;
+}
+
+.ecom-feature-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 6px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.ecom-feature-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+}
+
+.ecom-feature-icon svg {
+  width: 15px;
+  height: 15px;
+  fill: rgb(30, 78, 196);
+}
+
+.ecom-feature-text {
+  margin: 0 0 0 25px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #191919;
+}
+
+/* ---- reviews (reused pattern from custom-web-development.css) ---- */
+
+.ecom-reviews {
+  padding: 0 0 90px;
+  overflow: hidden;
+}
+
+.ecom-reviews h2 {
+  margin: 0 0 40px;
+  text-align: center;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.ecom-review-viewport {
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.ecom-review-viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.ecom-review-track {
+  display: flex;
+  gap: 30px;
+  will-change: transform;
+}
+
+.ecom-review-card {
+  flex: 0 0 540px;
+  height: 400px;
+  box-sizing: border-box;
+  background: #f4f4f4;
+  padding: 37px 35px 47px;
+  align-self: flex-start;
+  overflow: hidden;
+}
+
+.ecom-review-long {
+  height: 452px;
+}
+
+.ecom-stars {
+  color: #ffb600;
+  font-size: 17px;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.ecom-review-card blockquote {
+  margin: 0;
+  color: #252525;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+.ecom-review-person {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 18px;
+}
+
+.ecom-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+}
+
+.ecom-review-person p {
+  margin: 0;
+}
+
+.ecom-review-person strong {
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  display: block;
+  color: #1d1a4e;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.ecom-review-person span {
+  display: block;
+  font-size: 16px;
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1199px) {
+  .ecom-why-grid {
+    grid-template-columns: 1fr 280px 1fr;
+    gap: 30px;
+  }
+
+  .ecom-review-card {
+    flex-basis: 460px;
+  }
+}
+
+@media (max-width: 991px) {
+  .ecom-intro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ecom-intro-media {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .ecom-shopping-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ecom-shopping-media {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .ecom-why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ecom-why-carousel {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .ecom-review-card {
+    flex-basis: calc((100vw - 60px) / 2);
+  }
+}
+
+@media (max-width: 767px) {
+  .ecom-hero {
+    height: 220px;
+  }
+
+  .ecom-intro,
+  .ecom-shopping-detail,
+  .ecom-why {
+    padding: 40px 0;
+  }
+
+  .ecom-shopping-head {
+    padding: 40px 0 0;
+  }
+
+  .ecom-intro-copy h1 {
+    font-size: 30px;
+    line-height: 38px;
+  }
+
+  .ecom-shopping-head h2,
+  .ecom-why h3 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .ecom-review-card {
+    flex-basis: 100%;
+    height: auto;
+  }
+
+  .ecom-review-long {
+    height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ecom-carousel-track,
+  .ecom-review-track,
+  .ecom-shopping-media img,
+  .ecom-connect-btn {
+    transition: none !important;
+  }
+}

@@ -337,26 +337,27 @@
 
 .hec-service-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 540px));
+  grid-template-columns: repeat(2, minmax(0, 550px));
   justify-content: center;
-  gap: 30px;
+  column-gap: 20px;
+  row-gap: 50px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .hec-service-item {
-  padding: 40px;
-  background: #fff;
-  border-radius: 4px;
-  box-shadow: 0 14px 46px rgba(0, 26, 87, 0.08);
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .hec-service-title {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  margin: 0 0 14px;
+  margin: 0 0 10px;
   font-family: "PoppinsRef", "Poppins", sans-serif;
   font-size: 20px;
   font-weight: 500;
@@ -369,7 +370,7 @@
 }
 
 .hec-service-text {
-  margin: 0 0 16px;
+  margin: 0 0 12px;
   font-family: "DM Sans", sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -378,11 +379,11 @@
 }
 
 .hec-service-focus {
-  margin: 0 0 8px;
+  margin: 0 0 4px;
   font-family: "DM Sans", sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
-  color: #1d1a4e;
+  color: #191919;
 }
 
 .hec-dash-list {
@@ -393,17 +394,13 @@
 
 .hec-dash-list li {
   position: relative;
-  margin: 0 0 8px;
+  margin: 0;
   padding-left: 16px;
   font-family: "DM Sans", sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 24px;
-  color: #6b7280;
-}
-
-.hec-dash-list li:last-child {
-  margin-bottom: 0;
+  line-height: 26px;
+  color: #191919;
 }
 
 .hec-dash-list li::before {
@@ -411,7 +408,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  color: #6b7280;
+  color: #191919;
 }
 
 /* ---- why choose cloudconverge ---- */
