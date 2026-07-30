@@ -1,0 +1,1167 @@
+/* ==========================================================================
+   Hire ERPNext Developer — page-scoped styles
+   ========================================================================== */
+
+/* ---- root-cause fixes carried over from erpnext-service-provider.html ---- */
+
+@font-face {
+  font-family: "PoppinsRef";
+  src: url("../../assets/fonts/poppins-600-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@media (min-width: 1200px) {
+  .hed-page .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.hed-page main :is(h1, h2, h3, h4, h5, h6) {
+  text-transform: none;
+}
+
+.hed-page .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hed-accent {
+  color: rgb(30, 78, 196);
+}
+
+/* ---- hero ---- */
+
+.hed-hero {
+  position: relative;
+  padding: 200px 60px 120px;
+  background-color: rgb(2, 30, 111);
+  background-image: url("../../assets/images/hire-ERPNext-developers2.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.hed-hero-inner {
+  position: relative;
+  max-width: 1550px;
+  margin: 0 auto;
+}
+
+.hed-hero-copy {
+  max-width: 665px;
+}
+
+.hed-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  margin: 0 0 24px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: normal;
+  color: #fff;
+  text-transform: uppercase;
+  background-image: linear-gradient(128deg, rgb(1, 97, 252) 0%, rgb(0, 94, 251) 100%);
+  border-radius: 16px;
+  box-shadow: 0 10px 20px 0 rgb(0, 72, 203);
+}
+
+.hed-hero-badge svg {
+  width: 14px;
+  height: 14px;
+  fill: #fff;
+}
+
+.hed-hero-copy h1 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 62px;
+  color: #fff;
+}
+
+.hed-hero-accent {
+  color: #64a8ff;
+}
+
+.hed-hero-text {
+  max-width: 665px;
+  margin: 0 0 32px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #fff;
+}
+
+.hed-hero-cta {
+  display: inline-block;
+  padding: 16px 40px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  background-image: linear-gradient(95deg, rgb(0, 96, 247) 0%, rgb(41, 136, 250) 54%);
+  border-radius: 4px;
+  transition: opacity 0.25s ease;
+}
+
+.hed-hero-cta:hover {
+  opacity: 0.85;
+}
+
+/* ---- breadcrumb ---- */
+
+.hed-breadcrumb {
+  padding: 16px 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  background: #fbfbfb;
+  border: 0;
+}
+
+.hed-breadcrumb-list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hed-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.hed-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.hed-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.hed-breadcrumb-list li:last-child span:not(.hed-breadcrumb-sep) {
+  color: #191919;
+}
+
+.hed-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.hed-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- intro / who should hire ---- */
+
+.hed-intro {
+  padding: 100px 0;
+}
+
+.hed-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 60px;
+  align-items: start;
+}
+
+.hed-intro-copy h2 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 50px;
+  color: #1d1a4e;
+}
+
+.hed-intro-copy > p {
+  margin: 0 0 40px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.hed-benefit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 60px;
+  row-gap: 30px;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hed-benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.hed-benefit-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  margin-top: 4px;
+}
+
+.hed-benefit-icon svg {
+  width: 14px;
+  height: 16px;
+  fill: rgb(38, 84, 198);
+}
+
+.hed-benefit-title {
+  margin: 0 0 5px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #191919;
+}
+
+.hed-benefit-text {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+/* ---- consultation card ---- */
+
+.hed-consult-card {
+  padding: 50px 60px;
+  background: #fff;
+  border-radius: 0;
+  box-shadow: 0 6px 60px rgba(0, 0, 0, 0.05);
+}
+
+.hed-consult-eyebrow {
+  margin: 0 0 6px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(30, 78, 196);
+  text-transform: none;
+}
+
+.hed-consult-title {
+  margin: 0 0 22px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #191919;
+}
+
+.hed-consult-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hed-hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.hed-consult-form input,
+.hed-consult-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  color: #191919;
+  background: #f4f4f4;
+  border: 1px solid #d8d8d8;
+  border-radius: 3px;
+  resize: vertical;
+}
+
+.hed-consult-form input::placeholder,
+.hed-consult-form textarea::placeholder {
+  color: #8a8a8a;
+}
+
+.hed-consult-submit {
+  padding: 12px 45px;
+  margin-top: 6px;
+  align-self: flex-start;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  background: rgb(30, 78, 196);
+  border: 0;
+  border-radius: 4px;
+  transition: opacity 0.25s ease;
+}
+
+.hed-consult-submit:hover {
+  opacity: 0.85;
+}
+
+.hed-form-success {
+  margin: 10px 0 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  color: rgb(30, 78, 196);
+}
+
+/* ---- 6 reasons ---- */
+
+.hed-reasons {
+  padding: 100px 0;
+  background: #f7fbff;
+}
+
+.hed-reasons-head {
+  max-width: 720px;
+  margin: 0 auto 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 42px;
+  text-align: center;
+  color: #1d1a4e;
+}
+
+.hed-reasons-intro {
+  max-width: 720px;
+  margin: 0 auto 66px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.hed-reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 350px);
+  justify-content: center;
+  column-gap: 40px;
+  row-gap: 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hed-reason {
+  padding: 30px 30px 34px;
+  text-align: center;
+  background: #fff;
+  border-top: 3.50877px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 14px 46px rgba(0, 26, 87, 0.08);
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1), border-color 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+
+.hed-reason:hover {
+  border-top-color: rgb(30, 78, 196);
+  transform: translateY(-5px);
+}
+
+.hed-reason-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(29, 77, 194);
+  background: #f7fbff;
+  border-radius: 100px;
+}
+
+.hed-reason-title {
+  margin: 0 0 14px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: normal;
+  color: #1d1a4e;
+}
+
+.hed-reason-text {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+/* ---- services / tabs ---- */
+
+.hed-services {
+  padding: 100px 0;
+}
+
+.hed-services h4 {
+  max-width: 760px;
+  margin: 0 auto 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 42px;
+  text-align: center;
+  color: #1d1a4e;
+}
+
+.hed-services-intro {
+  max-width: 780px;
+  margin: 0 auto 60px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.hed-tabs-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hed-tabs {
+  display: flex;
+  gap: 50px;
+  padding: 0 0 0 50px;
+  background: #1e4ec4;
+  border-radius: 25px;
+}
+
+.hed-tab-list {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 459px;
+  gap: 0;
+  padding: 60px 0 0 0;
+}
+
+.hed-tab {
+  display: grid;
+  grid-template-columns: 1fr 92px;
+  align-items: center;
+  width: 100%;
+  min-height: 74px;
+  padding: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 26px;
+  color: rgb(141, 193, 251);
+  text-align: left;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-bottom: 0.877193px solid rgb(141, 193, 251);
+  transition: opacity 0.25s ease;
+}
+
+.hed-tab:hover {
+  opacity: 0.8;
+}
+
+.hed-tab.is-active {
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.62);
+}
+
+.hed-tab-icon {
+  position: relative;
+  display: block;
+  width: 14px;
+  height: 14px;
+  justify-self: end;
+}
+
+.hed-tab-icon::before,
+.hed-tab-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 14px;
+  height: 2px;
+  margin-top: -1px;
+  background: currentColor;
+}
+
+.hed-tab-icon::after {
+  transform: rotate(90deg);
+}
+
+.hed-tab.is-active .hed-tab-icon::after {
+  display: none;
+}
+
+.hed-tab-panels {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.hed-tab-panel {
+  padding: 60px 75px;
+  color: #fff;
+  background: #14255b;
+  border-radius: 0 30px 30px 0;
+}
+
+.hed-tab-panel[hidden] {
+  display: none;
+}
+
+.hed-tab-panel-icon {
+  display: block;
+  width: 73px;
+  height: 73px;
+  margin: 0 0 20px;
+}
+
+.hed-tab-panel .hed-tab-title {
+  margin: 0 0 10px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: normal;
+  color: #fff;
+}
+
+.hed-tab-panel > p {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #fff;
+  text-align: left;
+}
+
+.hed-tab-panel h6 {
+  margin: 0 0 14px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.hed-tab-list-items {
+  margin: 0;
+  padding: 0 0 0 4px;
+  list-style: none;
+}
+
+.hed-tab-list-items li {
+  position: relative;
+  margin: 0 0 14px;
+  padding-left: 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #fff;
+}
+
+.hed-tab-list-items li::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: #64a8ff;
+  border-radius: 50%;
+}
+
+/* ---- testimonials ---- */
+
+.hed-testimonials {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.hed-testimonials h5 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: center;
+  color: #1d1a4e;
+}
+
+.hed-testimonials-intro {
+  max-width: none;
+  margin: 0 0 50px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: center;
+  color: #191919;
+}
+
+.hed-testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 540px));
+  justify-content: center;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hed-testimonial {
+  padding: 60px 30px 30px;
+  background: transparent;
+  border: 0.877193px solid #d0e4f5;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.hed-testimonial-quote {
+  margin: 0 0 10px;
+  font-family: Georgia, serif;
+  font-size: 86px;
+  font-weight: 700;
+  line-height: 1;
+  color: #153c9d;
+}
+
+.hed-testimonial-text {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+  text-align: justify;
+}
+
+.hed-testimonial-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.hed-testimonial-name {
+  margin: 0;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+.hed-testimonial-role {
+  display: block;
+  margin: 4px 0 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+  color: rgb(29, 77, 194);
+}
+
+.hed-testimonial-org {
+  flex: 0 0 auto;
+  display: inline-block;
+  padding: 8px 18px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #000;
+  text-transform: uppercase;
+  background: #f1f1f1;
+  border-radius: 16px;
+}
+
+/* ---- CTA banner ---- */
+
+.hed-cta {
+  padding: 110px 0 111px;
+  text-align: center;
+  background: linear-gradient(105deg, #153c9d 0%, #102156 100%);
+}
+
+.hed-cta h3 {
+  margin: 0 0 16px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.hed-cta p {
+  max-width: 560px;
+  margin: 0 auto 30px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #fff;
+}
+
+.hed-cta-btn {
+  display: inline-block;
+  padding: 8px 19px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  background: rgb(30, 78, 196);
+  border-radius: 4px;
+  transition: opacity 0.25s ease;
+}
+
+.hed-cta-btn:hover {
+  opacity: 0.85;
+}
+
+/* ---- engagement models ---- */
+
+.hed-engagement {
+  padding: 100px 0;
+}
+
+.hed-engagement h6 {
+  max-width: 720px;
+  margin: 0 auto 16px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 42px;
+  text-align: center;
+  color: #1d1a4e;
+}
+
+.hed-engagement-intro {
+  max-width: 640px;
+  margin: 0 auto 60px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.hed-engagement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 350px);
+  justify-content: center;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hed-engagement-card {
+  padding: 34px;
+  background: transparent;
+  border: 1px solid #eceef2;
+  border-radius: 10px;
+}
+
+.hed-engagement-card-mid {
+  background: #f7fbff;
+  border-color: #dce8fb;
+}
+
+.hed-engagement-title {
+  margin: 0 0 14px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 28px;
+  color: #1d1a4e;
+}
+
+.hed-engagement-text {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14.5px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #6b7280;
+}
+
+.hed-engagement-best {
+  margin: 0 0 8px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1d1a4e;
+}
+
+.hed-engagement-list {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #6b7280;
+}
+
+/* ---- industries row ---- */
+
+.hed-industries {
+  padding: 100px 0;
+  background-image: url("../../assets/images/hm-one-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.hed-industries h3 {
+  max-width: 760px;
+  margin: 0 auto 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 42px;
+  text-align: center;
+  color: #fff;
+}
+
+.hed-industries-intro {
+  max-width: 780px;
+  margin: 0 auto 60px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: center;
+  color: #fff;
+}
+
+.hed-industry-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hed-industry-row li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 130px;
+  text-align: center;
+}
+
+.hed-industry-row img {
+  width: 63px;
+  height: 63px;
+  margin: 0 0 14px;
+  object-fit: contain;
+}
+
+.hed-industry-row p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ---- steps ---- */
+
+.hed-steps {
+  padding: 100px 0;
+}
+
+.hed-steps-head {
+  max-width: 780px;
+  margin: 0 auto 60px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 42px;
+  text-align: center;
+  color: #1d1a4e;
+}
+
+.hed-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 550px));
+  justify-content: center;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hed-step {
+  padding: 34px 30px;
+  text-align: left;
+  background: transparent;
+  border: 0.877193px solid #d0e4f5;
+  border-radius: 12px;
+}
+
+.hed-step-num {
+  margin: 0 0 10px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(29, 77, 194);
+}
+
+.hed-step-title {
+  margin: 0 0 12px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: normal;
+  color: #1d1a4e;
+}
+
+.hed-step-text {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+/* ---- FAQ (shares visual model with erpnext-service-provider.html) ---- */
+
+.hed-faq {
+  padding: 100px 0;
+  background: #f7fbff;
+}
+
+.hed-faq h5 {
+  margin: 0 0 40px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  text-align: center;
+  color: #1d1a4e;
+}
+
+.hed-accordion {
+  max-width: 718px;
+  margin: 0 auto;
+}
+
+.hed-acc-item {
+  margin: 0 0 10px;
+}
+
+.hed-acc-item:last-child {
+  margin-bottom: 0;
+}
+
+.hed-acc-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 58px;
+  padding: 15px 40px 15px 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  color: #1d1a4e;
+  text-align: left;
+  cursor: pointer;
+  background: #fff;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.06);
+}
+
+.hed-acc-item.is-open .hed-acc-btn {
+  color: #fff;
+  background: #14255b;
+}
+
+.hed-acc-btn::before {
+  content: "+";
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  font-size: 20px;
+  line-height: 1;
+  color: #000;
+}
+
+.hed-acc-item.is-open .hed-acc-btn::before {
+  content: none;
+}
+
+.hed-acc-item.is-open .hed-acc-btn::after {
+  content: "\2212";
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1;
+  color: #fff;
+}
+
+.hed-acc-panel[hidden] {
+  display: none;
+}
+
+.hed-acc-body {
+  padding: 20px;
+}
+
+.hed-acc-body p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #4b5563;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1199px) {
+  .hed-hero {
+    padding: 140px 40px 90px;
+  }
+
+  .hed-tabs-wrap {
+    padding: 0 15px;
+  }
+
+  .hed-tabs {
+    flex-direction: column;
+    border-radius: 20px;
+  }
+
+  .hed-tab-list {
+    flex: 0 0 auto;
+    padding: 30px 30px 10px;
+  }
+
+  .hed-tab-panel {
+    border-radius: 0 0 20px 20px;
+  }
+
+  .hed-reasons-grid,
+  .hed-engagement-grid {
+    grid-template-columns: repeat(2, 350px);
+  }
+
+  .hed-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 991px) {
+  .hed-intro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hed-benefit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hed-testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .hed-hero {
+    padding: 90px 20px 50px;
+  }
+
+  .hed-hero-copy h1 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .hed-intro,
+  .hed-reasons,
+  .hed-services,
+  .hed-testimonials,
+  .hed-engagement,
+  .hed-industries,
+  .hed-steps,
+  .hed-faq {
+    padding: 60px 0;
+  }
+
+  .hed-reasons-head,
+  .hed-services h4,
+  .hed-testimonials h5,
+  .hed-engagement h6,
+  .hed-industries h3,
+  .hed-steps-head,
+  .hed-faq h5 {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .hed-reasons-grid,
+  .hed-engagement-grid,
+  .hed-steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hed-tab-panel {
+    padding: 30px 24px;
+  }
+
+  .hed-acc-btn {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hed-hero-badge {
+    font-size: 12px;
+  }
+
+  .hed-hero-copy h1 {
+    font-size: 26px;
+    line-height: 34px;
+  }
+}

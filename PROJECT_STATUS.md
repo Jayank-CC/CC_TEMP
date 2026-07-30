@@ -2,16 +2,196 @@
 
 ## Current task
 
-- **Reference:** https://www.cloudconverge.io/erpnext-service-provider/
-- **Local target:** `erpnext-service-provider.html` (new page, first build)
-- **State:** BUILT BUT NOT VISUALLY VERIFIED — blocked on assets and on any way to render the page
+- **Reference:** https://www.cloudconverge.io/hire-erpnext-developer/
+- **Local target:** `hire-erpnext-developer.html`
+- **State:** Built and visually verified at desktop width (1440–1670px, served from
+  `127.0.0.1:5500` beside the live reference). Responsive breakpoints below desktop are
+  NOT yet rendered/measured this session — same open item as the previous page.
 - **Last updated:** 2026-07-29
+
+### hire-erpnext-developer.html — what was done
+
+Files added:
+
+- `hire-erpnext-developer.html`
+- `css/pages/hire-erpnext-developer.css`
+- `js/hire-erpnext-developer.js`
+
+Files changed: `js/header.js` (1 href), `js/footer.js` (1 href) — the dead
+`#hire-erpnext-developer` anchors now point at the real page, same pattern as the
+previous page's fix.
+
+Assets added under `assets/images/` (fetched via the same same-origin browser-tab + ZIP
+technique as the previous page, 9 new files): `hire-ERPNext-developers2.jpg`,
+`erpnext-implementation-services-icon.png`, `module-development-icon.png`,
+`erpnext-integration-ion.png`, `maintenance-services-icon.png`,
+`data-import-services-icon.png`, `health-icon.png`, `professional-icon.avif`,
+`education-icon.avif`. Reused without copying: `Manufacturing_icon.png`,
+`wholesaler_icon.png`, `Industry-icon.png`, `hm-one-bg.jpg` (all already local from the
+previous page).
+
+Section order: hero, breadcrumb, "Who Should Hire" intro + consultation form, "6 Reasons"
+numbered grid, services tabs widget (5 panels), testimonials, CTA gradient banner, 3
+engagement-model cards, industries icon row, 4 numbered steps, FAQ accordion (6 cards,
+#5/#6 intentionally duplicate content — reproduces a real bug on the reference page).
+Contact and footer come from the shared partial as usual.
+
+**This build applied the screenshot-first lesson from the start** — instead of relying only
+on the subagent's computed-style/text audit, every section was compared against an actual
+reference screenshot before being declared correct, and this caught several structural
+mismatches invisible to geometry checks alone:
+
+- The hero's laptop-and-icons graphic is not a boxed side image — it is baked into a single
+  1920×720 full-bleed `background-image: cover` on the whole `.hed-hero` section
+  (`hire-ERPNext-developers2.jpg`), with copy overlaid directly on top, not split into a
+  two-column grid with a separate media box.
+- The "Who Should Hire" list is plain text rows (icon + heading + paragraph, no card
+  background/border), not boxed cards — the icon is the same FontAwesome
+  angle-double-right chevron reused from the previous page, colored `rgb(38,84,198)`.
+- The consultation card is **white**, not a dark navy card as first assumed: `#fff` bg,
+  `box-shadow: 0 6px 60px rgba(0,0,0,.05)`, `padding: 50px 60px`, eyebrow
+  `rgb(30,78,196)` non-uppercase, submit button solid `rgb(30,78,196)` (no gradient).
+- The "6 Reasons" cards use a light-blue circular number badge (`64×64`, bg `#f7fbff`,
+  `border-radius: 100px`, number `rgb(29,77,194)`), centered text, white card,
+  `box-shadow: 0 14px 46px rgba(0,26,87,.08)` — not the flat left-aligned card first built.
+- The services widget is the same Elementor "e-n-tabs" widget already reverse-engineered on
+  the previous page: `#1e4ec4` bg, `border-radius: 25px`, tab list border-bottom
+  `0.877193px solid rgb(141,193,251)` (inactive) / `rgba(255,255,255,.62)` (active), a
+  FontAwesome plus icon that becomes a minus by hiding the vertical bar when active, and a
+  `#14255b` panel at `border-radius: 0 30px 30px 0`. The 73×73 panel icons already contain
+  their blue rounded-square background baked into the PNG — no extra wrapper needed.
+- Testimonial cards: transparent bg, thin `0.877193px solid #d0e4f5` border,
+  `border-radius: 12px`, an 86px serif closing-quote glyph (`&rdquo;`, not `&ldquo;`) in
+  `#153c9d`, italic role text in `rgb(29,77,194)`, and the org name as a separate pill badge
+  (`#f1f1f1`, `border-radius: 16px`, uppercase) floated to the opposite side from name/role —
+  not two identical pill badges as first built.
+- The CTA banner gradient is `linear-gradient(105deg, #153c9d 0%, #102156 100%)`, not a
+  left-to-right `#14255b → #1e4ec4`.
+- The industries section reuses `hm-one-bg.jpg` with white heading/body/label text — the
+  photo itself carries the dark tint, not a CSS overlay. Missed on the first pass because
+  the previous page's use of the same asset wasn't cross-checked before assuming dark navy
+  text would work.
+- The 4-step "How It Works" cards are a 2×2 grid of bordered, left-aligned cards
+  (`0.877193px solid #d0e4f5`, `border-radius: 12px`), not a 4-across centered grid.
+- Breadcrumb (caught after user feedback on a screenshot): separators are a solid
+  FontAwesome caret-right triangle SVG, not a `›` character; background is neutral
+  `#fbfbfb` (not blue-tinted); all three crumbs are near-black (`#000`/`#191919`), not
+  gray-with-blue-hover as first built.
+- "6 Reasons" cards were missing their hover state entirely: `border-top: 3.50877px solid
+  #fff` by default (invisible against the white card), becomes `rgb(30,78,196)` on hover,
+  combined with `transform: translateY(-5px)` and `transition: 0.4s
+  cubic-bezier(0.2,0,0.3,1)` on both properties. Added to `.hed-reason`/`.hed-reason:hover`.
+- Services tabs widget: the 40px left inset and the visible gap before the dark panel were
+  wrongly placed as `padding-left` directly on `.hed-tab-list`, which shrank the button's
+  own content width and wrapped two of the five longer tab labels onto two lines. The
+  reference puts that left inset (`padding-left: 50px`) and the tab-to-panel gap
+  (`gap: 50px`) on the outer `.hed-tabs` (`e-n-tabs`) flex container instead, leaving
+  `.hed-tab-list` at a clean `flex: 0 0 459px` with no side padding of its own — exactly
+  the pattern already proven on `erpnext-service-provider.html`'s tabs widget. Also fixed
+  the icon column from `1fr 20px` to the reference's actual `1fr 92px`, which is why the
+  +/− icon sat far closer to the text than the reference's near-the-edge placement.
+- Testimonials section was oversized: `h5` is `32px/600/30px line-height` (was `34/42`) with
+  `margin: 0 0 20px` (was 16); the intro paragraph has no `max-width` restriction (was
+  wrongly capped at 640px, forcing an unwanted two-line wrap — the reference intro is 1120px
+  wide and fits on one line), `margin: 0 0 50px` (was 60), and color `#191919` (was gray).
+  `.hed-testimonial-text` margin-bottom corrected to 20px (was 24). Card padding
+  (`60px 30px 30px`), border, radius, and quote glyph were already correct.
+- Engagement-model cards (user-verified against reference): already matching, no change.
+
+### Verified this session
+
+- No console errors from the page itself (only unrelated browser-extension warnings).
+- No broken images: 39 `<img>` elements, 0 with `naturalWidth === 0`.
+- No horizontal overflow at the tested desktop width (`scrollWidth === clientWidth`).
+- Tab widget switches panels correctly (tested clicking tab 2, confirmed active panel/title
+  changed and `aria-selected`/`hidden` toggled).
+- FAQ accordion is single-open (tested clicking item 3, confirmed exactly one `.is-open`).
+
+### NOT verified this session
+
+- Responsive breakpoints below desktop width. The window-resize tool did not visibly change
+  the rendered viewport in this environment (screenshot still showed the desktop layout at
+  768px target width) — needs a fresh attempt, possibly via CDP device-metrics override
+  instead of `resize_window`, in a future session.
+- Hover states and reduced-motion behavior.
+- `ERPNEXT_ASSETS_TODO.md` is obsolete now that both pages' assets are in place; safe to
+  delete next time file deletion is convenient.
+
+### Previous page follow-up fixes (erpnext-service-provider.html)
+
+Geometry/computed-style checks alone missed several real visual differences that only showed up
+in actual rendered screenshots. Corrected this session:
+
+- The hero background had no dark overlay. Reference darkens its bright photo with
+  `.erp-hero-overlay`: `linear-gradient(286deg, rgba(0,47,92,0) 54%, rgb(24,19,15) 64%)` at
+  55% opacity, absolutely positioned, inset 0, as the first child of `.erp-hero`.
+- The hero paragraph is missing a second bold span: `<strong>custom ERPNext implementations,
+  migrations, and long-term support</strong>` (weight 500, Poppins-family), not plain text.
+- The H1 has "ERPNext" in an inline-styled `color:#64A8FF` span; "Services" stays white.
+  Added `.erp-hero-accent` for this rather than leaving the whole heading one color.
+- The FAQ accordion card model was wrong entirely: there is no separate card background —
+  the button itself is white with `box-shadow: 0 0 30px rgba(0,0,0,.06)` when collapsed, and
+  turns solid `#14255b` with white text and shadow when open. The +/− glyphs are
+  `::before`/`::after` content on the button, not on a separate icon element.
+
+**Lesson for every future page:** computed-style/geometry checks (getBoundingClientRect,
+getComputedStyle) do NOT catch background-image overlays, inline `style=""` color spans, or
+image-vs-solid-color card treatments. Always take actual rendered screenshots of both pages at
+matching scroll positions and eyeball them before calling a section done. Reference's own
+`scroll-behavior: smooth` on `<html>` delays `window.scrollTo` — use
+`{top, behavior:'instant'}` when jumping for a screenshot comparison, not a bare `scrollTo(x,y)`.
 
 ### Next action
 
-1. Add the 37 images listed in `ERPNEXT_ASSETS_TODO.md` to `assets/images/`, then delete that file.
-2. Render `erpnext-service-provider.html` beside the reference and compare at 1920/1440/1366/1280/1024/768/480/390/360.
-3. Correct measured differences, then re-run the reuse/dead-code audit.
+1. Verify and correct responsive behaviour at 1440 / 1366 / 1280 / 1024 / 768 / 480 / 390 / 360.
+   The 1199 / 767 / 380 rules were reasoned, not measured, and the desktop container change
+   (below) interacts with them.
+2. Re-run the reuse / dead-code audit.
+3. Re-test the other nine pages after the `js/header.js` and `js/footer.js` href change.
+
+### Verified at 1685px (local served from 127.0.0.1:5500, beside the live reference)
+
+Section-top deltas versus the reference, all measured after forcing its lazy images to load:
+
+| section | delta | | section | delta |
+|---|---|---|---|---|
+| hero | 0 | | infographic | 0 |
+| breadcrumb | 0 | | industries | 0 |
+| intro | 0 | | cases | 0 |
+| clients | 0 | | pricing | −3 |
+| accelerate | 0 | | faq | −2 |
+| modules | 0 | | page end | +8 |
+| services | 0 | | | |
+
+Hero interior is within 1px on every element; the CTA (291×50) and hero graphic (797×455) are exact.
+Case-study tabs match exactly: widget 1200 wide, panel 639×560 at `60px 75px`, title at (75,60,489,24),
+paragraph at (75,104,489,156), bullets at y 280/360/440.
+
+Also verified: no console errors, no broken images, no horizontal overflow, tab switching,
+single-open accordion, and carousel advance all working.
+
+### Three root causes found during the comparison — worth remembering
+
+1. **`text-transform: capitalize` leaks from `css/style.css` onto headings.** It both changes the
+   words and widens them, which forced an extra line in the intro `h2`. Reset page-scoped via
+   `.erpnext-page main :is(h1,h2,h3,h4,h5,h6) { text-transform: none }`. The Umbraco page hit this too.
+2. **The reference `.elementor-container` is a flush 1140px with no side padding**, but the shared
+   `.container` adds 15px. That made every column 30px narrow and rewrapped copy across the page.
+   Zeroed at `min-width: 1200px` page-scoped, with the reference's own per-section insets
+   re-applied (services and industries grids get `padding: 0 15px`; modules and benefits use 10px).
+3. **The reference loads only one Poppins file — weight 600.** Its "Poppins 400/500" text therefore
+   renders with 600 glyphs and is ~2.2% wider than a real Poppins 400 (368.83px vs 360.77px on a
+   fixed probe string). This project ships a genuine Poppins 400, so everything was slightly narrow.
+   Fixed with a page-scoped `@font-face` alias, `PoppinsRef`, mapping weights 100–900 to
+   `poppins-600-latin.woff2`. DM Sans metrics already matched exactly.
+
+### Measurement lesson
+
+The reference uses **PageSpeed lazy-loading** (`data-pagespeed-lazy-src`), not native `loading=lazy`.
+Scrolling does not reliably trigger it, and unloaded images report as 1×1 placeholders that render at
+the wrong box size — the infographic block measured 1162px tall instead of 707px. Before measuring,
+swap every `img[data-pagespeed-lazy-src]` to its real `src`, clear `onload`/`onerror`, and await
+`document.images`. Section tops shift by up to 450px otherwise.
 
 ### ERPNext build — what was done
 
@@ -80,22 +260,27 @@ footer come from the shared partial as usual.
 - Page script is wrapped in an IIFE and guarded by `window.__erpnextPageInit`, so a repeat run
   cannot double-bind listeners or timers.
 
-### NOT verified — do not treat this page as complete
+### NOT verified
 
-- No rendered screenshot comparison at any viewport. Nothing below has been checked visually:
-  section boundaries, typography, gaps, responsive behavior, horizontal overflow, hover states,
-  carousel/tab/accordion behavior in a real browser, console output, network results.
-- 37 referenced images do not exist yet, so the page currently renders with broken media.
-- Responsive rules at 1199 / 767 / 380 are reasoned from the reference's Elementor breakpoints, not
-  measured. Expect these to need correction once the page can be rendered.
+- **Responsive.** Nothing below 1685px has been rendered or measured. The 1199 / 767 / 380 rules are
+  reasoned from the reference's Elementor breakpoints. Expect corrections.
+- Hover states and reduced-motion behaviour.
+- The other nine pages after the shared-partial href change (static checks passed; not re-rendered).
 
-### Session blockers encountered
+### Known remaining deltas at 1685px
 
-- The sandbox HTTP proxy rejects `cloudconverge.io` with `blocked-by-allowlist`, so the reference
-  images could not be downloaded. `ERPNEXT_ASSETS_TODO.md` lists every source URL and target filename.
-- The browser extension refuses `file://` URLs, and the Chrome-for-Testing download host is also
-  proxy-blocked, so neither the in-app browser nor a headless Chrome could open the local page.
-  Visual comparison is impossible until one of those paths is available.
+- Cases section is 3px short: the reference tabs widget is 562px tall (its panel sits at y=1 inside
+  the 1200px box) where the local one is 560px. Not chased further.
+- Hero copy block is 1px lower: the reference paragraph block is 112px, the local one 111px.
+
+### Environment notes for the next session
+
+- The local page must be served over HTTP — the browser extension refuses `file://` URLs.
+  The user runs Live Server on **http://127.0.0.1:5500/**.
+- The sandbox HTTP proxy rejects `cloudconverge.io` (`blocked-by-allowlist`), so reference assets
+  cannot be downloaded there. The 37 page images were fetched in the browser tab (same-origin) and
+  delivered as a ZIP; they are all present now and `ERPNEXT_ASSETS_TODO.md` can be deleted.
+- Chrome-for-Testing is also proxy-blocked, so there is no headless Chrome in the sandbox.
 
 ## Previous completed page
 

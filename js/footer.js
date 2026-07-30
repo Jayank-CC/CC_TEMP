@@ -115,7 +115,7 @@ window.__PARTIALS.footer = `
             <li><a href="iphone-app-development.html">iPhone / iOS App Development</a></li>
             <li><a href="umbraco-development-services.html">Umbraco Implementation Services</a></li>
             <li><a href="erpnext-service-provider.html">ERPNext Services</a></li>
-            <li><a href="#hire-erpnext-developer">Hire ERPNext Developer</a></li>
+            <li><a href="hire-erpnext-developer.html">Hire ERPNext Developer</a></li>
             <li><a href="#hire-erpnext-consultant">Hire ERPNext Consultant</a></li>
           </ul>
         </div>
