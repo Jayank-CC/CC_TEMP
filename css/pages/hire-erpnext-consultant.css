@@ -1,0 +1,941 @@
+/* ==========================================================================
+   Hire ERPNext Consultant — page-scoped styles
+   ========================================================================== */
+
+@font-face {
+  font-family: "PoppinsRef";
+  src: url("../../assets/fonts/poppins-600-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@media (min-width: 1200px) {
+  .hec-page .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.hec-page main :is(h1, h2, h3, h4, h5, h6) {
+  text-transform: none;
+}
+
+.hec-page .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hec-accent {
+  color: rgb(30, 78, 196);
+}
+
+/* ---- hero ---- */
+
+.hec-hero {
+  position: relative;
+  padding: 200px 60px 120px;
+  background-color: rgb(2, 30, 111);
+  background-image: url("../../assets/images/hire-ERPNext-consultant-for-strategic-guidance-system-optimization.webp");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.hec-hero-inner {
+  position: relative;
+  max-width: 1550px;
+  margin: 0 auto;
+}
+
+.hec-hero-copy {
+  max-width: 775px;
+}
+
+.hec-hero-copy h1 {
+  margin: 0;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 52px;
+  color: #fff;
+}
+
+.hec-hero-accent {
+  color: #64a8ff;
+}
+
+.hec-hero-subhead {
+  margin: 15px 0 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 23px;
+  font-weight: 500;
+  line-height: normal;
+  color: #fff;
+}
+
+.hec-hero-text {
+  max-width: 605px;
+  margin: 15px 0 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #fff;
+}
+
+.hec-hero-cta {
+  display: inline-block;
+  margin: 35px 0 0;
+  padding: 16px 40px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  background-image: linear-gradient(178deg, rgb(0, 96, 247) 0%, rgb(41, 136, 250) 87%);
+  border-radius: 4px;
+  transition: opacity 0.25s ease;
+}
+
+.hec-hero-cta:hover {
+  opacity: 0.85;
+}
+
+/* ---- breadcrumb (same visual pattern as hire-erpnext-developer.html) ---- */
+
+.hec-breadcrumb {
+  padding: 16px 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  background: #fbfbfb;
+  border: 0;
+}
+
+.hec-breadcrumb-list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hec-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.hec-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.hec-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.hec-breadcrumb-list li:last-child span:not(.hec-breadcrumb-sep) {
+  color: #191919;
+}
+
+.hec-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.hec-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- intro / why businesses need a consultant ---- */
+
+.hec-intro {
+  padding: 100px 0;
+}
+
+.hec-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 60px;
+  align-items: start;
+}
+
+.hec-intro-copy h2 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 50px;
+  color: #1d1a4e;
+}
+
+.hec-intro-copy > p {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.hec-chevron-list {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.hec-chevron-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.hec-chevron-list li:last-child {
+  margin-bottom: 0;
+}
+
+.hec-chevron {
+  flex: 0 0 auto;
+  display: inline-flex;
+  margin-top: 6px;
+}
+
+.hec-chevron svg {
+  width: 14px;
+  height: 16px;
+  fill: rgb(38, 84, 198);
+}
+
+/* ---- consultation card (reused verbatim from hire-erpnext-developer.html) ---- */
+
+.hec-consult-card {
+  padding: 50px 60px;
+  background: #fff;
+  border-radius: 0;
+  box-shadow: 0 6px 60px rgba(0, 0, 0, 0.05);
+}
+
+.hec-consult-eyebrow {
+  margin: 0 0 6px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(30, 78, 196);
+  text-transform: none;
+}
+
+.hec-consult-title {
+  margin: 0 0 22px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #191919;
+}
+
+.hec-consult-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hec-hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.hec-consult-form input,
+.hec-consult-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  color: #191919;
+  background: #f4f4f4;
+  border: 1px solid #d8d8d8;
+  border-radius: 3px;
+  resize: vertical;
+}
+
+.hec-consult-form input::placeholder,
+.hec-consult-form textarea::placeholder {
+  color: #8a8a8a;
+}
+
+.hec-consult-submit {
+  padding: 12px 45px;
+  margin-top: 6px;
+  align-self: flex-start;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  background: rgb(30, 78, 196);
+  border: 0;
+  border-radius: 4px;
+  transition: opacity 0.25s ease;
+}
+
+.hec-consult-submit:hover {
+  opacity: 0.85;
+}
+
+.hec-form-success {
+  margin: 10px 0 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  color: rgb(30, 78, 196);
+}
+
+/* ---- ERPNext consulting services we provide ---- */
+
+.hec-services {
+  padding: 100px 0;
+  background: #f7fbff;
+}
+
+.hec-services h3 {
+  max-width: 780px;
+  margin: 0 auto 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  text-align: center;
+  color: rgb(19, 37, 91);
+}
+
+.hec-services-intro {
+  max-width: 860px;
+  margin: 0 auto 60px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.hec-service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 540px));
+  justify-content: center;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hec-service-item {
+  padding: 40px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 14px 46px rgba(0, 26, 87, 0.08);
+}
+
+.hec-service-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 14px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  color: #1d1a4e;
+}
+
+.hec-service-title .hec-chevron {
+  margin-top: 7px;
+}
+
+.hec-service-text {
+  margin: 0 0 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.hec-service-focus {
+  margin: 0 0 8px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1d1a4e;
+}
+
+.hec-dash-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hec-dash-list li {
+  position: relative;
+  margin: 0 0 8px;
+  padding-left: 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #6b7280;
+}
+
+.hec-dash-list li:last-child {
+  margin-bottom: 0;
+}
+
+.hec-dash-list li::before {
+  content: "\2013";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #6b7280;
+}
+
+/* ---- why choose cloudconverge ---- */
+
+.hec-why {
+  padding: 100px 0;
+}
+
+.hec-why h4 {
+  max-width: 780px;
+  margin: 0 auto 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 38px;
+  text-align: center;
+  color: rgb(19, 37, 91);
+}
+
+.hec-why-intro {
+  max-width: 860px;
+  margin: 0 auto 60px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.hec-why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 350px));
+  justify-content: center;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hec-why-card {
+  padding: 30px 30px 20px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 14px 46px rgba(0, 26, 87, 0.08);
+}
+
+.hec-why-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 16px;
+}
+
+.hec-why-icon {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 87px;
+  height: 87px;
+  background: #f7f7f9;
+  border-radius: 100px;
+}
+
+.hec-why-title {
+  margin: 0;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #1d1a4e;
+}
+
+.hec-why-text {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+  text-align: justify;
+}
+
+/* ---- industries row (reused verbatim from hire-erpnext-developer.html) ---- */
+
+.hec-industries {
+  padding: 100px 0;
+  background-image: url("../../assets/images/hm-one-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.hec-industries h3 {
+  max-width: 760px;
+  margin: 0 auto 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 42px;
+  text-align: center;
+  color: #fff;
+}
+
+.hec-industries-intro,
+.hec-industries-intro2 {
+  max-width: 780px;
+  margin: 0 auto 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: center;
+  color: #fff;
+}
+
+.hec-industries-intro2 {
+  margin-bottom: 60px;
+}
+
+.hec-industry-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hec-industry-row li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 130px;
+  text-align: center;
+}
+
+.hec-industry-row img {
+  width: 63px;
+  height: 63px;
+  margin: 0 0 14px;
+  object-fit: contain;
+}
+
+.hec-industry-row p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ---- engagement models (reused verbatim, no bullet list variant) ---- */
+
+.hec-engagement {
+  padding: 100px 0;
+}
+
+.hec-engagement h6 {
+  max-width: 720px;
+  margin: 0 auto 16px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 42px;
+  text-align: center;
+  color: #1d1a4e;
+}
+
+.hec-engagement-intro {
+  max-width: 640px;
+  margin: 0 auto 60px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.hec-engagement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 350px);
+  justify-content: center;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hec-engagement-card {
+  padding: 34px;
+  text-align: center;
+  background: transparent;
+  border: 1px solid #eceef2;
+  border-radius: 10px;
+}
+
+.hec-engagement-card-mid {
+  background: #f7fbff;
+  border-color: #dce8fb;
+}
+
+.hec-engagement-title {
+  margin: 0 0 14px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 28px;
+  color: #1d1a4e;
+}
+
+.hec-engagement-text {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14.5px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #6b7280;
+}
+
+/* ---- CTA banner (reused verbatim from hire-erpnext-developer.html) ---- */
+
+.hec-cta {
+  padding: 110px 0 111px;
+  text-align: center;
+  background: linear-gradient(105deg, #153c9d 0%, #102156 100%);
+}
+
+.hec-cta h3 {
+  margin: 0 0 16px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.hec-cta p {
+  max-width: 560px;
+  margin: 0 auto 30px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #fff;
+}
+
+.hec-cta-btn {
+  display: inline-block;
+  padding: 8px 19px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  background: rgb(30, 78, 196);
+  border-radius: 4px;
+  transition: opacity 0.25s ease;
+}
+
+.hec-cta-btn:hover {
+  opacity: 0.85;
+}
+
+/* ---- business benefits (reused verbatim .hed-step pattern) ---- */
+
+.hec-benefits {
+  padding: 100px 0;
+}
+
+.hec-benefits-head {
+  max-width: 780px;
+  margin: 0 auto 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  text-align: center;
+  color: #1d1a4e;
+}
+
+.hec-benefits-intro,
+.hec-benefits-intro2 {
+  max-width: 780px;
+  margin: 0 auto 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: center;
+  color: #191919;
+}
+
+.hec-benefits-intro2 {
+  margin-bottom: 40px;
+}
+
+.hec-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 550px));
+  justify-content: center;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hec-benefit-card {
+  padding: 34px 30px;
+  text-align: left;
+  background: transparent;
+  border: 0.877193px solid #d0e4f5;
+  border-radius: 12px;
+}
+
+.hec-benefit-num {
+  margin: 0 0 10px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(29, 77, 194);
+}
+
+.hec-benefit-title {
+  margin: 0 0 12px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: normal;
+  color: #1d1a4e;
+}
+
+.hec-benefit-text {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+/* ---- FAQ (reused verbatim from hire-erpnext-developer.html) ---- */
+
+.hec-faq {
+  padding: 100px 0;
+  background: #f7fbff;
+}
+
+.hec-faq h5 {
+  margin: 0 0 40px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  text-align: center;
+  color: #1d1a4e;
+}
+
+.hec-accordion {
+  max-width: 718px;
+  margin: 0 auto;
+}
+
+.hec-acc-item {
+  margin: 0 0 10px;
+}
+
+.hec-acc-item:last-child {
+  margin-bottom: 0;
+}
+
+.hec-acc-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 58px;
+  padding: 15px 40px 15px 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  color: #1d1a4e;
+  text-align: left;
+  cursor: pointer;
+  background: #fff;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.06);
+}
+
+.hec-acc-item.is-open .hec-acc-btn {
+  color: #fff;
+  background: rgb(30, 78, 196);
+}
+
+.hec-acc-btn::before {
+  content: "+";
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  font-size: 20px;
+  line-height: 1;
+  color: #000;
+}
+
+.hec-acc-item.is-open .hec-acc-btn::before {
+  content: none;
+}
+
+.hec-acc-item.is-open .hec-acc-btn::after {
+  content: "\2212";
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1;
+  color: #fff;
+}
+
+.hec-acc-panel[hidden] {
+  display: none;
+}
+
+.hec-acc-body {
+  padding: 20px;
+}
+
+.hec-acc-body p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #4b5563;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1199px) {
+  .hec-hero {
+    padding: 140px 40px 90px;
+  }
+
+  .hec-why-grid {
+    grid-template-columns: repeat(2, 350px);
+  }
+
+  .hec-service-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hec-engagement-grid {
+    grid-template-columns: repeat(2, 350px);
+  }
+
+  .hec-benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 991px) {
+  .hec-intro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hec-why-grid {
+    grid-template-columns: repeat(2, minmax(0, 350px));
+  }
+}
+
+@media (max-width: 767px) {
+  .hec-hero {
+    padding: 90px 20px 50px;
+  }
+
+  .hec-hero-copy h1 {
+    font-size: 30px;
+    line-height: 38px;
+  }
+
+  .hec-hero-subhead {
+    font-size: 19px;
+  }
+
+  .hec-intro,
+  .hec-services,
+  .hec-why,
+  .hec-industries,
+  .hec-engagement,
+  .hec-benefits,
+  .hec-faq {
+    padding: 60px 0;
+  }
+
+  .hec-intro-copy h2,
+  .hec-services h3,
+  .hec-why h4,
+  .hec-industries h3,
+  .hec-engagement h6,
+  .hec-benefits-head,
+  .hec-faq h5 {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .hec-why-grid,
+  .hec-service-grid,
+  .hec-engagement-grid,
+  .hec-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hec-acc-btn {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hec-hero-copy h1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+}

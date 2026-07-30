@@ -116,7 +116,7 @@ window.__PARTIALS.footer = `
             <li><a href="umbraco-development-services.html">Umbraco Implementation Services</a></li>
             <li><a href="erpnext-service-provider.html">ERPNext Services</a></li>
             <li><a href="hire-erpnext-developer.html">Hire ERPNext Developer</a></li>
-            <li><a href="#hire-erpnext-consultant">Hire ERPNext Consultant</a></li>
+            <li><a href="hire-erpnext-consultant.html">Hire ERPNext Consultant</a></li>
           </ul>
         </div>
         <div class="f-group">

@@ -2,12 +2,89 @@
 
 ## Current task
 
-- **Reference:** https://www.cloudconverge.io/hire-erpnext-developer/
-- **Local target:** `hire-erpnext-developer.html`
-- **State:** Built and visually verified at desktop width (1440–1670px, served from
-  `127.0.0.1:5500` beside the live reference). Responsive breakpoints below desktop are
-  NOT yet rendered/measured this session — same open item as the previous page.
-- **Last updated:** 2026-07-29
+- **Reference:** https://www.cloudconverge.io/hire-erpnext-consultant/
+- **Local target:** `hire-erpnext-consultant.html`
+- **State:** Built, screenshot-compared section-by-section against the live reference at
+  1685px (served from `127.0.0.1:5500` beside the live reference), and corrected. Console,
+  network, accordion, and consult-form interactions verified. Responsive breakpoints below
+  desktop are NOT yet rendered/measured — the `resize_window` tool does not change the
+  actual viewport in this environment (confirmed again this session via
+  `window.innerWidth`), same open item carried from the previous two pages.
+- **Last updated:** 2026-07-30
+
+### hire-erpnext-consultant.html — what was done
+
+Files added:
+
+- `hire-erpnext-consultant.html`
+- `css/pages/hire-erpnext-consultant.css`
+- `js/hire-erpnext-consultant.js`
+
+Files changed: `js/header.js` (1 href), `js/footer.js` (1 href) — the dead
+`#hire-erpnext-consultant` anchors now point at the real page, same pattern as the previous
+two pages.
+
+Assets added under `assets/images/` (same-origin browser-tab + ZIP technique, 7 new files):
+`hire-ERPNext-consultant-for-strategic-guidance-system-optimization.webp`, `chart-icon.png`,
+`briefcase-icon.png`, `check-list-icon.png`, `multiple-users-silhouette-icon.png`,
+`shield-icon.png`, and `industry-icon.png` renamed to `industry-insight-icon.png` to avoid a
+Windows case-insensitive collision with the already-local `Industry-icon.png`. Reused
+without copying: `Manufacturing_icon.png`, `wholesaler_icon.png`, `Industry-icon.png`,
+`health-icon.png`, `professional-icon.avif`, `education-icon.avif`, `hm-one-bg.jpg` (all
+already local from the developer page).
+
+Section order: hero (full-bleed baked-in dashboard background, no badge pill, vertical
+178deg CTA gradient), breadcrumb, "Why Businesses Need an ERPNext Consultant" (single-column
+6-item chevron list + reused consultation-form card), "ERPNext Consulting Services We
+Provide" (2×3 grid, chevron title + description + "Focus Areas:" dash list), "Why Choose
+CloudConverge for ERPNext Consulting" (2×3 grid, icon-circle + two-line title row above a
+justified description), industries icon row (reused verbatim), 3-card engagement models
+(centered text, no bullet list variant), CTA gradient banner (after engagement models this
+time, not before), "Business Benefits of ERPNext Consulting" (2-column reuse of the
+`.hed-step` bordered-card pattern), FAQ accordion (6 distinct items, no duplicate-content
+bug this time). The reference's final "Contact Us" section (USA/India office addresses,
+second consultation form) is already part of the shared `js/footer.js` partial — confirmed
+via grep before building, so it was correctly **not** duplicated into the page's own markup.
+
+Bugs caught by screenshot comparison against the live reference (geometry/computed-style
+checks alone would have missed these):
+
+- **"Why Choose CloudConverge" card titles** were built with `font-family: "DM Sans"`, but
+  `getComputedStyle` on the live reference's `.elementor-heading-title` showed the real
+  family is `Poppins` (400 weight) — DM Sans at the same 16px/400 renders visibly lighter,
+  which is why the reference titles looked bold and the local build did not. Fixed to
+  `"PoppinsRef","Poppins",sans-serif` (`.hec-why-title`).
+- **Engagement-model cards** were left-aligned; the reference centers both the card titles
+  and body text (`text-align: center` added to `.hec-engagement-card`).
+- **FAQ active-tab background** was copied from the developer page's FAQ as `#14255b` (dark
+  navy), but walking the reference's actual DOM ancestor chain
+  (`p.mb-0 → span.card-header → button.btn.btn-link`) showed the real active background is
+  `rgb(30, 78, 196)` — the site's standard accent blue, not navy. Fixed
+  (`.hec-acc-item.is-open .hec-acc-btn`). Worth rechecking whether the developer page's FAQ
+  has the same latent bug in a future session.
+- Everything else (hero, breadcrumb, "Why Businesses Need" chevron list + consult form,
+  services grid, industries row, CTA banner, business-benefits grid, FAQ layout/copy)
+  matched the reference within a screenshot comparison at every scroll position checked —
+  no further changes needed.
+
+### Verified this session
+
+- Console: no page errors (only unrelated browser-extension "port disconnected" warnings).
+- Network: every asset for this page resolved 200/304, zero 404s (checked filtered to
+  `hire-erpnext-consultant.html`'s own script/style/image requests after a hard reload).
+- No horizontal overflow at 1685px (`document.body.scrollWidth <= window.innerWidth`).
+- FAQ accordion is single-open (tested clicking item 2 programmatically, confirmed exactly
+  one `.is-open` and correct `hidden`/`aria-expanded` toggling).
+- Consult form submit handler: honeypot-empty submission shows the success message and
+  resets all fields.
+
+### NOT verified this session
+
+- Responsive breakpoints below desktop width — same blocked item as the previous two pages;
+  `resize_window` reports success but `window.innerWidth` stays at the original desktop
+  width afterward. Needs a different approach (CDP device-metrics override, or a real
+  browser window resize outside the MCP tool) in a future session.
+- Hover states and reduced-motion behavior on this page's cards/buttons.
 
 ### hire-erpnext-developer.html — what was done
 
