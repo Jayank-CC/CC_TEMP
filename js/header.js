@@ -275,7 +275,7 @@ window.__PARTIALS.header = `
             <ul class="m-sub">
               <li><a href="ecommerce-development-services.html">Ecommerce Web &amp; App Development</a></li>
               <li><a href="shopify-development-services.html">Shopify Development Services</a></li>
-              <li><a href="#shopify-integration-services">Shopify Integration Services</a></li>
+              <li><a href="shopify-integration-services.html">Shopify Integration Services</a></li>
               <li><a href="#shopify-migration-services">Shopify Migration Services</a></li>
               <li><a href="#shopify-support-and-maintenance-services">Shopify Support &amp; Maintenance Services</a></li>
             </ul>

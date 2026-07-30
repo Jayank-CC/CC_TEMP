@@ -525,3 +525,12 @@
     transition: none !important;
   }
 }
+
+@media (max-width: 600px) {
+  .shpd-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .shpd-list-grid p {
+    text-align: justify;
+  }
+}
