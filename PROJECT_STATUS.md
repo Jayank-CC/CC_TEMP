@@ -2,6 +2,136 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/shopify-support-and-maintenance-services/
+- **Local target:** `shopify-support-and-maintenance-services.html`
+- **Last updated:** 2026-07-31
+- **State:** New page built from scratch (`ssm-*` class prefix) and now screenshot/DOM-verified
+  section by section against the live reference. Two real structural bugs were found and fixed
+  during verification that the initial build had missed:
+  1. **A decorative top-of-page dark banner was missing entirely.** The reference's inner-page
+     template (`.wraper_inner_banner`, shared by all service pages, confirmed also present on
+     `shopify-migration-services.html`'s reference) renders a `380px` full-bleed background
+     image (`Shopify-2.webp`, no text overlaid — the "Shopify Partners / Maintenance / SEO and
+     Content Management / Performance Optimization / Product Management" graphic is baked into
+     the image itself) directly above the breadcrumb. My first build skipped straight to the
+     breadcrumb, so the shared header's default transparent-background/white-nav-text state
+     (designed to overlay exactly this kind of dark hero image) had nothing dark to sit on and
+     was invisible. **Wrong first fix**: initially patched the header to force a permanent
+     white-bg/black-text state, reasoning "this page has no dark hero." That reasoning was
+     wrong — reverted it once the missing banner was found, and added
+     `<div class="ssm-banner">` (height `380px`, `background-size:cover`,
+     `background-position:50% 50%`) instead, restoring the shared header's normal behavior.
+     Asset fetched as `shopify-support-maintenance-banner.webp` via the same-origin
+     browser-tab technique — **not yet moved into `assets/images/`** (same Downloads-folder
+     limitation as every prior asset this project has needed); confirmed via a temporary dark
+     placeholder fill that the header's 6 nav links render correctly in white once something
+     dark sits behind them.
+  2. **"Six Reasons to Choose Our Shopify Maintenance Services" was built as a plain
+     text-only 3×2 grid with no icons, left-aligned.** The reference actually has a 35px solid
+     blue (`rgb(30,78,196)`) FontAwesome-solid icon above each centered title+paragraph
+     (check-circle/hourglass/clock/hands-helping/laptop-code/cogs, in that order), and — more
+     subtly — the reference's 6 items are laid out **column-major** (3 Elementor columns of 2
+     stacked widgets each: col1=[Proven Expertise, Round-the-Clock Support], col2=[Timely
+     Solutions, Long-Term Commitment], col3=[Reliable Developments, Transparent Workflow]),
+     confirmed by comparing DOM order against the visual screenshot grid position. Fixed by
+     adding inline SVG icons captured directly from the reference's own rendered `<svg>` path
+     data to each `<article>`, and switching `.ssm-reasons-grid` from a plain
+     `grid-template-columns:repeat(3,1fr)` (which fills row-major, giving the wrong visual
+     order) to `grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,auto);
+     grid-auto-flow:column;` — this reproduces the column-major visual order with zero HTML
+     reordering, since the underlying DOM/content order was already correct. Title styling
+     corrected from an assumed `20px/600/navy` to the reference's actual measured
+     `16px/400/#191919` (same as its own paragraph — no visual weight distinction beyond the
+     icon and centering). Responsive breakpoints updated to match: 2-column tablet tier now
+     uses `grid-template-rows:repeat(3,auto)` (2 cols × 3 rows for 6 items), mobile tier reverts
+     to plain `grid-auto-flow:row` (order is identical for a single column).
+  3. **Confirmed correct, no change needed**: the 3-level breadcrumb (Home/Services/current, a
+     separate visible Elementor icon-list widget — distinct from the theme's own hidden
+     2-level `#crumbs` auto-breadcrumb, which is `display:none` on the live reference), the
+     8-item "Our Shopify Maintenance and Support Services" grid (genuinely no icons), the
+     "Shopify Website Maintenance Steps" list (genuinely no icons), and all three
+     `.ssm-illustration` images (`key-tasks-of-shopify-maintenance.webp`,
+     `shopify-2-1.webp`, `cc-shopify-maintenance.webp` — all single flat images, not
+     HTML/CSS-drawn diagrams, and all three already present locally and resolving 200).
+- **Verified this session:** no console errors (one unrelated browser-extension warning only);
+  every page-specific asset except the new banner image resolves 200/304 via network-request
+  capture and `HEAD` fetch; FAQ accordion is single-open (programmatic test); consultation form
+  honeypot+success works (programmatic test); no horizontal overflow at 1440/1920px (`document
+  Element.scrollWidth === clientWidth`); the fixed "Six Reasons" grid now visually matches the
+  reference exactly at desktop width (icons, colors, column-major order, centering) via direct
+  screenshot comparison.
+- **Blocked on 1 asset:** `shopify-support-maintenance-banner.webp` (the new top-of-page dark
+  banner background, `1920×380`, `31360` bytes, `image/webp`) is sitting in the user's real
+  Downloads folder and needs to be moved into `assets/images/` before the banner/header-overlay
+  fix can be visually confirmed locally — currently 404s, causing the header's white nav text to
+  render on a blank white background until the file is moved.
+- **NOT yet re-verified**: full mobile/tablet screenshot pass (the `resize_window` tool did not
+  reliably change this tab's rendered viewport this session — same long-standing environment
+  limitation documented on every earlier page — `document.documentElement.clientWidth` stayed
+  pinned regardless of the requested width), hover states on the FAQ/awards/reviews sections,
+  and the review carousel's drag/autoplay behavior with only 2 original cards (structurally
+  identical clone-based loop logic to every other page's carousel, not separately exercised this
+  session).
+
+### Files added/changed (this task)
+
+Files added: `shopify-support-and-maintenance-services.html`,
+`css/pages/shopify-support-and-maintenance-services.css`,
+`js/shopify-support-and-maintenance-services.js`.
+
+Files changed: `js/header.js` and `js/footer.js` — one dead
+`#shopify-support-and-maintenance-services` anchor each, now pointing at the real page.
+
+Assets fetched via the same-origin browser-tab technique this session (confirmed 404 locally,
+pending manual move from Downloads): `shopify-support-maintenance-banner.webp`. Reused without
+copying: `icon-maintenance.svg`, `icon-project-done.svg`, `icon-design-thinking.svg`,
+`webapp-custom-applications.svg`, `award-clutch.png`, `award-app-development.png`,
+`award-goodfirms.png`, `award-microsoft.webp`, `kabu-projects-logo.webp`, `samuel-correns.webp`.
+Already-present page-specific images (fetched a prior session, confirmed landed and resolving
+200 this session): `key-tasks-of-shopify-maintenance.webp`, `shopify-2-1.webp`,
+`cc-shopify-maintenance.webp`.
+
+### Lesson for future pages
+
+Don't assume a "no icons here" or "no dark hero here" conclusion from a single
+`get_page_text`/DOM-search pass — both false negatives found this session (missing banner
+section, missing six-reasons icons) came from an incomplete initial audit that stopped once
+*a* plausible structure was found, rather than checking whether the shared header's *default*
+behavior (transparent + white nav text, tuned for dark-hero pages) actually made sense for the
+page as first built. When the shared header looks broken on a new page, treat that as a signal
+to re-check whether a hero/banner section is missing, not just as a reason to override the
+header itself.
+
+### Follow-up fix: mobile justify text + breadcrumb wrap/font-size
+
+The user flagged (screenshot, ~mobile width) that some paragraphs should be justified on
+mobile but weren't, and that the breadcrumb looked different from the reference on mobile.
+Verified against the live reference via the same-origin nested-iframe technique at exactly
+767/768px to find the real breakpoint (confirmed `≤767px`, matching this project's established
+convention):
+
+- **Text-align**: the hero's two intro paragraphs (`.ssm-hero-copy > p`), the 8-item services
+  grid descriptions (`.ssm-services-grid p`), and the 4-item maintenance-steps descriptions
+  (`.ssm-steps-list p`) are `text-align: left` at desktop but switch to `justify` at `≤767px`
+  on the reference — confirmed via `getComputedStyle` at both 768px (`left`) and 767px
+  (`justify`). The six-reasons descriptions stay `center` at every width (already correct from
+  the earlier icon-grid fix). FAQ answers and review quotes stay `left` at every width
+  (confirmed unaffected). Added a `≤767px` rule for the three justified selectors.
+- **Breadcrumb**: two real bugs, not just a missing mobile override. (1) The breadcrumb's
+  `font-size` was never set at all (`14px` measured on the reference at desktop, defaulting to
+  `16px` — inherited body size — in my build), and drops to `12px` at `≤767px` on the
+  reference. (2) `.ssm-breadcrumb-list` had `display: flex` with no `flex-wrap`, defaulting to
+  `nowrap` — the reference is `flex-wrap: wrap`, which is what lets "Home / Services" sit on
+  one line and the (long) current-page title wrap to a second line at mobile widths instead of
+  forcing one long unbroken line. Added `flex-wrap: wrap` and `font-size: 14px` to the base
+  `.ssm-breadcrumb-list` rule, plus `font-size: 12px` at `≤767px`.
+
+Verified after the fix via the same-origin nested-iframe technique at 390px on the local build:
+breadcrumb now wraps to two lines (Home/Services on line 1, title on line 2) at 12px, all three
+paragraph groups now justify, no horizontal overflow.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/shopify-migration-services/
 - **Local target:** `shopify-migration-services.html`
 - **Last updated:** 2026-07-31 (follow-up session — hero fix + missing section images)
