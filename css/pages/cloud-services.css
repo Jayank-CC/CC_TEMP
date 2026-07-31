@@ -27,6 +27,10 @@
   background: #fff;
 }
 
+.cls-intro a:hover {
+  color: rgb(30, 78, 196);
+}
+
 /* Decorative page-top banner that the shared header overlays transparently
    with white nav text, same as other inner-page heroes. */
 .cls-banner {
@@ -146,14 +150,22 @@
 .cls-services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+  gap: 30px;
+}
+
+.cls-page .cls-services-grid {
+  padding: 0 15px;
 }
 
 .cls-services-grid article {
+  display: flex;
+  flex-direction: column;
   border-top: 4px solid #fff;
   border-radius: 4px;
   box-shadow: 0 14px 46px rgba(0, 26, 87, 0.08);
-  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1), border-color 0.3s;
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0, 0.3, 1),
+    border-color 0.3s;
 }
 
 .cls-services-grid article:hover {
@@ -166,11 +178,12 @@
   width: 100%;
   max-width: 350px;
   height: auto;
-  margin: 25px auto 0;
+  margin: auto auto 0;
 }
 
 .cls-services-grid h3 {
-  margin: 24px 0 20px;
+  margin: 0;
+  padding: 30px 30px 20px;
   font-family: "PoppinsRef", "Poppins", sans-serif;
   font-size: 18px;
   font-weight: 400;
@@ -181,6 +194,7 @@
 
 .cls-services-grid p {
   margin: 0;
+  padding: 0 30px 20px;
   font-family: "DM Sans", sans-serif;
   font-size: 16px;
   line-height: 26px;
@@ -347,12 +361,16 @@
 
 .cls-stat-grid strong {
   display: block;
-  font: 400 32px/48px "Poppins", sans-serif;
+  font:
+    400 32px/48px "Poppins",
+    sans-serif;
 }
 
 .cls-stat-grid h3 {
   margin: 0 0 8px;
-  font: 400 16px/24px "Poppins", sans-serif;
+  font:
+    400 16px/24px "Poppins",
+    sans-serif;
 }
 
 .cls-stat-grid p {
