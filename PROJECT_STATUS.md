@@ -130,6 +130,24 @@ Verified after the fix via the same-origin nested-iframe technique at 390px on t
 breadcrumb now wraps to two lines (Home/Services on line 1, title on line 2) at 12px, all three
 paragraph groups now justify, no horizontal overflow.
 
+### Follow-up fix: banner height at mobile
+
+The user then asked to check the top banner's height on mobile. The banner asset
+(`shopify-support-maintenance-banner.webp`) had been moved into `assets/images/` by this point,
+which made a real visual check possible for the first time. Re-verified the reference via the
+same-origin nested-iframe technique (this is also what caught that the *previous* session's
+"confirmed same 380px height down to 480px width" check had been a false positive — it had used
+`resize_window` on a live tab, which this project has repeatedly found does not reliably change
+the true rendered viewport; the iframe technique is the only one confirmed accurate for this
+environment). Real reference values, checked at 1024/880/768/767/480/390/360px:
+`height: 380px`/`background-position: 50% 50%` for every width **down to and including 768px**,
+then a real breakpoint at `≤767px` drops to `height: 320px`/`background-position: 40% 50%` for
+every narrower width tested (767 down to 360 — one flat mobile value, not a sliding scale).
+Added both values to the existing `≤767px` block in `.ssm-banner`. Re-verified on the local
+build at 768/767/480/390/360px: exact match at every width, no overflow, and confirmed visually
+via screenshot — banner photo, header overlay (white nav text/logo legible against the now-real
+image), and two-line breadcrumb all render correctly together for the first time this session.
+
 ## Previous completed page
 
 - **Reference:** https://www.cloudconverge.io/shopify-migration-services/

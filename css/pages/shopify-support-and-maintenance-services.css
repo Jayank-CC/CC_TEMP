@@ -663,6 +663,11 @@
 }
 
 @media (max-width: 767px) {
+  .ssm-banner {
+    height: 320px;
+    background-position: 40% 50%;
+  }
+
   .ssm-breadcrumb-list {
     font-size: 12px;
   }
