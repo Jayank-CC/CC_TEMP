@@ -2,6 +2,218 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/infrastructure-management-services/
+- **Local target:** `infrastructure-management-services.html`
+- **Last updated:** 2026-07-31
+- **State:** New page built from scratch (`ims-*` class prefix), reusing established
+  `cloud-services.html` patterns almost verbatim (this page shares the exact same Elementor
+  widget IDs for its 3-card grid component — `elementor-element-e66ef7c`/`fe75aea`/`8dc3299` —
+  confirming it's the same site-wide reusable template). Verified via CSSOM/computed-style
+  comparison against the live reference (the `computer` tool's `screenshot`/`zoom` actions were
+  both down for the entire session — timing out on every tab, not page-specific — so this build
+  was verified via direct `getBoundingClientRect`/`getComputedStyle` diffing instead of rendered
+  screenshots; a full screenshot pass is still owed once the tool recovers).
+  - **Section order:** breadcrumb → H1 "IT Infrastructure Management Services" → subtitle →
+    4-paragraph center-aligned intro (no drop-cap actually rendered despite a
+    `elementor-drop-cap-view-stacked` class name in the reference's injected widget style — no
+    `.elementor-drop-cap` element exists in the markup) → **two separate 3-card grids** (Service
+    Desk/Help Desk/Desktop Engineering/ITSM, then Environment Management/Database
+    management/Network Management) → H2 "Other Factors to consider:" (40px/600/navy) → a
+    **2-column, 5-item-each cardless list** (Offer Improved Solutions.../Consulting...) reusing
+    the `cls-focus-grid`/`cls-growth-grid` stacked-heading-paragraph pattern → stats banner (70+
+    Happy Customers/100+ Project Done/100% Clients Satisfied/50+ Team Members, reused verbatim)
+    → Industries We Serve (single image, reused verbatim) → Awards & Recognition (4 logos,
+    reused verbatim) → Client Reviews (same 6-review carousel, same order as
+    `cloud-services.html`: Tom Wyman → Richard Heller → Samuel Correns → Kabu Projects →
+    Entrepreneur's Organization Gurgaon → Barry Sarnoff). No FAQ, no consultation form, no
+    top banner image — genuinely simpler top-level structure than the Shopify pages, matching
+    `cloud-services.html`'s shape.
+  - **Important discovery this session — the 3-card grid's real padding source**: initial
+    `getComputedStyle` reads on the heading/text-editor widgets themselves returned `0px`
+    padding (as they did on a much earlier pass over `cloud-services.html`, before the user
+    supplied the correct measured values directly). Digging deeper via `getBoundingClientRect`
+    text-inset measurement (not `getComputedStyle`) proved the real padding — `30px 30px 20px
+    30px` on the heading, `0 30px 20px 30px` on the paragraph — genuinely exists and matches
+    `cloud-services.html` exactly; it lives on an intermediate `elementor-inner-section` wrapper
+    around each heading/paragraph (`sec1`/`sec2` in the widget-wrap), not on the leaf widget
+    elements or their `.elementor-widget-container`. Confirmed once via direct CSSOM
+    `cssRules` text search scoped to this page's own `.elementor-20450` prefix (not
+    `.elementor-20068`, since each page has its own copy of the shared widget IDs with its own
+    page-scoped custom CSS) — the padding rule literally reads
+    `.elementor-20450 ... elementor-element-fdf05c2 { padding: 30px 30px 20px; }` (an
+    inner-section ID, not the leaf heading/text IDs). **Lesson for future pages:** don't trust a
+    single `getComputedStyle` read on the leaf widget as proof of "no padding" — check for
+    nested `elementor-inner-section` wrappers and measure actual rendered text insets via rects
+    before concluding a value is zero.
+  - Also discovered: each card's image is only *approximately* bottom-aligned across a row (the
+    reference achieves this via per-card custom fixed heights on the paragraph's inner-section,
+    authored per exact line-count in the WYSIWYG editor — not a generalizable value). Reproduced
+    the same visual effect the robust, viewport-safe way already established on
+    `cloud-services.html`: `display:flex;flex-direction:column` on the card + `margin:auto auto 0`
+    on the image, which self-adjusts regardless of paragraph line-wrap instead of copying
+    fragile per-card pixel heights.
+  - Confirmed the intro paragraphs are **center-aligned** here (unlike `cloud-services.html`'s
+    left-aligned intro) — a real per-page difference, not copied blindly.
+  - Confirmed via `get_page_text`: the "Offer Improved Solutions" 5-item list and the
+    "Consulting" 5-item list are **both inside the same one 650px-tall section**, side by side as
+    two 570px columns (not two separate stacked sections) — `get_page_text`'s article-content
+    extraction silently skipped the two 3-card-grid sections entirely (their headings/paragraphs
+    never appeared in that dump even though they're genuinely visible), reinforcing this
+    project's standing lesson that `get_page_text` cannot be trusted alone for full section
+    coverage — direct DOM `textContent` walks over each top-level Elementor section are required.
+  - Copy is reproduced verbatim including the reference's own typo ("We guarantee quality
+    quality service...", duplicated word in the source copy) — this is replication, not
+    copy-editing.
+- **Blocked on 7 assets**: `service-desk-768x472-1.webp`, `desktop-engineering-768x472-1.webp`,
+  `ITServiceManagement-768x472-1.webp`, `ITEnvironmentManagementimage-768x472-1.webp`,
+  `database-2.webp`, `networkmanagement.webp` (all `350×215` card images) plus
+  `infrastructure-monitoring.webp` (`1920×380` hero banner background, found in a follow-up fix
+  — see below) — all fetched via the same-origin browser-tab + `fetch().then(blob)` + synthetic
+  `<a download>` technique, all confirmed `200`/non-zero size at fetch time — are sitting in the
+  user's real Downloads folder and need to be moved into `assets/images/` before the banner and
+  the two 3-card grids can be visually confirmed locally — currently resolve as broken/incomplete
+  (`naturalWidth: 0`) via direct `<img>` inspection.
+- **NOT yet verified**: rendered screenshot comparison at any viewport (blocked on the
+  `computer` tool's `screenshot`/`zoom` actions, both timing out for the entire session on every
+  tab tried, reference and local alike — a tool-wide outage, confirmed not page-specific);
+  mobile/tablet responsive breakpoints (CSS breakpoints were carried over from
+  `cloud-services.html`'s already-established values, not freshly re-measured against this
+  page's own reference at narrower widths); hover states on the two 3-card grids and the stats
+  section; review-carousel drag/autoplay interaction (structurally identical to
+  `cloud-services.html`'s, exercised only via the carousel's own JS-driven initial clone-build,
+  not a manual drag test).
+
+### Follow-up fix: missing hero banner
+
+The user reported the hero banner was missing entirely. Root cause: the reference's
+`.wraper_inner_banner` (`380px`, `background-image: infrastructure-monitoring.webp`,
+`background-size: cover`, `50% 50%`) is a **theme template element that lives outside the
+Elementor content root** (`data-elementor-id="20450"`), so the original section-by-section audit
+— which only walked `root.children` — never saw it, the same class of miss documented on the
+`shopify-support-and-maintenance-services.html` session. Confirmed via
+`document.querySelectorAll('[class*="banner" i]')` against the live reference, and confirmed the
+same `≤767px` responsive tier as every other page's banner (`height: 320px`,
+`background-position: 40% 50%`) via `CSSMediaRule` enumeration. Added `<div class="ims-banner">`
+right before the breadcrumb `<nav>`, with the matching `.ims-banner` CSS (desktop + mobile tier).
+Asset `infrastructure-monitoring.webp` (`1920×380`, `25606` bytes) fetched via the same-origin
+browser-tab technique (`200`, confirmed) — **not yet moved into `assets/images/`**, same
+Downloads-folder limitation as the page's other 6 blocked assets. Verified locally: the banner
+div renders at exactly `379.99px` height (matches reference), currently blank pending the asset
+move.
+
+**Lesson reinforced**: always check for theme-level `.wraper_inner_banner`/similar elements
+*outside* the Elementor root on every new page before concluding "no banner here" — a plausible
+section order found inside the Elementor content isn't proof nothing sits above it in the DOM.
+
+### Files added/changed (this task)
+
+Files added: `infrastructure-management-services.html`,
+`css/pages/infrastructure-management-services.css`,
+`js/infrastructure-management-services.js`.
+
+Files changed: `js/header.js` (1 href — mobile mega-menu link; the desktop mega-panel link was
+already correct, pointing at this page, from an earlier session) and `js/footer.js` (1 href) —
+the dead `#infrastructure-management-services` anchors now point at the real page.
+
+Assets fetched via the same-origin browser-tab + fetch/blob/download technique this session
+(confirmed `200` status and non-zero size at fetch time, **not yet confirmed landed** in
+`assets/images/` — the same Downloads-folder limitation as every earlier page in this project):
+`service-desk-768x472-1.webp`, `desktop-engineering-768x472-1.webp`,
+`ITServiceManagement-768x472-1.webp`, `ITEnvironmentManagementimage-768x472-1.webp`,
+`database-2.webp`, `networkmanagement.webp`. Reused without copying:
+`icon-maintenance.svg`, `icon-project-done.svg`, `icon-design-thinking.svg`,
+`webapp-custom-applications.svg`, `industries-sectors.webp`, `award-clutch.png`,
+`award-app-development.png`, `award-goodfirms.png`, `award-microsoft.webp`, `tom-wyman.webp`,
+`richard-heller.webp`, `samuel-correns.webp`, `kabu-projects-logo.webp`,
+`entrepreneurs-organization-gurgaon.webp`, `barry-sarnoff.jpg`.
+
+### Verified this session
+
+- Console: no errors on repeated reload (`read_console_messages`, `onlyErrors:true`).
+- No horizontal overflow at 1670px (`document.documentElement.scrollWidth ===
+  document.documentElement.clientWidth`).
+- Shared header/footer inject correctly (`#site-header-placeholder`/`#site-footer-placeholder`
+  both populated) and `window.initSite` is defined and ran.
+- Review carousel JS initialized correctly: clone-based infinite loop confirmed via DOM order
+  (last 2 originals cloned to the front, all 6 originals, first 2 cloned to the back — matches
+  the established `cloud-services.js`-derived pattern).
+- All non-blocked content spot-checked against the reference via direct text/attribute
+  comparison: both 3-card grids' headings/paragraphs, the 2-column 10-item factors list, stats
+  labels, industries/awards headings, and the review order all match exactly.
+- `node --check` passes on `js/infrastructure-management-services.js`, `js/header.js`,
+  `js/footer.js`.
+
+### Exact next action
+
+Once the `computer` tool's `screenshot`/`zoom` actions recover, run a full rendered
+screenshot-comparison pass against the live reference (desktop first, then the 9 required
+viewports), and once the user moves the 6 blocked images into `assets/images/`, re-verify the
+two 3-card grids visually (image presence, bottom-alignment, hover lift/border-color/shadow).
+
+## Previous completed page
+
+- **Reference:** https://www.cloudconverge.io/cloud-services/
+- **Local target:** `cloud-services.html`
+- **Last updated:** 2026-07-31
+- **State:** Built from scratch (`cls-*` class prefix) and iterated through multiple rounds of
+  user feedback, all resolved:
+  1. Migrate section ("Application migration to Cloud" / "Cloud app development") had both
+     columns built with a uniform wrong widget order; fixed by measuring each column's true
+     per-widget DOM order separately (column 1: image→heading→list; column 2:
+     heading→paragraph→subheading→list→image) and adding the `move-image-left-right`-equivalent
+     hover nudge (`.cls-migrate-img:hover { transform: translate3d(-10px,0,0); }`) on the image
+     WRAPPER, matching the reference's actual hover-class target.
+  2. The 3-card grid (Application Modernisation/Application Replatforming/AWS Azure & GCP) was
+     missing the reference's full-card hover lift, border-top-color change, and box-shadow —
+     added `border-top: 4px solid #fff` → `rgb(30,78,196)` on hover, `box-shadow: 0 14px 46px
+     rgba(0,26,87,0.08)`, `border-radius: 4px`, and `transform: translate3d(0,-5px,0)` on hover
+     (0.4s cubic-bezier(0.2,0,0.3,1)), matching the reference's `img-box-hover-effect` class
+     exactly.
+  3. Card internal padding was wrong (built with 0 padding, guessed margins) — corrected to the
+     reference's real measured values: heading `padding: 30px 30px 20px 30px`, paragraph
+     `padding: 0 30px 20px 30px`, both with `margin: 0` (values supplied directly by the user
+     from their own DevTools inspection, then confirmed independently via
+     `getBoundingClientRect` text-inset measurement).
+  4. The 3-card grid's outer spacing was wrong — cards touched the section's outer edges with a
+     40px gap between them, when the reference actually insets each row 15px from the container
+     edge with 30px gaps and fixed 350px card widths. Root cause: a higher-specificity
+     `.cls-page .container { padding: 0 15px }`-canceling rule at `min-width:1200px` was beating
+     the single-class `.cls-services-grid` selector; fixed by adding a `.cls-page
+     .cls-services-grid` override.
+  5. The 3 cards' images were not bottom-aligned when paragraph lengths/image heights differed —
+     fixed via `display:flex;flex-direction:column` on the card + `margin:auto auto 0` on the
+     image, confirmed via `getBoundingClientRect` showing identical `articleBottom`/`imgBottom`
+     across all 3 cards afterward.
+  6. Breadcrumb background was transparent instead of the reference's `#fbfbfb`; H1 was
+     inheriting `line-height:26px` from a shared base rule despite `font-size:45px`, collapsing
+     the gap to the subtitle below to 0 — fixed with an explicit `line-height: normal` override
+     scoped to `.cls-hero h1`.
+- **Verified:** no console errors; header/footer inject correctly; no horizontal overflow at
+  1685/1670px; all corrected values re-confirmed via `getBoundingClientRect`/`getComputedStyle`
+  after each fix. **Not yet screenshot-verified at mobile/tablet widths** (carried over from the
+  original build's approximate `1199px`/`991px`/`767px` breakpoints, same as most other pages in
+  this project pending a dedicated mobile/tablet pass).
+
+### Files added/changed
+
+Files added: `cloud-services.html`, `css/pages/cloud-services.css`,
+`js/cloud-services.js`.
+
+Files changed: `js/header.js` (2 anchors — desktop mega-panel + mobile menu) and `js/footer.js`
+(1 anchor) — the dead `#cloud-services` anchors now point at the real page.
+
+Assets fetched via the same-origin browser-tab + fetch/blob/download technique (all confirmed
+already landed in `assets/images/` this session, no manual move needed — unlike every other page
+in this project so far): `cloud-services-banner.webp`, `cloud-application-modernisation.webp`,
+`cloud-application-replatforming.webp`, `cloud-aws-azure-gcp.webp`,
+`cloud-application-migration-infographic.webp`, `cloud-app-development.webp`. Reused without
+copying: `industries-sectors.webp`, `icon-maintenance.svg`, `icon-project-done.svg`,
+`icon-design-thinking.svg`, `webapp-custom-applications.svg`, 4 award logos, 6 review-person
+images (same order as this page continues to use: Tom Wyman → Richard Heller → Samuel Correns →
+Kabu Projects → Entrepreneur's Organization Gurgaon → Barry Sarnoff).
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/shopify-support-and-maintenance-services/
 - **Local target:** `shopify-support-and-maintenance-services.html`
 - **Last updated:** 2026-07-31

@@ -142,10 +142,10 @@ window.__PARTIALS.header = `
           <div class="mega-cat"><div class="mega-cat-title">Cloud Engineering Services</div><p class="mega-cat-sub">Delivering cloud-native architectures that scale with your ambition.</p>
           <ul class="mega-links">
             <li><a href="cloud-services.html">Cloud Engineering Services</a></li>
-            <li><a href="#infrastructure-management-services">Infrastructure Management &amp; Monitoring</a></li>
-            <li><a href="#aws-consulting-services">AWS Consulting Services</a></li>
-            <li><a href="#microsoft-365-consulting-services">M365 Consulting &amp; Implementation</a></li>
-            <li><a href="#azure-consulting-services">Microsoft Azure Consulting</a></li>
+            <li><a href="infrastructure-management-services.html">Infrastructure Management &amp; Monitoring</a></li>
+            <li><a href="aws-consulting-services.html">AWS Consulting Services</a></li>
+            <li><a href="microsoft-365-consulting.html-services">M365 Consulting &amp; Implementation</a></li>
+            <li><a href="azure-consulting-services.html">Microsoft Azure Consulting</a></li>
           </ul></div>
           <div class="mega-cases">
             <a class="mega-card" href="#case-encardio">
@@ -284,7 +284,7 @@ window.__PARTIALS.header = `
             <a href="#">Cloud Engineering Services</a>
             <ul class="m-sub">
               <li><a href="cloud-services.html">Cloud Engineering Services</a></li>
-              <li><a href="#infrastructure-management-services">Infrastructure Management &amp; Monitoring</a></li>
+              <li><a href="infrastructure-management-services.html">Infrastructure Management &amp; Monitoring</a></li>
               <li><a href="#aws-consulting-services">AWS Consulting Services</a></li>
               <li><a href="#google-cloud-consulting-services">Google Cloud Consulting Services</a></li>
               <li><a href="#microsoft-365-consulting-services">M365 Consulting &amp; Implementation Services</a></li>

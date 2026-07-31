@@ -1,0 +1,515 @@
+/* ==========================================================================
+   IT Infrastructure Management Services — page-scoped styles
+   ========================================================================== */
+
+@font-face {
+  font-family: "PoppinsRef";
+  src: url("../../assets/fonts/poppins-600-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@media (min-width: 1200px) {
+  .ims-page .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.ims-page main :is(h1, h2, h3, h4, h5, h6) {
+  text-transform: none;
+}
+
+.ims-page {
+  font-family: "DM Sans", sans-serif;
+  color: #191919;
+  background: #fff;
+}
+
+/* Decorative page-top banner that the shared header overlays transparently
+   with white nav text, same as other inner-page heroes (`.wraper_inner_banner`
+   theme template — lives outside the Elementor content root, easy to miss on
+   a DOM-only audit). */
+.ims-banner {
+  height: 380px;
+  background-image: url("../../assets/images/infrastructure-monitoring.webp");
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+/* ---- breadcrumb (reused pattern) ---- */
+
+.ims-breadcrumb {
+  padding: 20px 0;
+  background-color: #fbfbfb;
+}
+
+.ims-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.ims-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.ims-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.ims-breadcrumb a:hover {
+  color: rgb(30, 78, 196);
+}
+
+.ims-breadcrumb-list li:last-child span:not(.ims-breadcrumb-sep) {
+  color: #191919;
+}
+
+.ims-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.ims-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- hero title + subtitle ---- */
+
+.ims-hero {
+  padding: 50px 0 0;
+  text-align: center;
+}
+
+.ims-hero h1 {
+  margin: 0;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 45px;
+  font-weight: 600;
+  line-height: normal;
+  color: #1d1a4e;
+}
+
+.ims-subtitle {
+  padding: 2px 0;
+  text-align: center;
+}
+
+.ims-subtitle p {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+/* ---- intro copy (center-aligned on this page) ---- */
+
+.ims-intro {
+  padding: 21px 0 0;
+  text-align: center;
+}
+
+.ims-intro p {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.ims-intro p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Service Desk/Help Desk + Environment Management (3-column card grid, reused pattern) ---- */
+
+.ims-services {
+  padding: 21px 0 17px;
+}
+
+.ims-services-alt {
+  padding: 21px 0 35px;
+}
+
+.ims-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.ims-page .ims-services-grid {
+  padding: 0 15px;
+}
+
+.ims-services-grid article {
+  display: flex;
+  flex-direction: column;
+  border-top: 4px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 14px 46px rgba(0, 26, 87, 0.08);
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0, 0.3, 1),
+    border-color 0.3s;
+}
+
+.ims-services-grid article:hover {
+  transform: translate3d(0, -5px, 0);
+  border-top-color: rgb(30, 78, 196);
+}
+
+.ims-services-grid img {
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  margin: auto auto 0;
+}
+
+.ims-services-grid h3 {
+  margin: 0;
+  padding: 30px 30px 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: normal;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.ims-services-grid p {
+  margin: 0;
+  padding: 0 30px 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  text-align: left;
+}
+
+/* ---- "Other Factors to consider:" section heading ---- */
+
+.ims-other-factors {
+  padding: 25px 0 0;
+  text-align: center;
+}
+
+.ims-other-factors h2 {
+  margin: 0;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+/* ---- Offer Improved Solutions / Consulting (2-column stacked heading+paragraph) ---- */
+
+.ims-factors {
+  padding: 25px 0 0;
+}
+
+.ims-factors-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 60px;
+}
+
+.ims-factors-col h3 {
+  margin: 0 0 10px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+.ims-factors-col p {
+  margin: 0 0 26px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.ims-factors-col p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- stats (reused pattern) ---- */
+
+.ims-stats {
+  padding: 120px 0;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.ims-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.ims-stat-grid article {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid #ddd;
+}
+
+.ims-stat-grid article:last-child {
+  border-right: 0;
+}
+
+.ims-stat-grid img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+}
+
+.ims-stat-grid strong {
+  display: block;
+  font:
+    400 32px/48px "Poppins",
+    sans-serif;
+}
+
+.ims-stat-grid h3 {
+  margin: 0 0 8px;
+  font:
+    400 16px/24px "Poppins",
+    sans-serif;
+}
+
+.ims-stat-grid p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* ---- Industries We Serve (heading + single image) ---- */
+
+.ims-industries {
+  padding: 0;
+  text-align: center;
+}
+
+.ims-industries h2 {
+  margin: 0 0 30px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #191919;
+}
+
+.ims-industries img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ---- awards (reused pattern) ---- */
+
+.ims-awards {
+  padding: 55px 0 8px;
+  text-align: center;
+}
+
+.ims-awards h2 {
+  margin: 0 0 40px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+.ims-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.ims-award-grid img {
+  display: block;
+  height: 150px;
+  width: auto;
+}
+
+.ims-award-grid .ims-microsoft {
+  height: 77px;
+}
+
+/* ---- client reviews (reused pattern) ---- */
+
+.ims-reviews {
+  padding: 50px 0 30px;
+}
+
+.ims-reviews h2 {
+  margin: 0 0 40px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.ims-review-viewport {
+  overflow: hidden;
+}
+
+.ims-review-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ims-review-card {
+  flex: 0 0 540px;
+  height: 400px;
+  padding: 37px 35px 47px;
+  background: #f4f4f4;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.ims-stars {
+  color: #ffb600;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.ims-review-card blockquote {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  flex: 1 1 auto;
+}
+
+.ims-review-person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.ims-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.ims-review-person p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  color: #191919;
+}
+
+.ims-review-person strong {
+  font-weight: 700;
+  color: #1d1a4e;
+}
+
+.ims-review-person span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ---- responsive ---- */
+
+@media (max-width: 1199px) {
+  .ims-services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ims-factors-grid {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+  }
+}
+
+@media (max-width: 991px) {
+  .ims-hero h1 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ims-banner {
+    height: 320px;
+    background-position: 40% 50%;
+  }
+
+  .ims-breadcrumb-list {
+    font-size: 12px;
+  }
+
+  .ims-hero h1 {
+    font-size: 30px;
+    line-height: 1.25;
+  }
+
+  .ims-subtitle p {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .ims-intro p,
+  .ims-factors-col p {
+    text-align: justify;
+  }
+
+  .ims-other-factors h2 {
+    font-size: 26px;
+  }
+
+  .ims-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ims-stat-grid article {
+    border-right: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  .ims-stat-grid article:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .ims-review-card {
+    flex: 0 0 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ims-review-track,
+  .ims-services-grid article {
+    transition: none !important;
+  }
+}
