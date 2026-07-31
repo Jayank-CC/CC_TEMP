@@ -141,7 +141,7 @@ window.__PARTIALS.header = `
         <div class="mega-tab-panel" id="tab-cloud" role="tabpanel" hidden>
           <div class="mega-cat"><div class="mega-cat-title">Cloud Engineering Services</div><p class="mega-cat-sub">Delivering cloud-native architectures that scale with your ambition.</p>
           <ul class="mega-links">
-            <li><a href="#cloud-services">Cloud Engineering Services</a></li>
+            <li><a href="cloud-services.html">Cloud Engineering Services</a></li>
             <li><a href="#infrastructure-management-services">Infrastructure Management &amp; Monitoring</a></li>
             <li><a href="#aws-consulting-services">AWS Consulting Services</a></li>
             <li><a href="#microsoft-365-consulting-services">M365 Consulting &amp; Implementation</a></li>
@@ -283,7 +283,7 @@ window.__PARTIALS.header = `
           <li class="m-group">
             <a href="#">Cloud Engineering Services</a>
             <ul class="m-sub">
-              <li><a href="#cloud-services">Cloud Engineering Services</a></li>
+              <li><a href="cloud-services.html">Cloud Engineering Services</a></li>
               <li><a href="#infrastructure-management-services">Infrastructure Management &amp; Monitoring</a></li>
               <li><a href="#aws-consulting-services">AWS Consulting Services</a></li>
               <li><a href="#google-cloud-consulting-services">Google Cloud Consulting Services</a></li>

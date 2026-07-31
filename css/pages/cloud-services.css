@@ -1,0 +1,631 @@
+/* ==========================================================================
+   Cloud Consulting Services & Solutions — page-scoped styles
+   ========================================================================== */
+
+@font-face {
+  font-family: "PoppinsRef";
+  src: url("../../assets/fonts/poppins-600-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@media (min-width: 1200px) {
+  .cls-page .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.cls-page main :is(h1, h2, h3, h4, h5, h6) {
+  text-transform: none;
+}
+
+.cls-page {
+  font-family: "DM Sans", sans-serif;
+  color: #191919;
+  background: #fff;
+}
+
+/* Decorative page-top banner that the shared header overlays transparently
+   with white nav text, same as other inner-page heroes. */
+.cls-banner {
+  height: 380px;
+  background-image: url("../../assets/images/cloud-services-banner.webp");
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+/* ---- breadcrumb (reused pattern) ---- */
+
+.cls-breadcrumb {
+  padding: 20px 0;
+  background-color: #fbfbfb;
+}
+
+.cls-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.cls-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.cls-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.cls-breadcrumb a:hover {
+  color: rgb(30, 78, 196);
+}
+
+.cls-breadcrumb-list li:last-child span:not(.cls-breadcrumb-sep) {
+  color: #191919;
+}
+
+.cls-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.cls-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- hero title + subtitle ---- */
+
+.cls-hero {
+  padding: 50px 0 0;
+  text-align: center;
+}
+
+.cls-hero h1 {
+  margin: 0;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 45px;
+  font-weight: 600;
+  line-height: normal;
+  color: #1d1a4e;
+}
+
+.cls-subtitle {
+  padding: 2px 0;
+  text-align: center;
+}
+
+.cls-subtitle p {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+/* ---- intro copy ---- */
+
+.cls-intro {
+  padding: 21px 0 0;
+}
+
+.cls-intro p {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  text-align: left;
+}
+
+.cls-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.cls-intro a {
+  color: #000;
+  text-decoration: underline;
+}
+
+/* ---- key services (3-column icon-image grid) ---- */
+
+.cls-services {
+  padding: 40px 0;
+}
+
+.cls-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.cls-services-grid article {
+  border-top: 4px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 14px 46px rgba(0, 26, 87, 0.08);
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1), border-color 0.3s;
+}
+
+.cls-services-grid article:hover {
+  transform: translate3d(0, -5px, 0);
+  border-top-color: rgb(30, 78, 196);
+}
+
+.cls-services-grid img {
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  margin: 25px auto 0;
+}
+
+.cls-services-grid h3 {
+  margin: 24px 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: normal;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.cls-services-grid p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  text-align: left;
+}
+
+/* ---- Cloud Security / Cloud Innovation (2-column stacked heading+paragraph) ---- */
+
+.cls-focus {
+  padding: 90px 0;
+}
+
+.cls-focus-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 60px;
+}
+
+.cls-focus-col h3 {
+  margin: 0 0 10px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+.cls-focus-col p {
+  margin: 0 0 26px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.cls-focus-col p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Application migration / Cloud app development (2-column image + list) ---- */
+
+.cls-migrate {
+  padding: 0 0 70px;
+}
+
+.cls-migrate-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 60px;
+}
+
+.cls-migrate-col h3 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+.cls-migrate-col h4 {
+  margin: 20px 0 10px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.cls-migrate-img {
+  margin: 0 0 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.cls-migrate-img:hover {
+  transform: translate3d(-10px, 0, 0);
+}
+
+.cls-migrate-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cls-migrate-col p {
+  margin: 0 0 10px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.cls-dash-list {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.cls-dash-list li {
+  position: relative;
+  padding: 0 0 10px 25px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.cls-dash-list li::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 10px;
+  height: 1.4px;
+  background: #000;
+}
+
+.cls-connect-btn {
+  display: inline-block;
+  padding: 8px 19px;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  background: rgb(30, 78, 196);
+  border-radius: 4px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.cls-connect-btn:hover {
+  transform: translateY(-5px);
+}
+
+/* ---- stats (reused pattern) ---- */
+
+.cls-stats {
+  padding: 90px 0;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.cls-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.cls-stat-grid article {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid #ddd;
+}
+
+.cls-stat-grid article:last-child {
+  border-right: 0;
+}
+
+.cls-stat-grid img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+}
+
+.cls-stat-grid strong {
+  display: block;
+  font: 400 32px/48px "Poppins", sans-serif;
+}
+
+.cls-stat-grid h3 {
+  margin: 0 0 8px;
+  font: 400 16px/24px "Poppins", sans-serif;
+}
+
+.cls-stat-grid p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* ---- "Why Cloud Consulting Services?" section heading ---- */
+
+.cls-why {
+  padding: 58px 0 0;
+  text-align: center;
+}
+
+.cls-why h2 {
+  margin: 0;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+/* ---- Areas of Growth / Automatic Updates (2-column stacked heading+paragraph) ---- */
+
+.cls-growth {
+  padding: 25px 0 50px;
+}
+
+.cls-growth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 60px;
+}
+
+.cls-growth-col h3 {
+  margin: 0 0 10px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+.cls-growth-col p {
+  margin: 0 0 26px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.cls-growth-col p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Industries We Serve (heading + single image) ---- */
+
+.cls-industries {
+  padding: 49px 0 0;
+  text-align: center;
+}
+
+.cls-industries h2 {
+  margin: 0 0 30px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #191919;
+}
+
+.cls-industries img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ---- awards (reused pattern) ---- */
+
+.cls-awards {
+  padding: 70px 0;
+  text-align: center;
+}
+
+.cls-awards h2 {
+  margin: 0 0 40px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+.cls-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.cls-award-grid img {
+  display: block;
+  height: 150px;
+  width: auto;
+}
+
+.cls-award-grid .cls-microsoft {
+  height: 77px;
+}
+
+/* ---- client reviews (reused pattern) ---- */
+
+.cls-reviews {
+  padding: 20px 0 90px;
+}
+
+.cls-reviews h2 {
+  margin: 0 0 40px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.cls-review-viewport {
+  overflow: hidden;
+}
+
+.cls-review-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cls-review-card {
+  flex: 0 0 540px;
+  height: 400px;
+  padding: 37px 35px 47px;
+  background: #f4f4f4;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.cls-stars {
+  color: #ffb600;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.cls-review-card blockquote {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  flex: 1 1 auto;
+}
+
+.cls-review-person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.cls-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.cls-review-person p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  color: #191919;
+}
+
+.cls-review-person strong {
+  font-weight: 700;
+  color: #1d1a4e;
+}
+
+.cls-review-person span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ---- responsive ---- */
+
+@media (max-width: 1199px) {
+  .cls-services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cls-focus-grid,
+  .cls-migrate-grid,
+  .cls-growth-grid {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+  }
+}
+
+@media (max-width: 991px) {
+  .cls-hero h1 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 767px) {
+  .cls-banner {
+    height: 320px;
+    background-position: 40% 50%;
+  }
+
+  .cls-breadcrumb-list {
+    font-size: 12px;
+  }
+
+  .cls-hero h1 {
+    font-size: 30px;
+    line-height: 1.25;
+  }
+
+  .cls-subtitle p {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .cls-intro p,
+  .cls-focus-col p,
+  .cls-migrate-col p,
+  .cls-growth-col p {
+    text-align: justify;
+  }
+
+  .cls-why h2 {
+    font-size: 26px;
+  }
+
+  .cls-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cls-stat-grid article {
+    border-right: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  .cls-stat-grid article:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .cls-review-card {
+    flex: 0 0 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cls-review-track,
+  .cls-migrate-img,
+  .cls-connect-btn,
+  .cls-services-grid article {
+    transition: none !important;
+  }
+}
