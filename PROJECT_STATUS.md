@@ -2,6 +2,215 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/shopify-migration-services/
+- **Local target:** `shopify-migration-services.html`
+- **Last updated:** 2026-07-31 (follow-up session — hero fix + missing section images)
+- **State:** Hero background image landed and three real bugs found/fixed by direct CSSOM
+  measurement against the live reference (not just a visual re-look):
+  1. **Hero content column was too wide** (`640px` guessed vs. the reference's real 2-column
+     Elementor layout: two `50%` columns inside the standard `1140px` container, text column
+     `570px` with `padding:10px 50px 10px 10px`, i.e. effective text width `510px`). Restructured
+     the hero markup to `.container.shpm-hero-container > .shpm-hero-inner` (was a single div
+     wearing both classes) so the text column can be narrower than the boxed container without
+     fighting its own centering — this is why the graphic was rendering as if colliding with
+     "Migration Services" before the fix.
+  2. **Hero subtitle font-size was wrong** (`32px/1.3` guessed vs. measured `42px/52px`
+     line-height) — confirmed via `getComputedStyle` on the exact `elementor-element-ec75058`
+     heading widget, not eyeballed.
+  3. **Entire responsive hero cascade was approximated, not measured** — replaced with the exact
+     authored breakpoints read via `document.styleSheets` CSSOM walk on
+     `elementor-element-6aae411`: base `background-position:-420px 0`/`padding:160px 0`;
+     `min-width:2400px` → `center center`/`180px 0 120px`; `max-width:1366px` → `center center`;
+     `max-width:1024px` → **swaps to a completely different, dedicated portrait mobile image**
+     (`shopify-migration-services-banner-mobile1.avif`, 600×900) at `center top`/`cover`,
+     `padding:600px 20px 32px` (huge top padding reveals the image above the text — this
+     "image-stacks-above-text-via-padding" pattern did not exist in the previous build at all);
+     `max-width:880px` → `padding:500px 20px 0`; `max-width:767px` → `background-size:contain`,
+     `padding:340px 20px 30px`. Text elements (badge/H1/subtitle/CTA) also got their real
+     measured `≤767px` padding/font-size overrides (badge `14px 30px`, H1 `28px/42px`, subtitle
+     `22px/26px`, CTA `14px 30px`), replacing guessed `991px`/`767px` values.
+  4. **"Key Benefits of Our Migration Services" and "Industries We Serve" were built as
+     text-only, image-less sections** — the user caught this. The reference actually renders
+     both as **one single 2-column Elementor section** (`elementor-element-88ba067`), each
+     column an image + heading + intro + 5-item dot list. Restructured the two previously
+     separate full-width `.shpm-benefits`/`.shpm-industries-text` sections into one
+     `.shpm-benefits-industries` section with a `.shpm-bi-grid` (CSS grid, stacks to 1 column
+     at `≤1199px`), added both `<img>` elements (fetched below), `border-radius:10px`, and a
+     `flex order:-1` mobile-only swap on the "Key Benefits" image so it moves above the heading
+     at `≤767px` — this reproduces the reference's own duplicate-widget-with-responsive-
+     visibility-classes trick (one image hidden-desktop/shown-mobile at the top, a second
+     identical image hidden-mobile/shown-desktop at the bottom) without duplicating the image
+     element, matching the same CSS-`order` reordering technique already used for the mobile
+     services-column swap on `shopify-integration-services.html`.
+  5. **Sitewide bullet-style bug found while fixing #4**: every `icon-list` widget on this page
+     (the intro's "Core components…" list, "Key Benefits", "Industries We Serve") actually
+     renders a plain filled-circle SVG bullet (`e-fas-circle`, 6px, black) with `black`/`500`-
+     weight bold lead-ins — not the navy dash-bullet (`—`, `700`-weight navy bold) originally
+     built. Confirmed via `getComputedStyle` on the reference's actual `<li>`/`<strong>` nodes
+     for two different lists, both agreeing. Since a same-styled `.shpm-dot-list` class (6px
+     circle, correct position) already existed in this stylesheet for the technical-grid
+     section, all three affected lists were switched from `.shpm-dash-list` to `.shpm-dot-list`
+     and the now-fully-unused `.shpm-dash-list` rule block was deleted (confirmed zero remaining
+     references first). The shared `.shpm-dot-list li strong` rule itself was also corrected
+     from `700`/navy to `500`/black to match.
+- **Verified so far:** local build at 1685px browser width now visually matches the reference
+  hero almost exactly (badge/H1/subtitle/paragraph/CTA position, graphic position/scale/gap from
+  text) and the benefits/industries section (bullet style, image positions, both images loading,
+  no broken-image icons, no console/network errors on any page-specific asset at this width).
+- **Blocked on 1 remaining asset:** `shopify-migration-services-banner-mobile1.avif` (600×900,
+  fetched via the same-origin browser-tab technique, browser download triggered — same
+  Downloads-folder limitation as every other asset this project has needed) still needs to be
+  moved into `assets/images/` by the user before the `≤1024px` hero tier can be verified.
+  `shopify-migration-services-banner3-1.avif` and both `key-benefits-of-dur-migration-services.png`
+  / `industries-we-serve2.avif` were fetched the same way and **have already been moved into
+  place and confirmed rendering** this session.
+
+### New class prefix: `shpm-*`
+
+This is by far the most content-dense page built this project — heavy SEO/AI-search-optimized
+copy (explicit "E-E-A-T principles" mention in the copy itself) with several structural
+patterns not seen on any other CloudConverge page:
+
+- **A genuine HTML `<table>`** for "Comparison: CloudConverge vs. DIY vs. Generalist Agencies"
+  (7 rows × 4 columns: Feature/CloudConverge/DIY Apps/Generalist Agencies) — confirmed via
+  direct DOM read (`querySelectorAll('table')`) rather than assumed to be a styled grid.
+  Measured directly: navy header row `rgb(11,61,145)` white text, alternating body-row
+  stripes `rgb(244,249,255)`/white (the striping lives on the `<tr>`, not the `<td>` — an easy
+  place to get the selector wrong), `15px`/`15px 12px` cell padding, whole table on a pale
+  `rgb(234,243,251)` section background. Wrapped in `.shpm-compare-scroll{overflow-x:auto}`
+  with a `min-width:640px` floor on the table at ≤767px so it scrolls horizontally within its
+  own section rather than blowing out the page at mobile widths.
+- **A two-column "Technical & Implementation Details" section** — "Platforms We Migrate
+  From:" (5 items) and "Data Types We Transfer:" (4 items), each item a bold lead-in phrase
+  plus a description, one item literally containing an inline link ("Read our step-by-step
+  Magento to Shopify migration guide") mid-sentence. Confirmed via the reference's own DOM
+  that this is 5/4 separate single-item `icon-list` widgets per column (not one combined
+  list), with a plain filled-circle bullet — reproduced here as one `<ul>` per column for
+  simplicity since the visual result is identical.
+- **Three separate dash-bullet-list sections** ("Core components…" inside the intro, "Key
+  Benefits of Our Migration Services", and a **text-only** "Industries We Serve") all use the
+  same bold-lead-in-plus-description list pattern — confirmed this is genuinely different from
+  every other page's "Industries We Serve", which uses a single reused illustration image
+  (`industries-sectors.webp`) with no bullet list at all. **This page has both**: the text-list
+  version near the top or the page, and the image version reused verbatim near the bottom
+  (right before Awards) — confirmed via two separate DOM matches for the identical heading
+  text "Industries We Serve" at very different scroll positions, not a duplicate-content bug.
+- **Hero badge is a small Elementor button widget, not a custom "badge" element** — pill shape
+  (`border-radius:16px`), `linear-gradient(128deg, rgb(1,97,252) 0%, rgb(0,94,251) 100%)`,
+  uppercase 14px white text, FontAwesome cloud-upload-alt icon, confirmed via
+  `.elementor-button-text` DOM search (a direct-equality text search for the badge's own
+  uppercase text failed — the actual DOM text is title-case "Expert Shopify Migration" with
+  `text-transform:uppercase` applied via CSS, the same "capitalize/uppercase leaks from CSS,
+  not the source text" gotcha documented on earlier pages, just hitting `text-transform`
+  instead of `text-transform:capitalize` this time).
+- **Hero subtitle** ("Zero Downtime, 100% Data Integrity") is a single heading widget with
+  `<strong class="scolor">` wrapping just "Zero" and "100%" (cyan `rgb(23,214,251)`), the rest
+  plain white — confirmed via direct DOM read rather than assumed from the screenshot.
+- **CTA gradient banner reuses the exact same `hed-cta` pattern/colors** already documented on
+  `hire-erpnext-developer.html` (`linear-gradient(105deg,#153c9d 0%,#102156 100%)`,
+  `padding:110px 0 111px`) — confirmed via `getComputedStyle` match down to the literal RGB
+  values, not just a visual approximation. The button text itself
+  ("Get Your Free Migration Quote") is a `radiantthemes-custom-button`/`hover-style-five`
+  widget, same family as `ecom-connect-btn` on the ecommerce page — its default background
+  read as transparent via `getComputedStyle` (likely because the widget carries an
+  `elementor-invisible` entrance-animation class that suppresses normal styling until
+  scrolled into view in a real browser), so the solid-blue default + `translateY(-5px)` hover
+  was carried over from that already-documented pattern rather than re-measured from a
+  possibly-pre-animation computed style.
+- Reviews reuse the same 6 testimonials as every other page, in **yet another order**:
+  Richard Heller → Samuel Correns → Kabu Projects → Entrepreneur's Organization Gurgaon →
+  Barry Sarnoff → Tom Wyman — confirmed via `get_page_text` on the live reference rather than
+  copying a sibling page's order (this project's now-repeated lesson: never assume review
+  order carries over between pages).
+- FAQ answers for the 7 initially-collapsed questions (only Q1 renders open by default) were
+  captured by force-adding `.show` to every `.collapse` panel on the live reference — the same
+  proven technique used on earlier FAQ accordions.
+
+### Technique notes from this session
+
+- **A brand-new, never-navigated tab is required for the same-origin nested-iframe technique
+  to work reliably against the live cross-origin reference** — confirmed again this session.
+  Reusing a tab that had already loaded a real page and then been `document.open()/write()`-
+  overwritten caused the inner iframe to hang at `readyState:"loading"` indefinitely; a fresh
+  tab navigated once to a lightweight same-origin URL (`/robots.txt`) before building the
+  harness worked every time.
+- **Text-node search pitfall**: several `Array.from(document.querySelectorAll('*')).filter(el
+  => el.children.length===0 && el.textContent===X)` searches returned empty even though
+  `document.body.innerText` clearly contained the target string. Root cause found this
+  session: Elementor's text-editor widgets inject an inline `<style>` tag as the *first child*
+  of `.elementor-widget-container`, so the container that "should" be a childless text leaf
+  actually has `children.length >= 1` (the style tag, sometimes plus the real content wrapper)
+  and gets excluded by a strict `children.length===0` filter. Fixed by dropping the
+  `children.length===0` requirement entirely and instead searching all elements for
+  `textContent.includes(...)`, then picking the shortest (`textContent.length`) match as the
+  most specific container — or, more reliably, using `document.createTreeWalker(body,
+  NodeFilter.SHOW_TEXT)` to find the actual text node directly and reading
+  `.parentElement`, which is immune to this `<style>`-as-child issue entirely. Worth defaulting
+  to the TreeWalker approach first on any future page with this same symptom.
+- **`computer` tool's `zoom` action stayed reliable this session even during a stretch where
+  full-page `screenshot` calls were timing out** ("Script injection timed out") — `zoom` with
+  an explicit `region` matching the tab's actual viewport size is a good fallback when
+  `screenshot` is misbehaving.
+
+### Files added/changed
+
+Files added: `shopify-migration-services.html`, `css/pages/shopify-migration-services.css`,
+`js/shopify-migration-services.js`.
+
+Files changed: `js/header.js` (1 href — mobile mega-menu link) and `js/footer.js` (1 href) —
+the dead `#shopify-migration-services` anchors now point at the real page. The desktop nav
+link in `js/header.js` was already correct before this session.
+
+Assets needed: `shopify-migration-services-banner3-1.avif` (hero full-bleed background,
+fetched via `fetch(...).then(blob)` + synthetic `<a download>` click on a real same-origin tab
+— **not yet confirmed landed** in `assets/images/`, the browser-download-to-real-Downloads
+limitation documented on every earlier page still applies). Reused without copying:
+`industries-sectors.webp`, `award-clutch.png`, `award-app-development.png`,
+`award-goodfirms.png`, `award-microsoft.webp`, `richard-heller.webp`, `samuel-correns.webp`,
+`kabu-projects-logo.webp`, `entrepreneurs-organization-gurgaon.webp`, `barry-sarnoff.jpg`,
+`tom-wyman.webp`.
+
+### Verified this session
+
+- Console: no page errors on repeated reload.
+- Network: every reused page-specific image, both fonts, and both scripts resolve 200/304;
+  the not-yet-placed hero background image does not even appear as a failed request in this
+  environment's network tracker (CSS `background-image` loads for a still-missing local file
+  seem not to be logged the same way `<img>` 404s are — not treated as a blocker since the
+  gradient fallback already renders correctly).
+- No horizontal overflow at 1685/768/390px (`document.documentElement.scrollWidth <=
+  clientWidth` at all three, via the same-origin nested-iframe technique for the two narrower
+  widths).
+- FAQ accordion is single-open (tested clicking item 3 programmatically, confirmed exactly one
+  `.is-open` out of 8 items).
+- Consultation form: honeypot-empty submit shows the success message and resets fields
+  (tested programmatically).
+- `node --check` passes on `js/shopify-migration-services.js`, `js/header.js`, `js/footer.js`.
+
+### NOT verified — carried open items
+
+1. **Mobile hero tier (`≤1024px`) cannot be visually confirmed locally yet** — blocked on the
+   user moving `shopify-migration-services-banner-mobile1.avif` into `assets/images/` (see
+   "Blocked on 1 remaining asset" above). The CSS is already written and measured from the
+   reference's own CSSOM (not guessed), but has not been screenshot-compared since the image
+   file isn't in place locally yet.
+2. **Exact mobile/tablet pixel-matching for the REST of the page** (the rigor applied to
+   `shopify-integration-services.html` — CSSOM-extracted breakpoint values, column-reversal
+   order swaps, mobile-only `text-align:justify`, etc.) has only been done for the hero and the
+   benefits/industries section so far this session. The intro/consult-form grid, "Why Choose"
+   block, comparison table, technical two-column list, CTA banner, FAQ accordion, and reviews
+   carousel still only have the original approximate `1199px`/`767px` breakpoint values from the
+   initial build — **not yet CSSOM-verified against the reference**. This is the next planned
+   step (full desktop pass, then full tablet/mobile pass).
+3. Hover states on the hero CTA, badge, and the "Get Your Free Migration Quote" CTA banner
+   button were not diffed against the reference's own hover treatment (only default state was
+   screenshot-compared).
+4. The `min-width:2400px` hero tier (background `center center`, `padding:180px 0 120px`) was
+   added from the measured CSSOM rule but has not been rendered/screenshot-checked at an actual
+   ≥2400px viewport (no 4K check performed yet this session).
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/shopify-integration-services/
 - **Local target:** `shopify-integration-services.html`
 - **State:** Built, screenshot-verified section-by-section against the live reference at

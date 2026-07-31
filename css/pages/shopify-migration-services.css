@@ -1,0 +1,944 @@
+/* ==========================================================================
+   Shopify Migration Services — page-scoped styles
+   ========================================================================== */
+
+@font-face {
+  font-family: "PoppinsRef";
+  src: url("../../assets/fonts/poppins-600-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@media (min-width: 1200px) {
+  .shpm-page .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.shpm-page main :is(h1, h2, h3, h4, h5, h6) {
+  text-transform: none;
+}
+
+.shpm-page .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.shpm-page {
+  font-family: "DM Sans", sans-serif;
+  color: #191919;
+  background: #fff;
+}
+
+/* ---- hero ---- */
+
+.shpm-hero {
+  position: relative;
+  padding: 160px 0;
+  box-sizing: border-box;
+  background-color: rgb(0, 19, 93);
+  background-image: url("../../assets/images/shopify-migration-services-banner3-1.avif");
+  background-position: -420px 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.shpm-hero-container {
+  position: relative;
+}
+
+.shpm-hero-inner {
+  position: relative;
+  max-width: 570px;
+  padding: 10px 50px 10px 10px;
+  box-sizing: border-box;
+}
+
+.shpm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 24px;
+  padding: 8px 18px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  background: linear-gradient(128deg, rgb(1, 97, 252) 0%, rgb(0, 94, 251) 100%);
+  border-radius: 16px;
+}
+
+.shpm-badge svg {
+  width: 16px;
+  height: 16px;
+  fill: #fff;
+}
+
+.shpm-hero h1 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 66px;
+  color: #fff;
+}
+
+.shpm-hero-subtitle {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 52px;
+  color: #fff;
+}
+
+.shpm-hero-subtitle strong {
+  font-weight: 600;
+  color: rgb(23, 214, 251);
+}
+
+.shpm-hero-copy {
+  max-width: 480px;
+  margin: 0 0 32px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #fff;
+}
+
+.shpm-hero-cta {
+  display: inline-block;
+  padding: 16px 40px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(95deg, rgb(0, 96, 247) 0%, rgb(41, 136, 250) 54%);
+  border-radius: 4px;
+  transition: opacity 0.25s ease;
+}
+
+.shpm-hero-cta:hover {
+  opacity: 0.85;
+}
+
+/* ---- breadcrumb ---- */
+
+.shpm-breadcrumb {
+  padding: 16px 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  background: #fbfbfb;
+  border: 0;
+}
+
+.shpm-breadcrumb-list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shpm-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.shpm-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.shpm-breadcrumb a:hover {
+  color: rgb(30, 78, 196);
+}
+
+.shpm-breadcrumb-list li:last-child span:not(.shpm-breadcrumb-sep) {
+  color: #191919;
+}
+
+.shpm-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.shpm-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- intro + consultation form ---- */
+
+.shpm-intro {
+  padding: 70px 0 40px;
+}
+
+.shpm-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 741px) minmax(0, 399px);
+  gap: 0;
+  align-items: start;
+}
+
+.shpm-intro-copy {
+  padding-right: 60px;
+  box-sizing: border-box;
+}
+
+.shpm-intro-copy h2 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #1d1a4e;
+}
+
+.shpm-intro-copy p {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.shpm-intro-copy h3 {
+  margin: 30px 0 16px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #1d1a4e;
+}
+
+.shpm-consult-card {
+  padding: 50px 60px;
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 0;
+  box-shadow: 0 6px 60px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.shpm-consult-eyebrow {
+  margin: 0 0 6px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(30, 78, 196);
+}
+
+.shpm-consult-title {
+  margin: 0 0 22px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #191919;
+}
+
+.shpm-consult-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.shpm-hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.shpm-consult-form input,
+.shpm-consult-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  color: #191919;
+  background: #f4f4f4;
+  border: 0;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.shpm-consult-form input::placeholder,
+.shpm-consult-form textarea::placeholder {
+  color: #8a8a8a;
+}
+
+.shpm-consult-submit {
+  padding: 12px 45px;
+  margin-top: 6px;
+  align-self: flex-start;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  background: rgb(30, 78, 196);
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+
+.shpm-consult-submit:hover {
+  opacity: 0.85;
+}
+
+.shpm-form-success {
+  margin: 10px 0 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  color: #191919;
+}
+
+/* ---- key benefits / industries-text (2-col dash-list section) ---- */
+
+.shpm-benefits-industries {
+  padding: 90px 0;
+}
+
+.shpm-bi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 60px;
+}
+
+.shpm-benefits,
+.shpm-industries-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.shpm-benefits h2,
+.shpm-industries-text h2 {
+  margin: 0 0 16px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.shpm-benefits-intro,
+.shpm-industries-text-intro {
+  margin: 0 0 24px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.shpm-bi-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 24px;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.shpm-bi-img:hover {
+  transform: translate3d(-10px, 0, 0);
+}
+
+.shpm-industries-text .shpm-bi-img {
+  order: -1;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+/* ---- why choose (no image, stacked) ---- */
+
+.shpm-why {
+  padding: 60px 0;
+}
+
+.shpm-why h2 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.shpm-why-intro {
+  max-width: 800px;
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.shpm-why-item {
+  margin: 0 0 24px;
+}
+
+.shpm-why-item:last-child {
+  margin-bottom: 0;
+}
+
+.shpm-why-item h3 {
+  margin: 0 0 4px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+.shpm-why-item p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+/* ---- comparison table ---- */
+
+.shpm-compare {
+  padding: 60px 0;
+  background: rgb(234, 243, 251);
+}
+
+.shpm-compare h2 {
+  margin: 0 0 30px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.shpm-compare-scroll {
+  overflow-x: auto;
+}
+
+.shpm-compare-table {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  color: #191919;
+  background: #fff;
+}
+
+.shpm-compare-table th {
+  padding: 15px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  text-align: left;
+  background: rgb(11, 61, 145);
+}
+
+.shpm-compare-table td {
+  padding: 15px 12px;
+  vertical-align: top;
+}
+
+.shpm-compare-table tbody tr:nth-child(odd) {
+  background: rgb(244, 249, 255);
+}
+
+.shpm-compare-table tbody tr:nth-child(even) {
+  background: #fff;
+}
+
+/* ---- technical & implementation details (two-column list) ---- */
+
+.shpm-technical {
+  padding: 60px 0;
+}
+
+.shpm-technical h2 {
+  margin: 0 0 40px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.shpm-technical-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 60px;
+}
+
+.shpm-technical-col h3 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.shpm-dot-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shpm-dot-list li {
+  position: relative;
+  margin: 0 0 16px;
+  padding-left: 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.shpm-dot-list li:last-child {
+  margin-bottom: 0;
+}
+
+.shpm-dot-list li::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 2px;
+  width: 6px;
+  height: 6px;
+  background: #191919;
+  border-radius: 50%;
+}
+
+.shpm-dot-list li strong {
+  font-weight: 500;
+  color: #000;
+}
+
+.shpm-dot-list a {
+  color: rgb(30, 78, 196);
+}
+
+/* ---- CTA gradient banner ---- */
+
+.shpm-cta {
+  padding: 110px 0 111px;
+  text-align: center;
+  background: linear-gradient(105deg, #153c9d 0%, #102156 100%);
+}
+
+.shpm-cta h3 {
+  max-width: 720px;
+  margin: 0 auto 16px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.shpm-cta p {
+  max-width: 640px;
+  margin: 0 auto 30px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #fff;
+}
+
+.shpm-cta-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  background: rgb(30, 78, 196);
+  border-radius: 4px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.shpm-cta-btn:hover {
+  transform: translateY(-5px);
+}
+
+/* ---- FAQ accordion ---- */
+
+.shpm-faq {
+  padding: 70px 0;
+  background: rgb(247, 251, 255);
+}
+
+.shpm-faq h2 {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.shpm-accordion {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.shpm-acc-item {
+  margin: 0 0 10px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.shpm-acc-item:last-child {
+  margin-bottom: 0;
+}
+
+.shpm-acc-btn {
+  display: block;
+  width: 100%;
+  padding: 0 20px;
+  min-height: 60px;
+  font: inherit;
+  text-align: left;
+  background: #fff;
+  border: 0;
+  cursor: pointer;
+}
+
+.shpm-acc-item.is-open .shpm-acc-btn {
+  background: rgb(30, 78, 196);
+}
+
+.shpm-acc-q {
+  position: relative;
+  display: block;
+  padding: 20px 40px 20px 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.shpm-acc-item.is-open .shpm-acc-q {
+  color: #fff;
+}
+
+.shpm-acc-q::before {
+  content: "+";
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 20px;
+  color: #000;
+  text-align: center;
+}
+
+.shpm-acc-item.is-open .shpm-acc-q::before {
+  content: "-";
+  color: #fff;
+}
+
+.shpm-acc-body {
+  padding: 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  background: transparent;
+}
+
+/* ---- industries (reused single-image pattern) ---- */
+
+.shpm-industries {
+  text-align: center;
+  padding: 0 0 74px;
+}
+
+.shpm-industries h2 {
+  margin-bottom: 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-weight: 600;
+  color: #1d1a4e;
+  font-size: 20px;
+  line-height: normal;
+}
+
+.shpm-industries img {
+  display: block;
+  width: 960px;
+  height: 575px;
+  object-fit: contain;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+/* ---- awards ---- */
+
+.shpm-awards {
+  padding: 70px 0;
+  text-align: center;
+}
+
+.shpm-awards h2 {
+  margin: 0 0 40px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+.shpm-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.shpm-award-grid img {
+  display: block;
+  height: 150px;
+  width: auto;
+}
+
+.shpm-award-grid .shpm-microsoft {
+  height: 77px;
+}
+
+/* ---- client reviews ---- */
+
+.shpm-reviews {
+  padding: 20px 0 90px;
+}
+
+.shpm-reviews h2 {
+  margin: 0 0 40px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.shpm-review-viewport {
+  overflow: hidden;
+}
+
+.shpm-review-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.shpm-review-card {
+  flex: 0 0 540px;
+  height: 400px;
+  padding: 37px 35px 47px;
+  background: #f4f4f4;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.shpm-review-card.shpm-review-long {
+  height: 452px;
+}
+
+.shpm-stars {
+  color: #ffb600;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.shpm-review-card blockquote {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  flex: 1 1 auto;
+}
+
+.shpm-review-person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.shpm-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.shpm-review-person p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  color: #191919;
+}
+
+.shpm-review-person strong {
+  font-weight: 700;
+  color: #1d1a4e;
+}
+
+.shpm-review-person span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ---- responsive ---- */
+
+@media (max-width: 1199px) {
+  .shpm-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .shpm-intro-copy {
+    padding-right: 0;
+  }
+
+  .shpm-technical-grid {
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+  }
+
+  .shpm-bi-grid {
+    grid-template-columns: 1fr;
+    gap: 50px 0;
+  }
+}
+
+@media (min-width: 2400px) {
+  .shpm-hero {
+    background-position: center center;
+    padding: 180px 0 120px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .shpm-hero {
+    background-position: center center;
+  }
+}
+
+@media (max-width: 1024px) {
+  .shpm-hero {
+    background-image: url("../../assets/images/shopify-migration-services-banner-mobile1.avif");
+    background-position: center top;
+    background-size: cover;
+    padding: 600px 20px 32px;
+  }
+
+  .shpm-hero-inner {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 880px) {
+  .shpm-hero {
+    padding: 500px 20px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .shpm-hero {
+    background-position: center top;
+    background-size: contain;
+    padding: 340px 20px 30px;
+  }
+
+  .shpm-hero-inner {
+    padding: 0;
+  }
+
+  .shpm-badge {
+    padding: 14px 30px;
+  }
+
+  .shpm-hero h1 {
+    font-size: 28px;
+    line-height: 42px;
+    text-align: left;
+  }
+
+  .shpm-hero-subtitle {
+    font-size: 22px;
+    line-height: 26px;
+  }
+
+  .shpm-hero-copy {
+    text-align: justify;
+  }
+
+  .shpm-hero-cta {
+    padding: 14px 30px;
+  }
+
+  .shpm-benefits .shpm-bi-img {
+    order: -1;
+    margin-top: 0;
+    margin-bottom: 24px;
+  }
+
+  .shpm-benefits h2,
+  .shpm-industries-text h2,
+  .shpm-why h2,
+  .shpm-compare h2,
+  .shpm-technical h2,
+  .shpm-cta h3,
+  .shpm-faq h2 {
+    font-size: 26px;
+  }
+
+  .shpm-consult-card {
+    padding: 30px;
+  }
+
+  .shpm-compare-table {
+    min-width: 640px;
+  }
+
+  .shpm-review-card {
+    flex: 0 0 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shpm-review-track {
+    transition: none !important;
+  }
+}
