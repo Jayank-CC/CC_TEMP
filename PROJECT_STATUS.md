@@ -2,6 +2,336 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/shopify-integration-services/
+- **Local target:** `shopify-integration-services.html`
+- **State:** Built, screenshot-verified section-by-section against the live reference at
+  1685/1920/1440/1366/1280/1024/768/480/390/360px, and iterated on three rounds of user
+  feedback (hover-interaction bug, hero-wheel exact-position bug, and a request to make
+  mobile/tablet exactly match the reference rather than just "no overflow"). All 4 new page
+  images landed and resolve 200. No console errors, no broken page-specific images, no
+  horizontal overflow at any tested width, accordion and consultation-form interactions
+  verified programmatically. The mobile/tablet responsive tiers now use values measured
+  directly off the reference's own compiled Elementor CSS (via `CSSMediaRule` enumeration),
+  not reasoned approximations — see "Mobile/tablet exact-match pass" below.
+- **Last updated:** 2026-07-30
+
+### New class prefix: `shpi-*`
+
+Section order differs from `shopify-development-services.html` in several ways worth
+recording so a future session doesn't assume the two Shopify pages share a layout:
+
+- Hero has **no text overlay** — H1 sits in its own `.shpi-intro` section below the hero,
+  paired with a "Free Consultation / Contact Us" form card (reused verbatim from
+  `hire-erpnext-consultant.html`'s `.hec-consult-*` pattern, renamed `.shpi-consult-*`,
+  including the honeypot field and fake-submit-success JS).
+- A 6-item "integration types" icon grid (CRM/PIM/ERP/POS/Shipping/Accounting) sits between
+  the intro and the services section — `rgb(247,251,255)` background, 3×2 grid, 64px blue
+  (`rgb(38,84,198)`) circle icons with inline FontAwesome-solid SVG paths captured directly
+  from the reference's own rendered `<svg>` elements (cogs, box-open, briefcase, chart-line,
+  shipping-fast, calculator) rather than assumed/approximated glyphs.
+- "Our Package Of Shopify Integration Services" (7 items, not the usual even 8) is a
+  **freeform 2-column layout**, not a symmetric grid: left column holds 3 text items then an
+  illustration image below them; right column holds a hub-diagram image first, then 4 text
+  items below it. Confirmed via direct DOM measurement — this is NOT the `shpd-list-grid`
+  cardless-grid pattern reused elsewhere, it's asymmetric (3+image / image+4).
+- "Why Choose Cloud Converge Shopify Integration Services?" has **no image and no dot-list**,
+  unlike `shpd-why` — just an intro line and 3 stacked title+paragraph blocks, left-aligned
+  H2 (not centered).
+- FAQ is an **8-item** single-open accordion (not 6/7 like other pages), built on the
+  `radiantthemes-accordion`/Bootstrap-collapse DOM pattern reverse-engineered from the
+  reference: closed rows are white with a black `+`, the open row's whole button gets a
+  `rgb(30,78,196)` solid background with white text and a `-` glyph (`::before` content swap).
+  All 8 Q&A pairs were captured by force-expanding every `.collapse` panel via
+  `classList.add('show')` on the live reference (clicking one-by-one risked losing state
+  across the accordion's `data-parent` single-open behavior).
+- A "70+ Happy Customers / 100+ Project Done / 100% Clients Satisfied / 50+ Team Members"
+  stats banner and an "Industries We Serve" single-image section (both previously built once
+  on `custom-web-development.html` as `.cwd-stats`/`.cwd-industries`) are reused **verbatim**
+  here (renamed `shpi-stats`/`shpi-industries`), including the same 4 local icon SVGs
+  (`icon-maintenance.svg`, `icon-project-done.svg`, `icon-design-thinking.svg`,
+  `webapp-custom-applications.svg`) and the same `industries-sectors.webp` image — no new
+  assets needed for these two sections.
+- Awards & Recognition reuses the exact same 4 local logos as
+  `shopify-development-services.html` (`award-clutch.png`, `award-app-development.png`,
+  `award-goodfirms.png`, `award-microsoft.webp`) and the same zero-gap 4-column grid pattern.
+- **Client reviews reuse the same 6 testimonials as every other service page, but in a
+  different order than `shopify-development-services.html`** — confirmed by reading this
+  page's own `get_page_text` dump rather than assuming shpd's order: Tom Wyman → Richard
+  Heller → Samuel Correns → Kabu Projects → Entrepreneur's Organization Gurgaon → Barry
+  Sarnoff (shpd's order starts Samuel Correns/Kabu Projects instead). Lesson reinforced:
+  never carry over a sibling page's review order without checking.
+- H1 color is `#1D1A4E` on this page, confirmed **different** from
+  `shopify-development-services.html`'s own H1 color (`#13255b`) — measured directly rather
+  than assumed, consistent with the project's repeated lesson that CloudConverge does not
+  use one consistent navy across every service page.
+
+### Bug found via user hover-testing: hover transform was on the wrong element
+
+The user reported "when I hover on the image just the image transitions to left but the
+complete card should move a little left." Direct DOM inspection of the reference confirmed
+the `move-image-left-right` class (which drives the hover transform) sits on the **widget
+wrapper div** (`.elementor-widget-image`), not on the `<img>` itself. My first pass had put
+`transition`/`transform` on `.shpi-services-media img`, so only the image content shifted
+while the wrapper (and any surrounding whitespace) stayed put. Fixed by moving both the
+`transition` and the `:hover` transform to `.shpi-services-media` itself (the wrapper),
+matching the reference's actual DOM target.
+
+**Lesson for future pages:** when reproducing a "hover nudge" effect, check which DOM node
+the reference's own hover class is attached to (wrapper vs. inner image) — don't assume the
+`<img>` is always the transformed element.
+
+### Responsive verification technique for this session: same-origin nested iframe
+
+`resize_window` was confirmed broken again this session (`window.innerWidth`/`outerWidth`
+stay pinned at the real window size — 1685px — regardless of the requested width; only
+`outerHeight` responds). Found a working alternative: navigate a tab to the **same origin**
+as the target page (either `127.0.0.1:5500` for the local build or `cloudconverge.io` for
+the reference), then use `document.open()/write()` to replace that tab's document with a
+minimal harness containing a single `<iframe>` whose `src` is a same-origin relative/absolute
+URL. Because the outer harness and the iframe share an origin, `iframe.contentWindow.innerWidth`
+genuinely reflects the iframe's own CSS pixel box (set via the `width`/`height` attributes),
+and `iframe.contentDocument` is fully script-accessible for `getBoundingClientRect`/
+`getComputedStyle`/DOM interaction — unlike a cross-origin iframe (tried framing the live
+`cloudconverge.io` reference directly from a `127.0.0.1:5500` harness; it loaded blank,
+presumably `X-Frame-Options`/CSP blocked). Used this to genuinely test
+1920/1440/1366/1280/1024/768/480/390/360px on this page's own build (confirmed zero
+horizontal overflow at every width, verified column-stacking, icon-grid reflow, stats-grid
+reflow, and FAQ/accordion legibility via screenshots at each size) — the first session this
+project has managed an actual measured (not just reasoned) responsive pass below desktop
+width. Caveat: Live Server's injected auto-reload script occasionally reset the *outer* tab
+back to a plain page load between iframe rebuilds (harness had to be recreated a few times
+mid-session) — if this happens, just re-run the `document.open/write` harness snippet.
+
+**Follow-up session — mobile/tablet exact-match pass:** the user asked to make mobile and
+tablet "exactly the same as the reference," not just overflow-free. Direct cross-origin (and
+same-origin-navigated) iframing of the live reference still failed (blank/stuck-loading, see
+above), so instead used `document.styleSheets` → `CSSMediaRule` enumeration targeted at
+specific Elementor `data-id` attributes to read the reference's own *compiled* responsive CSS
+directly — no viewport resize needed at all. This is more precise than screenshots for numeric
+values. Extracted and applied:
+
+- **Hero** (`section` id `1f247da`): padding `70px` at ≤1200px, `90px 0 90px 50px` at ≤1024px,
+  `0 0 20px` at ≤767px. At ≤767px the two hero columns stack (confirmed via column ids
+  `e0c4052`/`41cfb7d`); the section itself gets `min-height: 580px`, `background-position:
+  -548px 0`, `background-size: cover`, and the overlay gradient swaps to `linear-gradient(305deg,
+  rgb(0,0,0) 20%, rgb(24,19,15) 74%)` at `opacity: 0.66` (desktop is `307deg`/`54–59%`/`0.35`).
+  The wheel *widget* (id `ceaa355`, separate from its column) has its own width tiers: `370px`
+  fixed at ≤1366px, `100%` of its column at ≤1200px down to 768px, `70%` centered at ≤767px —
+  all applied to `.shpi-hero-wheel img` plus a matching `justify-content` swap on
+  `.shpi-hero-wheel-media` (flex-end → center).
+- **Integration-types icon grid**: confirmed via child-column ids (`0faa1ca`/`133db87`/`8b6204b`
+  for row 1, `7afb8b3`/`582af76`/`8c39ab5` for row 2) that each row of 3 wraps as **50% / 50% /
+  100%** at 768–1024px (not a symmetric 2-column grid). Reproduced with
+  `.shpi-types-grid { grid-template-columns: repeat(2,1fr); } article:nth-child(3n) {
+  grid-column: 1/-1; }` at ≤1024px, reverting to a plain 1-column stack at ≤767px. Padding:
+  `29px 15px 60px` at ≤1024px, `30px 15px` at ≤767px (both rows' reference values were
+  identical/near-identical, safe to merge since this page uses one combined 6-item grid).
+- **Services columns** (`d018ac6`/`7f3b564`) and **FAQ column** (`e13bf86`): confirmed already
+  full-width-stacked below 1199px as built; only minor padding deltas found (`0`/`0 15px` at
+  1024/767) — low visual impact, not separately re-applied given the columns already stack
+  correctly.
+- **Why-choose column** (`8d17fc4`): no Elementor-level responsive overrides exist at all —
+  confirms the existing build needs no change here.
+- **Reviews**: switched `.shpi-review-card` from a fixed `flex: 0 0 540px` to a fluid
+  `flex: 0 0 calc((100vw - 60px) / 2)` at ≤1024px to guarantee two cards always fit without
+  overflow at tablet widths (540px fixed would overflow below ~1130px); ≤767px keeps the
+  existing full-width single-card behavior.
+
+Re-verified via the same-origin nested-iframe technique (a **fresh, never-navigated tab** —
+reusing a tab that had just loaded the real page and then been `document.write()`-overwritten
+left the iframe permanently stuck at `readyState:"loading"` this session; creating a brand new
+tab and navigating it to a harmless same-origin URL first fixed this reliably) at all 9 required
+widths: 1920 (wheel 500px, no overflow), 1440, 1366 (wheel exactly 370px, no overflow), 1280
+(wheel 370px, no overflow), 1024 (icon grid confirmed 469/469/979px per row — the 50/50/100
+pattern — wheel 479px, no overflow), 768 (2-column hero intact, icon grid pattern intact,
+review cards 354px wide fitting two per row, no overflow), 480/390/360 (hero stacked to one
+column, min-height 580px confirmed, wheel ≈70% width confirmed, icon grid single-column, no
+overflow at any of the three).
+
+### Files added/changed
+
+Files added: `shopify-integration-services.html`,
+`css/pages/shopify-integration-services.css`, `js/shopify-integration-services.js`.
+
+Files changed: `js/header.js` (1 href — mobile mega-menu link) and `js/footer.js` (1 href) —
+the dead `#shopify-integration-services` anchors now point at the real page. The desktop nav
+link in `js/header.js` was already correct before this session.
+
+Assets fetched via the same-origin browser-tab + ZIP technique (4 files, confirmed landed
+and resolving 200 via `fetch(..., {method:'HEAD'})` against every page-specific image url):
+`shopify-integration-service-banner-bg.avif` (hero background), `cc-360-wheel-integration-
+commerce-edited.png` (500×500 circular integration-hub diagram), `API-intigration4.webp`
+(540×382 analytics illustration), `Shopify-API-Integration-Shopify-Integration-USA1.webp`
+(520×349 hub diagram). Reused without copying: `icon-maintenance.svg`, `icon-project-done.svg`,
+`icon-design-thinking.svg`, `webapp-custom-applications.svg`, `industries-sectors.webp`,
+`award-clutch.png`, `award-app-development.png`, `award-goodfirms.png`, `award-microsoft.webp`,
+`tom-wyman.webp`, `richard-heller.webp`, `samuel-correns.webp`, `kabu-projects-logo.webp`,
+`entrepreneurs-organization-gurgaon.webp`, `barry-sarnoff.jpg`.
+
+### Verified this session
+
+- Console: no page errors. Network: every page-specific image (`HEAD` request) returns 200;
+  the ~32 broken-image reports from a naive `naturalWidth===0` sweep are pre-existing shared
+  header/footer megamenu-thumbnail issues (documented on earlier pages) plus a lazy-loading
+  false-positive on the two `loading="lazy"` services-section images (confirmed fine via
+  direct screenshot and a `HEAD` fetch).
+- No horizontal overflow at any of the 9 required widths (1920/1440/1366/1280/1024/768/480/
+  390/360 — `document.body.scrollWidth <= iframe innerWidth` at every size, via the nested-
+  iframe technique above).
+- FAQ accordion is single-open (tested programmatically: clicking item 3 leaves exactly one
+  `.is-open`).
+- Consultation form: honeypot-empty submit shows the success message and resets fields
+  (tested programmatically).
+- `node --check` passes on `js/shopify-integration-services.js`, `js/header.js`, `js/footer.js`.
+- Hero, breadcrumb, intro+form, icon grid, services (freeform 2-col), why-choose, FAQ, stats,
+  industries, awards, and reviews all screenshot-matched against the live reference at
+  matching scroll positions at 1685px.
+
+### Follow-up fix: hero wheel was top-anchored, reference bottom-anchors it
+
+The user reported (twice) that the mobile hero's wheel position was still wrong — "it's in the
+bottom of the hero banner" (meaning: it should be there, and wasn't). This was caught for real
+this time because a **fresh, never-navigated tab** finally made the cross-origin same-origin
+nested-iframe technique work against the *live reference itself* at mobile width (390px) — the
+earlier failed attempts (blank/stuck-loading) were reusing tabs that had already loaded/navigated
+once; a brand-new tab avoids whatever race causes the stuck `readyState:"loading"`. Combined with
+the `mcp__claude-in-chrome__computer` **`zoom`** action (which, unlike full-page `screenshot`,
+kept working throughout this session even when `screenshot` was timing out), this finally produced
+an actual rendered image of the reference's mobile hero — confirming the wheel graphic sits low,
+near the breadcrumb, not high under the header.
+
+Root cause found via `getBoundingClientRect` on the reference's own `.elementor-container` (the
+flex row inside the hero section, `data-id 1f247da`): it is `display:flex; align-items:flex-end`
+— **permanently**, not just as a mobile override — so at mobile, where the row wraps into stacked
+lines, all slack space accumulates **above** the wheel, not below. My build had instead pushed the
+wheel down by a flat `margin-top:70px` from the top, which is not remotely equivalent to true
+bottom-anchoring. Also found: the section's `min-height:580px` (previously extracted via CSSOM)
+actually renders as the **container's** height, not the section's total outer height — the
+section's own rendered height ends up `580 + 20 (bottom padding)  = 600px`, not `580px`. My
+`.shpi-hero` had `min-height:580px` directly with `box-sizing:border-box`, which shrank the usable
+content box to `580 − 20 = 560px`, 20px short of the true target.
+
+Fixed in `.shpi-hero`/`.shpi-hero-wheel` at `≤767px`:
+
+```css
+.shpi-hero { padding: 0 0 20px; min-height: 600px; background-position: -548px 0; background-size: cover; }
+.shpi-hero-wheel { display: flex; flex-direction: column; justify-content: flex-end; min-height: 580px; }
+.shpi-hero-wheel-media { justify-content: center; padding: 0 10px; box-sizing: border-box; }
+```
+
+Verified after the fix via direct `getBoundingClientRect` diff against the reference (both at
+390px): wheel-image top offset from hero top **331.18px vs reference's 331.18px** (exact), gap
+from wheel-image bottom to hero bottom **20.01px vs reference's ~20px** (exact), wheel image size
+**248.8×248.8px both** (exact — this was already correct). Re-confirmed visually via `zoom`
+screenshots of both pages side-by-side: wheel now sits low near the breadcrumb on both, background
+photo composition matches. No overflow at 390/480.
+
+**Lesson for future pages:** an Elementor section's own `min-height` setting does not necessarily
+apply to the section element itself — it can render as the height of the inner `.elementor-container`
+flex row instead, with the section's padding added on top of that, not included within it. Don't
+assume `box-sizing:border-box` + the extracted `min-height` value on the outer section will
+reproduce the reference; verify the actual rendered relationship between container height and
+section height with real numbers. Also: a **fresh tab** (never navigated before) is more reliable
+than a reused/`document.write()`-overwritten tab for the same-origin nested-iframe technique, for
+both the local build and — newly confirmed this session — the live cross-origin reference itself;
+and `computer`'s `zoom` action is a more resilient fallback than `screenshot` when the latter is
+timing out.
+
+### Follow-up fix: services section H2 was structurally misplaced, causing "two images together" on mobile
+
+The user sent a screenshot (mobile, ~320px, Chrome DevTools) showing the two services-section
+illustration images rendering directly adjacent to each other, and said "in the reference site
+these 2 images are never together in mobile screen." Investigating via the reference's actual DOM
+(columns `d018ac6`/`7f3b564`, same ids used for the earlier services-padding extraction) turned up
+a real structural mistake from the original build, not just a missing responsive rule:
+
+- **The "Our Package Of Shopify Integration Services" H2 is not a section-level element sibling to
+  the 2-column grid on the reference — it's nested as the *first widget inside column 1*
+  (`d018ac6`)**, confirmed directly: `getBoundingClientRect` on the live reference showed column 1's
+  top, column 2's top, the H2's top, and column 2's image's top are all **exactly equal**
+  (2298.46/2298.46/2308.46/2308.46 at 1685px — the ~10px difference is column padding). My original
+  build had the H2 as a `<h2>` sibling *above* `.shpi-services-grid`, which pushed column 2's image
+  down to start *below* the H2 instead of level with it — a real desktop layout bug that had gone
+  undetected because a screenshot glance doesn't reveal a wrong vertical starting offset when both
+  columns still look roughly aligned.
+- **The two columns swap visual order via CSS `order` at ≤767px only** — confirmed via
+  `getComputedStyle`: at 1024px both columns have `order:0` (natural DOM order: col1 first, col2
+  second — matches desktop), but at 390px column 1 (`d018ac6`) gets `order:10` and column 2
+  (`7f3b564`) gets `order:9`, i.e. **column 2 renders first at mobile**. Since my build had the H2
+  sitting outside/above both columns (always first regardless of column order) and no order-swap
+  at all, my mobile stack was: [H2] → [col1: 3 items + image] → [col2: image + 4 items] — putting
+  col1's trailing image directly next to col2's leading image, exactly the bug reported.
+
+Fixed both issues:
+
+1. Moved the `<h2 id="shpi-services-title">` in `shopify-integration-services.html` from being a
+   sibling of `.shpi-services-grid` to being the **first child of the first `.shpi-services-col`**
+   (immediately before its first `<article>`).
+2. In `css/pages/shopify-integration-services.css`: removed the H2's own `margin: 0 0 50px` (set to
+   `margin: 0`) and changed `.shpi-services-col` from `gap: 30px` / `h3 { margin: 0 0 8px }` to a
+   uniform `gap: 20px` / `h3 { margin: 0 0 20px }` — measured directly on the reference (every
+   widget-to-widget gap inside the column, title-to-paragraph and paragraph-to-next-title alike, is
+   a uniform 20px, not the previously-assumed 30/8 split).
+3. Added to the `≤767px` tier: `.shpi-services-col:first-child { order: 2; } .shpi-services-col:last-child { order: 1; }`
+   to reproduce the reference's mobile-only column reversal.
+
+Verified after the fix: at 1685px, `h2.top === col2Img.top === col1.top === col2.top` (2053px, all
+four), an exact match to the reference's own alignment. At 390px, `getBoundingClientRect` + a
+`zoom` screenshot walkthrough confirmed the new stacked order is col2's image → col2's 4 items →
+H2 title → col1's 3 items → col1's image — the two images are now separated by all the text
+content between them, matching the reference. No overflow at 390/1024/1685.
+
+**Lesson for future pages:** when a section has an asymmetric multi-column layout with a heading
+that "looks like" it sits above the columns, don't assume it's a section-level sibling — check
+whether the OTHER column's content starts at the same y-coordinate as the heading (not below it).
+If they're vertically aligned, the heading is very likely nested inside one of the columns as its
+first widget, and that has real consequences for both the exact vertical alignment on desktop and
+the stacking order on mobile (since responsive `order` swaps only affect direct children of the
+row/grid — a heading living outside the columns can't be reordered along with them).
+
+### Follow-up fix: mobile-only justified body text + breadcrumb font-size
+
+The user flagged two more mobile-only details: body text should be `text-align: justify` on
+mobile, and the breadcrumb font-size looked off. Measured directly on the reference at 390px vs.
+1685px via `getComputedStyle`:
+
+- Intro paragraphs, services-column paragraphs, and "Why Choose" paragraphs (all
+  `.elementor-widget-text-editor` content) are `text-align: left` at desktop but switch to
+  `justify` at ≤767px — a genuine mobile-only responsive change, not a permanent style.
+- The integration-types icon-grid descriptions (`.elementor-icon-box-description`) are `justify`
+  at **both** desktop and mobile — a permanent style I'd never set at all (defaulted to left).
+- The FAQ accordion body text stays `left`/`start` at every width — confirmed unaffected, no
+  change needed there.
+- The breadcrumb link font-size is `14px` at desktop/tablet (1024px) and drops to `12px` only at
+  ≤767px.
+
+Fixed in `css/pages/shopify-integration-services.css`: added `text-align: justify` to the base
+`.shpi-types-grid p` rule (applies at all widths), and added a `≤767px` block with
+`text-align: justify` on `.shpi-intro-copy p`, `.shpi-services-col p`, `.shpi-why-intro`,
+`.shpi-why-item p`, plus `.shpi-breadcrumb { font-size: 12px; }`. Verified via `getComputedStyle`
+on the local build at both 390px (all five justify, breadcrumb 12px) and 1685px (intro stays
+`start`/left, types-grid stays justify, breadcrumb 14px) — matches the reference at both sizes.
+No overflow.
+
+### NOT verified — carried open items
+
+1. The rest of the mobile/tablet sections below the hero (icon-grid wrap, FAQ, stats, reviews)
+   were verified structurally via `getBoundingClientRect`/computed-style and are known to have zero
+   overflow, but were not re-confirmed with an actual rendered screenshot of the reference the way
+   the hero and services section now have been — worth a follow-up pass using the fresh-tab +
+   `zoom` technique if the user flags anything else. Given two real structural bugs were found in
+   sections previously called "screenshot-verified," a full re-pass of every remaining section
+   using this same fresh-tab + real-screenshot method (rather than trusting the original
+   screenshot-only pass) would be a reasonable next step even without a further user report.
+2. Scroll-triggered fade-in animation on the "70+" stats numbers (reference fades them in on
+   scroll into view; this build renders them immediately visible, consistent with how other
+   pages' equivalent stats sections were already built in this project).
+3. Shared header/footer megamenu thumbnail images and footer partner-logo images still report
+   `naturalWidth===0` — same pre-existing, out-of-page-scope issue noted on every prior page
+   this session.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/shopify-development-services/
 - **Local target:** `shopify-development-services.html`
 - **State:** Built and screenshot-verified section-by-section against the live reference at

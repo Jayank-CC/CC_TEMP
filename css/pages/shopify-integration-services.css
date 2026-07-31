@@ -1,0 +1,879 @@
+/* ==========================================================================
+   Shopify Integration Services — page-scoped styles
+   ========================================================================== */
+
+@font-face {
+  font-family: "PoppinsRef";
+  src: url("../../assets/fonts/poppins-600-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@media (min-width: 1200px) {
+  .shpi-page .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.shpi-page main :is(h1, h2, h3, h4, h5, h6) {
+  text-transform: none;
+}
+
+.shpi-page .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.shpi-page {
+  font-family: "DM Sans", sans-serif;
+  color: #191919;
+  background: #fff;
+}
+
+/* ---- hero ---- */
+
+.shpi-hero {
+  position: relative;
+  padding: 80px 90px 30px;
+  box-sizing: border-box;
+  background: url("../../assets/images/shopify-integration-service-banner-bg.avif") center
+    center / cover no-repeat;
+  overflow: hidden;
+}
+
+.shpi-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(307deg, rgb(0, 0, 0) 54%, rgb(24, 19, 15) 59%);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.shpi-hero-wheel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.shpi-hero-wheel-media {
+  display: flex;
+  justify-content: center;
+  grid-column: 2;
+}
+
+.shpi-hero-wheel img {
+  display: block;
+  width: 500px;
+  height: 500px;
+  max-width: 100%;
+}
+
+/* ---- breadcrumb ---- */
+
+.shpi-breadcrumb {
+  padding: 16px 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  background: #fbfbfb;
+  border: 0;
+}
+
+.shpi-breadcrumb-list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shpi-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.shpi-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.shpi-breadcrumb a:hover {
+  color: rgb(30, 78, 196);
+}
+
+.shpi-breadcrumb-list li:last-child span:not(.shpi-breadcrumb-sep) {
+  color: #191919;
+}
+
+.shpi-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.shpi-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- intro + consultation form ---- */
+
+.shpi-intro {
+  padding: 70px 0 40px;
+}
+
+.shpi-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 741px) minmax(0, 399px);
+  gap: 0;
+  align-items: start;
+}
+
+.shpi-intro-copy {
+  padding-right: 60px;
+  box-sizing: border-box;
+}
+
+.shpi-intro-copy h1 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 45px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #1d1a4e;
+}
+
+.shpi-intro-copy h2 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #1d1a4e;
+}
+
+.shpi-intro-copy p {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.shpi-intro-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.shpi-consult-card {
+  padding: 50px 60px;
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 0;
+  box-shadow: 0 6px 60px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.shpi-consult-eyebrow {
+  margin: 0 0 6px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(30, 78, 196);
+}
+
+.shpi-consult-title {
+  margin: 0 0 22px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #191919;
+}
+
+.shpi-consult-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.shpi-hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.shpi-consult-form input,
+.shpi-consult-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  color: #191919;
+  background: #f4f4f4;
+  border: 0;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.shpi-consult-form input::placeholder,
+.shpi-consult-form textarea::placeholder {
+  color: #8a8a8a;
+}
+
+.shpi-consult-submit {
+  padding: 12px 45px;
+  margin-top: 6px;
+  align-self: flex-start;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  background: rgb(30, 78, 196);
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+
+.shpi-consult-submit:hover {
+  opacity: 0.85;
+}
+
+.shpi-form-success {
+  margin: 10px 0 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  color: #191919;
+}
+
+/* ---- integration types icon grid ---- */
+
+.shpi-types {
+  padding: 60px 0;
+  background: rgb(247, 251, 255);
+}
+
+.shpi-types-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 40px;
+  row-gap: 60px;
+}
+
+.shpi-type-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 0 20px;
+  background: rgb(38, 84, 198);
+  border-radius: 50%;
+}
+
+.shpi-type-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+}
+
+.shpi-types-grid h3 {
+  margin: 0 0 10px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #191919;
+}
+
+.shpi-types-grid p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+  text-align: justify;
+}
+
+/* ---- services package (freeform 2-column) ---- */
+
+.shpi-services {
+  padding: 70px 0;
+}
+
+.shpi-services h2 {
+  max-width: 760px;
+  margin: 0;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #1d1a4e;
+}
+
+.shpi-services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+}
+
+.shpi-services-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.shpi-services-col article {
+  margin: 0;
+}
+
+.shpi-services-col h3 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+.shpi-services-col p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.shpi-services-media {
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+.shpi-services-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.shpi-services-media:hover {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---- why choose (no image, stacked) ---- */
+
+.shpi-why {
+  padding: 40px 0 70px;
+}
+
+.shpi-why h2 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.shpi-why-intro {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+.shpi-why-item {
+  margin: 0 0 24px;
+}
+
+.shpi-why-item:last-child {
+  margin-bottom: 0;
+}
+
+.shpi-why-item h3 {
+  margin: 0 0 4px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+.shpi-why-item p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #191919;
+}
+
+/* ---- FAQ accordion ---- */
+
+.shpi-faq {
+  padding: 70px 0;
+  background: rgb(247, 251, 255);
+}
+
+.shpi-faq h4 {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.shpi-accordion {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.shpi-acc-item {
+  margin: 0 0 10px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.shpi-acc-item:last-child {
+  margin-bottom: 0;
+}
+
+.shpi-acc-btn {
+  display: block;
+  width: 100%;
+  padding: 0 20px;
+  min-height: 60px;
+  font: inherit;
+  text-align: left;
+  background: #fff;
+  border: 0;
+  cursor: pointer;
+}
+
+.shpi-acc-item.is-open .shpi-acc-btn {
+  background: rgb(30, 78, 196);
+}
+
+.shpi-acc-q {
+  position: relative;
+  display: block;
+  padding: 20px 40px 20px 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.shpi-acc-item.is-open .shpi-acc-q {
+  color: #fff;
+}
+
+.shpi-acc-q::before {
+  content: "+";
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 20px;
+  color: #000;
+  text-align: center;
+}
+
+.shpi-acc-item.is-open .shpi-acc-q::before {
+  content: "-";
+  color: #fff;
+}
+
+.shpi-acc-body {
+  padding: 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  background: transparent;
+}
+
+/* ---- stats (reused pattern) ---- */
+
+.shpi-stats {
+  padding: 90px 0;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.shpi-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.shpi-stat-grid article {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid #ddd;
+}
+
+.shpi-stat-grid article:last-child {
+  border-right: 0;
+}
+
+.shpi-stat-grid img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+}
+
+.shpi-stat-grid strong {
+  display: block;
+  font: 400 32px/48px "Poppins", sans-serif;
+}
+
+.shpi-stat-grid h3 {
+  margin: 0 0 8px;
+  font: 400 16px/24px "Poppins", sans-serif;
+}
+
+.shpi-stat-grid p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* ---- industries (reused single-image pattern) ---- */
+
+.shpi-industries {
+  text-align: center;
+  padding: 0 0 74px;
+}
+
+.shpi-industries h2 {
+  margin-bottom: 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-weight: 600;
+  color: #1d1a4e;
+  font-size: 20px;
+  line-height: normal;
+}
+
+.shpi-industries img {
+  display: block;
+  width: 960px;
+  height: 575px;
+  object-fit: contain;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+/* ---- awards ---- */
+
+.shpi-awards {
+  padding: 70px 0;
+  text-align: center;
+}
+
+.shpi-awards h2 {
+  margin: 0 0 40px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #1d1a4e;
+}
+
+.shpi-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.shpi-award-grid img {
+  display: block;
+  height: 150px;
+  width: auto;
+}
+
+.shpi-award-grid .shpi-microsoft {
+  height: 77px;
+}
+
+/* ---- client reviews ---- */
+
+.shpi-reviews {
+  padding: 20px 0 90px;
+}
+
+.shpi-reviews h2 {
+  margin: 0 0 40px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.shpi-review-viewport {
+  overflow: hidden;
+}
+
+.shpi-review-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.shpi-review-card {
+  flex: 0 0 540px;
+  height: 400px;
+  padding: 37px 35px 47px;
+  background: #f4f4f4;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.shpi-review-card.shpi-review-long {
+  height: 452px;
+}
+
+.shpi-stars {
+  color: #ffb600;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.shpi-review-card blockquote {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  flex: 1 1 auto;
+}
+
+.shpi-review-person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.shpi-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.shpi-review-person p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  color: #191919;
+}
+
+.shpi-review-person strong {
+  font-weight: 700;
+  color: #1d1a4e;
+}
+
+.shpi-review-person span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ---- responsive ---- */
+
+/* hero — exact reference tiers (measured via CSSOM against the live page) */
+@media (max-width: 1366px) {
+  .shpi-hero-wheel img {
+    width: 370px;
+    height: 370px;
+  }
+
+  .shpi-hero-wheel-media {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 1200px) {
+  .shpi-hero {
+    padding: 70px;
+  }
+
+  .shpi-hero-wheel img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 1199px) {
+  .shpi-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .shpi-intro-copy {
+    padding-right: 0;
+  }
+
+  .shpi-services-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .shpi-stat-grid {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 40px;
+  }
+}
+
+/* types icon grid — reference wraps each row of 3 as 50% / 50% / 100% at tablet */
+@media (max-width: 1024px) {
+  .shpi-hero {
+    padding: 90px 0 90px 50px;
+  }
+
+  .shpi-types-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 29px 15px 60px;
+  }
+
+  .shpi-types-grid > article:nth-child(3n) {
+    grid-column: 1 / -1;
+  }
+
+  .shpi-review-card {
+    flex: 0 0 calc((100vw - 60px) / 2);
+  }
+}
+
+@media (max-width: 991px) {
+  .shpi-intro-copy h1 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 767px) {
+  .shpi-hero {
+    padding: 0 0 20px;
+    min-height: 600px;
+    background-position: -548px 0;
+    background-size: cover;
+  }
+
+  .shpi-hero-overlay {
+    background-image: linear-gradient(305deg, rgb(0, 0, 0) 20%, rgb(24, 19, 15) 74%);
+    opacity: 0.66;
+  }
+
+  .shpi-hero-wheel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 580px;
+  }
+
+  .shpi-hero-wheel-media {
+    justify-content: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  .shpi-hero-wheel img {
+    width: 70%;
+    height: auto;
+  }
+
+  .shpi-services-col:first-child {
+    order: 2;
+  }
+
+  .shpi-services-col:last-child {
+    order: 1;
+  }
+
+  .shpi-types-grid {
+    grid-template-columns: 1fr;
+    padding: 30px 15px;
+  }
+
+  .shpi-types-grid > article:nth-child(3n) {
+    grid-column: auto;
+  }
+
+  .shpi-intro-copy h1 {
+    font-size: 30px;
+    line-height: 1.25;
+  }
+
+  .shpi-breadcrumb {
+    font-size: 12px;
+  }
+
+  .shpi-intro-copy p,
+  .shpi-services-col p,
+  .shpi-why-intro,
+  .shpi-why-item p {
+    text-align: justify;
+  }
+
+  .shpi-services h2,
+  .shpi-why h2,
+  .shpi-faq h4 {
+    font-size: 26px;
+  }
+
+  .shpi-consult-card {
+    padding: 30px;
+  }
+
+  .shpi-review-card {
+    flex: 0 0 100%;
+  }
+
+  .shpi-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shpi-stat-grid article {
+    border-right: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  .shpi-stat-grid article:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shpi-review-track,
+  .shpi-services-media {
+    transition: none !important;
+  }
+}
