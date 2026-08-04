@@ -1,0 +1,610 @@
+/* ==========================================================================
+   Microsoft 365 Consulting Services — page-scoped styles
+   ========================================================================== */
+
+@media (min-width: 1200px) {
+  .m365-page .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.m365-page main :is(h1, h2, h3, h4, h5, h6) {
+  text-transform: none;
+}
+
+.m365-page .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.m365-page {
+  font-family: "DM Sans", sans-serif;
+  color: #191919;
+  background: #fff;
+}
+
+/* ---- theme-level top banner (outside the Elementor content root) ---- */
+
+.m365-banner {
+  height: 380px;
+  background-image: url("../../assets/images/m365header-final.webp");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  background-color: #061d3a;
+}
+
+/* ---- breadcrumb (reused pattern) ---- */
+
+.m365-breadcrumb {
+  padding: 20px 0;
+  background-color: #fbfbfb;
+}
+
+.m365-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.m365-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.m365-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.m365-breadcrumb a:hover {
+  color: rgb(30, 78, 196);
+}
+
+.m365-breadcrumb-list li:last-child span:not(.m365-breadcrumb-sep) {
+  color: #191919;
+}
+
+.m365-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.m365-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- hero: intro copy + consultation form sidebar ---- */
+
+.m365-hero {
+  padding: 50px 0 60px;
+}
+
+.m365-hero-grid {
+  display: grid;
+  grid-template-columns: 65% 35%;
+  align-items: start;
+}
+
+.m365-hero-copy h1 {
+  margin: 0 0 20px;
+  font-family: "Poppins", sans-serif;
+  font-size: 45px;
+  font-weight: 600;
+  line-height: 52px;
+  color: #1d1a4e;
+}
+
+.m365-hero-copy h2 {
+  margin: 0 0 20px;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: normal;
+  color: #1d1a4e;
+}
+
+.m365-hero-copy p {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.m365-hero-copy p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- consultation card (reused pattern from hire-erpnext-consultant.html,
+   measured proportions/padding for this page directly) ---- */
+
+.m365-consult {
+  padding-left: 30px;
+}
+
+.m365-consult-card {
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  box-shadow: 0 6px 60px rgba(0, 0, 0, 0.05);
+}
+
+.m365-consult-eyebrow {
+  margin: 0 0 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(30, 78, 196);
+}
+
+.m365-consult-title {
+  margin: 0 0 22px;
+  font-family: "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.m365-consult-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.m365-hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.m365-consult-form input,
+.m365-consult-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  color: #191919;
+  background: #f4f4f4;
+  border: 1px none;
+  border-radius: 3px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.m365-consult-form input::placeholder,
+.m365-consult-form textarea::placeholder {
+  color: #8a8a8a;
+}
+
+.m365-consult-submit {
+  padding: 12px 45px;
+  margin-top: 6px;
+  align-self: flex-start;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  background: rgb(30, 78, 196);
+  border: 0;
+  border-radius: 4px;
+  transition: opacity 0.25s ease;
+}
+
+.m365-consult-submit:hover {
+  opacity: 0.85;
+}
+
+.m365-form-success {
+  margin: 10px 0 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  color: rgb(30, 78, 196);
+}
+
+/* ---- Office 365 three-card grids (heading + paragraph + 350x215 image,
+   no border — same pattern already established on cloud-services.html /
+   infrastructure-management-services.html) ---- */
+
+.m365-services {
+  padding: 60px 0 0;
+}
+
+.m365-services-2 {
+  padding: 21px 0 0;
+}
+
+.m365-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.m365-services-grid article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 4px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 14px 46px rgba(0, 26, 87, 0.08);
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0, 0.3, 1),
+    border-color 0.3s;
+}
+
+.m365-services-grid article:hover {
+  transform: translate3d(0, -5px, 0);
+  border-top-color: rgb(30, 78, 196);
+}
+
+.m365-services-grid h3 {
+  margin: 0;
+  padding: 30px 30px 20px;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.m365-services-grid p {
+  margin: 0;
+  padding: 0 30px 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #212529;
+  text-align: left;
+}
+
+.m365-services-grid img {
+  display: block;
+  width: 350px;
+  height: 215px;
+  max-width: 100%;
+  margin: auto auto 0;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+/* ---- "Why adopt Microsoft 365 Services differentiators?" 2-column section ---- */
+
+.m365-diff {
+  padding: 43px 0 90px;
+}
+
+.m365-diff-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.m365-diff-col h2 {
+  margin: 0 0 20px;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #1d1a4e;
+  text-transform: capitalize;
+}
+
+.m365-diff-item {
+  margin: 0 0 20px;
+}
+
+.m365-diff-item:last-child {
+  margin-bottom: 0;
+}
+
+.m365-diff-item h3 {
+  margin: 0 0 8px;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.m365-diff-item p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+/* ---- stats (reused verbatim pattern) ---- */
+
+.m365-stats {
+  padding: 120px 0;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.m365-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.m365-stat-grid article {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid #ddd;
+}
+
+.m365-stat-grid article:last-child {
+  border-right: 0;
+}
+
+.m365-stat-grid img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+}
+
+.m365-stat-grid strong {
+  display: block;
+  font:
+    400 32px/48px "Poppins",
+    sans-serif;
+}
+
+.m365-stat-grid h3 {
+  margin: 0 0 8px;
+  font:
+    400 16px/24px "Poppins",
+    sans-serif;
+}
+
+.m365-stat-grid p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* ---- Industries We Serve (heading section + reused illustration image) ---- */
+
+.m365-industries {
+  padding: 0;
+  text-align: center;
+}
+
+.m365-industries h2 {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.m365-industries-img {
+  padding: 0;
+  text-align: center;
+}
+
+.m365-industries-img img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ---- Awards (reused verbatim pattern) ---- */
+
+.m365-awards {
+  padding: 55px 0 8px;
+  text-align: center;
+}
+
+.m365-awards h2 {
+  margin: 0 0 40px;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.m365-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.m365-award-grid img {
+  display: block;
+  height: 150px;
+  width: auto;
+}
+
+.m365-award-grid .m365-microsoft {
+  height: 77px;
+}
+
+/* ---- client reviews (reused verbatim pattern) ---- */
+
+.m365-reviews {
+  padding: 50px 0 30px;
+}
+
+.m365-reviews h2 {
+  margin: 0 0 40px;
+  font-family: "Poppins", sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.m365-review-viewport {
+  overflow: hidden;
+}
+
+.m365-review-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.m365-review-card {
+  flex: 0 0 540px;
+  min-height: 400px;
+  padding: 37px 35px 47px;
+  background: #f4f4f4;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.m365-stars {
+  color: #ffb600;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.m365-review-card blockquote {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  flex: 1 1 auto;
+}
+
+.m365-review-person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.m365-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.m365-review-person p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  color: #191919;
+}
+
+.m365-review-person strong {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.m365-review-person span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ---- responsive ---- */
+
+@media (max-width: 1199px) {
+  .m365-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .m365-consult {
+    padding-left: 0;
+    margin-top: 40px;
+  }
+
+  .m365-diff-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 991px) {
+  .m365-services-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .m365-stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .m365-banner {
+    height: 320px;
+    background-position: 40% 50%;
+  }
+
+  .m365-breadcrumb-list {
+    font-size: 12px;
+  }
+
+  .m365-hero-copy h1 {
+    font-size: 32px;
+    line-height: 1.3;
+  }
+
+  .m365-services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .m365-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 30px;
+  }
+
+  .m365-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .m365-stat-grid article {
+    border-right: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  .m365-stat-grid article:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .m365-review-card {
+    flex: 0 0 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m365-review-track {
+    transition: none !important;
+  }
+}

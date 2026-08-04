@@ -136,9 +136,9 @@ window.__PARTIALS.footer = `
             <li><a href="infrastructure-management-services.html">Infrastructure Management &amp; Monitoring</a></li>
             <li><a href="#devops-consulting-services">DevOps Consulting &amp; Implementation</a></li>
             <li><a href="aws-consulting-services.html">AWS Consulting Services</a></li>
-            <li><a href="#google-cloud-consulting-services">Google Cloud Consulting Services</a></li>
-            <li><a href="#microsoft-365-consulting-services">M365 Consulting &amp; Implementation Services</a></li>
-            <li><a href="#azure-consulting-services">Microsoft Azure Consulting</a></li>
+            <li><a href="google-cloud-consulting-services.html">Google Cloud Consulting Services</a></li>
+            <li><a href="microsoft-365-consulting-services.html">M365 Consulting &amp; Implementation Services</a></li>
+            <li><a href="azure-consulting-services.html">Microsoft Azure Consulting</a></li>
           </ul>
         </div>
       </div>

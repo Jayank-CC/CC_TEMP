@@ -144,7 +144,7 @@ window.__PARTIALS.header = `
             <li><a href="cloud-services.html">Cloud Engineering Services</a></li>
             <li><a href="infrastructure-management-services.html">Infrastructure Management &amp; Monitoring</a></li>
             <li><a href="aws-consulting-services.html">AWS Consulting Services</a></li>
-            <li><a href="microsoft-365-consulting.html-services">M365 Consulting &amp; Implementation</a></li>
+            <li><a href="microsoft-365-consulting-services.html">M365 Consulting &amp; Implementation</a></li>
             <li><a href="azure-consulting-services.html">Microsoft Azure Consulting</a></li>
           </ul></div>
           <div class="mega-cases">
@@ -286,9 +286,9 @@ window.__PARTIALS.header = `
               <li><a href="cloud-services.html">Cloud Engineering Services</a></li>
               <li><a href="infrastructure-management-services.html">Infrastructure Management &amp; Monitoring</a></li>
               <li><a href="aws-consulting-services.html">AWS Consulting Services</a></li>
-              <li><a href="#google-cloud-consulting-services">Google Cloud Consulting Services</a></li>
-              <li><a href="#microsoft-365-consulting-services">M365 Consulting &amp; Implementation Services</a></li>
-              <li><a href="#azure-consulting-services">Azure Consulting Services</a></li>
+              <li><a href="google-cloud-consulting-services.html">Google Cloud Consulting Services</a></li>
+              <li><a href="microsoft-365-consulting-services.html">M365 Consulting &amp; Implementation Services</a></li>
+              <li><a href="azure-consulting-services.html">Azure Consulting Services</a></li>
             </ul>
           </li>
           <li class="m-group">

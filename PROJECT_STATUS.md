@@ -2,6 +2,143 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/microsoft-365-consulting-services/
+- **Local target:** `microsoft-365-consulting-services.html`
+- **Last updated:** 2026-08-04
+- **State:** Built from scratch (`m365-*` class prefix), reusing three already-established
+  patterns from this repo rather than inventing new ones: the `hire-erpnext-consultant.html`
+  sidebar consultation form (`.hec-consult-*` → `.m365-consult-*`), the `cloud-services.html`/
+  `infrastructure-management-services.html` 3-card heading+paragraph+350x215-image grid (no
+  border, `30px 30px 20px` heading padding / `0 30px` left-right widget-wrap padding on the
+  paragraph, image centered via the standard 15px column gutter), and the `aws-consulting-
+  services.html` stats/awards/reviews block + review-carousel JS verbatim (renamed `m365-*`,
+  including the `min-height:400px` review-card fix already baked in from the start — did not
+  reintroduce the fixed-`height` clipping bug documented on that page).
+  - **First confirmed the real content root and section count directly on the live reference**:
+    `[data-elementor-id="21066"]` (not the first `[data-elementor-id]` found in the DOM, which is
+    a `15927` login-modal popup) has exactly 12 top-level `<section>` children, confirmed via
+    `root.children.length` — matches the audit handed into this session, so no missed section.
+  - **Section order:** theme-level `.wraper_inner_banner` top banner (`380px`,
+    `m365header-final.webp`, `background-size:cover`, `50% 50%` — sits **outside** the Elementor
+    root, same recurring pattern documented on several earlier pages' "Lesson for future pages"
+    notes; checked for it up front this time instead of missing it) → breadcrumb (`#fbfbfb`,
+    `20px 0`, Home/Services/Microsoft 365 Consulting Services) → hero/intro section: **2 Elementor
+    columns, not 3** (the handoff note guessed 3, but direct measurement of
+    `:scope > .elementor-container > .elementor-column` returned exactly 2, widths `740.995px`/
+    `398.986px` of a `1139.98px` container — a genuine **65%/35% split**, not 50/50 and not the
+    `hec-consult` page's own ratio) — column 0 = H1 "Microsoft 365 Consulting Services" (no
+    separate H2 tag; the "M365 Consulting Services to Increase Internal Team's Collaborative
+    Ability" sub-line is a second `heading.default` Elementor widget rendered as a plain `<div
+    class="elementor-heading-title">`, not an `<h2>` — confirmed via `tagName`, easy to miss with
+    an `h1,h2` selector since Elementor heading widgets don't always emit a real heading tag) + 6
+    stacked text-editor paragraphs (all captured verbatim from the live DOM); column 1 = the
+    reused consultation form, confirmed identical field set to `hec-consult` (honeypot `ccl_hp`
+    equivalent, Name*/Email*/Phone*/Message, "Submit Now") but with its own measured card chrome:
+    white background, `padding: 30px` (not `hec-consult-card`'s `50px 60px` — confirmed via
+    `getComputedStyle` on the actual `.elementor-widget-wrap` card, not assumed to transfer),
+    eyebrow/title font-family genuinely `Poppins` here (not `hec`'s `DM Sans`) at the same `16px`/
+    `#1e4ec4` and `32px`/`#191919` sizes/colors, submit button `#1e4ec4` background, `12px 45px`
+    padding, `4px` radius — all confirmed via direct `getComputedStyle` on this page's own DOM →
+    two 3-card grids ("Office 365 Onboarding Assistance" row: Onboarding Assistance/Migration
+    Consulting/Implementation Service; "Office 365 Performance Audit & Audits" row: Performance
+    Audit & Audits/Customization/Managed Services), each card = centered `<h3>` (with a genuine
+    `<br>` line break captured verbatim from the reference's own heading HTML, including the
+    inconsistent trailing-space-before-`<br>` on some cards but not others) + left-aligned `<p>` +
+    a `350×215` image, confirmed via the same "check one level deeper" technique this project
+    keeps needing: the heading's own `.elementor-inner-section` box carries `padding: 30px 30px
+    20px`, while the paragraph's padding is **not** on its own inner-section (measured `0`) but on
+    its `.elementor-widget-wrap` (`0px 30px`, i.e. only left/right) → "Why adopt Microsoft 365
+    Services differentiators?" 2-column section, genuinely **50/50** this time (confirmed
+    `569.98px`/`569.99px` columns), left column = main heading (4 sub-items: Collaboration/
+    Mobility/Intelligence/Trust) at `18px` — confirmed the main section heading and every
+    sub-heading render at the **same** `18px` font-size (only `font-weight` 600 vs. 400 differs),
+    which looked surprising against a screenshot until directly measured and visually cross-
+    checked with a `zoom` capture; text-transform:capitalize is applied via CSS to the main
+    heading (source text reproduced verbatim lowercase-"adopt", CSS does the visual
+    capitalization, matching this project's established "don't silently edit source text to match
+    a CSS-driven visual" convention) → right column = "Why CloudConverge M365/O365 Consulting
+    Services?" (6 sub-items: Best Pricing Plans/On Time Delivery/Office 365 Support/Easy
+    Collaboration/Advanced Security/Mobility) → stats banner (70+/100+/100%/50+, confirmed
+    identical numbers/labels to every other page, reused verbatim) → Industries We Serve heading
+    (own section, `20px`/`400`/centered) → Industries image (own section, `Industries-Sectors.webp`
+    natural `960×575`, reused the existing local `assets/images/industries-sectors.webp` rather
+    than re-fetching — case differs from the reference's own `Industries-Sectors.webp` but this
+    repo's existing lowercase file is what every other page already links to) → Awards &
+    Recognition (own heading section, `55px 0 8px` padding — a genuinely different measured value
+    from `aws-consulting-services.html`'s now-fixed `90px 0 0`, not copied blindly; same 4 logos:
+    Clutch/App Development/GoodFirms/Microsoft Partner, confirmed via `alt` text even though one
+    logo's filename on the reference is confusingly `profile-reviews-150x150.png` for the GoodFirms
+    slot) → Client Reviews (own heading section `50px 0 0`, track section `30px 0`; same 6-review
+    carousel, same order as `aws-consulting-services.html`: Tom Wyman → Richard Heller → Samuel
+    Correns → Kabu Projects → Entrepreneur's Organization Gurgaon → Barry Sarnoff, confirmed via
+    direct `strong` text-node walk on the live reference's carousel, not assumed). **No FAQ
+    accordion on this page** — 12 sections total, all accounted for (banner is outside the
+    Elementor root and not counted in the 12).
+  - **Lazy-loading gotcha found this session**: several card images inside the two 3-card grids
+    resolved to a `mod_pagespeed` lazy-load placeholder gif
+    (`pagespeed_static/1.JiBnMqyl6S.gif`, natural `1×1`) on the first DOM read, even after
+    scrolling the section into view and waiting — direct `img.src` reads were unreliable.
+    Resolved by reloading the reference fresh, programmatically scrolling the full page in `400px`
+    steps to trigger every lazy-load callback, then reading `read_network_requests` for
+    `wp-content/uploads` URLs actually fetched by the browser — this surfaced the real filenames
+    (`onboarding-m365-1-768x472-1.webp`, `migration-m365-768x472-1.webp`, `Office-365-
+    Implementation-Service-768x472-1.webp`, `Office-365-Performance-Assessment-Audits-768x472-
+    1.webp`, `Office-365-Customization.webp`, `database.webp`) more reliably than trying to force
+    individual `<img>` elements to resolve.
+- **All 8 new assets fetched via the same-origin browser-tab + `fetch().then(blob)` + synthetic
+  `<a download>` technique this session, and all 8 landed directly in `assets/images/` — confirmed
+  via `ls` and via live `200` responses on the local build, no Downloads-folder manual-move
+  blocker this time** (same pleasant outcome as `cloud-services.html`'s session, unlike most other
+  pages in this project): `m365header-final.webp` (`90646` bytes, top banner),
+  `onboarding-m365-1-768x472-1.webp` (`6302` bytes), `migration-m365-768x472-1.webp` (`5856`
+  bytes), `Office-365-Implementation-Service-768x472-1.webp` (`5792` bytes), `Office-365-
+  Performance-Assessment-Audits-768x472-1.webp` (`8764` bytes), `Office-365-Customization.webp`
+  (`4718` bytes), `database.webp` (`4436` bytes, used for the "Office 365 Managed Services" card).
+  Reused without copying: `industries-sectors.webp`, `award-clutch.png`,
+  `award-app-development.png`, `award-goodfirms.png`, `award-microsoft.webp`,
+  `icon-maintenance.svg`, `icon-project-done.svg`, `icon-design-thinking.svg`,
+  `webapp-custom-applications.svg`, `tom-wyman.webp`, `richard-heller.webp`, `samuel-correns.webp`,
+  `kabu-projects-logo.webp`, `entrepreneurs-organization-gurgaon.webp`, `barry-sarnoff.jpg`.
+- **No blocked assets remain** for this page as of this update — every page-specific image
+  resolves `200` on the local build (confirmed via `read_network_requests` filtered to `m365`, and
+  a direct `naturalWidth===0` sweep over all 25 `main img` elements returned zero broken images).
+- **Files changed:** `js/header.js` had a genuine broken href in the mobile mega-panel —
+  `href="microsoft-365-consulting.html-services"` (a mis-ordered/typo'd filename, not just a
+  dead anchor like most prior pages' fixes) — corrected to
+  `href="microsoft-365-consulting-services.html"`. The desktop mega-panel link in `js/header.js`
+  and the single link in `js/footer.js` were **already correct** before this session (no change
+  needed there).
+- **Verified this session:** local build loads clean (`node --check` passes on
+  `js/microsoft-365-consulting-services.js`, `js/header.js`, `js/footer.js`); shared header/footer
+  inject correctly (`#site-header-placeholder`/`#site-footer-placeholder` both replaced with real
+  `<header id="site-header">`/`<footer class="site-footer">` content) and `window.initSite` is
+  defined; no console errors on load (`read_console_messages`, `onlyErrors:true`); zero broken
+  images (25 `main img` elements, 0 with `naturalWidth===0`); no horizontal overflow confirmed at
+  all 6 spot-checked widths via the established same-origin nested-iframe technique — **1920**
+  (scrollWidth 1905 vs innerWidth 1920), **1366** (1351 vs 1366), **1024** (1009 vs 1024), **768**
+  (753 vs 768), **480** (465 vs 480), **360** (345 vs 360) — all comfortably under, no overflow at
+  any tested width; consultation form honeypot-empty submit shows the success message and resets
+  fields (tested programmatically); review carousel clone-based infinite loop confirmed correct
+  (2 trailing-original clones at the front, all 6 originals, 2 leading-original clones at the
+  back — exact same structure as every other page's carousel); full section-by-section screenshot
+  comparison against the live reference at desktop width (banner, breadcrumb, hero+form, both
+  3-card grids, differentiators 2-column, stats, industries pyramid image, awards logos, reviews)
+  all visually match.
+- **NOT yet verified:** exact rendered screenshot comparison at 1920/1440/1280 widths (only
+  overflow was checked at those, not a full visual diff); hover states on the 3-card grids, awards
+  logos, and review carousel; the `1199px`/`991px`/`767px` CSS breakpoints for the hero grid,
+  services grid, and stats grid were carried over as reasonable single-column/two-column
+  approximations rather than measured against the reference's own compiled responsive CSS (the
+  reference's own tablet/mobile behavior for the 65/35 hero split and the two 3-card grids has not
+  been CSSOM-extracted the way several other pages in this project have done); keyboard/focus
+  accessibility on the consultation form.
+- **Next action:** CSSOM-extract the reference's actual tablet (`768–1024px`) and mobile
+  (`≤767px`) breakpoint values for the hero 65/35 split and the two 3-card grids (currently
+  reasonable approximations, not measured), then do a full rendered screenshot pass at all 9
+  required viewports and update this section to "Previous completed page" once that's done.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/aws-consulting-services/
 - **Local target:** `aws-consulting-services.html`
 - **Last updated:** 2026-08-04
