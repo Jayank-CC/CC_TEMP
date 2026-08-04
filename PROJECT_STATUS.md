@@ -226,6 +226,62 @@
         while the actual repo file already had the correct nested structure — the two had quietly
         diverged. Resynced the scratchpad from the repo (source of truth) before making further
         edits, to avoid accidentally regressing the repo file on a future copy.
+    13. User strongly flagged the segments section as broken via screenshot (a large, wrong-
+        looking empty gap above "For Startups"). Direct measurement showed the top *padding*
+        itself was actually fine (`103px` gap on the reference vs `113px` locally at the time,
+        already close) — the real bug was a leftover `.acs-segment-inner { max-width: 560px;
+        margin: 0 auto; }` that had never been verified against the reference and was never
+        removed when the padding was corrected earlier. Walked the reference's full nested-wrapper
+        chain again and confirmed it uses **no max-width at all** on the equivalent element — the
+        text simply fills the column width minus the double padding (`520px` at the reference's
+        own viewport width). At this page's wider local viewport, that stray `560px` cap was
+        centering a fixed-width box inside a much wider column (leaving large unused side
+        margins) and squeezing the actual text into only `400px` (`560 - 160` padding), causing
+        far more line-wrapping than the reference and a visibly broken, narrow, oddly-centered
+        column. Removed `max-width`/`margin: 0 auto` entirely from `.acs-segment-inner`, leaving
+        only `padding: 100px 80px`. Re-verified: content now fills `100%` of the column width
+        (`835px` local test width, text area `675px` = `835 - 160`, correctly proportional to the
+        reference's own `520px = 680 - 160` — same formula, different viewport), no horizontal
+        overflow. **Lesson**: an earlier round's fix can look locally consistent (padding value
+        matched) while a genuinely wrong, unverified sibling property (`max-width`) silently
+        undoes it at different viewport widths — worth checking the *whole* rule block, not just
+        the property being actively fixed, especially after inheriting CSS from an early
+        unverified build pass.
+    14. User compared the CTA "Not Sure Where to Start?" section against the reference and found
+        two real bugs: a whole button was missing, and the paragraph wrapped too early. (a) The
+        reference has a `"Get a Free AWS Assessment"` button (`href="#fccu"`, `padding: 8px 19px`,
+        `background: rgb(30,78,196)`/`#1e4ec4`, `border-radius: 4px`, `Poppins 500 15px`, white
+        text) directly under the two paragraphs — this project's earlier build notes had
+        incorrectly recorded this section as "no button, just heading + 2 paragraphs." Added
+        `<a class="acs-cta-action-btn">` with matching styles. (b) The same unverified-`max-width`
+        bug pattern found on the segments section struck again here: `.acs-cta p` had
+        `max-width: 760px` that was never checked against the reference (which has none —
+        `getComputedStyle` confirms `max-width: none`), causing the paragraph to wrap one line
+        earlier than the reference at wider viewports. Removed the cap. Also fixed the paragraph
+        spacing: `margin: 0 auto 12px` → `margin: 0 0 22px` (measured gap between the two
+        paragraphs, and between the second paragraph and the new button, is `22px` on the
+        reference, not `12px`), and switched the "no bottom margin on the last one" rule from
+        `:last-child` to `:last-of-type` since the new button is now the actual last child
+        element, which would otherwise have made the `:last-child` rule silently stop matching
+        either paragraph. Re-verified on the reloaded local build: button styling matches
+        exactly, both gaps are `22px`, `max-width` is gone, no horizontal overflow. **Also
+        re-confirmed the HTML/outputs-scratchpad sync discipline from the certs-card fix** —
+        edited the repo file directly (verified source of truth), then resynced the outputs copy
+        from it before making the CSS-only changes.
+    15. User flagged the FAQ "Questions We Hear Most Often" heading's font size and said the
+        accordion cards were too wide. Measured the reference directly: the heading is genuinely
+        `H5`-tagged, `32px/600/30px` line-height, color `rgb(20,37,91)`/`#14255b` — not the
+        `40px`/`#1d1a4e` this page's generic heading rule had been using. For the accordion
+        width, walked the full nested-container chain (`.radiantthemes-accordion` →
+        `elementor-widget-container` → column → `e-con-inner`) and found the accordion's column
+        is a genuine `60%`-width Elementor column inside a **FAQ-section-specific `1230px`-capped
+        container** (wider than the `1140px` boxed container used elsewhere on this page),
+        yielding a stable `718px` accordion width at any viewport at or above that cap — nothing
+        like the previous `900px` hard-coded value, which was never verified and had been sitting
+        there since the original build. Fixed `.acs-faq h2` (`32px`/`#14255b`/`line-height:30px`)
+        and `.acs-accordion` (`max-width: 718px`, was `900px`). Re-verified on the reloaded local
+        build via `getComputedStyle`/`getBoundingClientRect` — heading and accordion width both
+        match exactly.
 - **Blocked on 1 asset**: `aws-consulting-services-banner1.avif` (hero background, `1920×380`-ish,
   `64028` bytes, confirmed `200` at fetch time via the same-origin browser-tab technique) — **this
   one did land successfully** in `assets/images/` this session (confirmed via `ls`), unlike most
