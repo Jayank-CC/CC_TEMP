@@ -2,6 +2,133 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/aws-consulting-services/
+- **Local target:** `aws-consulting-services.html`
+- **Last updated:** 2026-08-04
+- **State:** Built from scratch (`acs-*` class prefix). This is by far the largest/most varied
+  page in the project so far — 28 top-level Elementor sections mixing the classic
+  `elementor-container`/`elementor-column` system with the newer flexbox `e-flex`/`e-con`/`e-con-inner`
+  system. Full build complete and screenshot-verified section-by-section against the live
+  reference; three rounds of user-reported fixes applied and re-verified (see below).
+  - **Section order:** hero (own bg image `aws-consulting-services-banner1.avif`, dark overlay,
+    2-col: badge pill "Start with a focused 30-minute review" → H1 "AWS Consulting Services" with
+    "AWS " in accent orange `#fc9d21` (a `<span style="color:#fc9d21">` in the reference source,
+    easy to miss since the rest of the H1 is plain white) → H2 subtitle "Built for better
+    performance" → tagline pill "Run AWS better | Spend smarter | Scale without friction" (orange
+    border) → paragraph → CTA button "Talk to AWS Experts") → breadcrumb → "End-to-End AWS
+    Consulting Services" intro (centered) → numbered services grid 01-06 (3×2, **bordered cards**
+    `1px solid #d0e4f5` / `radius 12px` / `padding 34px 30px`, **center-aligned** — both the border
+    and the center-align live on an extra `elementor-inner-section` wrapper one level deeper than
+    the outer column's own `widget-wrap`, exactly the "check one level deeper" lesson below) →
+    "Certifications, Outcomes, and Practical AWS Guidance" (own light-blue `#eaf3fb` section
+    background, **2-column card layout**: left column = white bordered card (badge + 3-stat row)
+    + plain paragraph + a second white bordered card ("Industries Served"); right column =
+    "Proven Client Outcomes:" heading + 3 outcome items separated by `1px solid #0b3d91`
+    divider rules, no card) → "Our 5-Step Consulting Process" (2-col grid, Step 1-5, **bordered
+    cards**, left-aligned, Step 5 spans/centers alone in the last row) → "Flexible Support, Built
+    Around Your Needs" pricing (3 bordered cards; the middle "Monthly Retainer" card is
+    **visually solid navy `#0b3d91`** with white text — this comes from an extra nested
+    `elementor-inner-section` with its own background, not a class on the plain card column, and
+    each card has a `<hr>`-style divider between "Best for" and "Key Benefit") → Startup/Enterprise
+    2-col segments (dark `#061d3a` / light `#eaf3fb`, plain checklists, no cards) →
+    "Remote-First, Built for Different Regions" (4 bordered cards: US/GB/AU/IN, left-aligned) →
+    "What Makes More Sense for Your Team?" + comparison table (dark-blue `#0b3d91` header row,
+    alternating `#f4f9ff` row stripes, exact CSS pulled verbatim from an inline `<style>` tag
+    inside the widget's own `.elementor-widget-container` — a genuine gift, no measurement
+    guesswork needed) → CTA "Not Sure Where to Start?" (gradient `linear-gradient(105deg,#153c9d
+    0%,#102156 100%)`, no button, just heading + 2 paragraphs) → FAQ "Questions We Hear Most
+    Often" (10 Q&A pairs, custom Bootstrap-style `.radiantthemes-accordion` widget — single-open,
+    first item open by default with solid `rgb(30,78,196)` background, others white with navy
+    text; +/− icon; reused the project's existing `ssm-acc-*`-style single-open accordion JS
+    pattern renamed to `acs-acc-*`) → stats banner (70+/100+/100%/50+, reused verbatim) → Awards
+    & Recognition (4 logos, reused verbatim) → Client Reviews (same 6-review carousel, same order
+    as every other page: Tom Wyman → Richard Heller → Samuel Correns → Kabu Projects →
+    Entrepreneur's Organization Gurgaon → Barry Sarnoff).
+  - **New lesson this page — "check one level deeper" strikes again, twice.** The numbered
+    services grid and the "Our 5-Step Consulting Process" grid both initially measured as
+    borderless/left-`getComputedStyle`-default on a first pass (checking only
+    `.elementor-column > .elementor-widget-wrap`), matching the now-familiar false-negative
+    pattern from earlier pages. The real border+radius+padding (and, for the services grid, the
+    real `text-align:center`) live on an `elementor-inner-section` **nested one level deeper**
+    inside that same widget-wrap — i.e. the column contains a full nested
+    section/container/column/widget-wrap stack, and the visually-obvious card chrome is on the
+    *inner* one, not the outer. The same double-nesting explained the "Most Popular" pricing
+    card's solid-navy background (found via `elementFromPoint` + walking `parentElement` until a
+    non-transparent `backgroundColor` appeared — `getComputedStyle` on the "obvious" widget-wrap
+    kept reporting `transparent` even though the card was visibly solid blue on screen).
+  - **User-reported fixes applied this session, in order:**
+    1. Missing hero banner image/height — the hero's own `background-image` wasn't showing
+       because the fetched `aws-consulting-services-banner1.avif` was still sitting in the user's
+       Downloads folder; raising `.acs-hero` padding from a wrong first-guess `90px` to the
+       measured `160px` (top/bottom) also fixed a real height gap (897.9px reference vs 725.9px
+       built, now 865.9px — within a few % after the padding fix, close enough on visual
+       recheck).
+    2. "AWS" word color in the H1 not matching — fixed by wrapping "AWS " in
+       `<span class="acs-hero-accent">` colored `#fc9d21`, matching the reference's inline
+       `style="color:#fc9d21"` span exactly.
+    3. Broad alignment/border pass — user reported headings left-aligned vs reference's centered,
+       and missing card borders. Root-caused and fixed: all six main section H2 headings +
+       their lead paragraphs center-aligned (previously left/default); numbered-services grid and
+       process-steps grid given the bordered-card treatment described above; the cert-stats row
+       wrapped in its own bordered card. Confirmed via direct DOM alignment/border re-measurement
+       against the reference for every section, not just the ones the user pointed at.
+    4. Whole "Certifications, Outcomes, and Practical AWS Guidance" section rebuilt — user
+       reported it looked completely different (background color, alignment, "other things").
+       Original build was a flat single-column stack; reference is actually a 2-column card
+       layout on a light-blue section background (see structure above). Rebuilt HTML/CSS to
+       match exactly; re-verified visually section-by-section afterward.
+    5. Section-to-section vertical gaps didn't match — user reported this after the certs
+       rebuild. Root-caused by measuring the reference's exact `padding-top`/`padding-bottom`
+       (via `getComputedStyle`) on all 28 top-level Elementor sections in one pass, then
+       re-deriving each of this page's own section paddings from that table instead of the
+       generic "50px 0 0" heading pattern reused from other pages. Concrete fixes: `.acs-intro`
+       `50px 0 0` → `90px 0 30px`; `.acs-services` `40px 0 0` → `0 0 90px` (and its grid `gap`
+       `40px 30px` → flat `30px`, row-to-row now matches the reference's row1/row2 boundary);
+       `.acs-process`/`.acs-pricing`/`.acs-regions` pulled out of the shared heading-padding
+       rule and given their own measured values (`0`, `20px 0 90px`, `90px 0 60px`); `.acs-certs`
+       and `.acs-compare` top padding dropped to `0` (the light-blue-background gap before each
+       is now supplied entirely by the *preceding* section's own bottom padding, not doubled);
+       `.acs-compare` bottom `55px` → `90px`; `.acs-segments`' `margin-top:50px` removed (the
+       gap is now supplied by `.acs-pricing`'s new `90px` bottom); `.acs-stats` `90px 0` →
+       `120px 0` (this page's stats banner genuinely uses a taller padding than every other
+       page's reused copy of the same component); `.acs-awards` `55px 0 8px` → `90px 0 0`;
+       `.acs-reviews` `50px 0 30px` → `90px 0 30px`; `.acs-faq` `55px 0 40px` → `0` (the
+       reference's FAQ heading sits essentially flush against the CTA banner's own generous
+       `111px` bottom padding, and flush again against the stats banner's `120px` top padding —
+       confirmed via the same computed-style pass, not guessed). Re-verified: reloaded the local
+       build and re-read every section's computed `paddingTop`/`paddingBottom` — all now match
+       the derived targets exactly; confirmed via `getBoundingClientRect` offsets that every
+       section still flows top-to-bottom with no overlap/collapse; confirmed no horizontal
+       overflow (`scrollWidth` 1670px vs. `innerWidth` 1685px).
+- **Blocked on 1 asset**: `aws-consulting-services-banner1.avif` (hero background, `1920×380`-ish,
+  `64028` bytes, confirmed `200` at fetch time via the same-origin browser-tab technique) — **this
+  one did land successfully** in `assets/images/` this session (confirmed via `ls`), unlike most
+  earlier pages' blocked-asset lists — so no outstanding Downloads-folder blocker remains for this
+  page as of this update.
+- **Verified this session:** full section-by-section screenshot comparison against the live
+  reference (hero, breadcrumb, intro, numbered services, certs/outcomes, process, pricing,
+  segments, regions, comparison table, CTA, FAQ, stats, awards, reviews all directly screenshot-
+  diffed, not just spot-checked); console clean on reload (`read_console_messages`,
+  `onlyErrors:true`); network clean — all `200`/`304`, zero `404`s (`read_network_requests`);
+  no horizontal overflow (`scrollWidth === clientWidth` at 1670px); shared header/footer inject
+  correctly; FAQ accordion single-open behavior and review carousel both confirmed working.
+  Header/footer nav links for this page (`js/header.js` mobile menu, `js/footer.js`) fixed from
+  dead `#aws-consulting-services` anchors to the real `aws-consulting-services.html` link, same
+  pattern as every prior page.
+- **NOT yet verified:** mobile/tablet responsive breakpoints (carried over structurally from the
+  established pattern, not freshly re-measured against this page's own reference at narrower
+  widths — this page in particular has several genuinely new responsive components: the
+  2-column certs grid, the 2-column pricing/segments/regions grids, and the comparison table's
+  horizontal-scroll behavior on mobile, none of which have an exact precedent from earlier pages);
+  hover states; FAQ keyboard accessibility.
+- **Next action:** full tablet/mobile viewport pass (768px, 480px, 390px, 360px) for the new
+  2-column components listed above, then update this section to "Previous completed page" once
+  that's done. (Section-gap fix above is desktop-only so far — the mobile/tablet pass should
+  also re-check that none of the new tighter paddings, especially `.acs-faq`'s `0`, collapse
+  awkwardly at narrow widths.)
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/infrastructure-management-services/
 - **Local target:** `infrastructure-management-services.html`
 - **Last updated:** 2026-07-31
