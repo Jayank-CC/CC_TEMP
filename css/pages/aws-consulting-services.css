@@ -1020,7 +1020,7 @@
 
 .acs-review-card {
   flex: 0 0 540px;
-  height: 400px;
+  min-height: 400px;
   padding: 37px 35px 47px;
   background: #f4f4f4;
   box-sizing: border-box;

@@ -282,6 +282,26 @@
         and `.acs-accordion` (`max-width: 718px`, was `900px`). Re-verified on the reloaded local
         build via `getComputedStyle`/`getBoundingClientRect` — heading and accordion width both
         match exactly.
+    16. User shared a screenshot of the reviews carousel showing a longer review's reviewer
+        photo/name missing entirely at the bottom of its card. Root cause: `.acs-review-card` had
+        a fixed `height: 400px` with `display:flex;flex-direction:column`, so once the review text
+        exceeded the space available, the flex children (including the photo/name block) overflowed
+        past the visible card box instead of the card growing to fit. Measured the reference's
+        equivalent card directly (walked up from the review-text node to the first non-transparent-
+        background ancestor): `min-height: 400px`, `overflow: visible`, actual rendered height
+        `544.97px` for this specific longer review — i.e. the reference lets cards grow past
+        `400px` when content needs it, it doesn't clip. Fixed by changing `.acs-review-card`'s
+        `height: 400px` to `min-height: 400px` (mobile `flex: 0 0 100%` override untouched).
+        Re-verified on the reloaded local build: the same card now renders at `547.99px` (matches
+        reference's `544.97px` within a rounding/font-render tolerance), the reviewer logo/name
+        ("Entrepreneur's Organization Gurgaon") are fully visible with no clipping, the neighboring
+        shorter card is unaffected (still its own natural height, no forced stretch since
+        `.acs-review-track`'s `align-items` was never set to `stretch`), and `.acs-review-viewport`'s
+        `overflow: hidden` — needed for the horizontal carousel-slide mechanism — doesn't clip
+        vertically since the viewport has no fixed height of its own (it sizes to the tallest
+        current child, confirmed via `getComputedStyle`/`getBoundingClientRect` showing
+        `viewport.height === track.height === card.height` after the fix). No horizontal overflow
+        introduced.
 - **Blocked on 1 asset**: `aws-consulting-services-banner1.avif` (hero background, `1920×380`-ish,
   `64028` bytes, confirmed `200` at fetch time via the same-origin browser-tab technique) — **this
   one did land successfully** in `assets/images/` this session (confirmed via `ls`), unlike most
