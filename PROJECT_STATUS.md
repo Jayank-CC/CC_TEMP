@@ -100,6 +100,132 @@
        the derived targets exactly; confirmed via `getBoundingClientRect` offsets that every
        section still flows top-to-bottom with no overlap/collapse; confirmed no horizontal
        overflow (`scrollWidth` 1670px vs. `innerWidth` 1685px).
+    6. User asked again to check padding differences, this time at the component level (not just
+       section-to-section gaps). Ran a targeted computed-style audit of every card/component on
+       the reference (services cards, certs card, process cards, pricing cards including the
+       solid-navy featured one, region cards, table cells, segment inner column, FAQ accordion
+       button/panel, hero badges, review cards) by walking each element's DOM ancestor chain to
+       the true padded/bordered node (the recurring "check one level deeper" pattern). Most
+       already matched exactly (services `34px 30px`, certs card `28px`, process `34px 25px`,
+       region cards `34px 25px`, table cells `15px`, hero badges `12px 20px 12px 16px`, review
+       cards `37px 35px 47px`, and the featured pricing card's `44px 35px` — which turned out to
+       be the sum of a `10px` outer wrapper + `34px 25px` inner widget, confirming the flat value
+       was already a correct reproduction). Three genuine mismatches found and fixed:
+       `.acs-segment-inner` `50px` (all sides) → `50px 30px` (reference is not equal on all
+       sides); `.acs-acc-btn` `20px` (all sides) → `15px 20px` (reference button is `57px` tall,
+       mine was rendering taller from the extra 5px top/bottom); `.acs-acc-panel` `0 20px 20px`
+       → `20px` (reference's open panel has real top padding too, not zero). Re-verified all
+       three on the reloaded local build via `getComputedStyle` — exact match.
+    7. User flagged (via a screenshot pair) a difference in the certs→process section boundary
+       and a text/bold discrepancy inside the "Proven Client Outcomes" list. Two real findings:
+       (a) **The previous padding-fix round had re-measured the wrong DOM level again** — for
+       the certs/process/pricing/compare/FAQ heading sections, the outer `e-con`/`elementor-
+       element` box reports a misleading `1px` (a reset value), while the *real* padding lives
+       on a nested `.e-con-inner` wrapper one level deeper — the exact "check one level deeper"
+       trap this project has hit repeatedly, this time self-inflicted on the previous fix.
+       Corrected values (outer+inner combined, confirmed via direct sibling-boundary
+       `getBoundingClientRect` math, which is strictly additive for adjacent block padding):
+       `.acs-certs` `90px 0 90px` (was `0`/`55px`); `.acs-process` `90px 0 20px` (was `0`);
+       `.acs-pricing` `90px 0 90px` (was `20px 0 90px`); `.acs-compare` `90px 0 90px` (was
+       `0 0 90px`); `.acs-faq` `100px 0 60px` (was `0`). Re-verified: reloaded and re-read every
+       section's computed padding — all match; confirmed section flow still has no
+       overlap/collapse and no horizontal overflow. (b) **A genuine content-fidelity miss**: the
+       reference's "Proven Client Outcomes" list wraps each item's lead-in phrase in `<strong>`
+       inside the description `<p>` too (not just the headline number/label line) — my build had
+       left all three description paragraphs as plain unbolded text. Worse, the reference's own
+       first item literally reads `<strong>0A fintech platform</strong> (US) was overspending...`
+       — a genuine typo in the reference's source copy (a stray leading "0") — confirmed via
+       direct DOM inspection of the `<strong>` node, not a rendering artifact. Per this project's
+       replication-not-copy-editing standard, added `<strong>` wrapping to all three lead-ins and
+       reproduced the "0A" typo verbatim rather than silently correcting it.
+    8. User reported "Our 5-Step Consulting Process" and "Flexible Support, Built Around Your
+       Needs" had totally different font sizes from the reference, for both the section heading
+       and the card content inside. Measured directly and found this project's shared
+       `.acs-intro h2, .acs-certs h2, .acs-process h2, .acs-pricing h2, .acs-regions h2,
+       .acs-compare h2 { font-size: 40px }` rule was **only correct for 2 of the 6 sections**.
+       The reference actually uses three different H2 sizes across these sections (confirmed via
+       `getComputedStyle` on each heading's real text node, not assumed shared): `.acs-intro`/
+       `.acs-regions` genuinely are `40px/600/50px`; `.acs-certs`/`.acs-pricing`/`.acs-compare`
+       are `32px/600/42px`; `.acs-process` alone is `28px/600/38px`. Split the shared rule into
+       three groups matching this. Also found the process/pricing **card** headings ("Discovery &
+       Assessment", "Fixed-Scope Project", "Key Benefit") were being forced to `font-weight:600`
+       via the project's `"PoppinsRef"` 600-glyph-forcing trick, when the reference genuinely
+       renders these at `font-weight:400` — switched them to the project's real local
+       `poppins-400-latin.woff2` file (`font-family: "Poppins"`, no `PoppinsRef`) at the correct
+       `400` weight instead of forcing the heavier glyph shape. Separately, the pricing cards'
+       body text ("Best for: ...", the Key-Benefit description, previously `font-weight:500` on
+       `.acs-pricing-best`) turned out to use `Roboto` in the reference, not `DM Sans` — confirmed
+       via `getComputedStyle` (`font-family: Roboto, sans-serif`, no `<strong>` wrapping despite
+       looking bold in a low-res screenshot). `Roboto` has no local `@font-face` in this project
+       (system-font fallback only) but is already used the same way elsewhere in `css/style.css`,
+       so this follows existing convention rather than introducing a new pattern. Re-verified
+       every changed selector's computed `fontSize`/`fontWeight`/`fontFamily` on the reloaded
+       local build — all now match the reference exactly.
+    9. User shared a screenshot of the certs section on the local build asking to spot the
+       difference against the reference. Measured every visible text element in that screenshot
+       (partner badge, stat numbers/labels, body paragraph, "Industries Served" card, "Proven
+       Client Outcomes" heading, the outcome number/lead-in) via `getComputedStyle` on the live
+       reference. Most already matched exactly. Two real mismatches found: `.acs-partner-badge`
+       was `font-weight:500`, reference is `400`; and `.acs-outcomes li strong` (the "30%"/
+       "200+ VMs"/"90 days" lead-in numbers) was inheriting `font-family:"DM Sans"` from its
+       parent with a `font-weight:700` override, but the reference's own `<strong>` is genuinely
+       `font-family:"Poppins"` at `font-weight:500` — same weight as the rest of that line, just
+       a different typeface for the number itself. Fixed both; re-verified on the reloaded local
+       build via `getComputedStyle` — exact match.
+    10. User shared a screenshot of the pricing cards flagging the middle "Monthly Retainer" card
+        as bigger than the other two, plus an exact color for the "Most Popular" label. Measured
+        the reference directly: the middle card genuinely IS taller by design (`436px` vs `384px`
+        for the side cards, a real `52px` difference, not a rendering artifact), but
+        `.acs-pricing-grid`'s `display:grid` was defaulting to `align-items:stretch`, forcing all
+        3 cards to the same height (`409px` each) on the local build — added `align-items:start`
+        so each card sizes to its own natural content height again; re-measured after the fix and
+        the delta now matches exactly (`357px`/`409px`/`357px` — a `52px` difference, identical to
+        the reference's own gap even though the absolute values differ slightly from a minor
+        line-wrap difference at this viewport width). Also confirmed via `getComputedStyle` that
+        "Most Popular" is `rgb(92, 179, 255)` (`#5cb3ff`, the project's existing light-blue label
+        color used elsewhere) while "One Time"/"Flexible" stay the standard `rgb(29, 77, 194)` —
+        added a `.acs-pricing-featured .acs-eyebrow` override for the lighter color. Both
+        confirmed matching on the reloaded local build.
+    11. User flagged margin/padding differences in the Startup/Enterprise "segments" section
+        (dark navy left column, light-blue right column) via screenshot. Root cause, once again,
+        was the nested `e-con-inner`/`elementor-inner-section` padding trap: walking the DOM tree
+        found the visible `.acs-segment-inner`-equivalent content actually sits behind **two
+        stacked wrapper levels** — an outer `elementor-widget-wrap` with `padding:50px` (all
+        sides) *and* a nested inner-section `elementor-widget-wrap` with `padding:50px 30px` —
+        so the true combined inset is `100px` top/bottom and `80px` left/right, not the flat
+        `50px 30px` previously used. Confirmed via direct `getBoundingClientRect` inset
+        measurement from the column edge to the eyebrow/heading text (`81px`/`103px`, matching).
+        Fixed `.acs-segment-inner` to `padding: 100px 80px`. While auditing this section also
+        found and fixed: the eyebrow ("For Startups"/"For Mid-Market & Enterprise") is the light
+        blue `#5cb3ff` on *both* columns, not the standard darker blue; the dark column's body
+        paragraph uses `font-family: Roboto` (not DM Sans, same per-column font split seen on the
+        pricing cards); paragraph/list-item `line-height` should be `26px` not `24px`/`20px`;
+        list items should have `20px` gap between them (not `16px`) and `12px` text-indent (not
+        `24px` — the bullet is `6px`, not `8px`, with a `6px`/`6px` gap to the text, not a wide
+        `24px` padding); and the light column's list-item text/bullet color is pure `#000`, not
+        `#191919`. All values re-confirmed via `getComputedStyle` on the reloaded local build —
+        exact match.
+    12. User compared two screenshots (ours vs. reference) of the certs card and flagged a
+        smaller gap between the stats row and the body paragraph, plus missing bold text.
+        Measured the real gap on the reference (`48px`) vs. the local build (`26px`) and found a
+        genuine CSS specificity bug, not just a wrong value: `.acs-certs-card p { margin: 0; }`
+        (added in an earlier round to style the "Industries Served" paragraph, specificity
+        `0,1,1`) was silently overriding `.acs-certs-body { margin: 30px 0; }` (specificity
+        `0,1,0` — one class beats a class+type only when the class-count is equal, and here the
+        type selector gave `.acs-certs-card p` the edge) even though `.acs-certs-body` appears
+        later in the file — a real, easy-to-miss cascade bug, confirmed via `document.styleSheets`
+        rule matching, not guessed. Fixed by rescoping the selector to
+        `.acs-certs-card .acs-certs-body` (specificity `0,2,0`, now wins outright) and adjusting
+        the value to `22px 0 0` (the exact top-margin needed to reach the reference's true `48px`
+        gap, since the previous `30px` figure was never actually verified against a real
+        measurement). Also confirmed via direct DOM inspection that the reference wraps
+        "AWS cloud consultants" in `<strong>` inside that paragraph — added the same wrapping.
+        **Also discovered and fixed a stale-scratchpad bug**: the temporary outputs copy of this
+        page's HTML had reverted to an older flat sibling structure (paragraph as a sibling of
+        the card, not nested inside it) from before the certs-section rebuild in a prior session,
+        while the actual repo file already had the correct nested structure — the two had quietly
+        diverged. Resynced the scratchpad from the repo (source of truth) before making further
+        edits, to avoid accidentally regressing the repo file on a future copy.
 - **Blocked on 1 asset**: `aws-consulting-services-banner1.avif` (hero background, `1920×380`-ish,
   `64028` bytes, confirmed `200` at fetch time via the same-origin browser-tab technique) — **this
   one did land successfully** in `assets/images/` this session (confirmed via `ls`), unlike most
@@ -123,9 +249,9 @@
   hover states; FAQ keyboard accessibility.
 - **Next action:** full tablet/mobile viewport pass (768px, 480px, 390px, 360px) for the new
   2-column components listed above, then update this section to "Previous completed page" once
-  that's done. (Section-gap fix above is desktop-only so far — the mobile/tablet pass should
-  also re-check that none of the new tighter paddings, especially `.acs-faq`'s `0`, collapse
-  awkwardly at narrow widths.)
+  that's done. (All three padding-fix rounds above are desktop-only so far — the mobile/tablet
+  pass should also re-check that none of the corrected paddings collapse awkwardly at narrow
+  widths.)
 
 ## Previous completed page
 

@@ -66,7 +66,9 @@
   border-radius: 24px;
   background: #00031e;
   color: #fff;
-  font: 500 14px/14px "DM Sans", sans-serif;
+  font:
+    500 14px/14px "DM Sans",
+    sans-serif;
 }
 
 .acs-hero-copy h1 {
@@ -99,7 +101,9 @@
   border-radius: 4px;
   background: #00031e;
   color: #fff;
-  font: 500 15px/15px "DM Sans", sans-serif;
+  font:
+    500 15px/15px "DM Sans",
+    sans-serif;
 }
 
 .acs-hero-copy p {
@@ -117,9 +121,13 @@
   border-radius: 4px;
   background: #fc731e;
   color: #fff;
-  font: 500 20px/20px "DM Sans", sans-serif;
+  font:
+    500 20px/20px "DM Sans",
+    sans-serif;
   text-decoration: none;
-  transition: background-color 0.3s, border-color 0.3s;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
 }
 
 .acs-cta-btn:hover {
@@ -185,11 +193,11 @@
 }
 
 .acs-process {
-  padding: 0;
+  padding: 90px 0 20px;
 }
 
 .acs-pricing {
-  padding: 20px 0 90px;
+  padding: 90px 0 90px;
 }
 
 .acs-regions {
@@ -197,16 +205,34 @@
 }
 
 .acs-intro h2,
-.acs-certs h2,
-.acs-process h2,
-.acs-pricing h2,
-.acs-regions h2,
-.acs-compare h2 {
+.acs-regions h2 {
   margin: 0 0 20px;
   font-family: "PoppinsRef", "Poppins", sans-serif;
   font-size: 40px;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 50px;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.acs-certs h2,
+.acs-pricing h2,
+.acs-compare h2 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.acs-process h2 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 38px;
   color: #1d1a4e;
   text-align: center;
 }
@@ -291,7 +317,7 @@
 /* ---- certifications / outcomes ---- */
 
 .acs-certs {
-  padding-bottom: 55px;
+  padding: 90px 0 90px;
   background: #eaf3fb;
 }
 
@@ -314,8 +340,8 @@
   background: #fff;
 }
 
-.acs-certs-body {
-  margin: 30px 0;
+.acs-certs-card .acs-certs-body {
+  margin: 22px 0 0;
   font-family: "DM Sans", sans-serif;
   font-size: 16px;
   line-height: 26px;
@@ -333,7 +359,9 @@
   border-radius: 12px;
   background: #0b3d91;
   color: #fff;
-  font: 500 12px/12px "DM Sans", sans-serif;
+  font:
+    400 12px/12px "DM Sans",
+    sans-serif;
   letter-spacing: 0.04em;
 }
 
@@ -411,7 +439,8 @@
 }
 
 .acs-outcomes li strong {
-  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
 }
 
 .acs-outcomes li p {
@@ -441,10 +470,10 @@
 
 .acs-process-grid h3 {
   margin: 0 0 10px;
-  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
-  font-weight: 600;
-  line-height: 1.4;
+  font-weight: 400;
+  line-height: 28px;
   color: #1d1a4e;
 }
 
@@ -458,7 +487,7 @@
 
 .acs-process-last {
   grid-column: 1 / -1;
-  max-width: calc(50% - 15px);
+  /* max-width: calc(50% - 15px); */
 }
 
 /* ---- pricing cards ---- */
@@ -466,6 +495,7 @@
 .acs-pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  align-items: start;
   gap: 30px;
   margin-top: 30px;
 }
@@ -478,16 +508,17 @@
 
 .acs-pricing-grid h3 {
   margin: 8px 0 12px;
-  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
-  font-weight: 600;
-  line-height: 1.4;
+  font-weight: 400;
+  line-height: 28px;
   color: #1d1a4e;
 }
 
 .acs-pricing-best {
   margin: 0 0 10px !important;
-  font-weight: 500;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
 }
 
 .acs-pricing-divider {
@@ -502,16 +533,16 @@
 
 .acs-pricing-grid h4 {
   margin: 0 0 8px;
-  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
-  font-weight: 600;
-  line-height: 1.75;
+  font-weight: 400;
+  line-height: 28px;
   color: #1d1a4e;
 }
 
 .acs-pricing-grid p {
   margin: 0;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   line-height: 26px;
   color: #191919;
@@ -521,6 +552,10 @@
   padding: 44px 35px;
   border: 0;
   background: #0b3d91;
+}
+
+.acs-pricing-featured .acs-eyebrow {
+  color: #5cb3ff;
 }
 
 .acs-pricing-featured h3,
@@ -554,13 +589,14 @@
 }
 
 .acs-segment-inner {
-  padding: 50px;
+  padding: 100px 80px;
   max-width: 560px;
   margin: 0 auto;
 }
 
 .acs-segment .acs-eyebrow {
   font-size: 16px;
+  color: #5cb3ff;
 }
 
 .acs-segment-dark h2 {
@@ -583,9 +619,9 @@
 
 .acs-segment-dark p {
   margin: 0 0 20px;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 26px;
   color: #fff;
 }
 
@@ -593,7 +629,7 @@
   margin: 0 0 20px;
   font-family: "DM Sans", sans-serif;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 26px;
   color: #191919;
 }
 
@@ -605,11 +641,11 @@
 
 .acs-check-list li {
   position: relative;
-  margin: 0 0 16px;
-  padding-left: 24px;
+  margin: 0 0 20px;
+  padding-left: 12px;
   font-family: "DM Sans", sans-serif;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 26px;
 }
 
 .acs-check-list li:last-child {
@@ -620,9 +656,9 @@
   content: "";
   position: absolute;
   left: 0;
-  top: 6px;
-  width: 8px;
-  height: 8px;
+  top: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
 }
 
@@ -635,11 +671,11 @@
 }
 
 .acs-segment-light .acs-check-list li {
-  color: #191919;
+  color: #000;
 }
 
 .acs-segment-light .acs-check-list li::before {
-  background: #191919;
+  background: #000;
 }
 
 /* ---- regions ---- */
@@ -691,7 +727,7 @@
 /* ---- comparison table ---- */
 
 .acs-compare {
-  padding: 0 0 90px;
+  padding: 90px 0 90px;
   background: #eaf3fb;
 }
 
@@ -714,13 +750,17 @@
   color: #fff;
   padding: 15px;
   text-align: left;
-  font: 500 16px/26px "DM Sans", sans-serif;
+  font:
+    500 16px/26px "DM Sans",
+    sans-serif;
 }
 
 .acs-table-wrap td {
   border-top: 1px solid #e8f2fc;
   padding: 15px;
-  font: 500 16px/26px "DM Sans", sans-serif;
+  font:
+    500 16px/26px "DM Sans",
+    sans-serif;
   color: #191919;
 }
 
@@ -761,7 +801,7 @@
 /* ---- FAQ accordion ---- */
 
 .acs-faq {
-  padding: 0;
+  padding: 100px 0 60px;
   background: #f7fbff;
 }
 
@@ -792,7 +832,7 @@
   justify-content: space-between;
   gap: 20px;
   width: 100%;
-  padding: 20px;
+  padding: 15px 20px;
   border: 0;
   background: #fff;
   color: #1d1a4e;
@@ -841,7 +881,7 @@
 }
 
 .acs-acc-panel {
-  padding: 0 20px 20px;
+  padding: 20px;
   background: #fff;
 }
 
@@ -887,12 +927,16 @@
 
 .acs-stat-grid strong {
   display: block;
-  font: 400 32px/48px "Poppins", sans-serif;
+  font:
+    400 32px/48px "Poppins",
+    sans-serif;
 }
 
 .acs-stat-grid h3 {
   margin: 0 0 8px;
-  font: 400 16px/24px "Poppins", sans-serif;
+  font:
+    400 16px/24px "Poppins",
+    sans-serif;
 }
 
 .acs-stat-grid p {
