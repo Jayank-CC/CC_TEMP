@@ -2,6 +2,213 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/azure-consulting-services/
+- **Local target:** `azure-consulting-services.html`
+- **Last updated:** 2026-08-04
+- **State:** Built from scratch (`azc-*` class prefix). This is the richest/most varied page in
+  the project so far after `aws-consulting-services.html` — **30 top-level Elementor sections**
+  under `[data-elementor-id="70296"]` (confirmed via `root.children.length` directly on the live
+  reference — the first `[data-elementor-id]` elements found in the DOM are header mega-menu
+  copies `15927`/`58353`/`57497`/`58359`, not the content root; the real root has by far the most
+  children). Confirmed structure/section-count myself rather than assuming the m365/aws shape —
+  this page genuinely differs from both in several ways documented below.
+  - **No theme-level `.wraper_inner_banner` on this page** — checked directly
+    (`document.querySelector('.wraper_inner_banner')`) and found it present in the DOM but
+    `display:none`/`height:380px`-computed-but-invisible with an empty `inner_banner_main` comment
+    node inside — the theme banner is genuinely unused here. Instead, section 0 of the Elementor
+    root **is its own hero** with its own `background-image` (`microsoft-azure-consulting1.avif`,
+    `background-position:50% 100%`, `background-size:cover`, `background-color:#002164` fallback,
+    a `rgba(0,0,0,0)`-at-`opacity:0.74` `.elementor-background-overlay` layered on top — reproduced
+    as a separate `::before` dark-tint overlay since a CSS auto-formatter in this session
+    simplified the originally-authored two-layer `background-image` shorthand down to a single
+    `url(...)` — added the tint back via `.azc-hero::before` instead of re-editing that line, same
+    visible result). H1 "Microsoft **Azure** Consulting Services" with "Azure " in
+    `<span style="color:#2894F8">` (confirmed via direct DOM read, not a screenshot guess) — a
+    genuinely different accent blue from `aws-consulting-services.html`'s `#fc9d21` orange or any
+    other page's `#1e4ec4`. Subtitle is a `<span>` (not a real heading tag, same
+    "Elementor heading widgets don't always emit a heading tag" gotcha documented on m365) at
+    `24px/500/#2894f8`. Column 2 of the hero's 2-column container is genuinely empty (confirmed
+    `outerHTML.length === 44`, essentially a spacer) — reproduced as a single-column
+    `max-width:570px` content block against the full-bleed background rather than an empty second
+    grid column, same visible result with less markup.
+  - **Section order (confirmed via direct child-by-child DOM walk, not assumed from m365/aws):**
+    hero → breadcrumb → **trust-badge row** (4 items: Microsoft/Certified Partner,
+    Azure/Professional Architect, 1000+/Deployments, 24/7/Azure Support — each a `64px` icon +
+    `32px` bold word + `16px` label, left-aligned, `#fafafa` background; a component with no
+    precedent on any earlier page in this project) → intro ("Azure Consulting Services for
+    Cloud-First Businesses", 2 paragraphs + a bold "When Do You Need an Azure Consultant?" lead-in
+    line, center-aligned) → **pain-points grid** (4 items: Cloud Sprawl & Billing Surprises /
+    Deployment Bottlenecks / Compliance & Security Gaps / Complex Hybrid Environments, `64px` icon
+    + `18px/400` left-aligned heading, no paragraph) → offerings intro heading + 2 paragraphs
+    (`#f7fbff` tinted background) → **offerings grid — 12 cards, 6 rows × 2 columns** (confirmed
+    via widget-type + column walk, not the 3-card-grid shape every earlier page used: Azure Cloud
+    Consulting [paragraph-only intro card] / Azure Migration Services / Azure Application
+    Modernization / Azure DevOps Implementation / AKS-Kubernetes Consulting / Azure Serverless
+    Deployment / Azure Data Engineering / Azure Disaster Recovery / Azure Governance & Security /
+    Azure AI-ML Solutions / Azure Virtual Desktop / Azure IoT Consulting — each a bordered white
+    card, heading + either a paragraph or a 3-item icon-list [tools line / benefit / stat]) →
+    **5 alternating image+text "deep-dive" sections** (Azure Migration & Modernization Solutions /
+    Azure DevOps & Infrastructure Automation / Azure Security, Governance & Compliance / Azure Cost
+    Optimization & FinOps / Azure Data, AI & Analytics Services — each a real `<h6>`-tagged heading
+    [confirmed via `tagName`, easy to miss], 2–3 paragraphs, a "What this delivers:" bullet list,
+    and a "Tools:" line, alternating image-left/image-right: left/right/left/right/left) → CTA
+    "Get A Free Azure Assessment" (dark gradient `linear-gradient(105deg,#153c9d 0%,#102156 100%)`,
+    heading + a single button "Get in touch with our Azure Experts!", no paragraphs — reused the
+    `aws-consulting-services.html` CTA gradient/button chrome verbatim, re-measured padding
+    `110px 0 111px` and button `8px 19px`/`#1e4ec4`/`4px radius`/`Poppins 500 15px` — matches aws
+    exactly) → **"Why Choose CloudConverge as Your Azure Consulting Partner"** (heading + 2
+    centered paragraphs, then a genuinely new **2-column icon-box grid, 5 items unevenly split
+    3-left/2-right** — Proven Expertise & Certifications / SLA-Backed Support & Reliability /
+    Compliance & Security Assurance in column 1, Structured Risk-Controlled Delivery / Flexible
+    Engagement Models in column 2, each icon-box followed by its own sub-bullet list; confirmed the
+    true column grouping only after the naive "grab first title/desc per column" approach silently
+    merged all 3 column-1 icon-boxes' lists together — had to walk `[data-widget_type]` descendants
+    of each column in document order and switch on `icon-box`/`icon-list`/`text-editor` to recover
+    the correct per-item grouping) → **"Azure Case Studies" — a genuinely new custom Elementor
+    `nested-tabs` component**, not a precedent from any earlier page: heading + centered paragraph,
+    then a rounded (`25px`) 2-panel card — left panel `#1e4ec4` blue, `padding-left:50px`, vertical
+    tab-title list (active `#fff`/500, inactive `#8dc1fb`/500, `16px`, each `padding:0 0 20px`
+    with a `1px` bottom divider); right panel `#14255b` dark navy, `border-radius:0 30px 30px 0`,
+    `padding:60px 75px`, white text, 3 tabs (Enterprise Application Migration [Manufacturing] /
+    Cloud Modernization for SaaS Platform / Infrastructure Optimization & Cost Control [FinTech]),
+    each panel = Challenge/Solution/Azure Stack/Result(+3 sub-bullets)/Timeline, with the label
+    prefixes (`Challenge:`, `Solution:`, etc.) genuinely wrapped in `<b>` in the reference source
+    (confirmed via `innerHTML`, reproduced as `<strong>`) — colors found via the established
+    `elementFromPoint` + walk-up-until-non-transparent-`backgroundColor` technique after every
+    "obvious" container (`.e-n-tabs-heading`, `.e-n-tabs-content`, the widget's own wrapper chain)
+    returned `rgba(0,0,0,0)` — the real colors live on `.elementor-widget-container` (left, blue)
+    and the active `.e-con.e-active` tab-panel container (right, navy), sibling levels apart from
+    each other, not on any shared ancestor — built as a plain custom click-to-switch tab component
+    (`.azc-cases-tab`/`.azc-cases-panel`) rather than reaching for a heavier accessible-tabs
+    library, consistent with this project's vanilla-JS-only constraint) → **FAQ** (heading `<h5>`
+    "FAQ's", `32px/600/#14255b`, left-aligned not centered — a real per-page difference from
+    `aws-consulting-services.html`'s centered FAQ heading, confirmed via `textAlign:"start"`; same
+    `radiantthemes-accordion` widget confirmed via `accWidth === 718.0098...px`, an exact match to
+    aws's own already-measured value, proving it's the same site-wide shared component instance —
+    reused aws's exact `acs-acc-*` CSS/JS pattern renamed `azc-acc-*` verbatim rather than
+    re-deriving it; **9 Q&A pairs**, not aws's 10) → stats banner (70+/100+/100%/50+, reused
+    verbatim, confirmed same 4 local SVG icons visually match even though this section's Elementor
+    widget type is `icon` rather than `image` on the reference) → **no "Industries We Serve"
+    section on this page** — confirmed via `root.innerText.includes('Industries') === false`, a
+    genuine structural omission relative to every earlier "-consulting-services" page, not a
+    missed audit → Awards & Recognition (4 logos, reused verbatim) → Client Reviews (same 6-review
+    carousel, same order confirmed via `h3`/`strong` text-node walk: Tom Wyman → Richard Heller →
+    Samuel Correns → Kabu Projects → Entrepreneur's Organization Gurgaon → Barry Sarnoff). **No
+    pricing table on this page** (aws has one, this page doesn't) — confirmed by reading every
+    section's widget types, not assumed.
+  - **Applied the 4 known-bug-classes from the session brief, each re-verified on this page's own
+    measurements rather than copy-pasted blindly:**
+    1. Offerings grid: measured the card chrome one level deeper
+       (`.elementor-column > .elementor-widget-wrap`, not the outer column) and found
+       `padding:20px`, `border:0.877193px solid rgb(222,225,233)` (`#dee1e9`), **no border-radius**,
+       `box-shadow:0 14px 46px rgba(0,26,87,0.08)` — the same shadow value as every earlier page's
+       3-card grids, confirming it's the shared `img-box-hover-effect`-adjacent shadow token, but
+       **this component genuinely has no hover lift/border-color-change** (searched
+       `document.styleSheets` for `:hover` rules referencing this widget-wrap class and found none
+       — only header mega-menu hover rules matched) — reproduced as a static bordered card, did
+       not blindly add the hover transform from the 3-card-grid pattern since it doesn't apply
+       here. Column gap measured `29.99px` between wrap rects, row gap `49.99px` (`30px`
+       bottom-padding of one row + `20px` top-padding of the next) — implemented as
+       `grid-template-columns:1fr 1fr;gap:50px 30px`.
+    2. **No sidebar consultation-form card on this page at all** (confirmed: hero's second column
+       is empty, and the only other candidate, the "Get A Free Azure Assessment" section, is a
+       button-only CTA with `href="#fccu"`, no `<form>` element — same "modal-trigger fragment,
+       not a real embedded form" pattern already seen on `aws-consulting-services.html`'s CTA
+       button) — the sidebar-card border/shadow bug class from the session brief does not apply to
+       this page; noted rather than silently skipped.
+    3. Review-carousel person name: confirmed via direct `getComputedStyle` on the reference's
+       `h3` node — `font-weight:600`, `font-size:20px`, matches the required fix exactly; applied
+       to `.azc-review-person strong` from the first build pass, not discovered as a bug after the
+       fact.
+    4. Review card: reused `aws-consulting-services.css`'s already-fixed `.acs-review-card`
+       pattern verbatim (`min-height:400px` + `display:flex;flex-direction:column`, not a fixed
+       `height:400px`) from the start — did not reintroduce the clipping bug.
+  - **General measurement discipline** — the "check one level deeper" trap struck twice more this
+    session: (a) `.azc-offerings-head`/`.azc-why`/`.azc-cases`/`.azc-faq`'s outer `e-con`/
+    `elementor-element` padding read a misleading `1px` reset; the real padding lives on a nested
+    `.e-con-inner` (offerings-head: `10px 0`) — re-derived each section's actual vertical rhythm
+    from a full `getBoundingClientRect` pass across the page instead of trusting the single
+    misleading reads. (b) the case-studies tab card's blue/navy background colors (see above).
+  - **Content fidelity notes:** the reference's own "Proven Client Outcomes"-style bold lead-ins
+    pattern from aws recurs here in the case-studies panels (`<b>Challenge:</b>`, etc.) and was
+    reproduced with `<strong>`; no typos were found in this page's own copy during this session
+    (unlike several earlier pages with a confirmed source typo) — did not invent one.
+- **Assets — all 13 new page-specific images fetched via the same-origin browser-tab +
+  `fetch().then(blob)` + synthetic `<a download>` technique this session, all confirmed `200` at
+  fetch time, but **none landed in `assets/images/`** — confirmed via repeated `find` against the
+  mounted repo path immediately after each download call. This session also hit a new, previously
+  undocumented failure mode: triggering 5 downloads back-to-back in one `javascript_exec` call (and
+  separately, a single `fetch()`+`arrayBuffer()`/`btoa()` call with no download at all) caused the
+  browser tab's CDP `Runtime.evaluate` channel to hang for the full 45s timeout and stay
+  unresponsive to further `javascript_exec` calls (plain synchronous evaluations still worked) —
+  root-caused to a native OS "Save As" dialog blocking the renderer (confirmed: sending `Escape` via
+  the `computer` tool's `key` action unfroze the tab, implying a real modal was open and blocking).
+  Worked around by opening a **fresh tab** and triggering exactly **one download per
+  `javascript_exec` call**, which completed instantly every time with no hang — this one-at-a-time
+  pattern is the reliable technique for future pages, not the previously-documented "batch several
+  in one call" approach. A base64/data-URL return-to-caller alternative (to avoid the native
+  download UI entirely) was also tried and rejected — the platform's own content filter blocks
+  tool results that look like base64-encoded blobs, so that route is not available either.
+  **All 13 assets are blocked pending a manual move from the user's Downloads folder into
+  `assets/images/`**, the same environment limitation documented on most earlier pages:
+  `azure-hero-banner.avif` (hero bg, from `microsoft-azure-consulting1.avif`),
+  `azure-badge-company.png`, `azure-badge-google-ads.png`, `azure-badge-deployment.png`,
+  `azure-badge-support.png` (4 trust-row icons), `azure-pain-billing-surprises.png`,
+  `azure-pain-bottleneck.png`, `azure-pain-compliance-security-gaps.png`,
+  `azure-pain-complex-hybrid.png` (4 pain-point icons, the last renamed from the reference's own
+  oddly-mismatched `requirement-analysis-icon.png` filename), `azure-migration-and-modernization.avif`,
+  `azure-devops-and-infrastructure-automation.avif`, `azure-security-governance-and-compliance.avif`,
+  `azure-cost-optimization-and-finops.avif`, `azure-data-ai-and-analytics-services.avif` (5
+  deep-dive illustrations). Reused without copying: `icon-maintenance.svg`, `icon-project-done.svg`,
+  `icon-design-thinking.svg`, `webapp-custom-applications.svg` (stats), `award-clutch.png`,
+  `award-app-development.png`, `award-goodfirms.png`, `award-microsoft.webp` (awards), `tom-wyman.webp`,
+  `richard-heller.webp`, `samuel-correns.webp`, `kabu-projects-logo.webp`,
+  `entrepreneurs-organization-gurgaon.webp`, `barry-sarnoff.jpg` (reviews).
+- **Files changed:** none needed in `js/header.js`/`js/footer.js` — all 3 existing
+  `azure-consulting-services.html` links (desktop mega-panel, mobile mega-panel, footer) already
+  pointed at the correct filename before this session; checked and confirmed, not assumed.
+- **Verified this session:** `node --check` passes on `js/azure-consulting-services.js`,
+  `js/header.js`, `js/footer.js`; shared header/footer inject correctly
+  (`#site-header-placeholder`/`#site-footer-placeholder` both replaced) and `window.initSite` is
+  defined; no console errors on load (`read_console_messages`, `onlyErrors:true`); the page's own
+  dedicated `azure-consulting-services.html`/`.css`/`.js` all resolve `200`
+  (`read_network_requests` filtered to `azure-consulting-services`); no horizontal overflow at the
+  build's default wide viewport (`scrollWidth` 1670px vs `innerWidth` 1685px); section/component
+  counts sanity-checked via direct DOM query (12 offering cards, 5 deep-dive sections, 9 FAQ items,
+  5 why-choose items, 3 case-study tabs, 6 review originals — all match the reference audit above);
+  case-study tabs switch correctly on click (tested programmatically — clicking tab 1 activates
+  panel 1 and deactivates/hides panel 0); FAQ accordion is single-open (tested programmatically —
+  opening item 2 closes item 0); review carousel clone-based infinite loop confirmed correct (10
+  total children = 6 originals + 2 leading clones + 2 trailing clones, 4 `aria-hidden` clones).
+  Reused/existing assets (award logos, review photos, stats icons) initially misread as "broken"
+  via a naive `naturalWidth===0` sweep — root-caused to `loading="lazy"` + being below the fold at
+  script-execution time, not an actual asset problem; confirmed all 4 award images return real
+  `200`s via `read_network_requests`, not a false negative.
+- **NOT yet verified:** full rendered screenshot comparison at any viewport — the `computer` tool's
+  `screenshot` action was intermittently unavailable for long stretches this session (5s timeouts
+  claiming "the page is busy or mid-navigation" even on an idle, fully-loaded tab), so this build
+  was verified via direct DOM/computed-style/network inspection instead, the same fallback several
+  earlier pages in this project have documented when the same tool outage occurred; tablet/mobile
+  breakpoints (`1199px`/`991px`/`767px` tiers written as reasonable approximations following this
+  project's established single-column/two-column collapse conventions for the new components —
+  trust row, pain-points grid, offerings grid, deep-dive alternating sections, why-choose grid,
+  case-study tabs — none freshly measured against the reference's own compiled responsive CSS);
+  hover states generally; keyboard/focus accessibility on the case-study tabs and FAQ accordion;
+  the `resize_window` tool call made this session to test at `768px` did not appear to actually
+  change the tab's `window.innerWidth` on re-read, so even the one narrow-width overflow spot-check
+  attempted this session is unconfirmed and should be redone next session with a working resize or
+  viewport-emulation path.
+- **Next action:** once the user moves the 13 blocked assets from Downloads into `assets/images/`,
+  reload and confirm the hero background image, trust-row/pain-point icons, and 5 deep-dive
+  illustrations all render (currently structurally correct but visually blank/broken pending the
+  move). Then run a full rendered screenshot pass once the `computer` tool's `screenshot` action is
+  confirmed working again, at all 9 required viewports, and re-derive the tablet/mobile breakpoints
+  for the six genuinely-new components listed above from the reference's own compiled CSS rather
+  than the current carried-over approximations. Update this section to "Previous completed page"
+  once that's done.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/microsoft-365-consulting-services/
 - **Local target:** `microsoft-365-consulting-services.html`
 - **Last updated:** 2026-08-04

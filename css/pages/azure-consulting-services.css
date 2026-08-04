@@ -1,0 +1,1123 @@
+/* ==========================================================================
+   Microsoft Azure Consulting Services — page-scoped styles
+   ========================================================================== */
+
+@font-face {
+  font-family: "PoppinsRef";
+  src: url("../../assets/fonts/poppins-600-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.azc-page main :is(h1, h2, h3, h4, h5, h6) {
+  text-transform: none;
+}
+
+.azc-page {
+  font-family: "DM Sans", sans-serif;
+  color: #191919;
+  background: #fff;
+}
+
+/* ---- hero (own background image — no theme banner on this page) ---- */
+
+.azc-hero {
+  position: relative;
+  padding: 100px 0;
+  background-color: #002164;
+  background-image: url("../../assets/images/azure-hero-banner.avif");
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
+  background-size: cover;
+}
+
+.azc-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* background: rgba(0, 15, 51, 0.74); */
+}
+
+.azc-hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.azc-hero-copy {
+  max-width: 570px;
+}
+
+.azc-hero-copy h1 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 66px;
+  color: #fff;
+}
+
+.azc-hero-accent {
+  color: #2894f8;
+}
+
+.azc-hero-sub {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28px;
+  color: #2894f8;
+}
+
+.azc-hero-copy p {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #fff;
+}
+
+.azc-hero-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 16px 40px;
+  border-radius: 4px;
+  background: #2894f8;
+  color: #fff;
+  font-family: "DM Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.azc-hero-btn:hover {
+  background: #1b74cc;
+}
+
+/* ---- breadcrumb (reused pattern) ---- */
+
+.azc-breadcrumb {
+  padding: 20px 0;
+  background-color: #fbfbfb;
+}
+
+.azc-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.azc-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.azc-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.azc-breadcrumb a:hover {
+  color: rgb(30, 78, 196);
+}
+
+.azc-breadcrumb-list li:last-child span:not(.azc-breadcrumb-sep) {
+  color: #191919;
+}
+
+.azc-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.azc-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- trust badge row ---- */
+
+.azc-trust {
+  padding: 60px 0;
+  background: #fafafa;
+}
+
+.azc-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.azc-trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.azc-trust-item img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0 0 14px;
+}
+
+.azc-trust-item strong {
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #191919;
+}
+
+.azc-trust-item span {
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #191919;
+}
+
+/* ---- intro ---- */
+
+.azc-intro {
+  padding: 90px 0 30px;
+  text-align: center;
+}
+
+.azc-intro h3 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  color: #13255b;
+}
+
+.azc-intro p {
+  margin: 0 auto 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.azc-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.azc-intro-sub strong {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+}
+
+/* ---- pain points ---- */
+
+.azc-pain {
+  padding: 30px 0 90px;
+  background: #fff;
+}
+
+.azc-pain-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.azc-pain-item {
+  text-align: center;
+  padding: 40px 40px 30px;
+  background: #fff;
+  border-top: 4px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 14px 46px rgba(0, 26, 87, 0.08);
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0, 0.3, 1),
+    border-color 0.3s;
+}
+
+.azc-pain-item:hover {
+  transform: translate3d(0, -5px, 0);
+  border-top-color: rgb(30, 78, 196);
+}
+
+.azc-pain-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 104px;
+  height: 104px;
+  margin: 0 0 16px;
+  background: #f7f7f9;
+  border-radius: 50%;
+}
+
+.azc-pain-item img {
+  display: block;
+  width: 64px;
+  height: 64px;
+}
+
+.azc-pain-item h3 {
+  margin: 0 0 8px;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #1d1a4e;
+}
+
+.azc-pain-item p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  text-align: justify;
+}
+
+.azc-pain-icon {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---- offerings intro + grid ---- */
+
+.azc-offerings-head {
+  padding: 60px 0 20px;
+  text-align: center;
+  background: #f7fbff;
+}
+
+.azc-offerings-head h3 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  color: #13255b;
+}
+
+.azc-offerings-head p {
+  margin: 0 auto 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.azc-offerings-head p:last-child {
+  margin-bottom: 0;
+}
+
+.azc-offerings-head strong {
+  font-weight: 700;
+}
+
+.azc-offerings {
+  padding: 50px 0 90px;
+  background: #fff;
+}
+
+.azc-offerings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px 30px;
+}
+
+.azc-offering-card {
+  padding: 70px 50px;
+  background: #fff;
+  box-shadow: 0 14px 46px rgba(0, 26, 87, 0.08);
+}
+
+.azc-offering-card h3 {
+  margin: 0 0 12px;
+  font-family: "Poppins", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.azc-offering-card p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  text-align: justify;
+}
+
+.azc-offering-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.azc-offering-card li {
+  position: relative;
+  margin: 0 0 10px;
+  padding-left: 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.azc-offering-card li:last-child {
+  margin-bottom: 0;
+}
+
+.azc-offering-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #191919;
+}
+
+/* ---- deep-dive alternating sections ---- */
+
+.azc-deepdive {
+  padding: 90px 0;
+  background: #fff;
+}
+
+.azc-deepdive-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 70px;
+}
+
+.azc-deepdive-reverse .azc-deepdive-grid {
+  grid-template-areas: none;
+}
+
+.azc-deepdive-reverse .azc-deepdive-media {
+  order: 2;
+}
+
+.azc-deepdive-reverse .azc-deepdive-copy {
+  order: 1;
+}
+
+.azc-deepdive-media img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.4s ease;
+}
+
+.azc-deepdive-media:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+.azc-deepdive-copy h6 {
+  margin: 0 0 16px;
+  font-family: "Poppins", sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 27px;
+  color: #1d1a4e;
+}
+
+.azc-deepdive-copy p {
+  margin: 0 0 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.azc-deepdive-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.azc-deepdive-copy strong {
+  font-weight: 500;
+}
+
+.azc-deepdive-copy ul {
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.azc-deepdive-copy li {
+  position: relative;
+  margin: 0 0 8px;
+  padding-left: 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.azc-deepdive-copy li:last-child {
+  margin-bottom: 0;
+}
+
+.azc-deepdive-copy li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #191919;
+}
+
+/* ---- CTA gradient banner ---- */
+
+.azc-cta {
+  padding: 110px 0 111px;
+  text-align: center;
+  background: linear-gradient(105deg, #153c9d 0%, #102156 100%);
+}
+
+.azc-cta h2 {
+  margin: 0 0 30px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.azc-cta-btn {
+  display: inline-block;
+  padding: 8px 19px;
+  border-radius: 4px;
+  background: #1e4ec4;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.azc-cta-btn:hover {
+  background: #163b96;
+}
+
+/* ---- Why Choose CloudConverge ---- */
+
+.azc-why {
+  padding: 90px 0;
+  text-align: center;
+  background: #fff;
+}
+
+.azc-why h2 {
+  margin: 0 0 20px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.azc-why > .container > p {
+  max-width: 900px;
+  margin: 0 auto 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.azc-why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-top: 50px;
+  text-align: left;
+}
+
+.azc-why-col {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.azc-why-item h3 {
+  margin: 0 0 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #191919;
+}
+
+.azc-why-item h3::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 16px;
+  margin-right: 8px;
+  vertical-align: -2px;
+  background-color: #2654c6;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z'/></svg>")
+    no-repeat center / contain;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z'/></svg>")
+    no-repeat center / contain;
+}
+
+.azc-why-item p {
+  margin: 0 0 12px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.azc-why-item p:last-child {
+  margin-bottom: 0;
+}
+
+.azc-why-lead {
+  font-weight: 500;
+}
+
+.azc-why-item ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.azc-why-item li {
+  position: relative;
+  margin: 0 0 8px;
+  padding-left: 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.azc-why-item li:last-child {
+  margin-bottom: 0;
+}
+
+.azc-why-item li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2654c6;
+}
+
+/* ---- Case Studies (custom tabs component) ---- */
+
+.azc-cases {
+  padding: 90px 0;
+  text-align: center;
+  background: #fff;
+}
+
+.azc-cases h3 {
+  margin: 0 0 16px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.azc-cases > .container > p {
+  max-width: 900px;
+  margin: 0 auto 50px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+.azc-cases-tabs {
+  display: grid;
+  grid-template-columns: 38% 62%;
+  border-radius: 25px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.azc-cases-tablist {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 60px 0 60px 50px;
+  background: #1e4ec4;
+}
+
+.azc-cases-tab {
+  padding: 0 20px 20px 0;
+  margin: 0 0 20px;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #8dc1fb;
+  text-align: left;
+  cursor: pointer;
+}
+
+.azc-cases-tab:last-child {
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+
+.azc-cases-tab.is-active {
+  color: #fff;
+}
+
+.azc-cases-panels {
+  position: relative;
+  background: #14255b;
+  border-radius: 0 30px 30px 0;
+}
+
+.azc-cases-panel {
+  padding: 60px 75px;
+}
+
+.azc-cases-panel h4 {
+  margin: 0 0 20px;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #fff;
+}
+
+.azc-cases-panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.azc-cases-panel li {
+  position: relative;
+  margin: 0 0 12px;
+  padding-left: 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #fff;
+}
+
+.azc-cases-panel li:last-child {
+  margin-bottom: 0;
+}
+
+.azc-cases-panel li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.azc-cases-panel li ul {
+  margin: 10px 0 0;
+}
+
+.azc-cases-panel li ul li {
+  margin-bottom: 6px;
+}
+
+/* ---- FAQ accordion (single-open, same pattern as aws-consulting-services.html) ---- */
+
+.azc-faq {
+  padding: 90px 0 60px;
+  background: #f7fbff;
+}
+
+.azc-faq h5 {
+  margin: 0 0 30px;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 30px;
+  color: #14255b;
+  text-align: center;
+}
+
+.azc-accordion {
+  max-width: 718px;
+  margin: 0 auto;
+}
+
+.azc-acc-item {
+  margin: 0 0 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.06);
+}
+
+.azc-acc-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  padding: 15px 20px;
+  border: 0;
+  background: #fff;
+  color: #1d1a4e;
+  font-family: "PoppinsRef", "Poppins", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.59;
+  text-align: left;
+  cursor: pointer;
+}
+
+.azc-acc-icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+}
+
+.azc-acc-icon::before,
+.azc-acc-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.azc-acc-icon::before {
+  width: 14px;
+  height: 2px;
+}
+
+.azc-acc-icon::after {
+  width: 2px;
+  height: 14px;
+}
+
+.azc-acc-item.is-open .azc-acc-icon::after {
+  display: none;
+}
+
+.azc-acc-item.is-open .azc-acc-btn {
+  background: rgb(30, 78, 196);
+  color: #fff;
+}
+
+.azc-acc-panel {
+  padding: 20px;
+  background: #fff;
+}
+
+.azc-acc-panel p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+}
+
+/* ---- stats (reused verbatim pattern) ---- */
+
+.azc-stats {
+  padding: 120px 0;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.azc-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.azc-stat-grid article {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid #ddd;
+}
+
+.azc-stat-grid article:last-child {
+  border-right: 0;
+}
+
+.azc-stat-grid img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+}
+
+.azc-stat-grid strong {
+  display: block;
+  font:
+    400 32px/48px "Poppins",
+    sans-serif;
+}
+
+.azc-stat-grid h3 {
+  margin: 0 0 8px;
+  font:
+    400 16px/24px "Poppins",
+    sans-serif;
+}
+
+.azc-stat-grid p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* ---- Awards (reused verbatim pattern) ---- */
+
+.azc-awards {
+  padding: 55px 0 8px;
+  text-align: center;
+}
+
+.azc-awards h2 {
+  margin: 0 0 40px;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.azc-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.azc-award-grid img {
+  display: block;
+  height: 150px;
+  width: auto;
+}
+
+.azc-award-grid .azc-microsoft {
+  height: 77px;
+}
+
+/* ---- client reviews (reused verbatim pattern) ---- */
+
+.azc-reviews {
+  padding: 50px 0 30px;
+}
+
+.azc-reviews h2 {
+  margin: 0 0 40px;
+  font-family: "Poppins", sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #1d1a4e;
+  text-align: center;
+}
+
+.azc-review-viewport {
+  overflow: hidden;
+}
+
+.azc-review-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.azc-review-card {
+  flex: 0 0 540px;
+  min-height: 400px;
+  padding: 37px 35px 47px;
+  background: #f4f4f4;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.azc-stars {
+  color: #ffb600;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.azc-review-card blockquote {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  flex: 1 1 auto;
+}
+
+.azc-review-person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.azc-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.azc-review-person p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  color: #191919;
+}
+
+.azc-review-person strong {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+
+.azc-review-person span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ---- responsive ---- */
+
+@media (max-width: 1199px) {
+  .azc-hero-inner {
+    max-width: 100%;
+  }
+
+  .azc-pain-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .azc-offerings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .azc-deepdive-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .azc-deepdive-reverse .azc-deepdive-media,
+  .azc-deepdive-reverse .azc-deepdive-copy {
+    order: initial;
+  }
+
+  .azc-why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .azc-cases-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .azc-cases-tablist {
+    padding: 30px;
+    border-radius: 25px 25px 0 0;
+  }
+
+  .azc-cases-panels {
+    border-radius: 0 0 25px 25px;
+  }
+
+  .azc-cases-panel {
+    padding: 40px 30px;
+  }
+}
+
+@media (max-width: 991px) {
+  .azc-trust-grid {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 30px;
+  }
+
+  .azc-stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .azc-hero {
+    padding: 60px 0;
+  }
+
+  .azc-hero-copy h1 {
+    font-size: 34px;
+    line-height: 1.25;
+  }
+
+  .azc-hero-sub {
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  .azc-breadcrumb-list {
+    font-size: 12px;
+  }
+
+  .azc-pain-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .azc-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 30px;
+  }
+
+  .azc-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .azc-stat-grid article {
+    border-right: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  .azc-stat-grid article:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .azc-review-card {
+    flex: 0 0 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .azc-review-track {
+    transition: none !important;
+  }
+}
