@@ -147,7 +147,7 @@ window.__PARTIALS.footer = `
         <div class="f-group">
           <p class="f-group-title">Internet Marketing Services</p>
           <ul class="f-links">
-            <li><a href="#seo-services">Search Engine Optimization</a></li>
+            <li><a href="seo-services.html">Search Engine Optimization</a></li>
             <li><a href="#social-media-marketing">Social Media Marketing</a></li>
             <li><a href="#google-ads-services">Google Ads Services</a></li>
           </ul>

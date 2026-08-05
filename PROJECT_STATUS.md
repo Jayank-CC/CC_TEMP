@@ -2,6 +2,100 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/seo-services/
+- **Local target:** `seo-services.html`, `css/pages/seo-services.css`, `js/seo-services.js`
+- **Last updated:** 2026-08-05
+- **State:** Built from scratch (`seo-` prefix, no collision — checked `css/pages/*.css` first).
+  Content root `[data-elementor-id="53593"]`, confirmed 25 top-level children directly via
+  `root.children.length` (not assumed).
+  - **Section order:** hero (own bg image `search-engine-optimization-banner.jpg` full-bleed, no
+    dark overlay — `.elementor-background-overlay` opacity confirmed `0` on the live DOM, so no
+    tint reproduced; H1 "SEO Services" with "SEO" in `#1eebff` cyan, subtitle div (not a real
+    heading tag) "Top SEO Expert Grow Traffic" 32px/400/white, one paragraph, button "Schedule a
+    Call" bg `#08eefa`/text `#030a35`) → breadcrumb (Home / Services / Search Engine Optimization)
+    → intro H2 (centered) → "What is SEO" (H3 text-left/image-right) → "Why Choose CloudConverge"
+    (image-left/H4 text-right, alternating from the previous section, confirmed via widget-type
+    column order) → "SEO Services Customized to Your Business" centered H5 lead-in → **"SEO
+    Services we offer" grid: 10 cards in 5 rows of 2** (Keyword Research and Analysis / On-Page SEO
+    Optimization / Off-Page SEO and Link Building / Mobile SEO / Semantic SEO and Content
+    Optimization [only 3 sub-bullets, not 4 — confirmed, not a missed audit] / Local SEO /
+    International SEO / Enterprise SEO / SEO for WordPress Websites / eCommerce SEO — each
+    heading+paragraph+4-item chevron icon-list) → "Make the Next Move with CloudConverge" lead-in →
+    stats (70+/100+/100%/50+, reused verbatim numbers/labels) → Industries We Serve (heading +
+    reused `industries-sectors.webp`) → Awards & Recognition (4 reused logos) → Client Reviews (same
+    6-review carousel/order as every other page: Tom Wyman → Richard Heller → Samuel Correns → Kabu
+    Projects → Entrepreneur's Organization Gurgaon → Barry Sarnoff).
+  - **Flagged item 1 — offer-card hover + row dividers, measured directly on this page's own DOM
+    rather than assumed from `cloud-services.html`:** each card is `elementor-column` with
+    `img-box-hover-effect` — confirmed via `document.styleSheets` rule search on the card's own
+    `data-id` — `border-width:4px 0 0`, base `border-color:#fff`, hover `border-color:rgb(30,78,196)`
+    (`#1e4ec4`), `box-shadow:0 14px 46px rgba(0,26,87,.08)`, `transition:.4s cubic-bezier(.2,0,.3,1)`,
+    hover `transform:translate3d(0,-5px,0)` — exact match to the established
+    `cls-services-grid`/`img-box-hover-effect` pattern, re-verified rather than copied blindly.
+    Column gap measured **0px** (cards sit edge-to-edge). The divider between rows is a genuine
+    top-level Elementor `divider` widget/section (`.elementor-divider-separator`), measured
+    `border-top:0.877193px solid rgb(194,215,230)` (`#c2d7e6`, the usual sub-pixel rendering
+    artifact this project always rounds to `1px`) whose `getBoundingClientRect()` spans **exactly**
+    from card-0's left edge to card-1's right edge (both `265.09px`/`1405.08px` in the reference
+    capture) with ~27px clearance above/below. Implemented as `<hr class="seo-offer-divider">`
+    siblings inside one `.seo-offer-grid` (`grid-template-columns:1fr 1fr`), each divider
+    `grid-column:1/-1` — reproduces the exact same full-row-width span with no extra wrapper
+    markup. Re-verified on the local build: `getBoundingClientRect()` on card 0/1 and divider 0
+    matched to the pixel (`280.08`/`1390.09` both card edges and divider edges).
+  - **Flagged item 2 — stats hover-lift, scoped to this page only:** confirmed on the reference that
+    each of the 4 stat inner-columns also carries `img-box-hover-effect` (checked its own `data-id`
+    in `document.styleSheets` — border-width is `0` here, so **only** the `translate3d(0,-5px,0)`
+    lift applies, no border-color change, unlike the offer cards). Added
+    `.seo-stat-grid article { transition: 0.4s cubic-bezier(0.2,0,0.3,1); } .seo-stat-grid
+    article:hover { transform: translate3d(0,-5px,0); }` to `css/pages/seo-services.css` only —
+    every other page's stats component (`azc-stats`, `m365-...`, etc.) is untouched, confirmed via
+    `grep` before and after.
+  - Chevron-right icon-list bullet reproduced as an inline SVG using the exact FA path pulled from
+    the reference's own DOM (`e-fas-chevron-right`, viewBox `0 0 320 512`), not a guessed glyph.
+  - Reused verbatim without re-deriving: breadcrumb chrome (from `azure-consulting-services.css`),
+    stats/Industries/Awards/Reviews markup+CSS+carousel JS (renamed `seo-*`), all confirmed against
+    this page's own live DOM (numbers, review order, industries image, award alt text) rather than
+    assumed to transfer as-is.
+- **Assets — 3 new page-specific images, one `fetch().then(blob)` + synthetic `<a download>` per
+  `javascript_exec` call (no batching):** all 3 landed directly in `assets/images/`, confirmed via
+  `ls` and `200`/`304` on the local build — **no Downloads-folder blocker this session**:
+  `seo-hero-banner.jpg` (137534 bytes, 1920×851, hero bg), `seo-what-is-seo.webp` (12540 bytes,
+  500×444), `seo-why-choose-cloudconverge.webp` (21158 bytes, 600×400). Reused without copying:
+  `industries-sectors.webp`, `award-clutch.png`, `award-app-development.png`, `award-goodfirms.png`,
+  `award-microsoft.webp`, `icon-maintenance.svg`, `icon-project-done.svg`,
+  `icon-design-thinking.svg`, `webapp-custom-applications.svg`, `tom-wyman.webp`,
+  `richard-heller.webp`, `samuel-correns.webp`, `kabu-projects-logo.webp`,
+  `entrepreneurs-organization-gurgaon.webp`, `barry-sarnoff.jpg`.
+- **Files changed:** `js/header.js` (desktop mega-panel line ~169 and mobile mega-panel line ~297)
+  and `js/footer.js` (line ~150) all had a genuine dead `href="#seo-services"` hash anchor for the
+  "Search Engine Optimization" link — fixed all 3 to `href="seo-services.html"`. Sibling links
+  (`#social-media-marketing`, `#google-ads-services`) intentionally left as-is — those pages don't
+  exist yet.
+- **Verified this session:** `node --check` passes on `js/seo-services.js`, `js/header.js`,
+  `js/footer.js`; HTML tag-balance checked with a Python `HTMLParser` pass (0 unclosed/mismatched
+  tags). On the local build (`127.0.0.1:5500/seo-services.html`): header/footer inject correctly,
+  `window.initSite` defined, zero console errors, `seo-services.html`/`.css`/`.js` and
+  `seo-hero-banner.jpg` all resolve `200`/`304`; 21 `main img` elements, 0 broken
+  (`naturalWidth===0`); 10 offer cards / 4 dividers / 4 stat cards all present; review track has 10
+  children (6 originals + 4 `aria-hidden` clones, correct clone-based loop, confirmed
+  `translate3d` positioning applies once the tab is foregrounded — background-tab `rAF` throttling
+  gave a false "transform never set" reading before that, not a real bug); divider-to-card-edge
+  alignment re-measured on the local build and matches to the pixel; no horizontal overflow at
+  1920/1366/1024/768/480/360 (synthetic same-origin iframe technique); full top-to-bottom rendered
+  screenshot pass confirms hero, breadcrumb, offer grid + dividers, CTA lead-in, industries pyramid,
+  and review carousel all visually match the reference structure/copy.
+- **NOT verified:** synthetic mouse-driven `:hover` on the offer cards/stat cards (verified instead
+  via direct CSS-rule/computed-style inspection, per this project's established fallback for
+  unreliable synthetic hover); exact tablet breakpoint values for `seo-what-grid`/`seo-why-grid`/
+  `seo-offer-grid` (written as reasonable single-column approximations at ≤767px, not CSSOM-measured
+  against the reference's own compiled responsive CSS); keyboard/focus accessibility on the review
+  carousel.
+- **Next action:** CSSOM-extract the reference's own tablet (768–1024px) breakpoint for the offer
+  grid and the two alternating image+text sections if pixel-exact tablet fidelity is required: then
+  update this section to "Previous completed page".
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/azure-consulting-services/
 - **Local target:** `azure-consulting-services.html`
 - **Last updated:** 2026-08-04
