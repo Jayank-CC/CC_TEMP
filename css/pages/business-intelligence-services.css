@@ -1,0 +1,715 @@
+/* ==========================================================================
+   Business Intelligence Services & Consulting — page-specific styles
+   Reference: https://www.cloudconverge.io/business-intelligence-services/
+   Prefix: bis-
+   ========================================================================== */
+
+/* Note: unlike most sibling pages, this reference's own headings compute
+   text-transform: capitalize (getComputedStyle confirmed directly on the
+   live h1/h2/h3), matching this project's global css/style.css default
+   (h1..h6 { text-transform: capitalize }). So no reset is added here — the
+   source text below is written verbatim lowercase where the reference's own
+   textContent is lowercase (e.g. "Other Components of Our BI Implementation
+   Solutions", "Ready to Revolutionize Your Business with Business
+   Intelligence?") and the existing global CSS does the visual
+   capitalization, matching the same convention already used on
+   microsoft-365-consulting-services.html. */
+
+/* ---- hero (theme-level .wraper_inner_banner equivalent: pure decorative
+   background, no text content — confirmed on the reference the visible
+   breadcrumb lives in the Elementor content root below, not inside this
+   banner, whose own breadcrumb is display:none) ---- */
+
+.bis-hero {
+  height: 380px;
+  background-color: #061336;
+  background-image: url("../../assets/images/bis-hero-banner.webp");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+/* ---- breadcrumb (reused pattern, verbatim from sibling pages) ---- */
+
+.bis-breadcrumb {
+  padding: 20px 0;
+  background-color: #fbfbfb;
+}
+
+.bis-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-body);
+  font-size: 16px;
+}
+
+.bis-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.bis-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.bis-breadcrumb a:hover {
+  color: var(--color-primary);
+}
+
+.bis-breadcrumb-list li:last-child span:not(.bis-breadcrumb-sep) {
+  color: #191919;
+}
+
+.bis-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.bis-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- intro: H1 + subtitle + paragraph, all centered ---- */
+
+.bis-intro {
+  padding: 50px 15px 0;
+  background: #fff;
+  text-align: center;
+}
+
+.bis-intro h1 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 45px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-heading);
+}
+
+.bis-intro-sub {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-heading);
+}
+
+.bis-intro p {
+  margin: 0 auto;
+  padding: 20px 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- "Why Our BI Implementation Services?" — centered H2 + 2x2
+   heading/paragraph grid, no card chrome, no icons (confirmed 0 hover class
+   on these columns on the reference) ---- */
+
+.bis-why {
+  padding: 10px 15px 20px;
+  background: #fff;
+  text-align: center;
+}
+
+.bis-why h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+}
+
+.bis-why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: left;
+}
+
+.bis-why-col {
+  padding: 10px;
+}
+
+.bis-why-item {
+  margin-bottom: 20px;
+}
+
+.bis-why-item:last-child {
+  margin-bottom: 0;
+}
+
+.bis-why-item h3 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-heading);
+}
+
+.bis-why-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- 3-card image grids (two rows) — confirmed on the reference's own
+   document.styleSheets: img-box-hover-effect on the outer card column
+   (border-top 4px #fff -> var(--color-primary) on hover, box-shadow
+   var(--shadow-card), 4px radius, white bg, translate3d(0,-5px,0) lift),
+   heading centered 18/400, paragraph left-aligned 16/400/26, heading
+   widget's own inner-section padding 30px 30px 20px, text widget-wrap
+   padding 0 30px (left/right only), image full-bleed at the bottom with no
+   extra padding — all measured directly, matches the established
+   microsoft-365-consulting-services.css 3-card pattern exactly ---- */
+
+.bis-cards {
+  padding: 21px 0 0;
+  background: #fff;
+}
+
+.bis-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.bis-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 4px;
+  border-top: 4px solid #fff;
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0, 0.3, 1),
+    border-color 0.3s;
+  overflow: hidden;
+}
+
+.bis-card:hover {
+  transform: translate3d(0, -5px, 0);
+  border-top-color: var(--color-primary);
+}
+
+.bis-card h3 {
+  margin: 0;
+  padding: 30px 30px 20px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.bis-card p {
+  margin: 0 0 20px;
+  padding: 0 30px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.bis-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: auto;
+}
+
+/* ---- "Other Components of Our BI Implementation Solutions" — H3 heading
+   in column 1 + a 3-item / 4-item split across two 50/50 columns, each
+   column also carrying its own illustration image, closing with a solid
+   button "Connect with Us" at the end of column 2 (href points at the
+   site's #fccu quote-request modal anchor, reused verbatim) ---- */
+
+.bis-other {
+  padding: 60px 15px;
+  background: #fff;
+}
+
+.bis-other-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.bis-other h3 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+}
+
+.bis-other-item {
+  margin-bottom: 20px;
+}
+
+.bis-other-item h4 {
+  margin: 0 0 8px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-heading);
+}
+
+.bis-other-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.bis-other-media {
+  margin-top: 20px;
+}
+
+.bis-other-media img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.bis-other-media:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+.bis-other-col-2 .bis-other-media {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.bis-other-btn {
+  display: inline-block;
+  padding: 8px 19px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.bis-other-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 11px 14px -7px rgba(0, 0, 0, 0.25);
+}
+
+/* ---- stats (reused verbatim component pattern) ---- */
+
+.bis-stats {
+  padding: 120px 0;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.bis-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.bis-stat-grid article {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid #ddd;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+
+.bis-stat-grid article:hover {
+  transform: translate3d(0, -5px, 0);
+}
+
+.bis-stat-grid article:last-child {
+  border-right: 0;
+}
+
+.bis-stat-grid img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+}
+
+.bis-stat-grid strong {
+  display: block;
+  font: 400 32px/48px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.bis-stat-grid h3 {
+  margin: 0 0 8px;
+  font: 400 16px/24px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.bis-stat-grid p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- "Why Business Intelligence?" — centered H4 + intro paragraph + 3
+   left-aligned title/paragraph pairs stacked full-width, no card chrome
+   (confirmed 1-column layout on the reference, not a grid) ---- */
+
+.bis-why-bi {
+  padding: 0 15px 20px;
+  background: #fff;
+  text-align: center;
+}
+
+.bis-why-bi h4 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 38px;
+  color: var(--color-heading);
+}
+
+.bis-why-bi > .container > p:first-of-type {
+  margin: 0 auto 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.bis-why-bi-item {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.bis-why-bi-item:last-child {
+  margin-bottom: 0;
+}
+
+.bis-why-bi-item h5 {
+  margin: 0 0 10px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-heading);
+}
+
+.bis-why-bi-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- "Ready to Revolutionize..." — centered heading + paragraph, plain
+   white background, no CTA button/gradient on this page (confirmed: 0
+   background-color/background-image, 0 <a> elements in this section on the
+   reference) ---- */
+
+.bis-cta-text {
+  padding: 0 15px 20px;
+  background: #fff;
+  text-align: center;
+}
+
+.bis-cta-text h5 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  color: var(--color-heading);
+}
+
+.bis-cta-text p {
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- Industries We Serve (reused verbatim pattern) ---- */
+
+.bis-industries {
+  padding: 50px 0 20px;
+  text-align: center;
+}
+
+.bis-industries h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.bis-industries-img {
+  padding: 0;
+  text-align: center;
+}
+
+.bis-industries-img img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ---- Awards (reused verbatim pattern) ---- */
+
+.bis-awards {
+  padding: 55px 0 8px;
+  text-align: center;
+}
+
+.bis-awards h2 {
+  margin: 0 0 40px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.bis-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.bis-award-grid img {
+  display: block;
+  height: 150px;
+  width: auto;
+}
+
+.bis-award-grid .bis-microsoft {
+  height: 77px;
+}
+
+/* ---- client reviews (reused verbatim pattern) ---- */
+
+.bis-reviews {
+  padding: 50px 0 30px;
+}
+
+.bis-reviews h2 {
+  margin: 0 0 40px;
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.bis-review-viewport {
+  overflow: hidden;
+}
+
+.bis-review-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.bis-review-card {
+  flex: 0 0 540px;
+  min-height: 400px;
+  padding: 37px 35px 47px;
+  background: #f4f4f4;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.bis-stars {
+  color: #ffb600;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.bis-review-card blockquote {
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  flex: 1 1 auto;
+}
+
+.bis-review-person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.bis-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.bis-review-person p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-body);
+}
+
+.bis-review-person strong {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.bis-review-person span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ---- responsive ---- */
+
+@media (max-width: 1199px) {
+  .bis-cards-grid {
+    gap: 20px;
+  }
+
+  .bis-other-grid {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 991px) {
+  .bis-stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .bis-cards-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .bis-why-grid,
+  .bis-other-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .bis-hero {
+    height: 220px;
+  }
+
+  .bis-breadcrumb-list {
+    font-size: 12px;
+  }
+
+  .bis-intro h1 {
+    font-size: 30px;
+    line-height: 1.25;
+  }
+
+  .bis-intro-sub {
+    font-size: 18px;
+  }
+
+  .bis-why,
+  .bis-why-bi,
+  .bis-cta-text,
+  .bis-intro {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .bis-why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bis-cards {
+    padding: 30px 20px 0;
+  }
+
+  .bis-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .bis-other {
+    padding: 40px 20px;
+  }
+
+  .bis-other-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bis-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 30px;
+  }
+
+  .bis-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bis-stat-grid article {
+    border-right: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  .bis-stat-grid article:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .bis-review-card {
+    flex: 0 0 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bis-review-track {
+    transition: none !important;
+  }
+
+  .bis-stat-grid article,
+  .bis-card {
+    transition: none !important;
+  }
+}

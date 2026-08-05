@@ -189,7 +189,7 @@ window.__PARTIALS.header = `
         <div class="mega-tab-panel" id="tab-ai" role="tabpanel" hidden>
           <div class="mega-cat"><div class="mega-cat-title">AI / ML &amp; Business Intelligence</div><p class="mega-cat-sub">Harnessing AI and BI to fuel innovation, efficiency, and strategic foresight.</p>
           <ul class="mega-links">
-            <li><a href="#business-intelligence-services">Business Intelligence Implementation</a></li>
+            <li><a href="business-intelligence-services.html">Business Intelligence Implementation</a></li>
             <li><a href="#ai-and-ml-development-services">AI / ML Product Development</a></li>
             <li><a href="#chatgpt-integration-services">ChatGPT Integration</a></li>
             <li><a href="#chatbot-integration-services">ChatBot Integration</a></li>
@@ -302,7 +302,7 @@ window.__PARTIALS.header = `
           <li class="m-group">
             <a href="#">AI / ML &amp; Business Intelligence</a>
             <ul class="m-sub">
-              <li><a href="#business-intelligence-services">Business Intelligence Implementation</a></li>
+              <li><a href="business-intelligence-services.html">Business Intelligence Implementation</a></li>
               <li><a href="#ai-and-ml-development-services">AI / ML Product Development</a></li>
               <li><a href="#chatgpt-integration-services">ChatGPT Integration</a></li>
               <li><a href="#ai-chatbot-development-services">AI Chatbot Development Company</a></li>
