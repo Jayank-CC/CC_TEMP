@@ -167,7 +167,7 @@ window.__PARTIALS.header = `
           <div class="mega-cat"><div class="mega-cat-title">Internet Marketing Services</div><p class="mega-cat-sub">Drive traffic, increase leads, and grow business with digital marketing.</p>
           <ul class="mega-links">
             <li><a href="seo-services.html">Search Engine Optimization</a></li>
-            <li><a href="#social-media-marketing">Social Media Marketing</a></li>
+            <li><a href="social-media-marketing.html">Social Media Marketing</a></li>
             <li><a href="#google-ads-services">Google Ads Services</a></li>
           </ul></div>
           <div class="mega-cases">
@@ -295,7 +295,7 @@ window.__PARTIALS.header = `
             <a href="#">Internet Marketing Services</a>
             <ul class="m-sub">
               <li><a href="seo-services.html">Search Engine Optimization</a></li>
-              <li><a href="#social-media-marketing">Social Media Marketing</a></li>
+              <li><a href="social-media-marketing.html">Social Media Marketing</a></li>
               <li><a href="#google-ads-services">Google Ads Services</a></li>
             </ul>
           </li>

@@ -2,6 +2,102 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/social-media-marketing/
+- **Local target:** `social-media-marketing.html`, `css/pages/social-media-marketing.css`,
+  `js/social-media-marketing.js`
+- **Last updated:** 2026-08-05
+- **State:** Built from scratch (`smm-` prefix, no collision — checked `css/pages/*.css` first).
+  Content root `[data-elementor-id="54065"]`, confirmed 24 top-level children directly via
+  `root.children.length` (not assumed).
+  - **Section order:** hero (own bg image `smm-hero-banner.jpg`, no dark overlay, opacity `0`
+    confirmed on live DOM; H1 "Social Media Marketing" with "Social Media" in `#1eebff` cyan;
+    subtitle is a `<div>` not a real heading tag — `26px/400/38px` white; paragraph `16/400/22`
+    white with "business growth!" in cyan; outline button "Schedule a Call" — transparent bg,
+    `1px solid #08eefa`, text `#08eefa`, `16px 30px` padding, `4px` radius — no hover rule found on
+    the reference for this button, so a fill-on-hover was added by convention, **not directly
+    verified**) → breadcrumb (Home / Services / Social Media Marketing, reused seo-breadcrumb
+    pattern verbatim) → intro H2 (centered) → "Reasons to Track..." (H3 text-left/image-right,
+    `smm-reasons-to-track.jpg` 500×500) → **"Social Media Channels We Focus On"** H4
+    `28/600/38/#13255b` (`--color-dark-2`, confirmed exact var match) centered, then **3 rows of 2
+    channel-cards separated by full-width dividers** (Facebook[5 bullets]+Twitter[4] /
+    Instagram[4]+LinkedIn[4] / Pinterest[4]+YouTube[4] — bullet counts confirmed per-card, not
+    assumed uniform; card titles are `<div>`s not real headings, `18/400/normal/navy`; bullets reuse
+    the site-wide chevron-icon-list pattern exactly — `10×10` black-fill chevron, `align-items:
+    center`, ~5px item gap, confirmed via direct measurement; divider `27px` clearance /
+    `1px solid #c2d7e6`, same value as every earlier page) → "What is Social Media Marketing?" H5
+    `32/600/30/navy` centered lead-in → **methodology** H6 centered heading + **2×2 icon+title+desc
+    grid, no card chrome** (confirmed `0` border/shadow/padding on the reference) — icon is FA
+    `angle-double-right` (`»`), `14×14`, fill `#2654c6` (a distinct blue from `--color-primary`,
+    verified not a typo), `align-items:flex-start`, `10px` icon-to-content gap; title is a `<div>`
+    (not `<h3>` — caught and fixed mid-build), `Poppins 16/400/26/#191919` (looks bold in a
+    screenshot only because Poppins-at-400 reads heavier than the DM Sans body copy next to it —
+    genuinely `400`, re-verified, not a lesson-3 miss) → **"Social Media Paid Advertising
+    Management"** H5 `26/600/30/navy` left-aligned, image-left/text-right (`smm-paid-advertising-
+    management.jpg` 500×444), paragraph + "We can help you:" + **a genuinely different bullet
+    style from the chevron pattern**: plain FA `circle` dot `6px`, fill `#393d44`,
+    `align-items:flex-start` (not center), text `16/400/20/#616270` — confirmed distinct via direct
+    measurement rather than reusing the chevron list — implemented as a `::before` circle since no
+    inline SVG was needed) → "Optimizing Social Media Marketing" H6 `20/600/27/navy` centered
+    lead-in (verbatim source typo preserved: "Our test different types of content, times of day to
+    post, frequency but, and...") → **stats** (70+/100+/100%/50+, byte-for-byte the same reused
+    icons/labels/paragraphs as every earlier page's stats block) — **this page's own DOM also
+    carries `moving-icon-left-right` on the 4 stat icons** (confirmed, not assumed from
+    seo-services.html, which doesn't have this) — added `.smm-stat-grid article:hover img
+    { transform: translate3d(-10px,0,0) }` in addition to the standard `translate3d(0,-5px,0)`
+    card-lift, scoped to this page's CSS only → Industries We Serve (heading `20/400/#191919` —
+    genuinely `400` weight, not `600` like earlier pages copied blindly would assume — + reused
+    `industries-sectors.webp`) → Awards & Recognition (heading `20/400/navy`, 4 reused logos) →
+    Client Reviews (heading `26/400/navy`, same 6-review carousel/order as every other page: Tom
+    Wyman → Richard Heller → Samuel Correns → Kabu Projects → Entrepreneur's Organization Gurgaon →
+    Barry Sarnoff — confirmed via unique-name text walk on this page's own DOM).
+  - **Hover patterns confirmed directly on this page's own `document.styleSheets`, not assumed from
+    sibling pages:** `img-box-hover-effect` (lift-only, no border-color change, matches
+    seo-services' stats treatment) on the channel-card columns, methodology icon-box columns, and
+    all 4 stat cards; `move-image-left-right` (`translate3d(-10px,0,0)` on hover) on both the
+    "Reasons to Track" and "Paid Advertising" images; `moving-icon-left-right` on the 4 stat icons
+    (see above — this page-specific detail was verified, not carried over).
+- **Assets — 3 new page-specific images, one `fetch().then(blob)` + synthetic `<a download>` per
+  `javascript_exec` call (no batching):** all 3 landed directly in `assets/images/` this session (no
+  Downloads-folder blocker) — `smm-hero-banner.jpg` (92918 bytes, 1920×851, hero bg),
+  `smm-reasons-to-track.jpg` (42947 bytes, 500×500), `smm-paid-advertising-management.jpg` (136085
+  bytes, 500×444). Reused without copying: `industries-sectors.webp`, `award-clutch.png`,
+  `award-app-development.png`, `award-goodfirms.png`, `award-microsoft.webp`, `icon-maintenance.svg`,
+  `icon-project-done.svg`, `icon-design-thinking.svg`, `webapp-custom-applications.svg`,
+  `tom-wyman.webp`, `richard-heller.webp`, `samuel-correns.webp`, `kabu-projects-logo.webp`,
+  `entrepreneurs-organization-gurgaon.webp`, `barry-sarnoff.jpg`.
+- **Files changed:** `js/header.js` (desktop mega-panel line ~170 and mobile mega-panel line ~298)
+  and `js/footer.js` (line ~151) had a dead `href="#social-media-marketing"` hash anchor — fixed all
+  3 to `href="social-media-marketing.html"`. Sibling link `#google-ads-services` intentionally left
+  as-is — that page doesn't exist yet.
+- **Verified this session:** `node --check` passes on `js/social-media-marketing.js`, `js/header.js`,
+  `js/footer.js`; HTML tag-balance checked with a Python `HTMLParser` pass (0 unclosed/mismatched
+  tags). On the local build (`127.0.0.1:5500/social-media-marketing.html`): header/footer inject
+  correctly, `window.initSite` defined, `window.__smmPageInit` true, zero console errors, all core
+  files (`.html`/`.css`/`.js`) and `smm-hero-banner.jpg` resolve `200`; 21 `main img` elements, 0
+  broken (`naturalWidth===0`); all 6 channel-cards / 2 dividers / 4 methodology items / 4 stat cards
+  present; review track builds with clones correctly (same carousel JS as seo-services, renamed);
+  hover rules re-verified via direct `document.styleSheets` inspection on the local build (not
+  synthetic mouse hover) — stat lift + icon shift, reasons/paid image shift, button fill — all match
+  intended values. **No horizontal overflow at any required width** (1920/1440/1366/1280/1024/768/
+  480/390/360), verified via a same-origin `<iframe>` at each exact width + `scrollWidth` comparison
+  (this session's `resize_window` tool did not actually shrink the real viewport below ~1685px in
+  this sandbox — confirmed by re-checking `window.innerWidth` after resize — so the iframe technique
+  was used for every width instead of a real visual screenshot at narrow sizes).
+- **NOT verified:** true visual mobile/tablet screenshots at 768px and below (only scrollWidth-based
+  overflow, due to the `resize_window` limitation above — the written mobile CSS follows the same
+  single-column-collapse convention already established and screenshot-verified on seo-services.html,
+  but this page's own mobile layout was not independently rendered and eyeballed); synthetic
+  mouse-driven `:hover` (verified instead via direct CSS-rule inspection, per this project's
+  established fallback); keyboard/focus accessibility on the review carousel; exact tablet
+  breakpoint values for `smm-channel-grid`/`smm-method-grid`/`smm-reasons-grid`/`smm-paid-grid`
+  (written as reasonable single-column approximations at ≤767px, not CSSOM-extracted from the
+  reference's own compiled tablet breakpoint).
+- **Next action:** Get a real narrow-viewport screenshot (via an actual small browser window rather
+  than this sandbox's capped `resize_window`) to visually confirm the ≤767px collapse, then update
+  this section to "Previous completed page".
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/seo-services/
 - **Local target:** `seo-services.html`, `css/pages/seo-services.css`, `js/seo-services.js`
 - **Last updated:** 2026-08-05
