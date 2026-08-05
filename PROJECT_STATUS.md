@@ -2,6 +2,136 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/google-ads-services/
+- **Local target:** `google-ads-services.html`, `css/pages/google-ads-services.css`,
+  `js/google-ads-services.js`
+- **Last updated:** 2026-08-05
+- **State:** Built from scratch (`gads-` prefix, no collision — checked `css/pages/*.css` first).
+  Content root `.elementor-69647`, confirmed 36 top-level children directly via
+  `root.children.length` (largest page in the project so far — no stats/industries/awards block
+  until near the very end, unlike every earlier page).
+  - **Section order:** hero (own bg image `gads-hero-banner.jpg`, no dark overlay; H1 "Google
+    <span>Ads Services</span>" — accent on the SECOND word this time, not the first, confirmed
+    via source `<span style="color:#1eebff">`; subtitle `<div>` (not a real heading) `32/400/38`
+    white with "ROI" in cyan; 2 paragraphs `18/400/22` white; solid-fill button "Schedule a Call"
+    `#08eefa`/`#030a35`, `16px 40px`, `4px` radius, matches seo-hero-btn exactly) → breadcrumb
+    (Home / Services / Google Ads Services, reused pattern verbatim) → "Why Businesses Continue
+    to Invest in Google Ads" H3 `32/600/42` centered intro (verified `max-width:none` on the
+    reference paragraph, filling the full ~1140px container — lesson-1 check passed) → **3-column
+    icon/title/copy grid, no card chrome** (Smarter Targeting / SEO Builds Over Time / Clear
+    Measurable ROI — title is a `<div>` `18/400/normal` navy, genuinely 400 weight, re-verified) →
+    "Trusted Performance" H5 centered + **3-stat row** (1000+ Campaigns Optimized / $10M+ Ad Spend
+    Managed / 50% Team Members — "50% Team Members" is a verbatim source oddity, reproduced as-is,
+    NOT a typo I introduced) → "Full-Funnel Visibility Across Google" H4, text-left (5-item circle-
+    dot list: Search/Shopping/Display/YouTube/Performance Max) + image-right (reused
+    `smm-paid-advertising-management.jpg` 500×444 byte-for-byte — same asset already in
+    `assets/images/`, not re-downloaded, per the no-duplicate-asset rule) → "Why Choose
+    CloudConverge as Your Google Ads Agency" H5 centered lead-in + **2×2 icon/title/copy grid**
+    (Google-Certified Team / Ads+Landing Pages Aligned / Smarter Bidding / Reporting — FA
+    `angle-double-right` icon `14×14` fill `#2654c6`, `align-items:flex-start`, confirmed
+    `img-box-hover-effect` on the reference's own column classes) → "Google Ads Services That Go
+    Beyond Basic Campaign Setup" H5 centered lead-in + **4×2 icon/title/copy grid** (Search Ads /
+    Shopping Ads / Performance Max / Remarketing / YouTube Ads / Lead Generation / eCommerce ROAS /
+    Local Google Ads — identical pattern/hover to the 2×2 grid above, also confirmed
+    `img-box-hover-effect` on the reference) → **CTA banner**: dark gradient
+    `linear-gradient(105deg,#153c9d 0%,#102156 100%)`, H3 `32/600/42` white centered + link "Get in
+    touch with our Google ads Experts!" `15/500` white with underline → "How CloudConverge Turns
+    Different Industries into Repeatable Growth Systems" H3 centered intro → **industries
+    case-study tabs** (Elementor `nested-tabs` widget on the reference, reimplemented as vanilla-JS
+    tabs in `js/google-ads-services.js`): left tab list solid `#1e4ec4` background (confirmed via
+    `.elementor-widget-container` background, NOT the tab buttons themselves), right content panel
+    `#14255b` (`rgb(20,37,91)`, matches `--color-dark-2` almost exactly) with `30px` right-corner
+    radius; 3 tabs — E-commerce: Scaling Without Killing Margins / Local Services: More Calls,
+    Less Wasted Clicks / B2B SaaS: Better Leads, Not Just More Leads — each panel a
+    Challenge/Strategy/Result bullet list; active tab white text, inactive `#8dc1fb`; verified
+    click-to-switch works correctly on the local build (only the clicked tab gets `is-active` +
+    `aria-selected`) → "The Optimization Framework We Use to Turn Google Ads Into a Predictable
+    Growth Channel" H3 centered intro + **3×3 icon grid, no card chrome, real 64×64 `<img>` icons
+    (not FA svg this time)** — Account Audit / Keyword Clustering / Negative Keywords / Ad Copy
+    Testing / Audience Layering / Landing Page CRO / Bid Strategy / AI Forecasting / Reporting
+    Dashboard, + closing paragraph → "Google Ads Pricing & Engagement Models" H3 centered intro +
+    **3 alternating image/text rows** (Starter image-left / Growth image-right / Scale image-left
+    — confirmed alternation directly from the reference's own column order, not assumed), each with
+    an H6 heading, intro paragraph, "Best for:" + "What's included:" bullet lists (circle-dot style,
+    reused from the funnel-list pattern) → **FAQ's** H5 centered + **10-item accordion** (Elementor
+    `radiant-accordion` widget on the reference) — reimplemented as a vanilla-JS single-open
+    accordion: closed items white bg / navy bold text / black "+", the one open item solid `#1e4ec4`
+    bg / white bold text / white "-" (this exact color pairing required real CSSOM excavation — the
+    naive `getComputedStyle` reading showed `background: rgba(0,0,0,0)` "not set" all the way up
+    the ancestor chain; the actual rule was `.elementor-element-a004970 .btn.btn-link { background:
+    linear-gradient(to top,#1e4ec4 0%,#1e4ec4 100%) }` overridden to white by a sibling `.collapsed`
+    rule — found only by iterating `document.styleSheets` and testing `element.matches()` against
+    every rule's selector, not by computed-style alone; screenshot-confirmed against the live
+    reference before implementing) → **stats** (70+/100+/100%/50+, byte-for-byte the same reused
+    icons/labels/paragraphs as every earlier page) → Industries We Serve (reused
+    `industries-sectors.webp`) → Awards & Recognition (4 reused logos) → Client Reviews (same
+    6-review carousel/order as every other page: Tom Wyman → Richard Heller → Samuel Correns →
+    Kabu Projects → Entrepreneur's Organization Gurgaon → Barry Sarnoff).
+  - **Global bug caught and fixed:** `css/style.css` sets `h1..h6 { text-transform: capitalize }`
+    globally; the reference confirms `text-transform: none` via `getComputedStyle` on its own
+    headings. Reset with `.gads-page main :is(h1,h2,h3,h4,h5,h6) { text-transform: none; }` at the
+    top of `google-ads-services.css` — the same fix already present in
+    `aws-consulting-services.css`/`azure-consulting-services.css`/etc. **Flag for a future
+    session:** `seo-services.css` and `social-media-marketing.css` do NOT have this reset and may
+    be silently mis-capitalizing any heading whose source text has a lowercase mid-sentence word
+    (e.g. "to", "in", "with") — not fixed here since it's out of this task's scope, but worth an
+    audit pass on those two pages.
+- **Assets — 19 new page-specific images, one `fetch().then(blob)` + synthetic `<a download>` per
+  `javascript_exec` call (no batching):** downloads landed in the Windows Downloads folder this
+  session (not directly in `assets/images/`, unlike some earlier pages) — required calling
+  `request_cowork_directory` on `C:\Users\JayankTiwari\Downloads` to gain read/write access, then
+  `mv`-ing all 19 files into `assets/images/` via the sandbox bash tool (the `mv` unlink step on the
+  Downloads side failed with "Operation not permitted" — files were still successfully copied to
+  `assets/images/`, confirmed by size + PIL-dimension match; harmless duplicates remain in
+  Downloads). All 19 dimension-verified with PIL: `gads-hero-banner.jpg` (105321 bytes, 1920×851),
+  9× `64×64` icons (`gads-fast-time-icon.png`, `gads-dms-icons_6.png`, `gads-cost-savings-icon.png`,
+  `gads-company.png`, `gads-google-ads-icon.png`, `gads-team-members-icon.png`), 9× further `64×64`
+  framework icons (`gads-account-audit.png`, `gads-keyword-clustering.png`,
+  `gads-negative-keywords.png`, `gads-ad-copy-testing.png`, `gads-audience-layering.png`,
+  `gads-landing-page-cro.png`, `gads-bid-strategy.png`, `gads-ai-forecasting.png`,
+  `gads-reporting-dashboard.png`), `gads-starter.png` (500×444), `gads-growth.png` (500×444),
+  `gads-maximize-revenue-without-losing-control.png` (495×444). Reused without copying (confirmed
+  byte-identical dimensions, no duplicate created): `smm-paid-advertising-management.jpg` (500×444,
+  already in `assets/images/` from the social-media-marketing build), `industries-sectors.webp`,
+  `award-clutch.png`, `award-app-development.png`, `award-goodfirms.png`, `award-microsoft.webp`,
+  `icon-maintenance.svg`, `icon-project-done.svg`, `icon-design-thinking.svg`,
+  `webapp-custom-applications.svg`, `tom-wyman.webp`, `richard-heller.webp`, `samuel-correns.webp`,
+  `kabu-projects-logo.webp`, `entrepreneurs-organization-gurgaon.webp`, `barry-sarnoff.jpg`.
+- **Files changed:** `js/header.js` (desktop mega-panel line ~171 and mobile mega-panel line ~299)
+  and `js/footer.js` (line ~152) had a dead `href="#google-ads-services"` hash anchor — fixed all 3
+  to `href="google-ads-services.html"`. This was the last remaining dead mega-menu/footer link in
+  the project (checked via `grep -i "google-ads\|gads"` across the repo before and after).
+- **Verified this session:** `node --check` passes on `js/google-ads-services.js`, `js/header.js`,
+  `js/footer.js`; HTML tag-balance checked with a Python `HTMLParser` pass (0 unclosed/mismatched
+  tags). On the local build (`127.0.0.1:5500/google-ads-services.html`): header/footer inject
+  correctly, `window.initSite` defined, `window.__gadsPageInit` true, zero console errors/network
+  404s; all 38 `main img` elements loaded with 0 broken (`naturalWidth===0`) after a full real
+  mouse-wheel scroll-through (the `computer` tool's scroll action, not `window.scrollTo`, which
+  did NOT reliably trigger native `loading="lazy"` image loads in this session — noted for next
+  time); tab-switch click-tested (only the clicked tab gets `is-active`); accordion click-tested
+  (single-open behavior confirmed — opening item 2 correctly closes item 1, matching the
+  reference's own behavior). **No horizontal overflow at any required width**
+  (1920/1440/1366/1280/1024/768/480/390/360), verified via a same-origin `<iframe>` at each exact
+  width + `scrollWidth` comparison (`resize_window` again did not shrink the real viewport below
+  ~1685px in this sandbox, same known limitation as prior sessions). Responsive grid collapse to
+  1 column confirmed at 390px via iframe `getComputedStyle` on `gridTemplateColumns` for the
+  reasons/why/pricing grids and `flexDirection:column` on the tabs widget.
+- **NOT verified:** true visual mobile/tablet screenshots at 768px and below (same `resize_window`
+  cap as every prior session — only scrollWidth/grid-column iframe checks); synthetic mouse-driven
+  `:hover` on the why-grid/services-grid/funnel-image (verified instead via direct CSS-rule
+  inspection per the established fallback); keyboard/focus accessibility on the tabs, accordion, and
+  review carousel; exact tablet breakpoint values for the 3×3 framework grid and 4×2 services grid
+  (written as reasonable 2-column approximations at ≤991px, not CSSOM-extracted from the reference's
+  own compiled tablet breakpoint); the `Growth.png` capitalization mismatch on disk vs. the
+  reference's lowercase-in-URL convention was intentionally normalized to `gads-growth.png` (fine,
+  but flag in case a future asset audit expects literal reference filenames).
+- **Next action:** Get a real narrow-viewport screenshot (actual small browser window, not this
+  sandbox's capped `resize_window`) to visually confirm the ≤767px collapse for this page, then move
+  this section to "Previous completed page". Also consider auditing `seo-services.css` and
+  `social-media-marketing.css` for the missing `text-transform: none` reset flagged above.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/social-media-marketing/
 - **Local target:** `social-media-marketing.html`, `css/pages/social-media-marketing.css`,
   `js/social-media-marketing.js`
@@ -92,9 +222,9 @@
   breakpoint values for `smm-channel-grid`/`smm-method-grid`/`smm-reasons-grid`/`smm-paid-grid`
   (written as reasonable single-column approximations at ≤767px, not CSSOM-extracted from the
   reference's own compiled tablet breakpoint).
-- **Next action:** Get a real narrow-viewport screenshot (via an actual small browser window rather
-  than this sandbox's capped `resize_window`) to visually confirm the ≤767px collapse, then update
-  this section to "Previous completed page".
+- **Note:** narrow-viewport (≤767px) visual screenshot verification was never completed for this
+  page before it was superseded by google-ads-services.html — only scrollWidth-based overflow
+  checks exist. Carry forward if a mobile-layout audit pass is ever scheduled.
 
 ## Previous completed page
 

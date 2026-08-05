@@ -168,7 +168,7 @@ window.__PARTIALS.header = `
           <ul class="mega-links">
             <li><a href="seo-services.html">Search Engine Optimization</a></li>
             <li><a href="social-media-marketing.html">Social Media Marketing</a></li>
-            <li><a href="#google-ads-services">Google Ads Services</a></li>
+            <li><a href="google-ads-services.html">Google Ads Services</a></li>
           </ul></div>
           <div class="mega-cases">
             <a class="mega-card" href="#case-encardio">
@@ -296,7 +296,7 @@ window.__PARTIALS.header = `
             <ul class="m-sub">
               <li><a href="seo-services.html">Search Engine Optimization</a></li>
               <li><a href="social-media-marketing.html">Social Media Marketing</a></li>
-              <li><a href="#google-ads-services">Google Ads Services</a></li>
+              <li><a href="google-ads-services.html">Google Ads Services</a></li>
             </ul>
           </li>
           <li class="m-group">

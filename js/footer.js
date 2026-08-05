@@ -149,7 +149,7 @@ window.__PARTIALS.footer = `
           <ul class="f-links">
             <li><a href="seo-services.html">Search Engine Optimization</a></li>
             <li><a href="social-media-marketing.html">Social Media Marketing</a></li>
-            <li><a href="#google-ads-services">Google Ads Services</a></li>
+            <li><a href="google-ads-services.html">Google Ads Services</a></li>
           </ul>
         </div>
         <div class="f-group">

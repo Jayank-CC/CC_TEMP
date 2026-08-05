@@ -1,0 +1,1319 @@
+/* ==========================================================================
+   Google Ads Services — page-specific styles
+   Reference: https://www.cloudconverge.io/google-ads-services/
+   Prefix: gads-
+   ========================================================================== */
+
+/* base style.css sets h1-h6 { text-transform: capitalize } globally; the
+   reference confirms text-transform: none on every heading on this page
+   (getComputedStyle checked directly), so reset it here — same fix already
+   applied on aws-consulting-services.css / azure-consulting-services.css /
+   etc. via this exact selector pattern. */
+.gads-page main :is(h1, h2, h3, h4, h5, h6) {
+  text-transform: none;
+}
+
+/* ---- hero ---- */
+
+.gads-hero {
+  position: relative;
+  padding: 180px 0 120px;
+  background-color: #f5fbff;
+  background-image: url("../../assets/images/gads-hero-banner.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.gads-hero-copy {
+  max-width: 560px;
+}
+
+.gads-hero-copy h1 {
+  margin: 0 0 15px;
+  font-family: var(--font-heading);
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 66px;
+  color: #fff;
+}
+
+.gads-hero-accent {
+  color: #1eebff;
+}
+
+.gads-hero-sub {
+  margin: 0 0 15px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 38px;
+  color: #fff;
+}
+
+.gads-hero-copy p {
+  margin: 0 0 15px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 22px;
+  color: #fff;
+}
+
+.gads-hero-copy p:last-of-type {
+  margin-bottom: 25px;
+}
+
+.gads-hero-btn {
+  display: inline-block;
+  padding: 16px 40px;
+  border: 0.877193px solid #08eefa;
+  border-radius: 4px;
+  background: #08eefa;
+  color: #030a35;
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.gads-hero-btn:hover {
+  background: #04c9d3;
+}
+
+/* ---- breadcrumb (reused pattern) ---- */
+
+.gads-breadcrumb {
+  padding: 20px 0;
+  background-color: #fbfbfb;
+}
+
+.gads-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-body);
+  font-size: 16px;
+}
+
+.gads-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.gads-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.gads-breadcrumb a:hover {
+  color: var(--color-primary);
+}
+
+.gads-breadcrumb-list li:last-child span:not(.gads-breadcrumb-sep) {
+  color: #191919;
+}
+
+.gads-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.gads-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- "Why Businesses Continue to Invest in Google Ads" — centered intro ---- */
+
+.gads-invest {
+  padding: 90px 40px 30px;
+  background: #fff;
+  text-align: center;
+}
+
+.gads-invest h3 {
+  margin: 0 auto 20px;
+  max-width: 900px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-dark-2);
+}
+
+.gads-invest p {
+  margin: 0 auto;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- "Reasons to invest" — 3-column icon/title/copy, no card chrome ---- */
+
+.gads-reasons {
+  padding: 40px 0 90px;
+  background: #fff;
+}
+
+.gads-reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.gads-reason-item {
+  padding: 0 30px 30px;
+  background: #fff;
+  border-radius: 4px;
+  border-top: 4px solid #fff;
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0, 0.3, 1),
+    border-color 0.3s;
+}
+
+.gads-reason-item:hover {
+  transform: translate3d(0, -5px, 0);
+  border-top-color: var(--color-primary);
+}
+
+.gads-reason-head {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 20px;
+}
+
+.gads-reason-icon {
+  display: flex;
+  flex: 0 0 87px;
+  align-items: center;
+  justify-content: center;
+  width: 87px;
+  height: 87px;
+  border-radius: 50%;
+  background: #f7f7f9;
+}
+
+.gads-reason-icon img {
+  display: block;
+  width: 47px;
+  height: 47px;
+  margin: 0;
+}
+
+.gads-reason-title {
+  flex: 1 1 auto;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--color-heading);
+}
+
+.gads-reason-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- "Trusted Performance" — centered heading + 3-stat row ---- */
+
+.gads-trusted {
+  padding: 90px 0;
+  background: #fafafa;
+  text-align: center;
+}
+
+.gads-trusted h5 {
+  margin: 0 0 50px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 30px;
+  color: var(--color-heading);
+}
+
+.gads-trusted-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.gads-trusted-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+
+.gads-trusted-item:hover {
+  transform: translate3d(0, -5px, 0);
+}
+
+.gads-trusted-item:nth-child(2) {
+  border-left: 1px solid #e4e4e4;
+  border-right: 1px solid #e4e4e4;
+}
+
+.gads-trusted-item img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 15px;
+}
+
+.gads-trusted-item strong {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.gads-trusted-item span {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-body);
+}
+
+/* ---- "Full-Funnel Visibility Across Google" — text-left / image-right ---- */
+
+.gads-funnel {
+  padding: 90px 40px;
+  background: #f7fbff;
+}
+
+.gads-funnel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.gads-funnel-copy h4 {
+  margin: 0 0 15px;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 38px;
+  color: var(--color-heading);
+}
+
+.gads-funnel-copy p {
+  margin: 0 0 15px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.gads-funnel-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.gads-funnel-list {
+  margin: 0 0 15px;
+  padding: 0;
+  list-style: none;
+}
+
+.gads-funnel-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin-bottom: 8px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 20px;
+  color: #616270;
+}
+
+.gads-funnel-list li:last-child {
+  margin-bottom: 0;
+}
+
+.gads-funnel-list li::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  margin-top: 7px;
+  border-radius: 50%;
+  background: #393d44;
+}
+
+.gads-funnel-media img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.gads-funnel-media:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---- "Why Choose CloudConverge as Your Google Ads Agency" — centered
+   lead-in + 2x2 icon/title/copy grid (img-box-hover-effect, matches the
+   established methodology-grid pattern: FA angle-double-right icon, 14x14,
+   fill #2654c6, align-items:flex-start) ---- */
+
+.gads-why {
+  padding: 90px 0;
+  background: #fff;
+  text-align: center;
+}
+
+.gads-why h5 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 30px;
+  color: var(--color-heading);
+}
+
+.gads-why > .container > p {
+  margin: 0 auto 50px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.gads-why-grid,
+.gads-services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  text-align: left;
+}
+
+.gads-why-item,
+.gads-service-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  transition: 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+
+.gads-why-item:hover,
+.gads-service-item:hover {
+  transform: translate3d(0, -5px, 0);
+}
+
+.gads-why-item svg,
+.gads-service-item svg {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  margin-top: 6px;
+  fill: #2654c6;
+}
+
+.gads-why-title,
+.gads-service-title {
+  margin: 0 0 5px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.gads-why-item p,
+.gads-service-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- "Google Ads Services That Go Beyond Basic Campaign Setup" — centered
+   lead-in + 4x2 icon/title/copy grid (same pattern as gads-why-grid) ---- */
+
+.gads-services {
+  padding: 90px 0;
+  background: #f7fbff;
+  text-align: center;
+}
+
+.gads-services h5 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 30px;
+  color: var(--color-heading);
+}
+
+.gads-services > .container > p {
+  margin: 0 auto 50px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.gads-services-grid {
+  gap: 40px 40px;
+}
+
+/* ---- CTA banner — dark gradient, centered heading + link ---- */
+
+.gads-cta {
+  padding: 110px 40px;
+  background: linear-gradient(105deg, #153c9d 0%, #102156 100%);
+  text-align: center;
+}
+
+.gads-cta h3 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  color: #fff;
+}
+
+.gads-cta-btn {
+  padding: 8px 19px;
+}
+
+/* ---- "How CloudConverge Turns Different Industries..." — centered intro ---- */
+
+.gads-industries-intro {
+  padding: 90px 40px 30px;
+  background: #fff;
+  text-align: center;
+}
+
+.gads-industries-intro h3 {
+  margin: 0 auto 20px;
+  max-width: 900px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+}
+
+.gads-industries-intro p {
+  margin: 0 auto;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- industries case-study tabs (Elementor nested-tabs equivalent):
+   left tab list on solid brand-blue background, right content panel on a
+   darker navy background, both confirmed directly on the reference's own
+   document.styleSheets / computed styles ---- */
+
+.gads-tabs {
+  padding: 40px 0 90px;
+  background: #fff;
+}
+
+.gads-tabs-widget {
+  display: flex;
+  border-radius: 25px;
+  overflow: hidden;
+  background: #1e4ec4;
+}
+
+.gads-tabs-list {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+}
+
+.gads-tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 20px 0;
+  border: 0;
+  border-bottom: 0.877193px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
+  text-align: left;
+  color: #8dc1fb;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.gads-tab:last-child {
+  border-bottom: 0;
+}
+
+.gads-tab.is-active {
+  color: #fff;
+}
+
+.gads-tab-icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+}
+
+.gads-tab-icon::before,
+.gads-tab-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.gads-tab-icon::before {
+  width: 10px;
+  height: 1.5px;
+}
+
+.gads-tab-icon::after {
+  width: 1.5px;
+  height: 10px;
+}
+
+.gads-tab.is-active .gads-tab-icon::after {
+  display: none;
+}
+
+.gads-tabs-panels {
+  flex: 1 1 60%;
+  background: #14255b;
+}
+
+.gads-tab-panel {
+  padding: 60px 75px;
+}
+
+.gads-tab-panel h6 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 30px;
+  color: #fff;
+}
+
+.gads-tab-panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gads-tab-panel li {
+  position: relative;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: #fff;
+}
+
+.gads-tab-panel li:last-child {
+  margin-bottom: 0;
+}
+
+.gads-tab-panel li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* ---- "Optimization Framework" — centered intro + 3x3 icon grid, no card
+   chrome (confirmed 0 border/shadow/background on the reference) ---- */
+
+.gads-framework {
+  padding: 90px 40px;
+  background: #f7fbff;
+  text-align: center;
+}
+
+.gads-framework h3 {
+  margin: 0 auto 20px;
+  max-width: 900px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-dark-2);
+}
+
+.gads-framework > .container > p {
+  margin: 0 auto 50px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.gads-framework-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  text-align: center;
+}
+
+.gads-framework-item {
+  padding: 30px;
+  background: #fff;
+  border-radius: 4px;
+  border-top: 4px solid #fff;
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.3s;
+}
+
+.gads-framework-item:hover {
+  border-top-color: var(--color-primary);
+}
+
+.gads-framework-item img {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 40px;
+  transition: transform 0.3s;
+}
+
+.gads-framework-item img:hover {
+  transform: translateY(-8px);
+}
+
+.gads-framework-title {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-heading);
+}
+
+.gads-framework-item p {
+  margin: 0;
+  text-align: justify;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.gads-framework-close {
+  margin: 50px auto 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- "Google Ads Pricing & Engagement Models" — centered intro + 3
+   alternating image/text rows (image-left/text-right, then reversed, then
+   image-left again), circle-dot bullet lists reused from the funnel
+   pattern ---- */
+
+.gads-pricing {
+  padding: 90px 0;
+  background: #fff;
+}
+
+.gads-pricing > .container:first-child {
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+.gads-pricing h3 {
+  margin: 0 auto 20px;
+  max-width: 900px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-dark-2);
+}
+
+.gads-pricing > .container:first-child p {
+  margin: 0 auto;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.gads-pricing-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+  padding: 40px 40px;
+}
+
+.gads-pricing-row-reverse {
+  direction: rtl;
+}
+
+.gads-pricing-row-reverse > * {
+  direction: ltr;
+}
+
+.gads-pricing-media img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.gads-pricing-media:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+.gads-pricing-copy h6 {
+  margin: 0 0 10px;
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 27px;
+  color: var(--color-heading);
+}
+
+.gads-pricing-copy > p {
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.gads-pricing-label {
+  margin: 0 0 10px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.gads-pricing-list {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.gads-pricing-list:last-child {
+  margin-bottom: 0;
+}
+
+.gads-pricing-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin-bottom: 8px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 20px;
+  color: #616270;
+}
+
+.gads-pricing-list li:last-child {
+  margin-bottom: 0;
+}
+
+.gads-pricing-list li::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  margin-top: 7px;
+  border-radius: 50%;
+  background: #393d44;
+}
+
+/* ---- FAQ accordion — confirmed directly on the reference: closed items
+   white bg / navy bold question text / black "+", first item open by
+   default with solid brand-blue background / white text / white "-",
+   via `.elementor-element-a004970 .btn.btn-link { background:
+   linear-gradient(to top,#1e4ec4 0%,#1e4ec4 100%); } ... .collapsed {
+   background:#fff }` on the live CSSOM ---- */
+
+.gads-faq {
+  padding: 90px 40px;
+  background: #f5f8fc;
+  text-align: center;
+}
+
+.gads-faq h5 {
+  margin: 0 0 40px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 30px;
+  color: var(--color-dark-2);
+}
+
+.gads-accordion {
+  max-width: 684px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.gads-accordion-item {
+  margin-bottom: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.gads-accordion-item:last-child {
+  margin-bottom: 0;
+}
+
+.gads-accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  padding: 18px 20px;
+  border: 0;
+  border-radius: 4px;
+  background: #fff;
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 27px;
+  color: var(--color-heading);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.3s,
+    color 0.3s;
+}
+
+.gads-accordion-item.is-open .gads-accordion-header {
+  background: #1e4ec4;
+  color: #fff;
+}
+
+.gads-accordion-icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+}
+
+.gads-accordion-icon::before,
+.gads-accordion-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #000;
+  transition:
+    background 0.3s,
+    transform 0.3s;
+}
+
+.gads-accordion-icon::before {
+  width: 12px;
+  height: 2px;
+  transform: translate(-50%, -50%);
+}
+
+.gads-accordion-icon::after {
+  width: 2px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+}
+
+.gads-accordion-item.is-open .gads-accordion-icon::before,
+.gads-accordion-item.is-open .gads-accordion-icon::after {
+  background: #fff;
+}
+
+.gads-accordion-item.is-open .gads-accordion-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg) scaleY(0);
+}
+
+.gads-accordion-body {
+  padding: 20px 20px 24px;
+}
+
+.gads-accordion-body p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- stats (reused verbatim component pattern) ---- */
+
+.gads-stats {
+  padding: 120px 0;
+  background: #f5fbff;
+  box-sizing: border-box;
+}
+
+.gads-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.gads-stat-grid article {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid #ddd;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+
+.gads-stat-grid article:hover {
+  transform: translate3d(0, -5px, 0);
+}
+
+.gads-stat-grid article:last-child {
+  border-right: 0;
+}
+
+.gads-stat-grid img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+}
+
+.gads-stat-grid strong {
+  display: block;
+  font: 400 32px/48px var(--font-heading);
+}
+
+.gads-stat-grid h3 {
+  margin: 0 0 8px;
+  font: 400 16px/24px var(--font-heading);
+}
+
+.gads-stat-grid p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* ---- Industries We Serve (reused verbatim pattern) ---- */
+
+.gads-industries {
+  padding: 90px 0 30px;
+  text-align: center;
+}
+
+.gads-industries h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.gads-industries-img {
+  padding: 0;
+  text-align: center;
+}
+
+.gads-industries-img img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ---- Awards (reused verbatim pattern) ---- */
+
+.gads-awards {
+  padding: 90px 0 30px;
+  text-align: center;
+}
+
+.gads-awards h2 {
+  margin: 0 0 40px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.gads-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.gads-award-grid img {
+  display: block;
+  height: 150px;
+  width: auto;
+}
+
+.gads-award-grid .gads-microsoft {
+  height: 77px;
+}
+
+/* ---- client reviews (reused verbatim pattern) ---- */
+
+.gads-reviews {
+  padding: 50px 0 30px;
+}
+
+.gads-reviews h2 {
+  margin: 0 0 40px;
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.gads-review-viewport {
+  overflow: hidden;
+}
+
+.gads-review-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.gads-review-card {
+  flex: 0 0 540px;
+  min-height: 400px;
+  padding: 37px 35px 47px;
+  background: #f4f4f4;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.gads-stars {
+  color: #ffb600;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.gads-review-card blockquote {
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  flex: 1 1 auto;
+}
+
+.gads-review-person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.gads-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.gads-review-person p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-body);
+}
+
+.gads-review-person strong {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.gads-review-person span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ---- responsive ---- */
+
+@media (max-width: 1199px) {
+  .gads-funnel-grid,
+  .gads-why-grid,
+  .gads-services-grid {
+    gap: 30px;
+  }
+
+  .gads-pricing-row {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 991px) {
+  .gads-stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gads-reasons-grid,
+  .gads-framework-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gads-tabs-widget {
+    flex-direction: column;
+    border-radius: 16px;
+  }
+
+  .gads-tabs-list {
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .gads-hero {
+    padding: 60px 0;
+  }
+
+  .gads-hero-copy h1 {
+    font-size: 34px;
+    line-height: 1.25;
+  }
+
+  .gads-hero-sub {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .gads-breadcrumb-list {
+    font-size: 12px;
+  }
+
+  .gads-invest,
+  .gads-industries-intro,
+  .gads-framework,
+  .gads-faq {
+    padding: 40px 20px;
+  }
+
+  .gads-reasons,
+  .gads-trusted,
+  .gads-funnel,
+  .gads-why,
+  .gads-services,
+  .gads-tabs,
+  .gads-pricing {
+    padding: 40px 20px;
+  }
+
+  .gads-reasons-grid,
+  .gads-trusted-grid,
+  .gads-framework-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .gads-trusted-item:nth-child(2) {
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .gads-funnel-grid,
+  .gads-why-grid,
+  .gads-services-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .gads-cta {
+    padding: 60px 20px;
+  }
+
+  .gads-cta h3 {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  .gads-pricing-row,
+  .gads-pricing-row-reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .gads-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 30px;
+  }
+
+  .gads-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gads-stat-grid article {
+    border-right: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  .gads-stat-grid article:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .gads-review-card {
+    flex: 0 0 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gads-review-track {
+    transition: none !important;
+  }
+
+  .gads-stat-grid article,
+  .gads-funnel-media img,
+  .gads-why-item,
+  .gads-service-item {
+    transition: none !important;
+  }
+}
