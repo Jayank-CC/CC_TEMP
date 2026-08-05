@@ -698,6 +698,10 @@
 }
 
 .azc-cases-tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   padding: 0 20px 20px 0;
   margin: 0 0 20px;
   border: 0;
@@ -719,6 +723,37 @@
 
 .azc-cases-tab.is-active {
   color: #fff;
+}
+
+.azc-cases-tab-icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+}
+
+.azc-cases-tab-icon::before,
+.azc-cases-tab-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.azc-cases-tab-icon::before {
+  width: 10px;
+  height: 1.5px;
+}
+
+.azc-cases-tab-icon::after {
+  width: 1.5px;
+  height: 10px;
+}
+
+.azc-cases-tab.is-active .azc-cases-tab-icon::after {
+  display: none;
 }
 
 .azc-cases-panels {
