@@ -1,0 +1,716 @@
+/* ==========================================================================
+   AI/ML Development Services — page-specific styles
+   Reference: https://www.cloudconverge.io/ai-and-ml-development-services/
+   Prefix: aiml-
+   ========================================================================== */
+
+/* Global text-transform check (lesson carried from prior pages): this
+   reference's own top-level headings (h1, the "Artificial Intelligence A
+   Modern Approach Solutions" h2, "AI/ML Development Process", "Empower Your
+   Business with Machine Learning") all compute text-transform: capitalize —
+   same as this project's global css/style.css default (h1..h6 {
+   text-transform: capitalize }), so no page-wide reset is added. However the
+   smaller 18px item-level sub-headings (feature/card/other-item titles)
+   compute text-transform: none directly on the reference (getComputedStyle
+   confirmed) — reset added below scoped to those specific classes only. */
+
+.aiml-page main .aiml-feature-item h3,
+.aiml-page main .aiml-card h3,
+.aiml-page main .aiml-other-item h4 {
+  text-transform: none;
+}
+
+/* ---- hero (theme-level .wraper_inner_banner equivalent: pure decorative
+   background, no text content — confirmed on the reference the visible
+   breadcrumb lives in the Elementor content root below, not inside this
+   banner, whose own breadcrumb is display:none — same pattern as
+   business-intelligence-services.html, height measured 380px) ---- */
+
+.aiml-hero {
+  height: 380px;
+  background-color: #061336;
+  background-image: url("../../assets/images/aiml-hero-banner.webp");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+/* ---- breadcrumb (reused pattern, verbatim from sibling pages) ---- */
+
+.aiml-breadcrumb {
+  padding: 20px 0;
+  background-color: #fbfbfb;
+}
+
+.aiml-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-body);
+  font-size: 16px;
+}
+
+.aiml-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.aiml-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.aiml-breadcrumb a:hover {
+  color: var(--color-primary);
+}
+
+.aiml-breadcrumb-list li:last-child span:not(.aiml-breadcrumb-sep) {
+  color: #191919;
+}
+
+.aiml-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.aiml-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- intro: H1 + subtitle + 2 paragraphs, all centered ---- */
+
+.aiml-intro {
+  padding: 50px 15px 0;
+  background: #fff;
+  text-align: center;
+}
+
+.aiml-intro h1 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 45px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-heading);
+}
+
+.aiml-intro-sub {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-heading);
+  text-transform: none;
+}
+
+.aiml-intro p {
+  max-width: none;
+  margin: 0 auto;
+  padding: 20px 0 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- "Artificial Intelligence A Modern Approach Solutions" — standalone
+   left-aligned heading, own inner wrap measured at ~90% of the 1140px
+   container (1030px), centered — confirmed via rect measurement against the
+   reference's own container edges ---- */
+
+.aiml-approach {
+  padding: 30px 15px 20px;
+  background: #fff;
+}
+
+.aiml-approach-inner {
+  max-width: 1045px;
+  margin: 0 auto;
+}
+
+.aiml-approach h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: left;
+}
+
+/* ---- machine-learning text + illustration (2-col 50/50, image on the
+   right, move-image-left-right hover class confirmed on the reference:
+   translate3d(-10px,0,0) on hover) ---- */
+
+.aiml-ml {
+  padding: 20px 15px 40px;
+  background: #fff;
+}
+
+.aiml-ml-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.aiml-ml-text p {
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.aiml-ml-text p:last-child {
+  margin-bottom: 0;
+}
+
+.aiml-ml-media img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.aiml-ml-media:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---- 3-col x 2-row feature grid (Smart Business Insights / Picture
+   Understanding / Chatbot Building / Smart Learning / Natural Language
+   Understanding / Voice Assistant) — plain left-aligned heading+paragraph,
+   no icons, no card chrome (confirmed 0 icon/hover classes on these
+   columns) ---- */
+
+.aiml-features {
+  padding: 30px 10px 20px;
+  background: #fff;
+}
+
+.aiml-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 30px;
+}
+
+.aiml-feature-item h3 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-heading);
+  text-align: left;
+}
+
+.aiml-feature-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+}
+
+/* ---- "AI/ML Development Process" — centered heading + intro paragraph ---- */
+
+.aiml-process {
+  padding: 40px 15px 0;
+  background: #fff;
+  text-align: center;
+}
+
+.aiml-process h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 38px;
+  color: var(--color-heading);
+}
+
+.aiml-process p {
+  max-width: none;
+  margin: 0 auto;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- 3-card image grids (two rows, six process steps) — confirmed
+   img-box-hover-effect on the reference's own column class: border-top
+   ~3.5px #fff -> var(--color-primary) on hover + box-shadow
+   var(--shadow-card) + translate3d(0,-5px,0) lift (directly simulated via
+   :hover + getComputedStyle on the reference, matching
+   business-intelligence-services.css's proven 3-card pattern exactly).
+   Heading inner-section padding 30px 30px 20px, paragraph widget-wrap
+   padding 0 30px, image full-bleed at bottom. ---- */
+
+.aiml-cards {
+  padding: 21px 0 0;
+  background: #fff;
+}
+
+.aiml-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.aiml-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 4px;
+  border-top: 4px solid #fff;
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0, 0.3, 1),
+    border-color 0.3s;
+  overflow: hidden;
+}
+
+.aiml-card:hover {
+  transform: translate3d(0, -5px, 0);
+  border-top-color: var(--color-primary);
+}
+
+.aiml-card h3 {
+  margin: 0;
+  padding: 30px 30px 20px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.aiml-card p {
+  margin: 0 0 20px;
+  padding: 0 30px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+}
+
+.aiml-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: auto;
+}
+
+/* ---- stats (reused verbatim component pattern) ---- */
+
+.aiml-stats {
+  padding: 120px 0;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.aiml-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.aiml-stat-grid article {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid #ddd;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+
+.aiml-stat-grid article:hover {
+  transform: translate3d(0, -5px, 0);
+}
+
+.aiml-stat-grid article:last-child {
+  border-right: 0;
+}
+
+.aiml-stat-grid img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+}
+
+.aiml-stat-grid strong {
+  display: block;
+  font: 400 32px/48px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.aiml-stat-grid h3 {
+  margin: 0 0 8px;
+  font: 400 16px/24px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.aiml-stat-grid p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- "Empower Your Business with Machine Learning" — centered heading +
+   paragraph ---- */
+
+.aiml-empower {
+  padding: 0 15px 20px;
+  background: #fff;
+  text-align: center;
+}
+
+.aiml-empower h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+}
+
+.aiml-empower p {
+  max-width: none;
+  margin: 0 auto;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- 2-col x 3-row "Other" grid (Anticipating the Future / Enhancing How
+   Things Get Done / Smart Marketing | Applying Deep Learning / Custom
+   Machine Learning Software / Enhanced CRM Solution) — plain left-aligned
+   heading+paragraph pairs, no icons, no card chrome, columns measured with
+   0 gap/0 padding on the reference (they sum exactly to the 1140px
+   container) ---- */
+
+.aiml-other {
+  padding: 25px 15px 80px;
+  background: #fff;
+}
+
+.aiml-other-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.aiml-other-item {
+  margin-bottom: 20px;
+}
+
+.aiml-other-item:last-child {
+  margin-bottom: 0;
+}
+
+.aiml-other-item h4 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-heading);
+  text-align: left;
+}
+
+.aiml-other-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+}
+
+/* ---- Industries We Serve (reused verbatim pattern) ---- */
+
+.aiml-industries {
+  padding: 50px 0 20px;
+  text-align: center;
+}
+
+.aiml-industries h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.aiml-industries-img {
+  padding: 0;
+  text-align: center;
+}
+
+.aiml-industries-img img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ---- Awards (reused verbatim pattern) ---- */
+
+.aiml-awards {
+  padding: 55px 0 8px;
+  text-align: center;
+}
+
+.aiml-awards h2 {
+  margin: 0 0 40px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.aiml-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.aiml-award-grid img {
+  display: block;
+  height: 150px;
+  width: auto;
+}
+
+.aiml-award-grid .aiml-microsoft {
+  height: 77px;
+}
+
+/* ---- client reviews (reused verbatim pattern) ---- */
+
+.aiml-reviews {
+  padding: 50px 0 30px;
+}
+
+.aiml-reviews h2 {
+  margin: 0 0 40px;
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.aiml-review-viewport {
+  overflow: hidden;
+}
+
+.aiml-review-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.aiml-review-card {
+  flex: 0 0 540px;
+  min-height: 400px;
+  padding: 37px 35px 47px;
+  background: #f4f4f4;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.aiml-stars {
+  color: #ffb600;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.aiml-review-card blockquote {
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  flex: 1 1 auto;
+}
+
+.aiml-review-person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.aiml-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.aiml-review-person p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-body);
+}
+
+.aiml-review-person strong {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.aiml-review-person span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ---- responsive ---- */
+
+@media (max-width: 1199px) {
+  .aiml-cards-grid {
+    gap: 20px;
+  }
+
+  .aiml-ml-grid {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 991px) {
+  .aiml-stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .aiml-cards-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .aiml-features-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .aiml-ml-grid,
+  .aiml-other-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .aiml-ml-media {
+    order: -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .aiml-hero {
+    height: 220px;
+  }
+
+  .aiml-breadcrumb-list {
+    font-size: 12px;
+  }
+
+  .aiml-intro h1 {
+    font-size: 30px;
+    line-height: 1.25;
+  }
+
+  .aiml-intro-sub {
+    font-size: 18px;
+  }
+
+  .aiml-approach h2 {
+    font-size: 26px;
+    line-height: 1.3;
+  }
+
+  .aiml-empower h2 {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  .aiml-process h2 {
+    font-size: 22px;
+    line-height: 1.3;
+  }
+
+  .aiml-intro,
+  .aiml-process,
+  .aiml-empower {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .aiml-features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aiml-cards {
+    padding: 30px 20px 0;
+  }
+
+  .aiml-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .aiml-other {
+    padding: 40px 20px;
+  }
+
+  .aiml-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 30px;
+  }
+
+  .aiml-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aiml-stat-grid article {
+    border-right: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  .aiml-stat-grid article:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .aiml-review-card {
+    flex: 0 0 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aiml-review-track {
+    transition: none !important;
+  }
+
+  .aiml-stat-grid article,
+  .aiml-card,
+  .aiml-ml-media img {
+    transition: none !important;
+  }
+}
