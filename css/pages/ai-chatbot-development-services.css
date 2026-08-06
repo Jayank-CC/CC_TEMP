@@ -1,0 +1,1095 @@
+/* ==========================================================================
+   AI Chatbot Development Services — page-specific styles
+   Reference: https://www.cloudconverge.io/ai-chatbot-development-services/
+   Prefix: aicd-
+   ========================================================================== */
+
+/* This page's hero is a dark video background from frame one, matching the
+   shared header's default transparent/white-text state, so no header-color
+   override is needed here (unlike the chatbot-integration-services page). */
+
+.aicd-page main h2,
+.aicd-page main h3 {
+  text-transform: none;
+}
+
+/* ---- hero: dark navy + looping background video, heading/copy/CTA left,
+   animated chat-demo mockup right ---- */
+
+.aicd-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 140px 15px 100px;
+  background: var(--color-dark);
+}
+
+.aicd-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.aicd-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.4;
+  background: linear-gradient(rgba(2, 0, 61, 0.61) 0%, rgb(0, 9, 44) 100%);
+}
+
+.aicd-hero-grid {
+  position: relative;
+  z-index: 2;
+  max-width: 1500px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.aicd-hero-copy h1 {
+  margin: 0 0 15px;
+  font-family: var(--font-heading);
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 56px;
+  color: #fff;
+  text-transform: none;
+}
+
+.aicd-hero-subtitle {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.aicd-hero-copy p:not(.aicd-hero-subtitle) {
+  max-width: 480px;
+  margin: 0 0 30px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.aicd-hero-btn {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 4px;
+  padding: 20px 40px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+/* .aicd-hero-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 11px 14px -7px rgba(30, 78, 196, 0.5);
+} */
+
+/* ---- hero chat demo mockup ---- */
+
+.aicd-hero-demo {
+  display: flex;
+  justify-content: center;
+}
+
+.aicd-chat {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 36px;
+  box-shadow: 0px 25px 60px rgba(0, 0, 0, 0.35);
+  padding: 20px 16px 16px;
+  box-sizing: border-box;
+}
+
+.aicd-chat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 360px;
+  max-height: 420px;
+  overflow: hidden;
+  padding: 4px 2px;
+}
+
+.aicd-msg-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.aicd-msg-wrap.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.aicd-msg-wrap.aicd-user {
+  justify-content: flex-end;
+}
+
+.aicd-avatar {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #d8e2ed;
+  background-size: cover;
+  background-position: center;
+}
+
+.aicd-avatar-bot {
+  background-image: url("../../assets/images/aicd-chat-avatar-bot.png");
+}
+
+.aicd-avatar-user {
+  background-image: url("../../assets/images/aicd-chat-avatar-user.jpg");
+}
+
+.aicd-msg {
+  max-width: 78%;
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.aicd-bot-msg {
+  background: var(--color-dark);
+  color: #eff3ff;
+  border-radius: 15px 15px 15px 0;
+}
+
+.aicd-user-msg {
+  background: #d8e2ed;
+  color: #4d4d4d;
+  border-radius: 15px 15px 0;
+}
+
+.aicd-chat-input {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #ececec;
+}
+
+.aicd-chat-input textarea {
+  flex: 1 1 auto;
+  resize: none;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-body);
+}
+
+.aicd-chat-input button {
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 50px;
+  padding: 10px 20px;
+  background: #f5f3f1;
+  color: var(--color-dark);
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: default;
+}
+
+/* ---- breadcrumb (reused pattern from sibling pages) ---- */
+
+.aicd-breadcrumb {
+  padding: 20px 0;
+  background-color: #fbfbfb;
+}
+
+.aicd-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-body);
+  font-size: 16px;
+}
+
+.aicd-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.aicd-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.aicd-breadcrumb a:hover {
+  color: var(--color-primary);
+}
+
+.aicd-breadcrumb-list li:last-child span:not(.aicd-breadcrumb-sep) {
+  color: #191919;
+}
+
+.aicd-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.aicd-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- "Why Choose Us?" + inline consult form ---- */
+
+.aicd-why {
+  padding: 90px 15px;
+  background: #fff;
+}
+
+.aicd-why-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 40px;
+  align-items: start;
+}
+
+.aicd-why-copy h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: left;
+}
+
+.aicd-why-copy p {
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--color-body);
+}
+
+.aicd-why-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.aicd-consult-card {
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  box-shadow: 0px 6px 60px 0px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+}
+
+.aicd-consult-eyebrow {
+  margin: 0 0 8px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.aicd-consult-heading {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.aicd-hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---- vertical tabs widget: two-tone rounded card (blue heading rail /
+   navy content panel), 4 tabs ---- */
+
+.aicd-tabs {
+  padding: 60px 15px 90px;
+  background: #fff;
+}
+
+.aicd-tabs-widget {
+  display: flex;
+  border-radius: 25px;
+  overflow: hidden;
+  background: var(--color-primary);
+}
+
+.aicd-tabs-heading {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 60px 40px 60px 50px;
+}
+
+.aicd-tab-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.62);
+  background: transparent;
+  padding: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 500;
+  color: #8dc1fb;
+  text-align: left;
+  cursor: pointer;
+}
+
+.aicd-tab-title::after {
+  content: "+";
+  flex: 0 0 auto;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.aicd-tab-title.is-active::after {
+  content: "\2212";
+}
+
+.aicd-tab-title:hover,
+.aicd-tab-title.is-active {
+  color: #fff;
+  font-weight: 600;
+}
+
+.aicd-tabs-content {
+  flex: 1 1 60%;
+  position: relative;
+}
+
+.aicd-tab-panel {
+  background: var(--color-dark);
+  border-radius: 0 30px 30px 0;
+  padding: 60px 75px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.aicd-tab-icon {
+  margin: 0 0 24px;
+}
+
+.aicd-tab-icon img {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  display: block;
+}
+
+.aicd-tab-panel h3 {
+  margin: 0 0 15px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.aicd-tab-panel p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: justify;
+  text-justify: auto;
+}
+
+/* ---- "Our AI Chatbot Development Services" — dark full-bleed section,
+   5-card icon grid (3 + 2 centered, same width as row above) ---- */
+
+.aicd-services {
+  padding: 90px 15px;
+  background: var(--color-dark);
+  text-align: center;
+}
+
+.aicd-services > .container > h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.aicd-services > .container {
+  max-width: 1230px;
+}
+
+.aicd-services > .container > p {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: #fff;
+}
+
+.aicd-services-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px 30px;
+}
+
+.aicd-services-card {
+  flex: 0 0 370px;
+  max-width: 370px;
+}
+
+.aicd-services-card img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+}
+
+.aicd-services-card h3 {
+  margin: 0 0 12px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.aicd-services-card p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  color: #a5aec2;
+}
+
+/* ---- stats (reused component) + side illustration ---- */
+
+.aicd-stats {
+  padding: 90px 0;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.aicd-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.aicd-stat-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.aicd-stat-list article {
+  padding: 0 20px 30px;
+  text-align: center;
+}
+
+.aicd-stat-list article:nth-child(odd) {
+  border-right: 1px solid #ddd;
+}
+
+.aicd-stat-list article:nth-child(-n + 2) {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+.aicd-stat-list img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.aicd-stat-list article:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+.aicd-stat-list strong {
+  display: block;
+  font: 600 32px/48px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.aicd-stat-list h3 {
+  margin: 0;
+  font: 600 16px/24px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.aicd-stats-media {
+  text-align: center;
+}
+
+.aicd-stats-media img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ---- "Industries We Serve" — light-blue cards (3 + 2 centered) + a row
+   of decorative app-mockup images ---- */
+
+.aicd-industries {
+  padding: 90px 15px;
+  background: #fff;
+  text-align: center;
+}
+
+.aicd-industries > .container > h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.aicd-industries > .container > p {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.aicd-industry-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.aicd-industry-item {
+  flex: 0 0 340px;
+  max-width: 340px;
+  background: var(--color-bg-light);
+  border-radius: 4px;
+  box-shadow: 0px 20px 20px 0px rgba(0, 26, 87, 0.08);
+  padding: 30px;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+
+.aicd-industry-item:hover {
+  transform: translate3d(0, -5px, 0);
+}
+
+.aicd-industry-item img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+}
+
+.aicd-industry-item h3 {
+  margin: 0 0 10px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.aicd-industry-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--color-body);
+}
+
+.aicd-app-mockups {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  margin-top: 70px;
+}
+
+.aicd-app-mockups img {
+  display: block;
+  width: 100%;
+  max-width: 190px;
+  height: auto;
+  border-radius: 22px;
+  box-shadow: 0px 20px 30px rgba(0, 26, 87, 0.12);
+}
+
+.aicd-app-mockups img:nth-child(2n) {
+  margin-top: 20px;
+}
+
+/* ---- "Our Process" — plain 3x2 icon grid, no card chrome ---- */
+
+.aicd-process {
+  padding: 90px 15px;
+  background: #fff;
+  text-align: center;
+}
+
+.aicd-process > .container > h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.aicd-process > .container > p {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.aicd-process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px 30px;
+}
+
+.aicd-process-card img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+}
+
+.aicd-process-card h3 {
+  margin: 0 0 12px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.aicd-process-card p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--color-body);
+}
+
+/* ---- Client Reviews (dark section, light cards, 5 unique reviews) ---- */
+
+.aicd-reviews {
+  padding: 80px 0;
+  background: var(--color-dark);
+}
+
+.aicd-reviews h2 {
+  margin: 0 0 40px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+
+.aicd-review-viewport {
+  overflow: hidden;
+}
+
+.aicd-review-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.aicd-review-card {
+  flex: 0 0 540px;
+  min-height: 380px;
+  padding: 37px 35px 40px;
+  background: #f4f4f4;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.aicd-process-card {
+  padding: 30px 30px 10px 30px;
+}
+
+.aicd-stars {
+  color: #ffb600;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.aicd-review-card blockquote {
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  flex: 1 1 auto;
+}
+
+.aicd-review-person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.aicd-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.aicd-review-person p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-body);
+}
+
+.aicd-review-person strong {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.aicd-review-person span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ---- CTA "Ready to Build Your AI Chatbot?" — light rounded card floating
+   on a dark section ---- */
+
+.aicd-cta {
+  padding: 90px 15px;
+  background: var(--color-dark);
+}
+
+.aicd-cta-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 25px 60px rgba(0, 0, 0, 0.25);
+  padding: 50px 60px;
+}
+
+.aicd-cta-eyebrow {
+  margin: 0 0 10px;
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.aicd-cta-card h2 {
+  margin: 0 0 25px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: left;
+}
+
+.aicd-cta-btn {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 4px;
+  padding: 20px 40px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.aicd-cta-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 11px 14px -7px rgba(30, 78, 196, 0.4);
+}
+
+/* ---- FAQ accordion (single-open, first item pre-opened, 5 items) ---- */
+
+.aicd-faq {
+  padding: 60px 15px 90px;
+  background: var(--color-bg-light);
+}
+
+.aicd-faq > .container > h2 {
+  margin: 0 0 30px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-dark);
+  text-align: center;
+}
+
+.aicd-accordion {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.aicd-acc-item {
+  margin: 0 0 10px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.aicd-acc-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  border: 0;
+  background: #fff;
+  padding: 18px 25px;
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-dark);
+  text-align: left;
+  cursor: pointer;
+}
+
+.aicd-acc-item.is-open .aicd-acc-btn {
+  background: var(--color-dark);
+  color: #fff;
+}
+
+.aicd-acc-icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+}
+
+.aicd-acc-icon::before,
+.aicd-acc-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.aicd-acc-icon::before {
+  width: 14px;
+  height: 2px;
+}
+
+.aicd-acc-icon::after {
+  width: 2px;
+  height: 14px;
+}
+
+.aicd-acc-item.is-open .aicd-acc-icon::after {
+  display: none;
+}
+
+.aicd-acc-panel {
+  padding: 20px 25px;
+  background: #fff;
+}
+
+.aicd-acc-panel p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- responsive ---- */
+
+@media (max-width: 1199px) {
+  .aicd-hero-copy h1 {
+    font-size: 42px;
+    line-height: 48px;
+  }
+
+  .aicd-tab-panel {
+    padding: 50px 40px;
+  }
+}
+
+@media (max-width: 991px) {
+  .aicd-hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .aicd-hero-copy p:not(.aicd-hero-subtitle) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .aicd-hero-demo {
+    margin-top: 40px;
+  }
+
+  .aicd-why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aicd-consult-card {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .aicd-tabs-widget {
+    flex-direction: column;
+    border-radius: 20px;
+  }
+
+  .aicd-tabs-heading {
+    flex: none;
+    padding: 40px 40px 20px;
+  }
+
+  .aicd-tab-panel {
+    border-radius: 0;
+    padding: 40px;
+  }
+
+  .aicd-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aicd-stats-media {
+    order: -1;
+    max-width: 320px;
+    margin: 0 auto 40px;
+  }
+
+  .aicd-process-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .aicd-hero {
+    padding: 90px 15px 60px;
+  }
+
+  .aicd-hero-copy h1 {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .aicd-why-copy h2,
+  .aicd-cta-card h2 {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .aicd-tab-title {
+    font-size: 15px;
+  }
+
+  .aicd-tab-panel {
+    padding: 30px 25px;
+  }
+
+  .aicd-stat-list {
+    grid-template-columns: 1fr;
+  }
+
+  .aicd-stat-list article:nth-child(odd) {
+    border-right: 0;
+  }
+
+  .aicd-stat-list article:nth-child(-n + 3) {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  .aicd-industry-item {
+    flex: 0 0 100%;
+  }
+
+  .aicd-process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aicd-review-card {
+    flex: 0 0 100%;
+  }
+
+  .aicd-cta-card {
+    padding: 35px 25px;
+  }
+
+  .aicd-cta-card h2 {
+    text-align: center;
+  }
+
+  .aicd-acc-btn {
+    font-size: 15px;
+    padding: 14px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aicd-review-track {
+    transition: none !important;
+  }
+
+  .aicd-stat-list article {
+    transition: none !important;
+  }
+
+  .aicd-msg-wrap {
+    transition: none !important;
+  }
+}

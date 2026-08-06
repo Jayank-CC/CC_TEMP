@@ -159,7 +159,7 @@ window.__PARTIALS.footer = `
             <li><a href="ai-and-ml-development-services.html">AI / ML Product Development</a></li>
             <li><a href="chatgpt-integration-services.html">ChatGPT Integration</a></li>
             <li><a href="chatbot-integration-services.html">ChatBot Integration</a></li>
-            <li><a href="#ai-chatbot-development-services">AI Chatbot Development Company</a></li>
+            <li><a href="ai-chatbot-development-services.html">AI Chatbot Development Company</a></li>
           </ul>
         </div>
         <h3 class="f-heading">Products</h3>
