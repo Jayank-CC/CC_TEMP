@@ -259,56 +259,71 @@ window.initSite = function () {
     els.forEach(function (el) { io.observe(el); });
   })();
 
-  /* ---------- 8. Contact form validation (client-side demo) ---------- */
+  /* ---------- 8. Contact form validation (client-side demo) ----------
+     Scoped to each `.contact-form` found on the page (not a single
+     getElementById) so pages that embed a second contact-form card
+     in-content (in addition to the shared footer's) both validate
+     correctly. Each form's own `.form-success` sibling is looked up
+     relative to that form, not by a shared id, and binding is guarded
+     per-form so repeated init() calls never double-attach listeners. */
   (function contactForm() {
-    var form = document.getElementById('contact-form');
-    if (!form) return;
-    var success = document.getElementById('form-success');
+    var forms = document.querySelectorAll('.contact-form');
+    forms.forEach(function (form) {
+      if (form.dataset.validationBound === '1') return;
+      form.dataset.validationBound = '1';
+      var success = form.querySelector('.form-success');
 
-    function setError(input, message) {
-      var holder = input.closest('.form-field');
-      var errEl = holder ? holder.querySelector('.field-error') : null;
-      input.classList.toggle('has-error', !!message);
-      if (errEl) errEl.textContent = message || '';
-    }
-
-    function validateField(input) {
-      var value = input.value.trim();
-      if (!value) { setError(input, 'This field is required.'); return false; }
-      if (input.type === 'email') {
-        var okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-        if (!okEmail) { setError(input, 'Please enter a valid email address.'); return false; }
+      function setError(input, message) {
+        var holder = input.closest('.form-field');
+        var errEl = holder ? holder.querySelector('.field-error') : null;
+        input.classList.toggle('has-error', !!message);
+        if (errEl) errEl.textContent = message || '';
       }
-      if (input.type === 'number' && !/^\+?\d{6,15}$/.test(value)) {
-        setError(input, 'Please enter a valid phone number.');
-        return false;
+
+      function validateField(input) {
+        var value = input.value.trim();
+        if (!value) {
+          if (input.required) { setError(input, 'This field is required.'); return false; }
+          setError(input, '');
+          return true;
+        }
+        if (input.type === 'email') {
+          var okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+          if (!okEmail) { setError(input, 'Please enter a valid email address.'); return false; }
+        }
+        if (input.type === 'number' && !/^\+?\d{6,15}$/.test(value)) {
+          setError(input, 'Please enter a valid phone number.');
+          return false;
+        }
+        setError(input, '');
+        return true;
       }
-      setError(input, '');
-      return true;
-    }
 
-    var fields = form.querySelectorAll('input:not([type="hidden"]), textarea');
-    fields.forEach(function (input) {
-      input.addEventListener('blur', function () { validateField(input); });
-      input.addEventListener('input', function () {
-        if (input.classList.contains('has-error')) validateField(input);
-      });
-    });
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault(); // no backend — demo submission only
-      var valid = true;
+      var fields = form.querySelectorAll('input:not([type="hidden"]), textarea');
       fields.forEach(function (input) {
-        if (!validateField(input)) valid = false;
+        input.addEventListener('blur', function () { validateField(input); });
+        input.addEventListener('input', function () {
+          if (input.classList.contains('has-error')) validateField(input);
+        });
       });
-      if (!valid) {
-        var firstError = form.querySelector('.has-error');
-        if (firstError) firstError.focus();
-        return;
-      }
-      success.hidden = false;
-      form.reset();
-      setTimeout(function () { success.hidden = true; }, 6000);
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault(); // no backend — demo submission only
+        var valid = true;
+        fields.forEach(function (input) {
+          if (!validateField(input)) valid = false;
+        });
+        if (!valid) {
+          var firstError = form.querySelector('.has-error');
+          if (firstError) firstError.focus();
+          return;
+        }
+        if (success) {
+          success.hidden = false;
+          setTimeout(function () { success.hidden = true; }, 6000);
+        }
+        form.reset();
+      });
     });
   })();
 

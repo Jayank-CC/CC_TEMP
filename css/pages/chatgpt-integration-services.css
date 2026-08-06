@@ -1,0 +1,1088 @@
+/* ==========================================================================
+   ChatGPT Integration Services — page-specific styles
+   Reference: https://www.cloudconverge.io/chatgpt-integration-services/
+   Prefix: cgpt-
+   ========================================================================== */
+
+/* Text-transform check (per-page lesson carried from prior pages): most
+   item-level sub-headings on this reference (18px platform/advantages/why
+   items) compute text-transform: none directly on the reference despite the
+   global capitalize default, matching every prior page's pattern — reset
+   scoped to those specific classes only. The larger section headings (h2/h3/
+   h4/h5) all compute text-transform: capitalize on the reference, same as
+   the project default, so no reset is added for those. */
+
+.cgpt-page main .cgpt-advantages-item h5,
+.cgpt-page main .cgpt-services-item h4,
+.cgpt-page main .cgpt-why-item h5,
+.cgpt-page main .cgpt-need-copy h3 {
+  text-transform: none;
+}
+
+/* ---- hero: 2-col grid (copy | OpenAI logo mark), dark particle-network
+   background image, no video (reference uses an autoplay background video —
+   simplified to its static poster/background image here, see
+   PROJECT_STATUS.md) ---- */
+
+.cgpt-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 140px 15px 100px;
+  background-color: #0a1229;
+  background-image: url("../../assets/images/cgpt-hero-bg.avif");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.cgpt-hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.cgpt-hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 30px;
+  max-width: 1230px;
+}
+
+.cgpt-hero-copy h1 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 56px;
+  color: #fff;
+  text-transform: none;
+}
+
+.cgpt-hero-accent {
+  color: #64a8ff;
+}
+
+.cgpt-hero-sub {
+  margin: 0 0 20px;
+  max-width: 585px;
+  font-family: var(--font-heading);
+  font-size: 24px !important;
+  font-weight: 500;
+  line-height: 28px !important;
+  color: #fff;
+}
+
+.cgpt-hero-copy p {
+  max-width: 585px;
+  margin: 0 0 30px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 22px;
+  color: #fff;
+}
+
+.cgpt-hero-btn {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 20px 40px;
+}
+
+.cgpt-hero-media {
+  display: flex;
+  justify-content: center;
+}
+
+.cgpt-hero-media img {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+}
+
+/* ---- breadcrumb (reused pattern, verbatim from sibling pages) ---- */
+
+.cgpt-breadcrumb {
+  padding: 20px 0;
+  background-color: #fbfbfb;
+}
+
+.cgpt-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-body);
+  font-size: 16px;
+}
+
+.cgpt-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.cgpt-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.cgpt-breadcrumb a:hover {
+  color: var(--color-primary);
+}
+
+.cgpt-breadcrumb-list li:last-child span:not(.cgpt-breadcrumb-sep) {
+  color: #191919;
+}
+
+.cgpt-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.cgpt-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- "Why your Business need ChatGPT integration Services?" + inline
+   consult form card (2-col grid, text left ~540px / card right ~350px) ---- */
+
+.cgpt-need {
+  padding: 40px 15px 60px;
+  background: #fff;
+}
+
+.cgpt-need-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 40px;
+  align-items: start;
+}
+
+.cgpt-need-copy h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: left;
+}
+
+.cgpt-need-copy h3 {
+  margin: 30px 0 15px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cgpt-need-copy p {
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.cgpt-need-copy p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- reusable "»" list, used across several sections on this page ---- */
+
+.cgpt-list {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.cgpt-list li {
+  position: relative;
+  padding: 4px 0 4px 22px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+}
+
+.cgpt-list li::before {
+  content: "\00BB";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* ---- consult card (reuses the site-wide .contact-form input/textarea/
+   btn-submit component; wrapper styled to the measured card values: white
+   bg, shadow 0px 6px 20px rgba(0,0,0,0.05), primary-colored top border) ---- */
+
+.cgpt-consult-card {
+  background: #fff;
+  border-top: 5px solid var(--color-primary);
+  box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+}
+
+.cgpt-consult-eyebrow {
+  margin: 0 0 8px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.cgpt-consult-heading {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: #191919;
+}
+
+/* ---- Platform-Based ChatGPT Integrations: 3-card row + 2-card row, plain
+   white cards (measured shadow 0px 6px 20px rgba(0,0,0,0.05), radius: 0,
+   padding: 25px — confirmed genuinely square-cornered on the reference) ---- */
+
+.cgpt-platform {
+  padding: 40px 0;
+  background: var(--color-bg-light);
+}
+
+.cgpt-platform > .container > h3 {
+  margin: 0 0 30px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.cgpt-platform-grid {
+  display: grid;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.cgpt-platform-grid--three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cgpt-platform-grid--two {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+.cgpt-platform-grid--two .cgpt-platform-card {
+  flex: 0 0 calc((100% - 60px) / 3);
+}
+
+.cgpt-platform-card {
+  background: #fff;
+  border: 1px solid #f3f3f3;
+  box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+}
+
+.cgpt-platform-card h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: left;
+}
+
+.cgpt-platform-card > p:first-of-type {
+  margin: 0 0 15px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 20px;
+  color: #191919;
+  text-align: left;
+}
+
+.cgpt-platform-card .cgpt-list {
+  margin: 0 0 15px;
+}
+
+.cgpt-platform-card > p:last-child {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 22px;
+  color: #424242;
+  text-align: left;
+}
+
+.cgpt-platform-card a {
+  /* color: var(--color-primary); */
+  text-decoration: underline;
+}
+.cgpt-platform-card a:hover {
+  color: var(--color-primary);
+  /* text-decoration: underline; */
+}
+
+/* ---- Advantages of ChatGPT Business Integration Services: 2-col plain
+   grid, 0 gap/0 padding (measured columns sum exactly to the 1140px
+   container, matching the aiml-other / bis "plain 2-col" pattern) ---- */
+
+.cgpt-advantages {
+  padding: 50px 15px;
+  background: #fff;
+  text-align: center;
+}
+
+.cgpt-advantages > .container > h4 {
+  margin: 0 0 30px;
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cgpt-advantages-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: left;
+}
+
+.cgpt-advantages-item {
+  margin-bottom: 25px;
+  padding-right: 20px;
+}
+
+.cgpt-advantages-item:last-child {
+  margin-bottom: 0;
+}
+
+.cgpt-advantages-item h5 {
+  margin: 0 0 10px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cgpt-advantages-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- "We provide a range of services..." — heading + 2 alternating
+   image/text rows (text col measured 540px, image col measured 570px in
+   the 1140px container) + 6-card illustrated grid (3x2, shadow
+   var(--shadow-card), radius 4px, cards measured 350px wide — same shadow
+   token already used site-wide for the 3-card image-box pattern) ---- */
+
+.cgpt-services {
+  padding: 50px 15px;
+  background: #fff;
+}
+
+.cgpt-services > .container > h5 {
+  margin: 0 0 40px;
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.cgpt-services-row {
+  display: grid;
+  grid-template-columns: 540px 1fr;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.cgpt-services-row--reverse {
+  grid-template-columns: 1fr 540px;
+}
+
+.cgpt-services-row--reverse .cgpt-services-media {
+  order: -1;
+}
+
+.cgpt-services-item {
+  margin-bottom: 30px;
+}
+
+.cgpt-services-item:last-child {
+  margin-bottom: 0;
+}
+
+.cgpt-services-item h4 {
+  margin: 0 0 10px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: left;
+}
+
+.cgpt-services-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+}
+
+.cgpt-services-media img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.cgpt-services-media:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+.cgpt-illus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.cgpt-illus-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 4px;
+  border-top: 4px solid #fff;
+  box-shadow: var(--shadow-card);
+  padding: 30px;
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0, 0.3, 1),
+    border-color 0.3s;
+}
+
+.cgpt-illus-card:hover {
+  transform: translate3d(0, -5px, 0);
+  border-top-color: var(--color-primary);
+}
+
+.cgpt-illus-card h6 {
+  margin: 0 0 15px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.cgpt-illus-card p {
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.cgpt-illus-card .cgpt-list {
+  margin: 0 0 20px;
+  text-align: left;
+}
+
+.cgpt-illus-card img {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  margin: auto auto 0;
+}
+
+/* ---- "Why ChatGPT Integration?" — centered heading + intro paragraph +
+   2-col plain grid (col1: Large Language Model Fine-Tuning / Enterprise API
+   Integration, col2: Data Architecture Modernization / Virtual Assistants —
+   confirmed column-major DOM order via the reference's own column markup) ---- */
+
+.cgpt-why {
+  padding: 50px 15px;
+  background: var(--color-bg-light);
+  text-align: center;
+}
+
+.cgpt-why > .container > h4 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cgpt-why > .container > p {
+  max-width: none;
+  margin: 0 auto 40px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.cgpt-why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 40px;
+  text-align: left;
+}
+
+.cgpt-why-item {
+  margin-bottom: 25px;
+}
+
+.cgpt-why-item:last-child {
+  margin-bottom: 0;
+}
+
+.cgpt-why-item h5 {
+  margin: 0 0 10px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cgpt-why-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- "How We Integrate ChatGPT into Your System" — dark section, 5
+   bordered transparent cards (3+2), measured border
+   0.877px solid rgba(255,255,255,0.18), radius 12px, padding 30px.
+   Reference layers a subtle diagonal-line texture (BG5.webp, saved locally)
+   under a 94%-opacity rgb(20,37,91) tint, and a full-bleed divider line
+   sits between the heading and the card row. ---- */
+
+.cgpt-process {
+  padding: 90px 0;
+  background:
+    linear-gradient(rgba(20, 37, 91, 0.94), rgba(20, 37, 91, 0.94)),
+    url("../../assets/images/cgpt-process-bg.webp");
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+  background-size: cover;
+}
+
+.cgpt-process > .container:first-of-type h3 {
+  margin: 0 0 30px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+
+.cgpt-process-divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  margin-bottom: 64px;
+}
+
+.cgpt-process-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  max-width: 970px;
+  margin: 0 auto;
+}
+
+.cgpt-process-card {
+  flex: 0 1 calc((100% - 60px) / 3);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: border-color 0.3s;
+}
+
+.cgpt-process-card:hover {
+  border-color: rgba(255, 255, 255, 0.41);
+}
+
+.cgpt-process-card h6 {
+  margin: 0 0 10px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.cgpt-process-card p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  color: #fff;
+}
+
+/* ---- FAQ accordion (single-open, first item pre-opened on load — matches
+   the reference's Bootstrap-collapse-based radiant-accordion widget;
+   measured max-width 900px, open state background var(--color-dark)) ---- */
+
+.cgpt-faq {
+  padding: 60px 15px;
+  background: var(--color-bg-light);
+}
+
+.cgpt-faq > .container > h3 {
+  margin: 0 0 30px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.cgpt-accordion {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cgpt-acc-item {
+  margin: 0 0 10px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.cgpt-acc-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  border: 0;
+  background: #fff;
+  padding: 18px 25px;
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: left;
+  cursor: pointer;
+}
+
+.cgpt-acc-item.is-open .cgpt-acc-btn {
+  background: var(--color-dark);
+  color: #fff;
+}
+
+.cgpt-acc-icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+}
+
+.cgpt-acc-icon::before,
+.cgpt-acc-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.cgpt-acc-icon::before {
+  width: 14px;
+  height: 2px;
+}
+
+.cgpt-acc-icon::after {
+  width: 2px;
+  height: 14px;
+}
+
+.cgpt-acc-item.is-open .cgpt-acc-icon::after {
+  display: none;
+}
+
+.cgpt-acc-panel {
+  padding: 20px 25px;
+  background: #fff;
+}
+
+.cgpt-acc-panel p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- stats (reused verbatim component pattern) ---- */
+
+.cgpt-stats {
+  padding: 100px 0;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.cgpt-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.cgpt-stat-grid article {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid #ddd;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+
+.cgpt-stat-grid article:hover {
+  transform: translate3d(0, -5px, 0);
+}
+
+.cgpt-stat-grid article:last-child {
+  border-right: 0;
+}
+
+.cgpt-stat-grid img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+}
+
+.cgpt-stat-grid strong {
+  display: block;
+  font: 400 32px/48px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.cgpt-stat-grid h3 {
+  margin: 0 0 8px;
+  font: 400 16px/24px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.cgpt-stat-grid p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- Industries We Serve (reused verbatim pattern) ---- */
+
+.cgpt-industries {
+  padding: 50px 0 20px;
+  text-align: center;
+}
+
+.cgpt-industries h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.cgpt-industries-img {
+  padding: 0;
+  text-align: center;
+}
+
+.cgpt-industries-img img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ---- Awards (reused verbatim pattern) ---- */
+
+.cgpt-awards {
+  padding: 55px 0 8px;
+  text-align: center;
+}
+
+.cgpt-awards h3 {
+  margin: 0 0 40px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cgpt-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.cgpt-award-grid img {
+  display: block;
+  height: 150px;
+  width: auto;
+}
+
+.cgpt-award-grid .cgpt-microsoft {
+  height: 77px;
+}
+
+/* ---- client reviews (reused verbatim pattern) ---- */
+
+.cgpt-reviews {
+  padding: 50px 0 30px;
+}
+
+.cgpt-reviews h3 {
+  margin: 0 0 40px;
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.cgpt-review-viewport {
+  overflow: hidden;
+}
+
+.cgpt-review-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cgpt-review-card {
+  flex: 0 0 540px;
+  min-height: 400px;
+  padding: 37px 35px 47px;
+  background: #f4f4f4;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.cgpt-stars {
+  color: #ffb600;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.cgpt-review-card blockquote {
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  flex: 1 1 auto;
+}
+
+.cgpt-review-person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.cgpt-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.cgpt-review-person p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-body);
+}
+
+.cgpt-review-person strong {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cgpt-review-person span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ---- responsive ---- */
+
+@media (max-width: 1199px) {
+  .cgpt-hero-copy h1 {
+    font-size: 44px;
+    line-height: 48px;
+  }
+
+  .cgpt-services-row,
+  .cgpt-services-row--reverse {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .cgpt-services-row--reverse .cgpt-services-media {
+    order: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .cgpt-hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .cgpt-hero-copy h1,
+  .cgpt-hero-sub,
+  .cgpt-hero-copy p {
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cgpt-hero-media {
+    order: -1;
+    max-width: 220px;
+    margin: 0 auto;
+  }
+
+  .cgpt-need-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cgpt-consult-card {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .cgpt-platform-grid--three,
+  .cgpt-platform-grid--two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cgpt-platform-grid--two .cgpt-platform-card {
+    flex-basis: auto;
+  }
+
+  .cgpt-advantages-grid,
+  .cgpt-why-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .cgpt-illus-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cgpt-process-card {
+    flex: 0 1 calc((100% - 30px) / 2);
+  }
+}
+
+@media (max-width: 767px) {
+  .cgpt-hero {
+    padding: 40px 20px;
+  }
+
+  .cgpt-hero-copy h1 {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .cgpt-hero-sub {
+    font-size: 19px;
+    line-height: 24px;
+  }
+
+  .cgpt-need-copy h2 {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .cgpt-platform-grid--three,
+  .cgpt-platform-grid--two {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .cgpt-illus-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cgpt-process-card {
+    flex: 1 1 100%;
+  }
+
+  .cgpt-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 30px;
+  }
+
+  .cgpt-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cgpt-stat-grid article {
+    border-right: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  .cgpt-stat-grid article:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .cgpt-review-card {
+    flex: 0 0 100%;
+  }
+
+  .cgpt-acc-btn {
+    font-size: 15px;
+    padding: 14px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cgpt-review-track {
+    transition: none !important;
+  }
+
+  .cgpt-stat-grid article {
+    transition: none !important;
+  }
+}

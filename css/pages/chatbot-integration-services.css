@@ -1,0 +1,1257 @@
+/* ==========================================================================
+   Chatbot Integration Services — page-specific styles
+   Reference: https://www.cloudconverge.io/chatbot-integration-services/
+   Prefix: cbot-
+   ========================================================================== */
+
+/* Text-transform / font-weight check (per-page lesson): this reference uses
+   a visually distinct hero (DM Sans headings, blue/purple gradient button)
+   while the rest of the page reuses the site's standard Poppins/--color-
+   heading system. Item-level sub-headings below section headings measure
+   font-weight:400 (not 600) throughout this page, confirmed directly via
+   getComputedStyle rather than assumed by analogy with sibling pages. */
+
+/* This page's hero is a light/white background (not the dark photo/video
+   hero every other built page uses), so the shared header's default
+   "transparent + white nav text until scroll" state (see .site-header /
+   .is-sticky in css/style.css) is invisible against it. The live reference
+   renders this page's header solid/dark from the very first frame (verified
+   via screenshot at scrollY:0), so it is overridden here, scoped to this
+   page only via the .cbot-page body class — no shared file touched, no
+   other page affected. */
+.cbot-page .site-header:not(.is-sticky) .menu-item > a {
+  color: #000;
+}
+.cbot-page .site-header:not(.is-sticky) .logo-light {
+  display: none;
+}
+.cbot-page .site-header:not(.is-sticky) .logo-dark {
+  display: block;
+}
+.cbot-page .site-header:not(.is-sticky) .mobile-toggle span {
+  background: #000;
+}
+
+.cbot-page main .cbot-usecase h4,
+.cbot-page main .cbot-why-item h3,
+.cbot-page main .cbot-benefit-item h4,
+.cbot-page main .cbot-services-card h3,
+.cbot-page main .cbot-process-card h4,
+.cbot-page main .cbot-industry-item h4 {
+  text-transform: none;
+}
+
+/* ---- hero: white bg, 2-col (badge+h1+p+btn+4-icon row | dashboard image),
+   floating stats card overlapping the bottom-right ---- */
+
+.cbot-hero {
+  position: relative;
+  padding: 100px 15px 40px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.cbot-hero-grid {
+  max-width: 1500px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.cbot-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 20px;
+  background: #eef3fd;
+  border-radius: 15px;
+  padding: 8px 15px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #1d1a4e;
+}
+
+.cbot-hero-badge svg {
+  width: 10px;
+  height: 10px;
+  fill: #1148fc;
+}
+
+.cbot-hero-copy h1 {
+  margin: 0 0 20px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 50px;
+  font-weight: 600;
+  line-height: 62px;
+  color: #0e1a3b;
+  text-transform: none;
+}
+
+.cbot-hero-accent {
+  color: #4366ef;
+}
+
+.cbot-hero-copy p {
+  max-width: 600px;
+  margin: 0 0 30px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.cbot-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 40px;
+  background: linear-gradient(90deg, #1664fb 0%, #6223ec 100%);
+  color: #fff;
+  border-radius: 8px;
+  padding: 15px 25px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.cbot-hero-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: #fff;
+}
+
+.cbot-hero-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 11px 14px -7px rgba(22, 100, 251, 0.4);
+}
+
+.cbot-hero-features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  max-width: 600px;
+}
+
+.cbot-hero-feature {
+  text-align: center;
+}
+
+.cbot-hero-feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 5px;
+  border-radius: 50%;
+  background: #f0f2fe;
+}
+
+.cbot-hero-feature-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: #3753b4;
+}
+
+.cbot-hero-feature h3 {
+  margin: 0 0 4px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: #26398b;
+  text-transform: capitalize;
+}
+
+.cbot-hero-feature p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #0f184d;
+}
+
+.cbot-hero-media {
+  position: relative;
+}
+
+.cbot-hero-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cbot-hero-stats {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 0 90px;
+  max-width: 660px;
+  display: flex;
+  box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 30px 30px 20px;
+  background: #fff;
+}
+
+.cbot-hero-stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 0;
+  padding-right: 20px;
+}
+
+.cbot-hero-stat svg {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  fill: #175efb;
+}
+
+.cbot-hero-stat strong {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 700;
+  color: #26398b;
+}
+
+.cbot-hero-stat span {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: #0f184d;
+}
+
+/* ---- trusted-by strip ---- */
+
+.cbot-trusted {
+  padding: 30px 15px 60px;
+  background: #fff;
+  text-align: center;
+}
+
+.cbot-trusted h2 {
+  margin: 0 0 25px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #404567;
+}
+
+.cbot-trusted img {
+  display: block;
+  margin: 0 auto;
+  height: 33px;
+  width: auto;
+}
+
+/* ---- breadcrumb (reused pattern from sibling pages) ---- */
+
+.cbot-breadcrumb {
+  padding: 20px 0;
+  background-color: #fbfbfb;
+}
+
+.cbot-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-body);
+  font-size: 16px;
+}
+
+.cbot-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+}
+
+.cbot-breadcrumb a {
+  color: #000;
+  text-decoration: none;
+}
+
+.cbot-breadcrumb a:hover {
+  color: var(--color-primary);
+}
+
+.cbot-breadcrumb-list li:last-child span:not(.cbot-breadcrumb-sep) {
+  color: #191919;
+}
+
+.cbot-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.cbot-breadcrumb-sep svg {
+  width: 6px;
+  height: 14px;
+  fill: #000;
+}
+
+/* ---- "What Are Chatbot Integration Services?" + inline consult form ---- */
+
+.cbot-need {
+  padding: 90px 15px;
+  background: #fff;
+}
+
+.cbot-need-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 40px;
+  align-items: start;
+}
+
+.cbot-need-copy h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: left;
+}
+
+.cbot-need-copy h3 {
+  margin: 30px 0 15px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cbot-need-copy p {
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.cbot-usecases {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cbot-usecase h4 {
+  margin: 0 0 6px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cbot-usecase p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.cbot-consult-card {
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  box-shadow: 0px 6px 60px 0px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+}
+
+.cbot-consult-eyebrow {
+  margin: 0 0 8px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.cbot-consult-heading {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.cbot-hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---- "Why Businesses Need Chatbot Integration" — intro + 2 alternating
+   image/text rows (2 items + image, then image + 3 items). Reference pairs
+   each row with an image whose filename names the OTHER row's topic — a
+   genuine content/asset mismatch on the live reference, reproduced verbatim
+   per the project's replication-not-redesign rule (see PROJECT_STATUS.md). ---- */
+
+.cbot-why {
+  padding: 60px 15px;
+  background: #fff;
+  text-align: center;
+}
+
+.cbot-why > .container > h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cbot-why > .container > p {
+  max-width: none;
+  margin: 0 auto 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.cbot-why > .container > p:last-of-type {
+  margin-bottom: 0;
+}
+
+.cbot-why-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  margin-top: 80px;
+  text-align: left;
+}
+
+.cbot-why-row--reverse {
+  margin-top: 30px;
+}
+
+.cbot-why-row--reverse .cbot-why-media {
+  order: -1;
+}
+
+.cbot-why-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.cbot-why-item h3 {
+  margin: 0 0 10px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cbot-why-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.cbot-why-media img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.cbot-why-media:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---- "Our Chatbot Integration Services" — intro + 6-card illustrated
+   grid (3x2), cards measured 350px wide, shadow var(--shadow-card),
+   radius 4px, icon image 350x215 ---- */
+
+.cbot-services {
+  padding: 60px 15px;
+  background: #fff;
+  text-align: center;
+}
+
+.cbot-services > .container > h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cbot-services > .container > p {
+  /* max-width: 900px; */
+  margin: 0 auto 40px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.cbot-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.cbot-services-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-top: 4px solid #fff;
+  border-radius: 4px;
+  box-shadow: var(--shadow-card);
+  padding: 30px 30px 30px;
+  text-align: center;
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0, 0.3, 1),
+    border-color 0.3s;
+}
+
+.cbot-services-card:hover {
+  transform: translate3d(0, -5px, 0);
+  border-top-color: var(--color-primary);
+}
+
+.cbot-services-card h3 {
+  margin: 0 0 15px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cbot-services-card p {
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.cbot-services-card img {
+  display: block;
+  width: 100%;
+  /* max-width: 220px; */
+  height: auto;
+  /* margin: auto auto 0; */
+}
+
+/* ---- "Industries We Serve" (text version) — intro + 6-item 2-col x3-row
+   icon-list, bare »-icon (no circle badge), item title 16/400/#191919 ---- */
+
+.cbot-industries-text {
+  padding: 60px 15px;
+  background: var(--color-bg-light);
+  text-align: center;
+}
+
+.cbot-industries-text > .container > h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cbot-industries-text > .container > p {
+  /* max-width: 900px; */
+  margin: 0 auto 40px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.cbot-industry-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px 40px;
+  text-align: left;
+}
+
+.cbot-industry-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+
+.cbot-industry-item:hover {
+  transform: translate3d(0, -5px, 0);
+}
+
+.cbot-industry-item svg {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  fill: #2654c6;
+  margin-top: 6px;
+}
+
+.cbot-industry-item h4 {
+  margin: 0 0 5px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-body);
+}
+
+.cbot-industry-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- "Our Integration Process" — intro + 6-card grid (3x2), white cards,
+   shadow var(--shadow-card), radius 4px, small 64px icon + title (some with
+   manual <br> line breaks preserved verbatim) + description, left-aligned ---- */
+
+.cbot-process {
+  padding: 60px 15px;
+  background: #fff;
+  text-align: center;
+}
+
+.cbot-process > .container > h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-dark-2);
+}
+
+.cbot-process > .container > p {
+  /* max-width: 900px;   */
+  margin: 0 auto 40px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.cbot-process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.cbot-process-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-top: 4px solid #fff;
+  border-radius: 4px;
+  box-shadow: var(--shadow-card);
+  padding: 30px;
+  text-align: left;
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0, 0.3, 1),
+    border-color 0.3s;
+}
+
+.cbot-process-card:hover {
+  transform: translate3d(0, -5px, 0);
+  border-top-color: var(--color-primary);
+}
+
+.cbot-process-card-head {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 0 0 20px;
+}
+
+.cbot-process-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: #f7f7f9;
+}
+
+.cbot-process-card img {
+  width: 48px;
+  height: 48px;
+  display: block;
+  transition: transform 0.3s ease-out;
+}
+
+.cbot-process-card img:hover {
+  transform: translateY(-8px);
+}
+
+.cbot-process-card h4 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-heading);
+  line-height: 1.25;
+}
+
+.cbot-process-card p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: justify;
+  text-justify: auto;
+}
+
+/* ---- stats (reused verbatim component pattern, same as sibling pages) ---- */
+
+.cbot-stats {
+  padding: 100px 0;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.cbot-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.cbot-stat-grid article {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid #ddd;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+
+.cbot-stat-grid article:hover {
+  transform: translate3d(0, -5px, 0);
+}
+
+.cbot-stat-grid article:last-child {
+  border-right: 0;
+}
+
+.cbot-stat-grid img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+}
+
+.cbot-stat-grid strong {
+  display: block;
+  font: 400 32px/48px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.cbot-stat-grid h3 {
+  margin: 0 0 8px;
+  font: 400 16px/24px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.cbot-stat-grid p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- "Benefits Of Choosing Cloud Converge" — intro + 2-col plain list
+   (3+2 items, matches the measured column-major DOM order) ---- */
+
+.cbot-benefits {
+  padding: 60px 15px;
+  background: #fff;
+  text-align: center;
+}
+
+.cbot-benefits > .container > h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cbot-benefits > .container > p {
+  /* max-width: 900px; */
+  margin: 0 auto 40px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+.cbot-benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 40px;
+  text-align: left;
+}
+
+.cbot-benefit-item {
+  margin-bottom: 25px;
+}
+
+.cbot-benefit-item:last-child {
+  margin-bottom: 0;
+}
+
+.cbot-benefit-item h4 {
+  margin: 0 0 10px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cbot-benefit-item p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- CTA "Ready to Transform..." — plain white, left-aligned, no button
+   on the live reference (confirmed: zero <a> elements in this section) ---- */
+
+.cbot-cta {
+  padding: 60px 15px;
+  background: #fff;
+}
+
+.cbot-cta h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.cbot-cta p {
+  margin: 0 0 15px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+}
+
+.cbot-cta p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- FAQ accordion (single-open, first item pre-opened, 10 items,
+   reused pattern from sibling pages) ---- */
+
+.cbot-faq {
+  padding: 60px 15px;
+  background: var(--color-bg-light);
+}
+
+.cbot-faq > .container > h2 {
+  margin: 0 0 30px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-dark);
+  text-align: center;
+}
+
+.cbot-accordion {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cbot-acc-item {
+  margin: 0 0 10px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.cbot-acc-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  border: 0;
+  background: #fff;
+  padding: 18px 25px;
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: left;
+  cursor: pointer;
+}
+
+.cbot-acc-item.is-open .cbot-acc-btn {
+  background: #1e4ec4;
+  color: #fff;
+}
+
+.cbot-acc-icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+}
+
+.cbot-acc-icon::before,
+.cbot-acc-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.cbot-acc-icon::before {
+  width: 14px;
+  height: 2px;
+}
+
+.cbot-acc-icon::after {
+  width: 2px;
+  height: 14px;
+}
+
+.cbot-acc-item.is-open .cbot-acc-icon::after {
+  display: none;
+}
+
+.cbot-acc-panel {
+  padding: 20px 25px;
+  background: #fff;
+}
+
+.cbot-acc-panel p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---- Industries We Serve (image version, reused pattern) ---- */
+
+.cbot-industries-img-heading {
+  padding: 50px 0 20px;
+  text-align: center;
+}
+
+.cbot-industries-img-heading h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: #191919;
+}
+
+.cbot-industries-img {
+  padding: 0;
+  text-align: center;
+}
+
+.cbot-industries-img img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ---- Awards (reused pattern) ---- */
+
+.cbot-awards {
+  padding: 55px 0 8px;
+  text-align: center;
+}
+
+.cbot-awards h2 {
+  margin: 0 0 40px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cbot-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.cbot-award-grid img {
+  display: block;
+  height: 150px;
+  width: auto;
+}
+
+.cbot-award-grid .cbot-microsoft {
+  height: 77px;
+}
+
+/* ---- Client Reviews (reused pattern, same carousel/6 reviews) ---- */
+
+.cbot-reviews {
+  padding: 50px 0 30px;
+}
+
+.cbot-reviews h2 {
+  margin: 0 0 40px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.cbot-review-viewport {
+  overflow: hidden;
+}
+
+.cbot-review-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cbot-review-card {
+  flex: 0 0 540px;
+  min-height: 400px;
+  padding: 37px 35px 47px;
+  background: #f4f4f4;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.cbot-stars {
+  color: #ffb600;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.cbot-review-card blockquote {
+  margin: 0 0 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  flex: 1 1 auto;
+}
+
+.cbot-review-person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.cbot-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.cbot-review-person p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-body);
+}
+
+.cbot-review-person strong {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.cbot-review-person span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ---- responsive ---- */
+
+@media (max-width: 1199px) {
+  .cbot-hero-copy h1 {
+    font-size: 42px;
+    line-height: 48px;
+  }
+
+  .cbot-hero-stats {
+    margin-left: 40px;
+  }
+}
+
+@media (max-width: 991px) {
+  .cbot-hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .cbot-hero-copy p,
+  .cbot-hero-features {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cbot-hero-copy {
+    text-align: center;
+  }
+
+  .cbot-hero-btn {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cbot-hero-media {
+    order: -1;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .cbot-hero-stats {
+    margin: 30px auto 0;
+    max-width: 480px;
+  }
+
+  .cbot-need-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cbot-consult-card {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .cbot-why-row {
+    grid-template-columns: 1fr;
+  }
+
+  .cbot-why-row--reverse .cbot-why-media {
+    order: 0;
+  }
+
+  .cbot-services-grid,
+  .cbot-process-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cbot-industry-grid,
+  .cbot-benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 20px 0;
+  }
+
+  .cbot-hero-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .cbot-hero {
+    padding: 60px 15px 30px;
+  }
+
+  .cbot-hero-copy h1 {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .cbot-need-copy h2 {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .cbot-hero-stats {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .cbot-hero-stat {
+    flex: 1 1 40%;
+  }
+
+  .cbot-services-grid,
+  .cbot-process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cbot-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 30px;
+  }
+
+  .cbot-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cbot-stat-grid article {
+    border-right: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  .cbot-stat-grid article:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .cbot-review-card {
+    flex: 0 0 100%;
+  }
+
+  .cbot-acc-btn {
+    font-size: 15px;
+    padding: 14px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cbot-review-track {
+    transition: none !important;
+  }
+
+  .cbot-stat-grid article {
+    transition: none !important;
+  }
+}
