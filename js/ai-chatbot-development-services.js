@@ -33,48 +33,189 @@
     });
   }
 
-  // ---- Hero chat demo: reveals the 7 canned messages one at a time, then
-  // loops (matches the reference's animated "AI chatbot" mockup). ----
+  // ---- Hero chat demo: reproduced from the reference's own inline
+  // HTML-widget script (downloaded and read directly from the live page,
+  // not guessed) — types the user turns into the textarea, shows a
+  // typing-dots indicator then reveals bot turns letter by letter, plays
+  // the 7-message conversation ONCE (no loop, matching the reference),
+  // then leaves the textarea live for the visitor to send their own
+  // message. ----
   function initChatDemo() {
     const box = document.getElementById("aicd-chat-box");
-    if (!box || box.dataset.aicdBound === "1") return;
+    const userInput = document.getElementById("aicd-user-input");
+    const sendBtn = document.getElementById("aicd-chat-send");
+    if (!box || !userInput || !sendBtn || box.dataset.aicdBound === "1") return;
     box.dataset.aicdBound = "1";
 
-    const messages = Array.from(box.children);
-    if (!messages.length) return;
+    const avatars = {
+      user: "assets/images/aicd-chat-avatar-user.jpg",
+      bot: "assets/images/aicd-chat-avatar-bot.png"
+    };
 
-    let timerId = 0;
+    const conversation = [
+      { sender: "user", text: "Hello, can I check my order status?" },
+      { sender: "bot", text: "Your order is on its way with FedEx! It should arrive tomorrow by 8pm." },
+      { sender: "bot", text: "Would you like me to text you the tracking link?" },
+      { sender: "user", text: "Yes, that would be great" },
+      { sender: "bot", text: "Done! I've just sent the tracking link to the phone number ending in 9042." },
+      { sender: "user", text: "Awesome, thanks!" },
+      { sender: "bot", text: "Thank you, have a great day ahead" }
+    ];
 
-    function hideAll() {
-      messages.forEach(function (m) {
-        m.classList.remove("is-visible");
-      });
+    let currentMessageIndex = 0;
+    let isAutoChatRunning = true;
+
+    function makeAvatar(sender) {
+      const avatar = document.createElement("span");
+      avatar.className = "aicd-avatar aicd-avatar-" + sender;
+      avatar.setAttribute("aria-hidden", "true");
+      avatar.style.backgroundImage = "url(" + avatars[sender] + ")";
+      return avatar;
     }
 
-    function playFrom(index) {
-      window.clearTimeout(timerId);
-      if (reducedMotion.matches) {
-        messages.forEach(function (m) {
-          m.classList.add("is-visible");
-        });
-        return;
+    function displayMessage(sender, text) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "aicd-msg-wrap aicd-" + sender;
+      const avatar = makeAvatar(sender);
+      const message = document.createElement("div");
+      message.className = "aicd-msg aicd-" + sender + "-msg";
+      message.innerHTML = text;
+
+      if (sender === "user") {
+        wrapper.appendChild(message);
+        wrapper.appendChild(avatar);
+      } else {
+        wrapper.appendChild(avatar);
+        wrapper.appendChild(message);
       }
-      if (index >= messages.length) {
-        timerId = window.setTimeout(function () {
-          hideAll();
-          playFrom(0);
-        }, 2200);
-        return;
-      }
-      messages[index].classList.add("is-visible");
+
+      box.appendChild(wrapper);
       box.scrollTop = box.scrollHeight;
-      timerId = window.setTimeout(function () {
-        playFrom(index + 1);
-      }, 1100);
+      return message;
     }
 
-    hideAll();
-    playFrom(0);
+    function typeBotMessage(text, callback) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "aicd-msg-wrap aicd-bot";
+      const avatar = makeAvatar("bot");
+      const messageDiv = document.createElement("div");
+      messageDiv.className = "aicd-msg aicd-bot-msg";
+      wrapper.appendChild(avatar);
+      wrapper.appendChild(messageDiv);
+      box.appendChild(wrapper);
+      box.scrollTop = box.scrollHeight;
+
+      if (reducedMotion.matches) {
+        messageDiv.innerHTML = text;
+        callback && callback();
+        return;
+      }
+
+      let i = 0;
+      const interval = window.setInterval(function () {
+        messageDiv.innerHTML = text.substring(0, i + 1);
+        i++;
+        box.scrollTop = box.scrollHeight;
+        if (i >= text.length) {
+          window.clearInterval(interval);
+          callback && callback();
+        }
+      }, 40);
+    }
+
+    function showNextMessage() {
+      if (currentMessageIndex >= conversation.length) {
+        isAutoChatRunning = false;
+        return;
+      }
+
+      const message = conversation[currentMessageIndex];
+      currentMessageIndex++;
+
+      if (reducedMotion.matches) {
+        displayMessage(message.sender, message.text);
+        window.setTimeout(showNextMessage, 0);
+        return;
+      }
+
+      if (message.sender === "user") {
+        userInput.value = "";
+        let i = 0;
+        const interval = window.setInterval(function () {
+          userInput.value += message.text[i];
+          i++;
+          if (i >= message.text.length) {
+            window.clearInterval(interval);
+            window.setTimeout(function () {
+              displayMessage("user", message.text);
+              userInput.value = "";
+              window.setTimeout(showNextMessage, 800);
+            }, 500);
+          }
+        }, 50);
+      } else {
+        const wrapper = document.createElement("div");
+        wrapper.className = "aicd-msg-wrap aicd-bot";
+        const avatar = makeAvatar("bot");
+        const typing = document.createElement("div");
+        typing.className = "aicd-msg aicd-typing";
+        wrapper.appendChild(avatar);
+        wrapper.appendChild(typing);
+        box.appendChild(wrapper);
+        box.scrollTop = box.scrollHeight;
+
+        window.setTimeout(function () {
+          box.removeChild(wrapper);
+          typeBotMessage(message.text, function () {
+            window.setTimeout(showNextMessage, 800);
+          });
+        }, 1000 + Math.random() * 500);
+      }
+    }
+
+    function sendMessage() {
+      const text = userInput.value.trim();
+      if (!text) return;
+
+      displayMessage("user", text);
+      userInput.value = "";
+      userInput.style.height = "auto";
+
+      if (isAutoChatRunning) return;
+
+      window.setTimeout(function () {
+        const typingWrapper = document.createElement("div");
+        typingWrapper.className = "aicd-msg-wrap aicd-bot";
+        const avatar = makeAvatar("bot");
+        const typing = document.createElement("div");
+        typing.className = "aicd-msg aicd-typing";
+        typingWrapper.appendChild(avatar);
+        typingWrapper.appendChild(typing);
+        box.appendChild(typingWrapper);
+        box.scrollTop = box.scrollHeight;
+
+        window.setTimeout(function () {
+          box.removeChild(typingWrapper);
+          typeBotMessage(
+            "Thank you for your message. Please contact our sales team using the <a href='https://www.cloudconverge.io/contact/'>contact form at</a>"
+          );
+        }, 1000);
+      }, 500);
+    }
+
+    sendBtn.addEventListener("click", sendMessage);
+    userInput.addEventListener("keypress", function (e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+    userInput.addEventListener("input", function () {
+      this.style.height = "auto";
+      this.style.height = this.scrollHeight + "px";
+    });
+
+    window.setTimeout(showNextMessage, 500);
   }
 
   // ---- FAQ accordion (single-open, first item pre-opened in markup) ----

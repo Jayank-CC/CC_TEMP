@@ -96,49 +96,92 @@
   box-shadow: 0px 11px 14px -7px rgba(30, 78, 196, 0.5);
 } */
 
-/* ---- hero chat demo mockup ---- */
+/* ---- hero chat demo mockup — reproduced from the reference's own inline
+   widget CSS/script (downloaded and read directly, not guessed): a custom
+   HTML+JS "AI chatbot" demo, exact selectors/timings translated to this
+   page's aicd- prefix. Container is width:100% of its grid column (no
+   max-width cap, matching the reference), fixed height:600px, and the
+   conversation plays once (typed-into-textarea user turns, typing-dots
+   bot turns, letter-by-letter bot reveal) rather than looping. ---- */
 
 .aicd-hero-demo {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .aicd-chat {
-  width: 100%;
-  max-width: 420px;
+  width: 55%;
+  height: 600px;
+  background-color: rgba(255, 255, 255, 0.96);
+  border-radius: 36px;
+  border: solid 1px #ccc;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.96);
-  border-radius: 36px;
-  box-shadow: 0px 25px 60px rgba(0, 0, 0, 0.35);
-  padding: 20px 16px 16px;
+  overflow: hidden;
   box-sizing: border-box;
 }
 
 .aicd-chat-box {
+  flex: 1;
+  padding: 10px 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  min-height: 360px;
-  max-height: 420px;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: stretch;
+}
+
+.aicd-chat-input {
+  display: flex;
+  border: 0 solid #ddd;
+  border-radius: 50px;
+  padding: 10px 20px;
+  background-color: #fff;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.1),
+    0 4px 32px 0 rgba(0, 0, 0, 0.06);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.aicd-chat-input textarea {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  resize: none;
+  outline: none;
+  border-radius: 50px;
+  font-size: 14px;
   overflow: hidden;
-  padding: 4px 2px;
+  background: transparent;
+  font-family: var(--font-body);
+  color: var(--color-body);
+}
+
+.aicd-chat-input button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #f5f3f1;
+  color: var(--color-dark);
+  cursor: pointer;
+  border-radius: 50px;
+  font-size: 14px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.aicd-chat-input button:hover {
+  background-color: var(--color-dark);
+  color: #fff;
 }
 
 .aicd-msg-wrap {
   display: flex;
+  margin: 10px 0;
   align-items: flex-end;
-  gap: 8px;
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s ease;
-}
-
-.aicd-msg-wrap.is-visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .aicd-msg-wrap.aicd-user {
@@ -147,12 +190,12 @@
 
 .aicd-avatar {
   flex: 0 0 auto;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background-color: #d8e2ed;
   background-size: cover;
   background-position: center;
+  margin: 0 10px;
 }
 
 .aicd-avatar-bot {
@@ -164,57 +207,58 @@
 }
 
 .aicd-msg {
-  max-width: 78%;
-  padding: 10px 14px;
-  font-family: var(--font-body);
-  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: 15px;
+  max-width: 70%;
+  transform: scale(0);
+  animation: aicd-msg-pop 0.8s forwards;
   line-height: 18px;
-}
-
-.aicd-bot-msg {
-  background: var(--color-dark);
-  color: #eff3ff;
-  border-radius: 15px 15px 15px 0;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
 }
 
 .aicd-user-msg {
-  background: #d8e2ed;
+  background-color: #d8e2ed;
+  border-bottom-right-radius: 0;
   color: #4d4d4d;
-  border-radius: 15px 15px 0;
 }
 
-.aicd-chat-input {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid #ececec;
+.aicd-bot-msg {
+  background-color: var(--color-dark);
+  border-bottom-left-radius: 0;
+  color: #eff3ff;
 }
 
-.aicd-chat-input textarea {
-  flex: 1 1 auto;
-  resize: none;
-  height: 40px;
-  border: 0;
-  background: transparent;
-  font-family: var(--font-body);
-  font-size: 13px;
-  color: var(--color-body);
+.aicd-bot-msg a {
+  color: #fff;
 }
 
-.aicd-chat-input button {
-  flex: 0 0 auto;
-  border: 0;
-  border-radius: 50px;
-  padding: 10px 20px;
-  background: #f5f3f1;
-  color: var(--color-dark);
-  font-family: var(--font-heading);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: default;
+.aicd-bot-msg a:hover {
+  color: #4e81ff;
+}
+
+.aicd-typing {
+  width: 50px;
+  height: 10px;
+  margin-left: 10px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 30'><circle cx='30' cy='15' r='6' fill='%23ccc'/><circle cx='60' cy='15' r='6' fill='%23ccc'/><circle cx='90' cy='15' r='6' fill='%23ccc'/></svg>")
+    no-repeat center;
+  background-size: contain;
+}
+
+@keyframes aicd-msg-pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* ---- breadcrumb (reused pattern from sibling pages) ---- */

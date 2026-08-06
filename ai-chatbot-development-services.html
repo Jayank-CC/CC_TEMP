@@ -31,41 +31,11 @@
         </div>
         <div class="aicd-hero-demo">
           <div class="aicd-chat">
-            <div class="aicd-chat-box" id="aicd-chat-box">
-              <div class="aicd-msg-wrap aicd-user">
-                <div class="aicd-msg aicd-user-msg">Hello, can I check my order status?</div>
-                <span class="aicd-avatar aicd-avatar-user" aria-hidden="true"></span>
-              </div>
-              <div class="aicd-msg-wrap aicd-bot">
-                <span class="aicd-avatar aicd-avatar-bot" aria-hidden="true"></span>
-                <div class="aicd-msg aicd-bot-msg">Your order is on its way with FedEx! It should arrive tomorrow by
-                  8pm.</div>
-              </div>
-              <div class="aicd-msg-wrap aicd-bot">
-                <span class="aicd-avatar aicd-avatar-bot" aria-hidden="true"></span>
-                <div class="aicd-msg aicd-bot-msg">Would you like me to text you the tracking link?</div>
-              </div>
-              <div class="aicd-msg-wrap aicd-user">
-                <div class="aicd-msg aicd-user-msg">Yes, that would be great</div>
-                <span class="aicd-avatar aicd-avatar-user" aria-hidden="true"></span>
-              </div>
-              <div class="aicd-msg-wrap aicd-bot">
-                <span class="aicd-avatar aicd-avatar-bot" aria-hidden="true"></span>
-                <div class="aicd-msg aicd-bot-msg">Done! I've just sent the tracking link to the phone number ending
-                  in 9042.</div>
-              </div>
-              <div class="aicd-msg-wrap aicd-user">
-                <div class="aicd-msg aicd-user-msg">Awesome, thanks!</div>
-                <span class="aicd-avatar aicd-avatar-user" aria-hidden="true"></span>
-              </div>
-              <div class="aicd-msg-wrap aicd-bot">
-                <span class="aicd-avatar aicd-avatar-bot" aria-hidden="true"></span>
-                <div class="aicd-msg aicd-bot-msg">Thank you, have a great day ahead</div>
-              </div>
-            </div>
+            <div class="aicd-chat-box" id="aicd-chat-box"></div>
             <div class="aicd-chat-input">
-              <textarea placeholder="Type a message..." readonly aria-label="Chat demo input"></textarea>
-              <button type="button" tabindex="-1">Send</button>
+              <textarea id="aicd-user-input" rows="1" placeholder="Type a message..."
+                aria-label="Chat demo input"></textarea>
+              <button type="button" id="aicd-chat-send">Send</button>
             </div>
           </div>
         </div>

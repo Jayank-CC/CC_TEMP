@@ -194,6 +194,38 @@
     `getBoundingClientRect` on the first question's ancestor chain, independent of the outer
     1230px section container). Changed `.aicd-accordion` to `max-width:700px`.
   - All 4 fixes screenshot-verified on the local build against the live reference after the change.
+- **2026-08-06 second fix pass — hero chat-demo mockup rebuilt from the reference's own source
+  (not approximated):** the previous build's hero chat mockup was a static 7-message list faded
+  in/out via CSS opacity on a loop, with a fixed `max-width:420px` card. User flagged it looked
+  "empty" with a wrong-colored avatar. Root cause found by downloading the reference's actual
+  inline `<script>`/`<style>` for this widget directly (via the browser-download-blob technique,
+  since `document.querySelectorAll('script')[n].textContent` was blocked by the content filter on
+  a `?img=5` query string inside it — worked around by grabbing it as a `Blob` download instead of
+  returning the string through the tool call): the reference is a bespoke HTML+JS widget
+  (`.chat-container`/`.chat-box#chat-box`/`.input-box`/`textarea#user-input`) that starts with an
+  EMPTY chat box and plays its 7-message conversation ONCE (no loop): user turns are simulated by
+  typing character-by-character into the textarea (50ms/char) then posting as a bubble, bot turns
+  show a 3-dot typing indicator for 1000-1500ms then reveal letter-by-letter (40ms/char), with an
+  800ms pause between turns and a CSS `scale(0)→1.2→1` pop-in per bubble. Container is `width:100%`
+  of its grid column (no max-width cap) at a fixed `height:600px`, avatar `36px` (was `32px`), bot
+  bubble `background-color:var(--color-dark)` `border-bottom-left-radius:0`, user bubble `#d8e2ed`
+  `border-bottom-right-radius:0`. The "wrong-colored" avatar the user saw was our own correct,
+  fully-opaque maroon `chat-pwp-icon.png` asset rendered at partial CSS opacity mid-fade (a bug in
+  the old fade-loop timer, not a wrong asset) — confirmed by checking the PNG's actual pixel value
+  (`133,33,71,255`, matches the reference exactly) before rewriting. Rewrote
+  `initChatDemo()` in `js/ai-chatbot-development-services.js` to mirror the reference script
+  line-for-line (own ids/local asset paths), rewrote the `.aicd-chat*` block in
+  `css/pages/ai-chatbot-development-services.css` to the exact reference values, and simplified the
+  static HTML to an empty `#aicd-chat-box` + live `#aicd-user-input`/`#aicd-chat-send` (previously
+  read-only/non-interactive). The widget is now genuinely interactive post-auto-conversation
+  (typing and pressing Send / Enter gets a canned reply), matching the reference's own
+  `sendMessage()` behavior. Screenshot-verified the conversation posting correctly (avatar colors,
+  bubble shapes, letter-by-letter reveal) through several turns. Hero heading/subtitle/paragraph/
+  "Book a Free Consultation" button were re-checked against fresh computed styles and already
+  matched (`#1e4ec4` button bg confirmed exact) — not part of this fix. The hero background video
+  visual (wavy line pattern) still could not be A/B-compared frame-for-frame since this session's
+  browser automation cannot play video on either the reference or local build (existing, previously
+  documented limitation) — worth a human check in a normal browser if still in doubt.
 
 ## Previous completed page
 
