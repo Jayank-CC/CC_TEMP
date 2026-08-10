@@ -188,7 +188,7 @@
 }
 .cs-ecom-nav-eyebrow {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
   color: var(--color-primary);
 }
@@ -250,6 +250,9 @@
     font-size: 24px;
     line-height: 36px;
     text-align: center;
+  }
+  .cs-ecom-row-1 {
+    padding-top: 30px;
   }
   .cs-ecom-mission-col h2 {
     text-align: center;
