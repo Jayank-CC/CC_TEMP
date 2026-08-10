@@ -1,0 +1,305 @@
+/* Case study: Migration of Helm Boots to Shopify Plus
+   Reference: https://www.cloudconverge.io/case-studies/portfolio-migration-of-helm-boots-to-shopify-plus/
+   Prefix: cs-helm- */
+
+/* ---------- Breadcrumb color override ----------
+   The shared .breadcrumb-list component (css/style.css) uses the site-wide
+   blue-link/gray-current scheme, correct on portfolio.html/about.html/etc.
+   This case-study template's own breadcrumb widget on the live reference is
+   solid black/near-black throughout (Home link, Portfolio link, separator
+   icons, and the current-page text all measured rgb(0,0,0)/rgb(33,37,41) —
+   no blue, no gray) — confirmed via getComputedStyle directly on the
+   reference, not assumed. Scoped to this page only via the .cs-helm-page
+   body class; no shared file touched. */
+.cs-helm-page .breadcrumb-list a,
+.cs-helm-page .breadcrumb-list a:hover,
+.cs-helm-page .breadcrumb-sep,
+.cs-helm-page .breadcrumb-list li,
+.cs-helm-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+
+/* ---------- Hero banner (single full-bleed baked image, edge to edge) ---------- */
+.cs-helm-hero {
+  overflow: hidden;
+}
+.cs-helm-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Image gallery (3-column masonry, below breadcrumb) ----------
+   Reference: a 3-column row directly under the breadcrumb, above the H1.
+   Left/right columns each hold one tall 360x500 image (object-position:
+   center top, i.e. cropped from the bottom). The middle column stacks two
+   360x240 images with a 20px gap: a contain-fit hexagon logo on a white
+   background, then a cover-fit product photo. Columns sit 20px apart
+   (measured via getBoundingClientRect: outer column padding 10px each
+   side). Gap from breadcrumb to gallery measured at 70px; gallery sits
+   flush (10px) against the H1 text section below it. */
+.cs-helm-gallery {
+  padding: 70px 0 10px;
+}
+.cs-helm-gallery-grid {
+  display: flex;
+  gap: 20px;
+}
+.cs-helm-gallery-col {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.cs-helm-gallery-tall img {
+  display: block;
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  object-position: center top;
+}
+.cs-helm-gallery-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 500px;
+}
+.cs-helm-gallery-logo {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  overflow: hidden;
+}
+.cs-helm-gallery-logo img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+.cs-helm-gallery-stack > img {
+  flex: 1 1 0;
+  min-height: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Text sections (H1/H2/H3 + centered paragraphs) ----------
+   Reference measures this centered column at 980px, not 1000px (H1/H2/H3
+   and every <p> in this template all share one 980px-wide, center-aligned
+   column, confirmed via getBoundingClientRect on the live reference). */
+.cs-helm-text {
+  padding: 48px 0;
+}
+/* Last text section before the prev/next pagination nav — reference shows
+   its own padding-bottom is doubled (96px vs the shared 48px) since nothing
+   else contributes bottom spacing before the nav starts. */
+.cs-helm-text-last {
+  padding-bottom: 96px;
+}
+.cs-helm-text-container {
+  max-width: 980px;
+  text-align: center;
+}
+.cs-helm-text-container p a {
+  /* color: var(--color-primary); */
+  text-decoration: underline;
+}
+.cs-helm-text-container p a:hover {
+  color: var(--color-primary);
+  /* text-decoration: underline; */
+}
+.cs-helm-text h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  margin: 0 0 24px;
+}
+.cs-helm-text h2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  margin: 0 0 24px;
+}
+.cs-helm-text h3 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  margin: 0 0 24px;
+}
+.cs-helm-text p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  margin: 0 0 20px;
+}
+.cs-helm-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Full-width screenshot image ----------
+   Reference: 0 vertical padding on this section itself — all vertical
+   rhythm comes from the flanking .cs-helm-text sections' own 48px padding.
+   Horizontally the image column measures 1120px (not the shared .container's
+   default 1110px, i.e. 15px side padding) — this template's image widgets
+   use a narrower 10px side padding instead, confirmed via
+   getBoundingClientRect (image spans exactly 10px inside the 1140px
+   .elementor-container on the reference). */
+.cs-helm-shot {
+  padding: 0;
+}
+.cs-helm-shot .container {
+  padding: 0 10px;
+}
+.cs-helm-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ---------- Two side-by-side screenshot images ---------- */
+.cs-helm-shots-row {
+  padding: 0;
+}
+.cs-helm-shots-row .container {
+  padding: 0 10px;
+}
+.cs-helm-shots-grid {
+  display: flex;
+  gap: 20px;
+}
+.cs-helm-shots-grid img {
+  flex: 1 1 0;
+  min-width: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Previous / Next case-study pagination ---------- */
+.cs-helm-pagination {
+  padding: 0 0 60px;
+}
+.cs-helm-pagination-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.cs-helm-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-helm-nav-next {
+  flex-direction: row-reverse;
+}
+.cs-helm-nav-next .cs-helm-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-helm-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-helm-nav-link:hover .cs-helm-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+.cs-helm-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cs-helm-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-helm-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+/* .cs-helm-nav-link:hover .cs-helm-nav-title {
+  color: var(--color-primary);
+} */
+
+/* ---------- Responsive ---------- */
+@media (max-width: 767px) {
+  .cs-helm-text h1 {
+    font-size: 28px;
+    line-height: 34px;
+  }
+  .cs-helm-text h2 {
+    font-size: 22px;
+    line-height: 32px;
+  }
+  .cs-helm-text h3 {
+    font-size: 20px;
+    line-height: 30px;
+  }
+  .cs-helm-shots-grid {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .cs-helm-gallery {
+    padding: 30px 0 10px;
+  }
+  .cs-helm-gallery-grid {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .cs-helm-gallery-tall img {
+    height: 280px;
+  }
+  .cs-helm-gallery-stack {
+    flex-direction: row;
+    height: auto;
+    gap: 16px;
+  }
+  .cs-helm-gallery-logo {
+    height: 140px;
+  }
+  .cs-helm-gallery-stack > img {
+    height: 140px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cs-helm-pagination-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .cs-helm-nav-next {
+    flex-direction: row;
+    align-self: stretch;
+  }
+  .cs-helm-nav-next .cs-helm-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}

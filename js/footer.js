@@ -87,20 +87,20 @@ window.__PARTIALS.footer = `
     <div class="container footer-columns">
       <div class="f-col f-col-brand">
         <a class="f-logo" href="#" aria-label="CloudConverge — home">
-          <img src="assets/images/CloudConvergeLogoCCSmallWhiteV2.webp" alt="CloudConverge" width="173" height="46" loading="lazy">
+          <img src="/assets/images/CloudConvergeLogoCCSmallWhiteV2.webp" alt="CloudConverge" width="173" height="46" loading="lazy">
         </a>
         <p class="f-about">Helping Businesses to attract, differentiate, optimize and grown in their crowded niche through scalable, innovative and stable digital solutions for web &amp; mobile, cloud migration, application modernization.</p>
         <h3 class="f-heading f-heading-iso">ISO Certificate &amp; Our Partners</h3>
         <div class="f-partners">
-          <img src="assets/images/pic-logo-1.png" alt="ISO Certificate" width="92" height="30" loading="lazy">
-          <img src="assets/images/pic-logo-2.png" alt="ISO Certificate" width="60" height="30" loading="lazy">
-          <a href="#designrush"><img src="assets/images/pic-logo-7.png" alt="Our Partners" width="64" height="31" loading="lazy"></a>
-          <img src="assets/images/erpnext-partners-logo.avif" alt="ERPNext partners" width="106" height="40" loading="lazy">
-          <img src="assets/images/pic-logo-6.png" alt="Our Partners" width="50" height="30" loading="lazy">
-          <img src="assets/images/pic-logo-5.png" alt="Our Partners" width="104" height="30" loading="lazy">
-          <img src="assets/images/pic-logo-8.png" alt="Our Partners" width="123" height="60" loading="lazy">
-          <img src="assets/images/pic-logo-9.png" alt="Our Partners" width="112" height="60" loading="lazy">
-          <img src="assets/images/pic-logo-3.png" alt="Our Partners" width="129" height="30" loading="lazy">
+          <img src="/assets/images/pic-logo-1.png" alt="ISO Certificate" width="92" height="30" loading="lazy">
+          <img src="/assets/images/pic-logo-2.png" alt="ISO Certificate" width="60" height="30" loading="lazy">
+          <a href="#designrush"><img src="/assets/images/pic-logo-7.png" alt="Our Partners" width="64" height="31" loading="lazy"></a>
+          <img src="/assets/images/erpnext-partners-logo.avif" alt="ERPNext partners" width="106" height="40" loading="lazy">
+          <img src="/assets/images/pic-logo-6.png" alt="Our Partners" width="50" height="30" loading="lazy">
+          <img src="/assets/images/pic-logo-5.png" alt="Our Partners" width="104" height="30" loading="lazy">
+          <img src="/assets/images/pic-logo-8.png" alt="Our Partners" width="123" height="60" loading="lazy">
+          <img src="/assets/images/pic-logo-9.png" alt="Our Partners" width="112" height="60" loading="lazy">
+          <img src="/assets/images/pic-logo-3.png" alt="Our Partners" width="129" height="30" loading="lazy">
         </div>
       </div>
 
@@ -109,36 +109,36 @@ window.__PARTIALS.footer = `
         <div class="f-group">
           <p class="f-group-title">Product Engineering &amp; Solution Development</p>
           <ul class="f-links">
-            <li><a href="web-app-development-services.html">Web Application Development</a></li>
-            <li><a href="custom-web-development.html">Custom Web Development</a></li>
-            <li><a href="mobile-app-development.html">Mobile App Development</a></li>
-            <li><a href="iphone-app-development.html">iPhone / iOS App Development</a></li>
-            <li><a href="umbraco-development-services.html">Umbraco Implementation Services</a></li>
-            <li><a href="erpnext-service-provider.html">ERPNext Services</a></li>
-            <li><a href="hire-erpnext-developer.html">Hire ERPNext Developer</a></li>
-            <li><a href="hire-erpnext-consultant.html">Hire ERPNext Consultant</a></li>
+            <li><a href="/web-app-development-services.html">Web Application Development</a></li>
+            <li><a href="/custom-web-development.html">Custom Web Development</a></li>
+            <li><a href="/mobile-app-development.html">Mobile App Development</a></li>
+            <li><a href="/iphone-app-development.html">iPhone / iOS App Development</a></li>
+            <li><a href="/umbraco-development-services.html">Umbraco Implementation Services</a></li>
+            <li><a href="/erpnext-service-provider.html">ERPNext Services</a></li>
+            <li><a href="/hire-erpnext-developer.html">Hire ERPNext Developer</a></li>
+            <li><a href="/hire-erpnext-consultant.html">Hire ERPNext Consultant</a></li>
           </ul>
         </div>
         <div class="f-group">
           <p class="f-group-title">Ecommerce Solutions</p>
           <ul class="f-links">
-            <li><a href="ecommerce-development-services.html">Ecommerce Web &amp; App Development</a></li>
-            <li><a href="shopify-development-services.html">Shopify Development Services</a></li>
-            <li><a href="shopify-integration-services.html">Shopify Integration Services</a></li>
-            <li><a href="shopify-migration-services.html">Shopify Migration Services</a></li>
-            <li><a href="shopify-support-and-maintenance-services.html">Shopify Support &amp; Maintenance Services</a></li>
+            <li><a href="/ecommerce-development-services.html">Ecommerce Web &amp; App Development</a></li>
+            <li><a href="/shopify-development-services.html">Shopify Development Services</a></li>
+            <li><a href="/shopify-integration-services.html">Shopify Integration Services</a></li>
+            <li><a href="/shopify-migration-services.html">Shopify Migration Services</a></li>
+            <li><a href="/shopify-support-and-maintenance-services.html">Shopify Support &amp; Maintenance Services</a></li>
           </ul>
         </div>
         <div class="f-group">
           <p class="f-group-title">Cloud Engineering Services</p>
           <ul class="f-links">
-            <li><a href="cloud-services.html">Cloud Engineering Services</a></li>
-            <li><a href="infrastructure-management-services.html">Infrastructure Management &amp; Monitoring</a></li>
+            <li><a href="/cloud-services.html">Cloud Engineering Services</a></li>
+            <li><a href="/infrastructure-management-services.html">Infrastructure Management &amp; Monitoring</a></li>
             <li><a href="#devops-consulting-services">DevOps Consulting &amp; Implementation</a></li>
-            <li><a href="aws-consulting-services.html">AWS Consulting Services</a></li>
-            <li><a href="google-cloud-consulting-services.html">Google Cloud Consulting Services</a></li>
-            <li><a href="microsoft-365-consulting-services.html">M365 Consulting &amp; Implementation Services</a></li>
-            <li><a href="azure-consulting-services.html">Microsoft Azure Consulting</a></li>
+            <li><a href="/aws-consulting-services.html">AWS Consulting Services</a></li>
+            <li><a href="/google-cloud-consulting-services.html">Google Cloud Consulting Services</a></li>
+            <li><a href="/microsoft-365-consulting-services.html">M365 Consulting &amp; Implementation Services</a></li>
+            <li><a href="/azure-consulting-services.html">Microsoft Azure Consulting</a></li>
           </ul>
         </div>
       </div>
@@ -147,19 +147,19 @@ window.__PARTIALS.footer = `
         <div class="f-group">
           <p class="f-group-title">Internet Marketing Services</p>
           <ul class="f-links">
-            <li><a href="seo-services.html">Search Engine Optimization</a></li>
-            <li><a href="social-media-marketing.html">Social Media Marketing</a></li>
-            <li><a href="google-ads-services.html">Google Ads Services</a></li>
+            <li><a href="/seo-services.html">Search Engine Optimization</a></li>
+            <li><a href="/social-media-marketing.html">Social Media Marketing</a></li>
+            <li><a href="/google-ads-services.html">Google Ads Services</a></li>
           </ul>
         </div>
         <div class="f-group">
           <p class="f-group-title">AI / ML &amp; Business Intelligence</p>
           <ul class="f-links">
-            <li><a href="business-intelligence-services.html">Business Intelligence Implementation</a></li>
-            <li><a href="ai-and-ml-development-services.html">AI / ML Product Development</a></li>
-            <li><a href="chatgpt-integration-services.html">ChatGPT Integration</a></li>
-            <li><a href="chatbot-integration-services.html">ChatBot Integration</a></li>
-            <li><a href="ai-chatbot-development-services.html">AI Chatbot Development Company</a></li>
+            <li><a href="/business-intelligence-services.html">Business Intelligence Implementation</a></li>
+            <li><a href="/ai-and-ml-development-services.html">AI / ML Product Development</a></li>
+            <li><a href="/chatgpt-integration-services.html">ChatGPT Integration</a></li>
+            <li><a href="/chatbot-integration-services.html">ChatBot Integration</a></li>
+            <li><a href="/ai-chatbot-development-services.html">AI Chatbot Development Company</a></li>
           </ul>
         </div>
         <h3 class="f-heading">Products</h3>
@@ -169,10 +169,10 @@ window.__PARTIALS.footer = `
         </ul>
         <h3 class="f-heading">Company</h3>
         <ul class="f-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="portfolio.html">Portfolio</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="workculture.html">Work Culture</a></li>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/portfolio.html">Portfolio</a></li>
+          <li><a href="/about.html">About Us</a></li>
+          <li><a href="/workculture.html">Work Culture</a></li>
           <li><a href="#careers">Careers</a></li>
           <li><a href="#blog">Blog</a></li>
           <li><a href="#contact">Contact</a></li>
