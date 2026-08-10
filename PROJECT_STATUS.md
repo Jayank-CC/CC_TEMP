@@ -2,12 +2,55 @@
 
 ## Current task
 
-- **Reference:** https://www.cloudconverge.io/case-studies/portfolio-migration-of-helm-boots-to-shopify-plus/
-- **Local target:** `case-studies/portfolio-migration-of-helm-boots-to-shopify-plus.html` (flat file, one directory
-  level deep — this is the first page in a new `case-studies/` subfolder), `css/pages/case-study-helm-boots.css`
-  (`cs-helm-` prefix), no page-specific JS needed.
+- **Reference:** https://www.cloudconverge.io/case-studies/portfolio-ecommerce/
+- **Local target:** `case-studies/portfolio-ecommerce.html` (flat file, one directory level deep, same convention as
+  the Helm Boots case study), `css/pages/case-study-ecommerce.css` (`cs-ecom-` prefix), no page-specific JS needed.
 - **Last updated:** 2026-08-10
-- **State:** Complete. This page's HTML/CSS/assets had already been fully built and content-verified in a prior
+- **State:** Complete, built from scratch this session.
+  - **Structurally different template from the Helm Boots case study** (both are the theme's "case-studies" post
+    type, but Elementor content differs per page): this page is two alternating 50/50 text+image rows (left-aligned
+    H1/paragraphs, not centered) instead of one centered text column with a masonry gallery. H1 "Ecommerce Store
+    Development Using BigCommerce For Dainty Jewells"; breadcrumb current-page text "ECommerce Website Using
+    BigCommerce Platform" — confirmed these two strings (plus the `<title>`, a third distinct string) are all
+    different from each other on the reference, not a copy-paste error.
+  - **Row 1** (text left / image right): H1 + a lead paragraph + 3 plain `<p>` lines each starting with a literal
+    "–" en-dash (not a real `<ul>`, confirmed via DOM — `– Migration to BigCommerce` / `– Integration with
+    fulfillment partners` / `– Integration with Sage`) + 3 more paragraphs. The image column holds one tall
+    composite image (`daintyjewells-portfolio-scaled-1.webp`, native `1285×2560`) — confirmed via `naturalWidth`/
+    `naturalHeight` vs. displayed size that it's naturally scaled (`width:100%;height:auto`), not cropped; the
+    "Spring Collection"/"Feminine, Fun, Fresh"/"Modest Fashions" content visible inside it is baked into that one
+    file, same pattern as the Helm Boots gallery composites.
+  - **Row 2** (image left / text right, mirrored): image is `BigCommerce-Product-Page-1-scaled-1.webp` (native
+    `1685×2104`, also naturally scaled, no crop). Text side is "Our Mission" (H2) + a paragraph, then
+    "Implementation" (H3) + 2 paragraphs, wrapped in a light-gray (`rgb(244,244,244)`) box with `45px` padding that
+    stretches to the full row height via the column's default `align-items:stretch` — reproduces the reference's
+    visible empty gray space below the shorter text block exactly.
+  - **Both gallery images share the reference's theme-level `.move-image-left-right` class**: `box-shadow:0 0 10px
+    rgba(0,0,0,.5)`, `border-radius:4px`, and on hover `transform:translate3d(-10px,0,0)` with a `0.3s ease-in-out`
+    transition — read directly from the reference's `document.styleSheets` (not guessed), and re-verified on the
+    rebuilt page via `getComputedStyle` while synthetically hovering (`matrix(1,0,0,1,-10,0)` confirmed applied).
+  - **Columns measured at `1140px` container / `570px` each, 0 gap between them** — the visual gap comes entirely
+    from the image column's own `15px` side padding (present on whichever side has the image, left or right); the
+    text column runs edge to edge with 0 padding.
+  - **Pagination**: this page is chronologically first, so only a "Next Post" link exists (reference's own theme
+    markup reserves empty "previous"/"back" slots) pointing at the Helm Boots case study. Reused the same visual
+    circle-arrow/eyebrow/title pattern built for the Helm Boots page's pagination, right-aligned via
+    `justify-content:flex-end` since there's no previous item.
+  - **Responsive — a genuine tablet tier exists here** (unlike Helm Boots' single 767px breakpoint): read directly
+    off the reference's dynamic CSS that every column gets `width:100%` inside a
+    `(max-width:1024px) and (min-width:768px)` query, i.e. the two-column rows already stack at tablet width, not
+    just at phone width. Typography changes (H1 `24px/36px`, paragraph `text-align:justify`) still only fire at the
+    narrower `max-width:767px` tier, matching the confirmed Helm Boots pattern.
+  - **Links wired up**: `portfolio.html`'s Dainty Jewells card and the Helm Boots page's "Previous Post" link both
+    updated from the external reference URL to this new local file.
+  - Verified clean console (0 errors) and network (`33` requests, all `200`/`304`, 0 `404`s) on this page; no
+    horizontal overflow (`scrollWidth === clientWidth`). Broken-image check flagged only pre-existing shared
+    mega-menu thumbnails (lazy-load-not-yet-triggered, same known non-issue documented on every other page in this
+    file) — all `cs-ecom-*` page-owned assets loaded successfully.
+
+## Previous completed page
+
+- `portfolio-migration-of-helm-boots-to-shopify-plus.html`: Complete. This page's HTML/CSS/assets had already been fully built and content-verified in a prior
   session (content re-confirmed again this session against a fresh fetch of the live reference: H1 "Ecommerce
   website for Shoe Manufacturer", all 3 intro paragraphs, H2 "User Experience Design with Back-End Collaboration",
   H3 "Conclusion & Feedback", and the prev/next pagination titles all match verbatim) — but it had been placed at

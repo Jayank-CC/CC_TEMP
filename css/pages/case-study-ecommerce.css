@@ -1,0 +1,235 @@
+/* Case study: Ecommerce Website Using BigCommerce Platform (Dainty Jewells)
+   Reference: https://www.cloudconverge.io/case-studies/portfolio-ecommerce/
+   Prefix: cs-ecom- */
+
+/* ---------- Breadcrumb color override ----------
+   Same theme-level override as the Helm Boots case study: this template's
+   breadcrumb is solid black/near-black (measured rgb(0,0,0) links/separator,
+   rgb(25,25,25) current-page text) instead of the shared blue/gray scheme.
+   Scoped to this page only via .cs-ecom-page; no shared file touched. */
+.cs-ecom-page .breadcrumb-list a,
+.cs-ecom-page .breadcrumb-list a:hover,
+.cs-ecom-page .breadcrumb-sep,
+.cs-ecom-page .breadcrumb-list li,
+.cs-ecom-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+@media (max-width: 767px) {
+  .cs-ecom-page .breadcrumb-list {
+    flex-wrap: wrap;
+  }
+}
+.cs-ecom-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero banner (single full-bleed baked image, edge to edge) ---------- */
+.cs-ecom-hero {
+  overflow: hidden;
+}
+.cs-ecom-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Two-column text/image rows ----------
+   Reference: two 570px columns inside the 1140px .container with zero flex
+   gap between them (measured via getBoundingClientRect: left column right
+   edge = right column left edge, no gutter). The text column runs edge to
+   edge (0 side padding); the image column always carries 15px of padding on
+   both sides regardless of whether it's on the left or right, which is what
+   actually creates the visual gap next to the text. Rows sit flush against
+   each other (0px gap) and 60px below the breadcrumb. */
+.cs-ecom-row {
+  padding: 0;
+}
+.cs-ecom-row:first-of-type {
+  padding-top: 60px;
+}
+.cs-ecom-row-inner {
+  display: flex;
+  align-items: stretch;
+}
+.cs-ecom-col {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.cs-ecom-image-col {
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+.cs-ecom-image-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+}
+/* Reference uses a theme-level ".move-image-left-right" hover class on both
+   gallery images: box-shadow + border-radius always on, and on hover the
+   image slides 10px left (confirmed via the reference's own dynamic CSS —
+   ".move-image-left-right:hover img { transform: translate3d(-10px,0,0) }"). */
+.cs-ecom-image-col:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---------- Text column typography (left-aligned, unlike the centered Helm
+   Boots template) ---------- */
+.cs-ecom-text-col {
+  padding: 40px 0;
+}
+.cs-ecom-text-col h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-ecom-text-col p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-ecom-text-col p:last-child {
+  margin-bottom: 0;
+}
+.cs-ecom-dash {
+  margin: 0 0 4px !important;
+}
+
+/* ---------- "Our Mission" column: light-gray background box, 45px padding,
+   stretched to the full row height (matches the reference's empty gray
+   space below the shorter text block, since the column is a flex item with
+   default align-items:stretch). ---------- */
+.cs-ecom-mission-col {
+  background: #f4f4f4;
+  padding: 45px;
+  box-sizing: border-box;
+}
+.cs-ecom-mission-col h2,
+.cs-ecom-mission-col h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-ecom-mission-col p {
+  margin: 0 0 20px;
+}
+.cs-ecom-mission-col > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Next/previous pagination (this page only has a "Next Post",
+   right-aligned; the reference's own theme markup reserves an empty middle
+   "back" slot and an empty "previous" slot when there's nothing earlier) ---------- */
+.cs-ecom-pagination {
+  padding: 50px 0 60px;
+}
+.cs-ecom-pagination-inner {
+  display: flex;
+  justify-content: flex-end;
+}
+.cs-ecom-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-ecom-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-ecom-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-ecom-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-ecom-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-ecom-nav-link:hover .cs-ecom-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Unlike the Helm Boots case study (one single-column template with a
+   single max-width:767px breakpoint), this page's template stacks its
+   two-column rows a full tier earlier — confirmed by reading the reference's
+   own dynamic CSS: every column here gets `width:100%` inside a
+   `(max-width:1024px) and (min-width:768px)` query, i.e. genuine tablet
+   width already stacks. Typography changes (H1 size, paragraph justify)
+   only appear in the reference's CSS at max-width:767px, so those stay
+   gated to the narrower breakpoint even though the layout itself has
+   already stacked by then. */
+@media (max-width: 1024px) {
+  .cs-ecom-row-inner {
+    flex-direction: column;
+  }
+  .cs-ecom-image-col {
+    padding: 0 15px;
+  }
+  .cs-ecom-text-col {
+    padding: 25px 15px 0;
+  }
+  .cs-ecom-mission-col {
+    padding: 30px 15px 0;
+  }
+}
+@media (max-width: 767px) {
+  .cs-ecom-text-col h1 {
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .cs-ecom-text-col p {
+    text-align: justify;
+  }
+  .cs-ecom-image-col {
+    padding: 0;
+  }
+  .cs-ecom-text-col {
+    padding: 25px 20px 10px;
+  }
+  .cs-ecom-mission-col {
+    padding: 25px;
+    margin: 0 20px;
+  }
+  .cs-ecom-pagination-inner {
+    justify-content: center;
+  }
+  .cs-ecom-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
