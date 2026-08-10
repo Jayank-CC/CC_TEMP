@@ -142,6 +142,19 @@
     sanity-check.
   - All 4 fixes re-verified via direct DOM measurement against the live reference (not just visual
     screenshot comparison) before considering this pass done.
+  - **Follow-up same day:** user reported the triangle still looked wrong after the fix, and separately
+    that the card-image `border-radius` "wasn't working." Re-verified both directly: (1) `border-radius`
+    was already correct on a fresh load (confirmed via `getComputedStyle`) — the visible bug was a stale
+    cached copy of `portfolio.css` in the reporting browser; added a `?v=3` cache-busting query to the
+    stylesheet `<link>` in `portfolio.html` to force a fresh fetch. (2) The triangle's CSS position
+    (`left:50%`, matching text-center) was already correct, but the `opacity:0` + `animation:...both`
+    fill-mode meant any screenshot taken while the animation hadn't run (e.g. a backgrounded tab, which
+    pauses CSS animations) would render the shape stuck at an arbitrary, wrong mid-animation
+    offset — explaining why repeated screenshots seemed to show it in different "wrong" spots. Fixed by
+    dropping the base `opacity:0` and changing the fill-mode to `forwards` only, so the element's default
+    (pre-animation) state IS the correct resting position — confirmed via a debug pass that outlined each
+    letter of "Portfolio" and the shape itself, which showed the shape spanning the second `o`/`l`/`i`,
+    i.e. genuinely landing on "li" as intended, both with and without the tab focused.
 
 ## Previous completed page
 

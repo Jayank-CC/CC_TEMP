@@ -28,14 +28,20 @@ body.port-page .inner-banner {
 }
 .port-shape {
   position: absolute;
-  top: -50px;
+  top: 22px;
   left: 50%;
   width: 75px;
   height: 77px;
   z-index: 0;
   pointer-events: none;
-  opacity: 0;
-  animation: port-bounce-in-right 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.2s both;
+  /* Base state = the correct, fully-visible resting position (no opacity:0 here).
+     animation-fill-mode is "forwards" only (not "both"), so if the entrance
+     animation never gets to run — e.g. a backgrounded tab, a screenshot taken
+     before first paint, reduced-motion, or any environment that pauses CSS
+     animations — the shape still renders at this correct final spot instead of
+     being stuck invisible/offset at the animation's first keyframe. */
+  animation: port-bounce-in-right 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.2s
+    forwards;
 }
 @keyframes port-bounce-in-right {
   from,
@@ -139,16 +145,31 @@ body.port-page .inner-banner {
   }
 }
 @media (max-width: 767px) {
-  .port-intro { padding: 40px 0 30px; }
-  .port-title { font-size: 32px; line-height: 40px; }
+  .port-intro {
+    padding: 40px 0 30px;
+  }
+  .port-title {
+    font-size: 32px;
+    line-height: 40px;
+  }
   .port-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 24px;
   }
-  .port-grid-section { padding: 30px 0 60px; }
+  .port-grid-section {
+    padding: 30px 0 60px;
+  }
 }
 @media (max-width: 480px) {
-  .port-title { font-size: 28px; line-height: 36px; }
-  .port-card-body { padding: 18px 18px 24px; }
-  .port-card-body h3 { font-size: 20px; line-height: 28px; }
+  .port-title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  .port-card-body {
+    padding: 18px 18px 24px;
+  }
+  .port-card-body h3 {
+    font-size: 20px;
+    line-height: 28px;
+  }
 }
