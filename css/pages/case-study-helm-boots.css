@@ -18,8 +18,37 @@
 .cs-helm-page .breadcrumb-list [aria-current="page"] {
   color: #000;
 }
+/* Shared .breadcrumb-list (css/style.css) never wraps (no flex-wrap), which is
+   fine for every other page's short trail but clips/overflows here because
+   the current-page item ("Migration of Helm Boots to Shopify Plus") is long.
+   The reference's own breadcrumb widget is flex-wrap:wrap and organically
+   drops that item to its own second line under 767px (confirmed via
+   getBoundingClientRect: "Home"/"Portfolio" stay on row 1, the current-page
+   item + its separator move to row 2). Scoped to this page only. */
+@media (max-width: 767px) {
+  .cs-helm-page .breadcrumb-list {
+    flex-wrap: wrap;
+  }
+}
+/* This page's final breadcrumb item groups its separator icon + text in one
+   <li> (instead of two sibling <li>s like every other page's breadcrumb) so
+   the icon wraps down together with the long "Migration of Helm Boots to
+   Shopify Plus" text on mobile, rather than being stranded at the end of the
+   line above it — matching the reference, where the separator visibly moves
+   to the second line with the text it precedes. */
+.cs-helm-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
 
-/* ---------- Hero banner (single full-bleed baked image, edge to edge) ---------- */
+/* ---------- Hero banner (single full-bleed baked image, edge to edge) ----------
+   Desktop: natural ratio (width:100%, height:auto). Below 767px the reference's
+   own theme CSS (.case-studies-banner img) switches to a fixed min-height:260px
+   with object-fit:cover / object-position:left center — confirmed by reading
+   the reference's actual stylesheet rule via document.styleSheets, not
+   estimated — so the crop stays anchored on the left (the "Our Story" mockup +
+   person) instead of scaling down to a ~70px sliver. */
 .cs-helm-hero {
   overflow: hidden;
 }
@@ -36,10 +65,15 @@
    360x240 images with a 20px gap: a contain-fit hexagon logo on a white
    background, then a cover-fit product photo. Columns sit 20px apart
    (measured via getBoundingClientRect: outer column padding 10px each
-   side). Gap from breadcrumb to gallery measured at 70px; gallery sits
-   flush (10px) against the H1 text section below it. */
+   side). The section itself has a uniform 10px top/bottom padding at every
+   width (measured identically on desktop and mobile); the larger visual gap
+   under the breadcrumb is a separate spacer above the section, measured at
+   60px on desktop and shrinking to 10px on mobile (total gap 70px desktop /
+   20px mobile) — modeled here as margin-top so the section's own padding
+   doesn't need to change per breakpoint. */
 .cs-helm-gallery {
-  padding: 70px 0 10px;
+  padding: 10px 0;
+  margin-top: 60px;
 }
 .cs-helm-gallery-grid {
   display: flex;
@@ -249,42 +283,60 @@
 
 /* ---------- Responsive ---------- */
 @media (max-width: 767px) {
+  /* H1 font-size/line-height read directly off the reference's own dynamic
+     CSS (.elementor-element-a46e1fd .elementor-heading-title at
+     max-width:767px): 36/42 desktop -> 24/36 mobile. H2/H3 don't have their
+     own measured reference rule (no case-study reference page uses them at
+     mobile in a way exposed by this template's dynamic CSS), so they keep a
+     proportionally scaled value consistent with the H1 ratio. */
   .cs-helm-text h1 {
-    font-size: 28px;
-    line-height: 34px;
+    font-size: 24px;
+    line-height: 36px;
   }
   .cs-helm-text h2 {
-    font-size: 22px;
-    line-height: 32px;
-  }
-  .cs-helm-text h3 {
     font-size: 20px;
     line-height: 30px;
+  }
+  .cs-helm-text h3 {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  /* Reference's text-editor widget switches from text-align:center to
+     justify at max-width:767px (.elementor-element-3c6e2ab), confirmed via
+     the reference's own dynamic CSS — headings stay centered, only the
+     paragraphs justify. */
+  .cs-helm-text-container p {
+    text-align: justify;
   }
   .cs-helm-shots-grid {
     flex-direction: column;
     gap: 16px;
   }
+  /* Gallery at mobile (measured directly on the reference at a 320px CSS-px
+     viewport via getBoundingClientRect on every background-image element):
+     the 3 columns stack full-width in the same top-to-bottom order, each
+     still inset 10px per side; the tall left/right images stay 500px tall
+     (unchanged from desktop); only the middle stack's two images shrink from
+     240px to 190px each (total stack height 400px = 190+20 gap+190). The
+     20px gap between stacked blocks is the same `gap` already used for the
+     desktop row, so flex-direction is the only change needed there. */
   .cs-helm-gallery {
-    padding: 30px 0 10px;
+    margin-top: 10px;
   }
   .cs-helm-gallery-grid {
     flex-direction: column;
-    gap: 16px;
   }
-  .cs-helm-gallery-tall img {
-    height: 280px;
+  .cs-helm-gallery-col {
+    padding: 0 10px;
+    box-sizing: border-box;
   }
   .cs-helm-gallery-stack {
-    flex-direction: row;
-    height: auto;
-    gap: 16px;
+    height: 400px;
   }
-  .cs-helm-gallery-logo {
-    height: 140px;
-  }
-  .cs-helm-gallery-stack > img {
-    height: 140px;
+  .cs-helm-hero img {
+    min-height: 260px;
+    object-fit: cover;
+    object-position: left center;
   }
 }
 

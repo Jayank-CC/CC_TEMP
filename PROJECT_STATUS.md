@@ -110,8 +110,42 @@
   - **Lesson for future audits on this codebase:** always check for `background-image`-based content (via
     `getComputedStyle(...).backgroundImage`), not just `<img>` tags, before concluding a visual section doesn't
     exist on an Elementor reference page — this codebase's reference site uses both patterns interchangeably.
-  - **Not yet verified:** the gallery's mobile/tablet breakpoint behavior against the actual reference (current
-    mobile CSS is a reasonable placeholder, not measured).
+- **2026-08-10 fix pass #4 — mobile/tablet exact-match pass (hero, breadcrumb, justify, gallery).** User reported
+  the mobile paragraph text should be justified, the hero banner should be taller on mobile, the breadcrumb looks
+  slightly different, and the gallery's top-image alignment looked off on mobile. `resize_window` proved unreliable
+  for arbitrary widths in this environment (768/820 requests kept rendering at the desktop size or an unrelated
+  emulated width) — worked around this by reading the reference's actual dynamic CSS via
+  `document.styleSheets`/`cssRules` (grep-ing for the specific `.elementor-element-<id>` selectors) instead of
+  trying to force a literal viewport size, which also confirmed there is no separate ~768px "tablet" tier for this
+  page: every override lives behind a single `max-width:767px` query, so tablet inherits the desktop rules as-is.
+  - **Hero** (`.case-studies-banner img`, a theme template part, not an Elementor widget): desktop is `width:100%;
+    height:auto` (unchanged); at `max-width:767px` the reference adds `min-height:260px; object-fit:cover;
+    object-position:left center`. Added the same rule to `.cs-helm-hero img`.
+  - **Breadcrumb wrap:** the shared `.breadcrumb-list` (`css/style.css`) has no `flex-wrap`, fine for every other
+    page's short trail but this page's final item ("Migration of Helm Boots to Shopify Plus") is long enough that
+    the reference's own breadcrumb widget wraps it to a second line under 767px. Added a `.cs-helm-page`-scoped
+    `flex-wrap:wrap` at `max-width:767px` (shared file untouched). Also restructured this page's own breadcrumb
+    markup so the separator icon before that final item lives inside the same `<li>` as the text (previously a
+    sibling `<li>`) — otherwise the icon stayed stranded at the end of line 1 while only the text wrapped down,
+    which didn't match the reference (icon + text wrap together as one unit).
+  - **Paragraph justify:** confirmed via the reference's own dynamic CSS (`.elementor-element-3c6e2ab` at
+    `max-width:767px`) that only the text-editor widget (the `<p>` tags) switches from `text-align:center` to
+    `justify` — headings stay centered. Added `.cs-helm-text-container p{text-align:justify}` inside the existing
+    767px block. Also corrected the H1 mobile size to the reference's actual measured value, `24px/36px` (was
+    guessed at `28px/34px`); H2/H3 mobile sizes still have no directly-measured reference rule, kept
+    proportionally scaled.
+  - **Gallery on mobile** (re-measured directly via `getBoundingClientRect` on every `background-image` element at
+    a genuine ~320px-wide viewport): the 3 columns stack full-width in the same order, each inset `10px` per side;
+    the tall left/right composite images stay `500px` tall (unchanged from desktop — confirmed the visible
+    "cut-off" text inside them, e.g. "Walk in. Stand o[ut]", is baked into the reference's own image file and
+    crops identically on the live reference at this width, not a bug); only the middle stack's two images shrink
+    from `240px` to `190px` each (stack height `400px`). Gap from the breadcrumb to the gallery shrinks from
+    `70px`(desktop) to `20px`(mobile) — re-modeled as `margin-top:60px` (mobile `10px`) plus a breakpoint-invariant
+    `padding:10px 0` on the section, instead of one padding value per breakpoint, since the section's own
+    top/bottom inset measured identically (`10px`) at both widths.
+  - Verified the rebuilt page against the live reference at the same emulated width (screenshots + live JS
+    measurements), section by section: hero crop, breadcrumb wrap point, gallery stacking/crop, and paragraph
+    justify all match.
 
 ## Previous completed page
 
