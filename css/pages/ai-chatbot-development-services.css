@@ -36,18 +36,23 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  opacity: 0.4;
+  opacity: 0.7;
   background: linear-gradient(rgba(2, 0, 61, 0.61) 0%, rgb(0, 9, 44) 100%);
 }
 
 .aicd-hero-grid {
   position: relative;
   z-index: 2;
-  max-width: 1500px;
+  max-width: 1240px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 66.347% 33.653%;
   align-items: center;
-  gap: 40px;
+  gap: 0;
+}
+
+.aicd-hero-copy {
+  padding-right: 120px;
+  box-sizing: border-box;
 }
 
 .aicd-hero-copy h1 {
@@ -111,7 +116,7 @@
 }
 
 .aicd-chat {
-  width: 55%;
+  width: 100%;
   height: 600px;
   background-color: rgba(255, 255, 255, 0.96);
   border-radius: 36px;
@@ -514,8 +519,9 @@
 }
 
 .aicd-services-card {
-  flex: 0 0 370px;
+  flex: 1 1 370px;
   max-width: 370px;
+  min-width: 0;
 }
 
 .aicd-services-card img {
@@ -1006,19 +1012,29 @@
   }
 }
 
-@media (max-width: 991px) {
+/* Reference's own hero-column breakpoint is 1024px (measured from its
+   Elementor-generated inline CSS: 66.347%/33.653% split above 1024px,
+   width:100%/100% stacked at 1024px and below) — kept separate from the
+   shared 991px block below since this page's real boundary differs. */
+@media (max-width: 1024px) {
   .aicd-hero-grid {
     grid-template-columns: 1fr;
     text-align: center;
   }
 
-  .aicd-hero-copy p:not(.aicd-hero-subtitle) {
-    margin-left: auto;
-    margin-right: auto;
+  .aicd-hero-copy {
+    padding-right: 0;
   }
 
   .aicd-hero-demo {
     margin-top: 40px;
+  }
+}
+
+@media (max-width: 991px) {
+  .aicd-hero-copy p:not(.aicd-hero-subtitle) {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .aicd-why-grid {

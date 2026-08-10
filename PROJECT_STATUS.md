@@ -2,7 +2,160 @@
 
 ## Current task
 
-- **Reference:** https://www.cloudconverge.io/ai-chatbot-development-services/
+- **Reference:** https://www.cloudconverge.io/portfolio/
+- **Local target:** `portfolio.html`, `css/pages/portfolio.css` (`port-` prefix). No page-specific JS
+  needed — the reference page has no filter tabs, lightbox, or hover animation on the project cards
+  (confirmed via a real hover test: before/after screenshots were pixel-identical), so `js/portfolio.js`
+  was intentionally NOT created.
+- **Last updated:** 2026-08-10
+- **State:** Built from scratch, complete. Much simpler than the service-detail pages: reference has only
+  13 top-level Elementor sections total, and 3 of those are the shared footer (`Contact Us` block +
+  tagline + copyright, already covered by the existing `footer.js` — confirmed identical markup/classes
+  already exist there as `.footer-contact`/`.fc-info`/`.fc-box`/`.fc-form-card`, so zero new footer work
+  was needed). **Section order:** generic theme `wraper_inner_banner` page-header (device-mockup collage
+  on a pale gray/tan gradient background, `380px`/`300px`/`220px` tall at desktop/tablet/mobile) — this
+  reuses the exact shared `.inner-banner`/`.inner-banner-overlay` component already established by
+  `about.html`/`workculture.html`, only the background-image is overridden via a `.port-page` body-scoped
+  selector in the page's own CSS (no shared file touched) → shared `.breadcrumb-bar` (Home / Portfolio,
+  reused verbatim, zero page CSS needed) → intro (H1 "Portfolio" `45px/600` + centered intro paragraph
+  `16px/26px`, both matching `--color-heading`/`--color-body` design tokens exactly, plus a small `75×77`
+  decorative translucent shape (`Mask-Group-2.png`, downloaded as `port-shape-triangle.png`) absolutely
+  positioned behind/above the H1 at low z-index, confirmed via `elementFromPoint`) → **20-card project
+  grid**, 3-columns desktop inside a `1600px` `.container-wide` (reused as-is — this exact wide-container
+  variable already existed in `css/style.css` and already matched the reference's measured Elementor
+  section content-width of 1600px exactly, confirmed via direct measurement, not assumed), `40px` gap,
+  cards are plain white rounded cards (`border-radius:24px`, `box-shadow:0 37px 80px rgba(0,0,0,.1)` —
+  measured directly; the underlying Elementor column/wrap themselves have transparent bg/no radius, the
+  "card" look comes purely from the shadow sitting on the page's own white background) each fully wrapped
+  in an `<a>` (all 20 cards are real links on the reference, confirmed via DOM dump), `660×440` (3:2)
+  screenshot-mockup image on top (`object-fit:cover`, any logo/brand watermark visible on a given card is
+  baked into the photo asset itself, not a separate overlay element — confirmed only 1 `<img>` exists per
+  card), then a centered `22px/600` heading + `16px/26px` paragraph below. All 20 card titles/descriptions
+  transcribed verbatim from the live reference (mixed casing preserved exactly: some titles are ALL-CAPS
+  company names, others like `Ozone.in - Web Application` and `E. J. McDougall` are mixed-case — confirmed
+  via `.textContent`, not a CSS transform). Each card's href points to the reference's own live
+  `/case-studies/<slug>/` detail page (verified via DOM dump of all 20 `href` values) — these 20
+  individual case-study pages are a distinct, much larger body of work explicitly out of scope for this
+  task, so cards intentionally link out to the real reference domain rather than to a dead placeholder,
+  per CLAUDE.md's "external URLs are permitted... as clickable links" allowance.
+  - **Capitalization bug caught and fixed (same class of bug as a prior page):** the shared `h1–h6`
+    default in `css/style.css` applies `text-transform:capitalize` globally. One card's source text,
+    `"AI-Powered Chatbot for Automobile Industry"`, has a lowercase `for` that `capitalize` was wrongly
+    uppercasing to `For` (all-caps titles were unaffected since capitalize never lowercases existing
+    text). Fixed with `text-transform:none` on `.port-title` and `.port-card-body h3`, screenshot-verified
+    against the reference's own lowercase `for`.
+  - **No light-header override — corrected 2026-08-10:** the initial build added a `.port-page
+    .site-header:not(.is-sticky)` override (black nav text, dark logo swap) based on a DOM color read of
+    `rgb(0,0,0)`. User reported the live header had turned black/blue instead of white. Re-measured via
+    `elementFromPoint` on the actual visible nav links (not just a `querySelector` color dump): the
+    `rgb(0,0,0)` text belonged to a zero-size, `pointer-events:none` decoy nav layer that never renders:
+    the real, visible nav (confirmed via `elementFromPoint` at the on-screen link coordinates) is white
+    (`rgb(255,255,255)`), and the visible logo is `cc_logo_white.webp`, not the color/dark logo. Removed
+    the override entirely — this page uses the shared default (dark-hero-style white) header like every
+    other page, no scoped override needed.
+  - **Banner-height override bug caught and self-corrected:** an initial `body.port-page .inner-banner{
+    height:380px}` rule (desktop-only measured value) unintentionally out-specificity'd the shared
+    `css/responsive.css` breakpoint steps (`300px`@1024, `220px`@767), freezing the banner at 380px on
+    mobile — caught via the iframe/`getBoundingClientRect` technique across breakpoints. Fixed by dropping
+    the height override entirely (kept only the `background-image` override) so the page inherits the
+    shared component's existing default height (`375px`, 5px off the reference's measured `380px` —
+    accepted as negligible rather than duplicating the breakpoint ladder in page CSS) plus its correct
+    `300px`/`220px` responsive steps, re-verified via the same iframe technique (375 → 300 → 220 across
+    1200/1024/767px).
+  - **Assets — 21 new files** downloaded via the browser fetch-blob-download-to-Downloads technique
+    (bash has no outbound internet in this sandbox; the Chrome tab does) then copied into
+    `assets/images/`: 20 project-card thumbnails, all confirmed `660×440` via Pillow (`port-helm-boots.webp`,
+    `port-daintyjewells.webp`, `port-rostar.webp`, `port-packed-with-purpose.webp`, `port-verve-portrait.webp`,
+    `port-ozone.webp`, `port-kabu-projects.webp`, `port-hirebrain.webp`, `port-encardio-rite.webp`,
+    `port-el-guapo.webp`, `port-atmos-cooling.webp`, `port-superior-group.webp`, `port-we-are-egg.jpg`,
+    `port-proleve.webp`, `port-ej-mcdougall.webp`, `port-rise-event.webp`, `port-toddyoffers.webp`,
+    `port-shombhob.webp`, `port-food-beverage-chatbot.avif`, `port-automobile-chatbot.avif`) + 1 hero
+    banner (`port-hero-banner.webp`, 1920×425) + 1 decorative shape (`port-shape-triangle.png`, 75×77).
+    **Known harmless leftover:** two accidental duplicate downloads (`port-el-guapo-dup.webp`,
+    `port-encardio-rite-dup.webp`) could not be deleted — repeated `rm`/`os.remove` calls on them
+    returned `Operation not permitted` even though `ls -la` shows normal `youthful-awesome-carson`
+    ownership/permissions (an environment/mount quirk, not a repo issue); they are renamed so they don't
+    collide with real filenames and are not referenced by any HTML/CSS, so they have zero effect on the
+    page — safe to delete manually later if desired.
+  - **Files changed:** `js/header.js` (2 places: desktop mega-menu-less "Portfolio" nav item + mobile
+    menu) and `js/footer.js` (1 place: "Company" footer links column) — all three previously pointed to
+    a same-page-only `#portfolio` anchor that only ever worked on `index.html` (which has its own
+    `id="portfolio"` teaser section) and was dead on every other page; fixed to `portfolio.html` on all
+    three, verified via live reference DOM dump that the real site's own nav/footer "Portfolio" links (and
+    its homepage "View More" button) all point to a dedicated `/portfolio/` page, confirming this is the
+    correct fix rather than a guess. Also fixed `index.html`'s own `.clients-more` "View More" button,
+    which previously self-referentially pointed to `#portfolio` (scrolling back up to its own teaser
+    section) — now points to `portfolio.html`, matching the reference's own homepage behavior exactly
+    (confirmed via DOM dump of the live homepage). `index.html`'s `id="portfolio"` teaser-section id itself
+    was left in place (harmless, still a valid same-page anchor target).
+  - **Verified this session:** HTML tag-balance checked with a Python `HTMLParser` pass (0 unclosed/
+    mismatched tags). Served via the existing VS Code Live Server at `127.0.0.1:5500`. Header/footer
+    inject correctly (dark-on-light nav confirmed post-fix, logo swap confirmed). Console clean, 0 errors,
+    on both `portfolio.html` and (spot-checked after the shared `header.js`/`footer.js` edits) `index.html`
+    and `services.html`. All 21 `main img` elements (20 cards + decorative shape) load with 0 broken
+    (`naturalWidth===0`) after a full scripted scroll-through. Mobile hamburger menu opens via a real
+    click (`aria-expanded` toggles true, menu becomes visible) and its "Portfolio" link resolves to
+    `portfolio.html`. **No horizontal overflow at any required width** (1920/1440/1366/1280/1024/768/
+    480/390/360), verified via the same-origin `<iframe>` + `scrollWidth` technique, re-verified after the
+    banner-height fix. Grid collapse confirmed via iframe at 1200/1024/900/767/480/360px: 3→2 columns at
+    1024px, 2→1 at 767px, holds through 360px with negative overflow margin throughout.
+  - **NOT verified:** Keyboard/focus accessibility beyond the shared default `:focus-visible` outline
+    (not custom-tested per-card).
+  - **Next action:** none outstanding; page is complete.
+- **2026-08-10 fix pass (3 user-reported diffs + 1 header regression, all re-measured against the live
+  reference, not guessed):**
+  - **Card image not inset — corrected the "same pixel result" assumption above:** re-measured the Helm
+    Boots card directly (`getBoundingClientRect` on the image vs. its card `<section>`, which has
+    `padding:20px`, `border-radius:24px`, `box-shadow:0 37px 80px rgba(0,0,0,.1)`): the image is flush
+    with the card's top+left edges (0px gap, via Elementor's `-30px`/`-30px` widget-container margin
+    canceling the card's own padding) but inset **~60px from the right edge** before the next card
+    content starts (60/493 card-width ≈ 12%) — a genuine asymmetric bleed, not a symmetric frame, and not
+    reproducible with a plain `width:100%` image as previously assumed. Fixed by giving `.port-card img`
+    `box-sizing:border-box; padding-right:12%; border-radius:24px 24px 0 0` (top corners rounded to match
+    the card, since the image is flush with the card's top edge; bottom-right/bottom-left square since
+    they float clear of any card edge) — object-fit:cover then renders within the reduced content box,
+    leaving a visible inset margin on the right exactly like the reference.
+  - **Header regression (see corrected write-up above):** removed the incorrect `.port-page` light-header
+    override; page now uses the shared default white header.
+  - **Breadcrumb separator icon was the wrong glyph:** the shared inline SVG (viewBox `0 0 448 512`, a
+    thin outlined chevron path — FontAwesome "angle-right") didn't match. Found the reference's actual
+    separator via `elementFromPoint` at the rendered arrow's pixel position: an Elementor icon-list widget
+    rendering FontAwesome Solid **"caret-right"** (`viewBox 0 0 192 512`, a solid filled triangle). Swapped
+    the SVG's `viewBox`/`path`/dimensions in `portfolio.html` to match exactly (color left at the shared
+    `.breadcrumb-sep{color:#6d6d6d}` — not re-overridden, since the reference's own icon color read as a
+    default inherited text color, not a deliberate per-page override, and the shared value is already
+    validated on other inner pages).
+  - **Decorative triangle shape mispositioned + missing entrance animation:** re-measured against the
+    reference via the Range-API text-bbox technique: the shape's left edge sits almost exactly at the
+    H1 text's horizontal center (not offset further right), and its bottom edge sits ~38.9px above the
+    H1 text's top edge. Also found (via `data-settings` on the reference's widget element) that the shape
+    carries an Elementor `_animation:"bounceInRight"` (Animate.css) entrance animation, 1s duration. Fixed
+    `.port-shape` to `left:50%` (removed an incorrect `margin-left:40px` that had shifted it toward the
+    "li" in "Portfolio"), retuned `top` to `-50px` (verified via the same Range-API measurement: local
+    gap-to-text now ~38.6px, matching the reference's ~38.9px), and added a hand-written
+    `@keyframes port-bounce-in-right` matching Animate.css's standard bounceInRight easing/steps, applied
+    as `animation: port-bounce-in-right 1s cubic-bezier(.215,.61,.355,1) .2s both` with `opacity:0` as the
+    pre-animation state. **Not visually confirmed playing** in this session's browser automation: the tab
+    reports `document.visibilityState:"hidden"` while backgrounded, which pauses CSS animations entirely
+    (same class of environment limitation as the previously-documented video-autoplay issue) — the
+    keyframe math and trigger are correct and will play for a real foreground user; worth a quick human
+    sanity-check.
+  - All 4 fixes re-verified via direct DOM measurement against the live reference (not just visual
+    screenshot comparison) before considering this pass done.
+
+## Previous completed page
+
+- `ai-chatbot-development-services.html` (2026-08-06, 4 fix passes through 2026-08-10): 17-section page,
+  `aicd-` prefix, dark navy hero with looping 4K background video + live JS chat-demo widget (rebuilt from
+  the reference's own inline script to a genuine empty-box-then-plays-once conversation, not a looping
+  fade), 4-tab vertical accordion ("Our AI Chatbot Development Services"), dark 5-item icon grid (3+2),
+  2×2 stats, 5-card industries grid + decorative phone-mockup row, 6-card process grid, dark 5-review
+  carousel (unique review set, not the standard 6), animation-hidden CTA card (reproduced visible), 5-item
+  FAQ. No header-color override needed (dark hero). Fixed 3 dead `#ai-chatbot-development-services`
+  anchors (header.js ×2, footer.js). Verified clean console/network, 0 broken images, no overflow at 9
+  widths, tab-switch/FAQ/carousel/both-contact-forms interactions all confirmed via real clicks.
+
+- `chatbot-integration-services.html` (2026-08-06): 32-section page, `cbot-` prefix, light/white hero
 - **Local target:** `ai-chatbot-development-services.html`, `css/pages/ai-chatbot-development-services.css`
   (`aicd-` prefix), `js/ai-chatbot-development-services.js`
 - **Last updated:** 2026-08-06 (fix pass, post-build user-reported diffs)
@@ -194,6 +347,13 @@
     `getBoundingClientRect` on the first question's ancestor chain, independent of the outer
     1230px section container). Changed `.aicd-accordion` to `max-width:700px`.
   - All 4 fixes screenshot-verified on the local build against the live reference after the change.
+- **2026-08-10 fourth fix pass — 360px horizontal overflow:** "verify our page on mobile screen" audit
+  found 7px overflow at exactly 360px viewport (`scrollWidth:363` vs `innerWidth:356`) via the
+  same-origin iframe technique; not present at 480/390px. Root cause: `.aicd-services-card` used
+  `flex:0 0 370px` (flex-shrink:0), which unconditionally blocks shrinking below 370px even though the
+  360px viewport is narrower. Fixed to `flex:1 1 370px;max-width:370px;min-width:0`. Re-verified via
+  fresh iframe reload at 480/390/360px: all three now show negative overflow (`scrollWidth < innerWidth`),
+  confirming the fix and no regression at the wider two widths.
 - **2026-08-06 second fix pass — hero chat-demo mockup rebuilt from the reference's own source
   (not approximated):** the previous build's hero chat mockup was a static 7-message list faded
   in/out via CSS opacity on a loop, with a fixed `max-width:420px` card. User flagged it looked
@@ -226,6 +386,32 @@
   visual (wavy line pattern) still could not be A/B-compared frame-for-frame since this session's
   browser automation cannot play video on either the reference or local build (existing, previously
   documented limitation) — worth a human check in a normal browser if still in doubt.
+- **2026-08-06 third fix pass — mobile chat-panel width bug + desktop split-ratio correction:**
+  - User reported the mobile chat panel size didn't match the reference. Root cause: `.aicd-chat`
+    had regressed to `width: 55%` (not the `100%` set in the previous fix pass — found via direct
+    file re-read, not attributed further). At the single-column mobile/tablet breakpoint this made
+    the panel less than a quarter of the viewport width instead of filling the column. Verified via
+    a same-origin iframe at 480px width (`.aicd-hero-demo` content box measured `399.67px`, but
+    `.aicd-chat` computed only `219.82px` = exactly 55% of it). Fixed back to `width:100%`;
+    re-measured at 475px effective width: chat now correctly fills the full `399.67px` column.
+  - While verifying, found the desktop column split itself was wrong: the reference's hero row is
+    NOT a 50/50 split despite both columns sharing the `elementor-col-50` class — its own
+    Elementor-generated inline CSS (extracted via the same styleSheet-blob-download technique, since
+    a plain `cssText` dump was blocked by the content filter on an unrelated character sequence)
+    gives the copy column `width:66.347%` and the chat column `width:33.653%` for `min-width:768px`,
+    collapsing both to `width:100%` (stacked) specifically between `768px` and `1024px` and below
+    `767px` — i.e. the true two-column desktop view only starts above `1024px`, not `991px` as our
+    build assumed. The reference's outer hero row also caps at `max-width:1230px` (confirmed via
+    ancestor-chain measurement: `.elementor-container{max-width:1230px}` → `10px` widget padding →
+    `1210px` effective row content width) with the two columns contiguous (no gap) and the visual
+    separation coming entirely from the copy column's own `padding-right:120px` at desktop.
+    Reproduced all of this: `.aicd-hero-grid` is now `grid-template-columns:66.347% 33.653%;gap:0;
+    max-width:1240px` (1240 so that, after this page's `.container` border-box padding of `0 15px`,
+    the resolved content width is exactly `1210px`), `.aicd-hero-copy` gets `padding-right:120px`
+    (reset to `0` at the new dedicated `max-width:1024px` breakpoint, where `.aicd-hero-grid` now
+    collapses to a single column instead of at the old `991px`). Verified via direct measurement at
+    innerWidth 1685 on both pages: reference chat width `407.1957px`, local chat width `407.2px` —
+    exact match.
 
 ## Previous completed page
 

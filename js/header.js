@@ -21,7 +21,7 @@ window.__PARTIALS.header = `
         <li class="menu-item has-mega" data-mega="products">
           <a href="#">Products<svg class="chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
         </li>
-        <li class="menu-item"><a href="#portfolio">Portfolio</a></li>
+        <li class="menu-item"><a href="portfolio.html">Portfolio</a></li>
         <li class="menu-item"><a href="#blog">Blog</a></li>
         <li class="menu-item"><a href="#contact">Contact</a></li>
       </ul>
@@ -318,7 +318,7 @@ window.__PARTIALS.header = `
           <li><a href="#crm-project-management-software">CRM &amp; Project Management Software</a></li>
         </ul>
       </li>
-      <li class="m-item"><a href="#portfolio">Portfolio</a></li>
+      <li class="m-item"><a href="portfolio.html">Portfolio</a></li>
       <li class="m-item"><a href="#blog">Blog</a></li>
       <li class="m-item"><a href="#contact">Contact</a></li>
     </ul>

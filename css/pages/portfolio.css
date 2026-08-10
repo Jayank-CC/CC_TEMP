@@ -1,0 +1,154 @@
+/* ==========================================================================
+   PORTFOLIO PAGE — loaded after css/style.css and css/responsive.css
+   Reference: https://www.cloudconverge.io/portfolio/
+   Reuses shared .inner-banner / .breadcrumb-bar / .container-wide components;
+   only page-specific rules for the intro heading and the 20-card project
+   grid live here.
+   ========================================================================== */
+
+/* ---------- Inner banner (page-specific background image) ---------- */
+body.port-page .inner-banner {
+  background-image: url("../../assets/images/port-hero-banner.webp");
+}
+
+/* NOTE: no light-header override on this page. Re-verified directly against
+   the live reference via elementFromPoint on the actual visible nav layer
+   (the reference DOM also contains an unrelated, zero-size, pointer-events:
+   none decoy nav that reads black — that decoy is not what's rendered).
+   The real, visible nav uses the shared default white logo
+   (cc_logo_white.webp) and white link color at scroll-top on this page,
+   same as every dark-hero page, so no .port-page scoped override is needed. */
+
+/* ---------- Intro (H1 + subtitle) ---------- */
+.port-intro {
+  position: relative;
+  overflow: hidden;
+  padding: 70px 0 50px;
+  text-align: center;
+}
+.port-shape {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  width: 75px;
+  height: 77px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  animation: port-bounce-in-right 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.2s both;
+}
+@keyframes port-bounce-in-right {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  from {
+    opacity: 0;
+    transform: translate3d(300px, 0, 0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate3d(-25px, 0, 0);
+  }
+  75% {
+    transform: translate3d(10px, 0, 0);
+  }
+  90% {
+    transform: translate3d(-5px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+.port-title {
+  position: relative;
+  z-index: 1;
+  font-size: 45px;
+  line-height: 56px;
+  margin: 0;
+  text-transform: none;
+}
+.port-subtitle {
+  position: relative;
+  z-index: 1;
+  max-width: 1120px;
+  margin: 16px auto 0;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+
+/* ---------- Project grid ---------- */
+.port-grid-section {
+  padding: 40px 0 90px;
+}
+.port-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+}
+.port-card {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 37px 80px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+.port-card > a {
+  display: block;
+}
+.port-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  box-sizing: border-box;
+  /* Reference measured (Helm Boots card, 493px card width): image sits
+     flush with the card's top+left edges (0 gap) but is inset ~60px from
+     the right edge before the next content starts — a deliberate
+     asymmetric bleed on the reference's own image widget (measured via
+     getBoundingClientRect on the live reference, not assumed). Expressed
+     as a % of card width (60/493 ≈ 12%) so it holds at the 2-col/1-col
+     breakpoints too. */
+  padding-right: 12%;
+  border-radius: 24px 24px 0 0;
+}
+.port-card-body {
+  padding: 22px 24px 30px;
+  text-align: center;
+}
+.port-card-body h3 {
+  font-size: 22px;
+  line-height: 32px;
+  margin: 0 0 10px;
+  text-transform: none;
+}
+.port-card-body p {
+  margin: 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .port-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+  }
+}
+@media (max-width: 767px) {
+  .port-intro { padding: 40px 0 30px; }
+  .port-title { font-size: 32px; line-height: 40px; }
+  .port-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .port-grid-section { padding: 30px 0 60px; }
+}
+@media (max-width: 480px) {
+  .port-title { font-size: 28px; line-height: 36px; }
+  .port-card-body { padding: 18px 18px 24px; }
+  .port-card-body h3 { font-size: 20px; line-height: 28px; }
+}
