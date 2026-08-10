@@ -47,6 +47,84 @@
     horizontal overflow (`scrollWidth === clientWidth`). Broken-image check flagged only pre-existing shared
     mega-menu thumbnails (lazy-load-not-yet-triggered, same known non-issue documented on every other page in this
     file) — all `cs-ecom-*` page-owned assets loaded successfully.
+- **2026-08-10 fix pass #5 — desktop breadcrumb-to-row gap + full mobile audit.** User reported a missing gap
+  between the breadcrumb and the first `.cs-ecom-row` on desktop, and asked for a full mobile review.
+  - **Desktop gap root cause:** `.cs-ecom-row:first-of-type{padding-top:60px}` never matched row 1, because
+    `:first-of-type` counts by tag name among ALL siblings, not by class — the hero `<section class="cs-ecom-hero">`
+    is also a `<section>` and is the true first section-tag sibling, so the pseudo-class silently never applied to
+    either `.cs-ecom-row`. Rather than re-patch this with another sibling-count selector (which caused a second,
+    subtler bug — see below), added explicit `.cs-ecom-row-1`/`.cs-ecom-row-2` classes to the two row `<section>`s
+    in the HTML and gave each its own padding rule directly.
+  - **Second bug found while fixing the first:** an earlier interim fix (`.cs-ecom-row{padding:60px 0 0}` +
+    `.cs-ecom-row + .cs-ecom-row{padding-top:0}`) restored row 1's gap correctly but incorrectly zeroed out row 2's
+    own independent top padding as a side effect. Read the reference's actual dynamic CSS directly (its own
+    per-section-id rules, not a shared pattern) and confirmed row 1 and row 2 have genuinely different,
+    independently-authored padding: row 1 = `60px` top only (no bottom), row 2 = `48px` top AND bottom (`3em 0em`
+    in the reference's own shorthand). Replaced the shared-selector hack with `.cs-ecom-row-1{padding-top:60px}`
+    and `.cs-ecom-row-2{padding:48px 0}`.
+  - **Also found and fixed while re-measuring desktop:** `.cs-ecom-text-col` had `padding:45px 0` (0 horizontal) —
+    a leftover claim from this page's original build that the text column runs "edge to edge." Re-measured
+    directly on the live reference (`h1` left offset vs. its column's left offset) and confirmed the column
+    actually has a uniform `45px` padding on all four sides, not just top/bottom. Fixed to `padding:45px`. Desktop
+    gap measurements after both fixes: breadcrumb-to-H1 `105px` (`60` row padding + `45` column padding, matches
+    reference exactly), row1-image-column-bottom to row2-H2 `93px` (`48` row2 padding + `45` mission-column
+    padding, also an exact match) — both confirmed via direct `getBoundingClientRect` comparison against the live
+    reference, not approximated.
+  - **Mobile audit (`max-width:767px`), all values read from the reference's own dynamic CSS by element/section id
+    rather than trusted from a resized viewport** — `resize_window` proved unreliable again this session (same
+    known limitation as prior pages): it intermittently reports a spoofed `window.innerWidth` without the
+    browser's actual CSS media-query engine treating the layout as narrow, so a live element measurement taken
+    right after a resize call briefly returned a full desktop `36px` H1 font-size that contradicted every other
+    surrounding measurement — that single reading was discarded once cross-checked against the reference's
+    stylesheet rules directly (`document.styleSheets` → `CSSRule.MEDIA_RULE` → filtered by each element's Elementor
+    `data-id`), which is unaffected by whether the emulated viewport is genuinely narrow.
+    - Breadcrumb: reference shrinks the breadcrumb text itself from `14px/26px` to `12px/20px` at `max-width:767px`
+      (not just wrapping) — missing this made our build's breadcrumb wrap one word earlier than the reference
+      ("Using / BigCommerce" instead of the reference's "BigCommerce / Platform"). Added the font-size/line-height
+      override scoped to `.cs-ecom-page`.
+    - Row 2's own padding shrinks from `48px 0` to `25px 0 0` at this breakpoint (top-only, matching the pattern
+      established on desktop) — added as a `.cs-ecom-row-2` override inside the `767px` block.
+    - Row 1's image (below its text, `.cs-ecom-image-col:last-child` within the row) and row 2's image (above its
+      mission box, `.cs-ecom-image-col:first-child`) carry different Elementor-authored margins at this width —
+      row 1: `25px` top / `20px` sides / `10px` bottom; row 2: `0` top / `15px` sides / `15px` bottom. Targeted by
+      DOM position (`:first-child`/`:last-child` within `.cs-ecom-row-inner`, since each row only ever has these
+      two children) instead of another tag-counting pseudo-class, to avoid repeating the `:first-of-type` mistake.
+    - "Our Mission" gray box margin corrected from `0 20px` (guessed) to a uniform `20px` on all sides — confirmed
+      via the reference's own rule for that column's id (`margin:20px`, not `margin:0 20px`).
+    - H1 mobile size (`24px/36px`) and paragraph `justify` were already correct from the original build; confirmed
+      via the same stylesheet-rule technique, not re-guessed.
+  - Re-verified the rebuilt local page at a genuinely-confirmed `320px`-wide viewport (checked
+    `window.innerWidth` immediately before every measurement, in the same batch, to catch any silent revert):
+    breadcrumb wraps identically to the reference (`Home / Portfolio` line 1, `ECommerce Website Using
+    BigCommerce / Platform` line 2, matching heights), hero crop unchanged and correct, both rows' image margins
+    and row-2's padding all match the reference's own values exactly, mission box margin/padding match, pagination
+    centers correctly, and `document.documentElement.scrollWidth` (`305px`) does not exceed `window.innerWidth`
+    (`320px`) — no horizontal overflow. Re-checked desktop afterward (screenshot + measurement) to confirm the
+    padding-uniformity fix caused no regression there.
+- **2026-08-10 fix pass #6 — uneven 50/50 column split on desktop.** User attached a screenshot of the local page
+  showing the text/image gap looked off. Measured both columns directly: text column `585px` wide, image column
+  `525px` wide — not the equal `570px`/`570px` split the reference has. Two separate root causes, both fixed:
+  1. `.cs-ecom-col` used `flex:1 1 0` (equal flex-*grow*), not a literal 50% width. With `flex-basis:0`, equal
+     grow only makes the two columns' *flexible* content area equal — each column's own padding/margin is then
+     added on top of that as a fixed, non-flexible amount. Since the text column carries `90px` of padding (45
+     left + 45 right) and the image column only `~30px`, the text column ended up `60px` wider than the image
+     column even though both had `flex-grow:1`. The reference doesn't use this model at all — its Elementor
+     columns are literal `width:50%`, which isn't affected by a child's own padding. Changed
+     `.cs-ecom-col` to `flex:0 0 50%; max-width:50%` (and added a `100%` override inside the existing
+     `max-width:1024px` stacked block, where the row switches to `flex-direction:column`).
+  2. Separately, `.cs-ecom-row-inner` reuses the shared `.container` class, which carries a sitewide `15px` side
+     padding — correct for every other page that uses it, but this specific row's own Elementor container on the
+     reference has genuine `0` side padding at its `1140px` max-width (confirmed via `getComputedStyle` on the
+     live reference), so the inherited `15px` was silently shrinking the row's content width from `1140px` to
+     `1110px`. Added a `.cs-ecom-row-inner{padding:0}` override scoped to this row class only — no shared file
+     touched.
+  - Re-verified after both fixes: both rows now measure `570px`/`570px` (container `265`→`1405`, exactly matching
+    the reference's own `.elementor-container` rect), and the text-to-image gap is `60px` on both rows, matching
+    the reference exactly. Re-checked mobile afterward via the same-origin `<iframe>`-at-`375px` technique (direct
+    `resize_window` was unreliable again this pass, stuck reporting the desktop width even across fresh tabs) —
+    confirmed the fix doesn't affect mobile at all, since columns fully stack to `100%` width at that breakpoint
+    (the 50/50-split bug is desktop/tablet-only, where columns sit side by side); the previously-verified mobile
+    margins (`25px 20px 10px` row 1 image, etc.) still measured correctly unchanged.
 
 ## Previous completed page
 

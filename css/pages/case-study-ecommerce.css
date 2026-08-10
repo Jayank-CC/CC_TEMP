@@ -18,6 +18,13 @@
   .cs-ecom-page .breadcrumb-list {
     flex-wrap: wrap;
   }
+  /* Reference shrinks the breadcrumb text itself on mobile (14px/26px desktop
+     down to 12px/20px) — without this the text wraps a word earlier than the
+     reference ("Using / BigCommerce" instead of "BigCommerce / Platform"). */
+  .cs-ecom-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
 }
 .cs-ecom-page .breadcrumb-list li:last-child {
   display: inline-flex;
@@ -38,24 +45,51 @@
 /* ---------- Two-column text/image rows ----------
    Reference: two 570px columns inside the 1140px .container with zero flex
    gap between them (measured via getBoundingClientRect: left column right
-   edge = right column left edge, no gutter). The text column runs edge to
-   edge (0 side padding); the image column always carries 15px of padding on
-   both sides regardless of whether it's on the left or right, which is what
-   actually creates the visual gap next to the text. Rows sit flush against
-   each other (0px gap) and 60px below the breadcrumb. */
-.cs-ecom-row {
-  padding: 0;
-}
-.cs-ecom-row:first-of-type {
+   edge = right column left edge, no gutter). The text column has 45px of
+   padding on every side (not edge-to-edge — confirmed via getComputedStyle
+   on the live reference); the image column carries 15px of padding on both
+   sides, which is what creates the visual gap next to the text. */
+/* Row-level padding is genuinely different per row on the reference (each
+   is an independently-configured Elementor section, not a repeated
+   pattern), confirmed by reading the reference's own dynamic CSS rather
+   than guessing from a shared rule:
+   - row 1 (cs-ecom-row-1): 60px top padding only, no bottom padding of its
+     own — this is what creates the gap under the breadcrumb.
+   - row 2 (cs-ecom-row-2): 48px padding top AND bottom (their "3em 0em").
+   A single ".cs-ecom-row + .cs-ecom-row{padding-top:0}" rule previously
+   patched the breadcrumb gap but incorrectly zeroed out row 2's own real
+   padding as a side effect — replaced with explicit per-row classes so
+   each row's padding is independent and matches the reference exactly. */
+.cs-ecom-row-1 {
   padding-top: 60px;
+}
+.cs-ecom-row-2 {
+  padding: 48px 0;
 }
 .cs-ecom-row-inner {
   display: flex;
   align-items: stretch;
+  /* The shared .container class adds 15px of side padding, correct for
+     every other page that reuses it — but this row's own Elementor
+     container on the reference has genuine 0 side padding at its 1140px
+     max-width (confirmed via getComputedStyle on the live reference), so
+     the inherited 15px was silently shrinking the two-column row content
+     area from 1140px to 1110px. Overridden here, scoped to this row only. */
+  padding: 0;
 }
+/* Columns must be a literal 50/50 width split, not an equal flex-grow split.
+   flex:1 1 0 distributes free space equally but then adds each column's own
+   padding/margin on top of that equal share — since the text column carries
+   90px of padding (45+45) and the image column only ~30px, that produced a
+   585px/525px split instead of 570/570 on this exact build (caught via a
+   user screenshot showing the wrong gap). Elementor's own columns are
+   percentage-width (`width:50%`), which is unaffected by a child's own
+   padding, so match that instead. */
 .cs-ecom-col {
-  flex: 1 1 0;
+  flex: 0 0 50%;
+  max-width: 50%;
   min-width: 0;
+  box-sizing: border-box;
 }
 .cs-ecom-image-col {
   padding: 0 15px;
@@ -80,7 +114,7 @@
 /* ---------- Text column typography (left-aligned, unlike the centered Helm
    Boots template) ---------- */
 .cs-ecom-text-col {
-  padding: 40px 0;
+  padding: 45px;
 }
 .cs-ecom-text-col h1 {
   font-size: 36px;
@@ -197,6 +231,10 @@
   .cs-ecom-row-inner {
     flex-direction: column;
   }
+  .cs-ecom-col {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
   .cs-ecom-image-col {
     padding: 0 15px;
   }
@@ -211,19 +249,43 @@
   .cs-ecom-text-col h1 {
     font-size: 24px;
     line-height: 36px;
+    text-align: center;
+  }
+  .cs-ecom-mission-col h2 {
+    text-align: center;
   }
   .cs-ecom-text-col p {
     text-align: justify;
   }
+  /* Row 1 keeps its 60px top padding at every width (no mobile override on
+     the reference); row 2's own top/bottom padding shrinks from 48px to
+     25px-top/0-bottom — confirmed via the reference's dynamic CSS for its
+     row-2 section id, not a guess. */
+  .cs-ecom-row-2 {
+    padding: 25px 0 0;
+  }
+  .cs-ecom-text-col {
+    padding: 25px;
+  }
+  /* Row 1's image (below the text) and row 2's image (above the mission
+     box) carry different Elementor-authored margins on the reference —
+     confirmed via getComputedStyle on the live reference: row1 image wrap
+     = margin 25px top / 20px sides / 10px bottom; row2 image wrap =
+     margin 0 top / 15px sides / 15px bottom. Target by DOM position within
+     the row (image-col is last-child in row 1, first-child in row 2) to
+     avoid the earlier :first-of-type sibling-count bug. */
   .cs-ecom-image-col {
     padding: 0;
   }
-  .cs-ecom-text-col {
-    padding: 25px 20px 10px;
+  .cs-ecom-row-inner .cs-ecom-image-col:last-child {
+    margin: 25px 20px 10px;
+  }
+  .cs-ecom-row-inner .cs-ecom-image-col:first-child {
+    margin: 0 15px 15px;
   }
   .cs-ecom-mission-col {
     padding: 25px;
-    margin: 0 20px;
+    margin: 20px;
   }
   .cs-ecom-pagination-inner {
     justify-content: center;
@@ -231,5 +293,13 @@
   .cs-ecom-nav-text {
     align-items: flex-start;
     text-align: left;
+  }
+  /* Same theme-level ".case-studies-banner img" rule as the Helm Boots
+     case study (confirmed identical class on this page's hero): fixed
+     260px height, left-anchored crop, instead of scaling down thin. */
+  .cs-ecom-hero img {
+    min-height: 260px;
+    object-fit: cover;
+    object-position: left center;
   }
 }
