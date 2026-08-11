@@ -1,0 +1,307 @@
+/* Case study: Shombhob - Ecommerce Website For Healthcare Products
+   Reference: https://www.cloudconverge.io/case-studies/pharmacy-ecommerce-store/
+   Prefix: cs-pharm-
+   Simplest case-study template built so far: hero + breadcrumb + a single
+   centered text row + one square screenshot + a centered heading block +
+   a second square screenshot + pagination. No dash-list, no second text
+   paragraph, no "Conclusion" block (confirmed absent via DOM — this page's
+   content genuinely ends after the second screenshot, unlike bar-drinks).
+   Two details confirmed via direct DOM inspection rather than assumed from
+   the sibling pages:
+   1. Same "wraper_inner_banner" background-image hero technique as
+      bar-drinks (not an <img> tag) — reused verbatim since it's the same
+      site-wide theme template, not page-specific.
+   2. Both screenshots are real <img> tags (not background-image like
+      bar-drinks' gallery), but the reference forces a natively 1024x768
+      image into a 1024x1024 square box with no object-fit set — the
+      default is "fill", which stretches/distorts the image vertically by
+      ~33%. Confirmed via getComputedStyle on the live reference
+      (object-fit: fill, width/height both 1024px despite the img's own
+      width/height attributes reading 1024/768) and visually verified via
+      screenshot that this distortion is genuinely present on the
+      reference, not a bug to avoid replicating. */
+
+/* ---------- Breadcrumb color override ----------
+   Same theme-level override and one-off "Icon List" widget note as every
+   other case-study page. */
+.cs-pharm-page .breadcrumb-list a,
+.cs-pharm-page .breadcrumb-list a:hover,
+.cs-pharm-page .breadcrumb-sep,
+.cs-pharm-page .breadcrumb-list li,
+.cs-pharm-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-pharm-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (background-image, no <img>) ----------
+   Same ".wraper_inner_banner" theme technique as bar-drinks: height comes
+   from padding-top:184px + padding-bottom:118px around an empty ~20px
+   inner container (322px total desktop), dropping to 297px at <=1024px —
+   this is a global theme rule shared across many pages, not specific to
+   this case study, so the same values apply verbatim. */
+.cs-pharm-hero {
+  height: 322px;
+  background-image: url("../../assets/images/cs-pharm-hero-banner.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgb(30, 78, 196);
+}
+
+/* ---------- Spacers ----------
+   Real, dedicated Elementor spacer widgets between every section on this
+   page (measured individually, not assumed uniform): 60px under the
+   breadcrumb, 90px everywhere else. At <=767px the first collapses to 0px
+   while the other three shrink to 30px (not 0) — confirmed via the
+   reference's own per-spacer dynamic CSS, not extrapolated from bar-drinks'
+   different collapse pattern. Modeled as dedicated elements (not folded
+   into a neighboring section's padding) specifically so this value never
+   has to be added to another element's own padding change at another
+   breakpoint — a combination mistake made on an earlier page in this
+   project. */
+.cs-pharm-spacer-sm {
+  height: 60px;
+}
+.cs-pharm-spacer-lg {
+  height: 90px;
+}
+
+/* ---------- Intro text (single centered column, no image) ----------
+   Container capped to 1000px (not 950/1140 like the other case studies —
+   measured directly, not reused). The row itself carries 0 padding of its
+   own at desktop (the spacers above/below provide all the vertical
+   spacing), gaining 64px top+bottom only at the <=1024px tablet tier, then
+   returning to 0 at <=767px. H1 is 42px/48px here — noticeably larger than
+   every sibling case study's 36px/42px H1, confirmed via getComputedStyle,
+   not reused. */
+.cs-pharm-intro {
+  padding: 0;
+}
+.cs-pharm-intro-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.cs-pharm-intro-inner h1 {
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 48px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-pharm-intro-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-pharm-intro-inner p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Full-width square screenshot rows (both web and app reuse
+   this exact class) ----------
+   1140px container, 10px widget-wrap padding (1140 - 20 = 1120px... but
+   the image itself is capped to 1024px natively, so the reference's own
+   image widget renders at 1024px centered rather than stretching to fill
+   the full 1120px available width — confirmed via getBoundingClientRect:
+   the image column itself is only 1044px wide (1024 + 2x10 padding), not
+   the full 1140px container). */
+.cs-pharm-gallery-row {
+  padding: 0;
+}
+.cs-pharm-gallery-inner {
+  max-width: 1044px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cs-pharm-gallery-inner img {
+  display: block;
+  width: 100%;
+  /* Forces the native 1024x768 image into a 1:1 box, matching the
+     reference's own object-fit:fill stretch rather than a natural
+     width:100%;height:auto scale (which would preserve the 4:3 ratio and
+     not match the reference's visibly taller crop). */
+  /* aspect-ratio: 1 / 1; */
+  object-fit: fill;
+}
+
+/* ---------- "User Experience Design & Backend Integration" heading block ----------
+   Same 1000px-capped centered pattern as the intro row, and the same
+   "0px own padding at desktop, gains 64px only at the tablet tier"
+   behavior — confirmed independently for this element's own id, not
+   assumed identical just because the pattern looks similar. */
+.cs-pharm-solution {
+  padding: 0;
+}
+.cs-pharm-solution-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  text-align: center;
+}
+.cs-pharm-solution-inner h2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-pharm-solution-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0;
+}
+
+/* ---------- Next/previous pagination (same visual pattern as every other
+   case-study page) ---------- */
+.cs-pharm-pagination {
+  padding: 50px 0 60px;
+}
+.cs-pharm-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-pharm-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-pharm-nav-prev {
+  margin-right: auto;
+}
+.cs-pharm-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-pharm-nav-next .cs-pharm-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-pharm-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-pharm-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-pharm-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-pharm-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-pharm-nav-link:hover .cs-pharm-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Values read directly from the reference's own per-element dynamic CSS
+   (document.styleSheets filtered by each element's Elementor data-id).
+   Note the spacers are handled above (independent of these rows), which
+   avoids the "add the unchanged spacer value on top of the row's new
+   breakpoint padding" arithmetic mistake made when an earlier page's
+   spacer-gap was folded directly into a neighboring row's padding. */
+@media (max-width: 1024px) {
+  .cs-pharm-hero {
+    height: 297px;
+  }
+  .cs-pharm-intro {
+    padding: 64px 0;
+  }
+  .cs-pharm-solution {
+    padding: 64px 0;
+  }
+}
+@media (max-width: 767px) {
+  .cs-pharm-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-pharm-hero {
+    height: 297px;
+  }
+  .cs-pharm-spacer-sm {
+    height: 0;
+  }
+  .cs-pharm-spacer-lg {
+    height: 30px;
+  }
+  .cs-pharm-intro {
+    padding: 0;
+  }
+  .cs-pharm-intro-inner {
+    padding: 25px;
+  }
+  .cs-pharm-intro-inner h1 {
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .cs-pharm-intro-inner p {
+    text-align: justify;
+  }
+  .cs-pharm-solution {
+    padding: 0;
+  }
+  .cs-pharm-solution-inner {
+    padding: 25px;
+    box-sizing: border-box;
+  }
+  .cs-pharm-solution-inner h2 {
+    font-size: 22px;
+  }
+  .cs-pharm-solution-inner p {
+    text-align: justify;
+  }
+  .cs-pharm-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-pharm-nav-prev,
+  .cs-pharm-nav-next {
+    margin: 0;
+  }
+  .cs-pharm-nav-next {
+    flex-direction: row;
+  }
+  .cs-pharm-nav-next .cs-pharm-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
