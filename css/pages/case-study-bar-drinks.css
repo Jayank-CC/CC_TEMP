@@ -1,0 +1,428 @@
+/* Case study: ToddyOffers - Bar & Drinks Offer Platform
+   Reference: https://www.cloudconverge.io/case-studies/bar-drinks-offer-platform/
+   Prefix: cs-bar-
+   Two structural details on this page are genuinely different from every other
+   case study built so far in this project (confirmed via direct DOM inspection
+   of the live reference, not assumed to match the sibling pages):
+   1. The hero is a background-image on an empty div (the theme's generic
+      ".wraper_inner_banner" inner-page template), not an <img> tag inside
+      ".case-studies-banner" like every other case study's hero.
+   2. The 3-image gallery row uses background-image on empty divs too (an
+      Elementor "Inner Section" with a background, not an <img> widget) —
+      confirmed by querySelectorAll('img') returning zero results inside that
+      row despite it visibly containing 4 images on the reference.
+   Everything else (breadcrumb, centered intro text column, full-width
+   portfolio screenshot, centered heading blocks, pagination) follows the same
+   patterns already established by the other case-study pages. */
+
+/* ---------- Breadcrumb color override ----------
+   Same theme-level override as every other case-study page. Note: on the
+   reference this breadcrumb is actually built as a one-off Elementor
+   "Icon List" widget rather than the theme's automatic breadcrumb (confirmed
+   via DOM — it lives inside the page's Elementor content, not a
+   ".breadcrumb-bar" wrapper) — but it is visually identical (same caret-right
+   separator icon, same rgb(0,0,0)/rgb(25,25,25) colors, same "Home / Portfolio
+   / <page>" structure), so this replica reuses the shared .breadcrumb-list
+   component rather than duplicating the reference's one-off markup, per this
+   project's "reuse shared components" rule. */
+.cs-bar-page .breadcrumb-list a,
+.cs-bar-page .breadcrumb-list a:hover,
+.cs-bar-page .breadcrumb-sep,
+.cs-bar-page .breadcrumb-list li,
+.cs-bar-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-bar-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (background-image, no <img>) ----------
+   Reference: ".wraper_inner_banner" has no fixed height rule — its height is
+   produced entirely by padding-top:184px + padding-bottom:118px around an
+   empty ~20px-tall inner container (184+20+118=322px, confirmed via
+   getBoundingClientRect against the reference), with background-size:cover
+   and a solid-color fallback behind the image. Reproduced directly as a
+   fixed height for simplicity, since the padding/empty-content split has no
+   visible effect once collapsed to a single number. */
+.cs-bar-hero {
+  height: 322px;
+  background-image: url('../../assets/images/cs-bar-hero-banner.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgb(30, 78, 196);
+}
+
+/* ---------- Intro text (single centered column, no image) ----------
+   Reference: this row's own Elementor container is capped to 950px (not the
+   sitewide 1140px) with a 71px gap above it coming from a dedicated spacer
+   widget between the breadcrumb and this row (same spacer-as-padding-top
+   technique used on the rise-event page) and 48px of the row's own padding
+   below (no padding above from the row itself — confirmed via
+   getComputedStyle on the live reference: padding is "0 0 48px", not
+   symmetric). The widget-wrap adds a uniform 10px padding around the H1 and
+   paragraphs on top of that. */
+.cs-bar-intro {
+  padding-top: 70px;
+  padding-bottom: 48px;
+}
+.cs-bar-intro-inner {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.cs-bar-intro-inner h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-bar-intro-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-bar-intro-inner p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Full-width portfolio screenshot ----------
+   Reference: full 1140px container, flush against the intro row above and
+   the heading block below (0px gap both sides, confirmed), with a uniform
+   10px padding around the image from its own widget-wrap (1140 - 20 =
+   1120px displayed width, matching the image's own measured size). */
+.cs-bar-portfolio-inner {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cs-bar-portfolio-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- "User Experience Design & Backend Integration" heading block ----------
+   Centered H2 + paragraph capped to a 1000px inner width inside the 1140px
+   container, with a genuinely symmetric 48px padding top and bottom
+   (confirmed via getComputedStyle — unlike the rise-event page's equivalent
+   block, this one's padding is not asymmetric). */
+.cs-bar-solution {
+  padding: 48px 0;
+}
+.cs-bar-solution-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  text-align: center;
+}
+.cs-bar-solution-inner h2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-bar-solution-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0;
+}
+
+/* ---------- Three-column gallery (web screenshot / logo+currency stack / app screenshot) ----------
+   All three columns are background-image divs on the reference (see file
+   header note), each column 33% of the 1140px container (380px outer, 10px
+   padding on every side producing a 360px-wide visible box, confirmed via
+   getBoundingClientRect on the live reference). Middle column stacks two
+   360x240 background boxes (logo above, currency token below) with a 20px
+   gap between them. Row itself: 0 top padding (flush against the heading
+   block above) and 48px bottom padding (flush-minus-48 against the
+   Conclusion block below) — confirmed via getComputedStyle, not assumed
+   symmetric. */
+.cs-bar-gallery {
+  padding-bottom: 48px;
+}
+.cs-bar-gallery-inner {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
+.cs-bar-gallery-col {
+  flex: 1 1 33.333%;
+  min-width: 280px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cs-bar-gallery-web,
+.cs-bar-gallery-app {
+  /* These background-image boxes have no other content, so without an
+     explicit min-height they collapse to ~0px tall the moment the gallery
+     stacks to a single column at <=1024px (align-items:stretch, which
+     supplies their height at desktop by matching the taller "mid" column,
+     no longer applies once the row direction changes). Reference sets a
+     literal min-height:500px on these at desktop, dropping to 400px at
+     <=1024px — confirmed via the reference's own per-element dynamic CSS,
+     not a guess to "fix the collapse". */
+  min-height: 500px;
+}
+.cs-bar-gallery-web {
+  background-image: url('../../assets/images/cs-bar-web.webp');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.cs-bar-gallery-app {
+  background-image: url('../../assets/images/cs-bar-app.webp');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.cs-bar-gallery-mid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.cs-bar-gallery-logo,
+.cs-bar-gallery-currency {
+  /* Same collapse risk as the web/app boxes above, for the same reason —
+     min-height (not a fixed height) matching the reference's own rule, so
+     background-size:contain still has room to show the full image if the
+     box is ever taller than 240px (e.g. stretched by a sibling). */
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 240px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.cs-bar-gallery-logo {
+  /* Reference uses background-size:auto (native pixel size, 296x137) rather
+     than contain for the logo specifically — confirmed via getComputedStyle,
+     not reused from the other two boxes' "contain" sizing. */
+  background-image: url('../../assets/images/cs-bar-logo.webp');
+  background-size: 296px 137px;
+}
+.cs-bar-gallery-currency {
+  background-image: url('../../assets/images/cs-bar-currency.webp');
+  background-size: contain;
+}
+
+/* ---------- "Conclusion & Feedback" heading block ----------
+   Same 1000px-capped centered pattern as the "User Experience Design" block,
+   but this one carries 0 padding of its own on the reference (flush against
+   both the gallery row above and the pagination nav below — confirmed via
+   getBoundingClientRect, both gaps measured 0px). Note the reference uses an
+   H3 here (22px/42px), not an H2 like the earlier heading block. */
+.cs-bar-conclusion-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  text-align: center;
+}
+.cs-bar-conclusion-inner h3 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-bar-conclusion-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0;
+}
+
+/* ---------- Next/previous pagination (same visual pattern as every other
+   case-study page) ---------- */
+.cs-bar-pagination {
+  padding: 50px 0 60px;
+}
+.cs-bar-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-bar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-bar-nav-prev {
+  margin-right: auto;
+}
+.cs-bar-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-bar-nav-next .cs-bar-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-bar-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-bar-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-bar-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-bar-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-bar-nav-link:hover .cs-bar-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Values below are read directly from the reference's own per-element
+   dynamic CSS (document.styleSheets filtered by each element's Elementor
+   data-id), not extrapolated from the sibling case-study pages, since this
+   page's breakpoint behavior (a single tablet-only padding tier, collapsing
+   straight to 0 at phone width rather than a smaller-but-nonzero value) is
+   genuinely different from every other page's pattern. */
+@media (max-width: 1024px) {
+  .cs-bar-hero {
+    /* Reference: ".wraper_inner_banner" padding drops to 175px top / 102px
+       bottom at this tier (175+20+102=297px), confirmed via the same
+       dynamic-CSS technique used for the desktop value. */
+    height: 297px;
+  }
+  .cs-bar-intro {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+  .cs-bar-solution {
+    padding: 64px 0;
+  }
+  .cs-bar-gallery {
+    padding: 80px 0 16px;
+  }
+  .cs-bar-gallery-inner {
+    flex-direction: column;
+  }
+  .cs-bar-gallery-col {
+    flex: 0 0 100%;
+  }
+  .cs-bar-gallery-web,
+  .cs-bar-gallery-app {
+    min-height: 400px;
+  }
+  .cs-bar-gallery-logo,
+  .cs-bar-gallery-currency {
+    min-height: 190px;
+  }
+  .cs-bar-gallery-mid {
+    flex-direction: row;
+  }
+}
+@media (max-width: 767px) {
+  .cs-bar-page .breadcrumb-list li {
+    /* Confirmed via the reference's own dynamic CSS for this breadcrumb
+       widget's id — same shrink pattern as portfolio-ecommerce's
+       breadcrumb, not assumed absent like rise-event's shorter one. */
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-bar-hero {
+    height: 297px;
+  }
+  .cs-bar-intro {
+    padding: 0;
+  }
+  .cs-bar-intro-inner {
+    /* Widget-wrap padding grows from 10px to 25px at this tier on the
+       reference (confirmed via dynamic CSS for the intro column's id). */
+    padding: 25px;
+  }
+  .cs-bar-intro-inner h1 {
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .cs-bar-intro-inner p {
+    text-align: justify;
+  }
+  .cs-bar-solution {
+    padding: 0;
+  }
+  .cs-bar-solution-inner {
+    padding: 25px;
+  }
+  .cs-bar-solution-inner h2 {
+    font-size: 22px;
+  }
+  .cs-bar-solution-inner p {
+    text-align: justify;
+  }
+  .cs-bar-gallery {
+    padding: 0;
+  }
+  .cs-bar-gallery-mid {
+    flex-direction: column;
+  }
+  .cs-bar-gallery-web,
+  .cs-bar-gallery-app {
+    min-height: 400px;
+  }
+  .cs-bar-gallery-logo,
+  .cs-bar-gallery-currency {
+    min-height: 190px;
+  }
+  .cs-bar-conclusion-inner {
+    padding: 25px;
+  }
+  .cs-bar-conclusion-inner p {
+    text-align: justify;
+  }
+  .cs-bar-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-bar-nav-prev,
+  .cs-bar-nav-next {
+    margin: 0;
+  }
+  .cs-bar-nav-next {
+    flex-direction: row;
+  }
+  .cs-bar-nav-next .cs-bar-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}

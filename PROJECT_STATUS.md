@@ -2,68 +2,104 @@
 
 ## Current task
 
-- **Reference:** https://www.cloudconverge.io/case-studies/rise-event/
-- **Local target:** `case-studies/rise-event.html` (flat file, same 1-level-deep convention as every other case
-  study), `css/pages/case-study-rise-event.css` (`cs-rise-` prefix), no page-specific JS needed.
+- **Reference:** https://www.cloudconverge.io/case-studies/bar-drinks-offer-platform/
+- **Local target:** `case-studies/bar-drinks-offer-platform.html` (flat file, same convention as every other case
+  study), `css/pages/case-study-bar-drinks.css` (`cs-bar-` prefix), no page-specific JS needed.
 - **Last updated:** 2026-08-11
 - **State:** Complete, built from scratch this session.
-  - **Structurally the simplest case-study template in this project**: hero + breadcrumb + a single 50/50
-    text/image row (H1 "EO Network - Rise 2022" + 2 paragraphs, image right) + a centered "Solution" H2/paragraph
-    block + a two-image gallery row + prev/next pagination. No dash-list, no second mirrored row, no gray "Our
-    Mission" box, no hover-slide effect on the image (confirmed absent: this page's image widget carries no
-    `.move-image-left-right` class, unlike portfolio-ecommerce's gallery images).
-  - **Two content sections were nearly missed entirely**: the "Solution integrates Dynamics CRM, 3rd Party
-    Databases & API" H2/paragraph block and the two-image gallery row are both built with Elementor's newer
-    flexbox-container system (`e-con`/`e-con-inner`/`e-con-box`), not the classic `.elementor-top-section` system
-    every other page on this site uses. A `.elementor-top-section` query completely misses both — they were only
-    found by manually walking `nextElementSibling` from the row-1 section. Any future page audit on this site must
-    check for `e-con`-based elements in addition to classic sections, not just assume the classic system covers
-    everything.
-  - **Two real Elementor spacer widgets, found the same way** (sibling-walking, not left as unexplained gaps):
-    one between the breadcrumb and row 1 (`71px` desktop, confirmed collapsing to `--spacer-size:0px` at
-    `max-width:767px` via the spacer's own dynamic CSS — not assumed from proportional shrinking), and a second
-    between the "Solution" block and the gallery row (`48px`, no mobile override found on the reference, so it
-    stays `48px` at every width). Both reproduced as `padding-top` on the following section rather than as extra
-    empty elements — visually identical, simpler markup. Every other section boundary on this page (row-1 bottom →
-    Solution top; gallery bottom → pagination top) measured a genuine `0px` gap with no spacer — confirmed via
-    direct `getBoundingClientRect` chains, not assumed symmetric with the spacers that do exist.
-  - **Columns**: two literal `50%`-width columns (`flex:0 0 50%; max-width:50%`, not equal-grow `flex:1 1 0` —
-    same lesson learned the hard way on portfolio-ecommerce) inside a `1140px` container with genuine `0` side
-    padding on its own Elementor container (the shared `.container` class's `15px` side padding overridden via
-    `.cs-rise-row-inner{padding:0}`, same recurring pattern as every other multi-column case-study row on this
-    site). Image shadow is a lighter `rgba(0,0,0,.2)` with `0` border-radius — confirmed via `getComputedStyle` on
-    the live reference, not reused verbatim from portfolio-ecommerce's `.5`-opacity/`4px`-radius images.
-  - **"Solution" block**: centered H2 + paragraph capped to a `1050px` inner width inside the `1140px` container
-    (a literal `max-width` on the inner flex container, not padding), with measured-asymmetric padding
-    `11px 0 57px` (not a rounded `50px 0` guess).
-  - **Gallery row**: two `550×757` screenshot images, `50/50`, each column carrying `10px` padding (creating a
-    `20px` total gap between them) and the same lighter image shadow as row 1's image. Below `768px` the
-    reference's flex container wraps to a single column via default `e-con` flex-wrap behavior, with no explicit
-    override needed.
-  - **Breadcrumb**: same solid-black override pattern as every other case-study page, but this page's final crumb
-    text ("Rise Event") is short enough that the reference never needed a mobile flex-wrap or font-size override —
-    confirmed via the reference's own dynamic CSS (no `max-width:767px` rule at all for this breadcrumb widget's
-    font-size), so none was added here, unlike portfolio-ecommerce's breadcrumb which does need one.
-  - **Assets downloaded and verified via PIL** (`assets/images/`): `cs-rise-hero-banner.webp` (`1403×322`),
-    `cs-rise-content.webp` (`550×399` — note the source filename `Rise-2022-2048x1485-1.webp` misleadingly implied
-    a much larger master file; confirmed via both PIL and the live page's `naturalWidth`/`naturalHeight` that
-    `550×399` is the genuine displayed size, not assumed from the filename), `cs-rise-middle.webp` and
-    `cs-rise-end.webp` (both `550×757`).
-  - **Pagination**: "Previous Post" → `portfolio-migration-of-helm-boots-to-shopify-plus.html` (local file, wired
-    up); "Next Post" → `https://www.cloudconverge.io/case-studies/bar-drinks-offer-platform/` (kept external — that
-    case study hasn't been replicated locally yet, same convention as every other page's pagination pointing at an
-    unbuilt sibling).
-  - **Links wired up both directions**: `portfolio.html`'s Rise Event card and the Helm Boots page's "Next Post"
-    link both updated from the external reference URL to this new local file.
-  - Verified clean console (0 errors) and network (`37` requests, all `200`/`304`, 0 `404`s) on a fresh reload of
-    this page.
-  - **Mobile/tablet verification** via the same-origin `<iframe>`-at-fixed-width technique (`resize_window` was
-    unreliable again this session — repeatedly stuck reporting the desktop width even across fresh tabs and
-    multiple retry strategies): at `375px`, row 1 stacks to a single column, the breadcrumb-to-row spacer
-    correctly collapses to `0` (text column's own `25px` padding is the only visible gap, matching the reference
-    exactly — not doubled by a leftover nonzero spacer value), H1 shrinks to `24px/36px`, paragraphs switch to
-    `text-align:justify`, the gallery spacer stays `48px` unchanged, and pagination stacks vertically with no
-    horizontal overflow found at either desktop (`1685px`) or mobile (`375px`) widths tested.
+  - **Two genuinely different structural techniques on this page, confirmed via DOM inspection rather than
+    assumed from the sibling pages:**
+    1. The hero is a `background-image` on an empty div (the theme's generic `.wraper_inner_banner` inner-page
+       template — used site-wide for regular pages, not the case-studies-specific `.case-studies-banner`), not an
+       `<img>` tag. Its total height (`322px` desktop) comes from `padding-top:184px + padding-bottom:118px`
+       around an empty ~`20px` inner container on the reference (184+20+118=322, confirmed via
+       `getBoundingClientRect`); reproduced here as a flat `height:322px` for simplicity since the padding split
+       has no visible effect once collapsed to one number. The app-store badges, "T" logo, and peeking web
+       screenshot visible in the hero are all baked into the one background image itself — confirmed via
+       `elementsFromPoint`, which found no separate DOM elements at those coordinates.
+    2. The 3-column gallery row (web screenshot / stacked logo+currency token / app screenshot) also uses
+       `background-image` on empty divs (an Elementor "Inner Section" with a background), not `<img>` widgets —
+       confirmed by `querySelectorAll('img')` returning zero results inside that row despite it visibly
+       containing 4 images. The middle column's logo image specifically uses `background-size:auto` (native
+       `296×137` pixel size, not scaled), while every other image in this row uses `background-size:contain`.
+  - **Breadcrumb is a one-off Elementor "Icon List" widget on the reference**, not the theme's automatic
+    breadcrumb (confirmed via DOM — a hidden, unused Yoast breadcrumb with a genuinely different 2-level "Home /
+    Bar & Drinks Offer Platform" path also exists elsewhere in the markup and was initially mistaken for the real
+    one). The visible one is styled identically to every other case study's breadcrumb (same caret-right
+    separator, same colors, same "Home / Portfolio / <page>" 3-level path), so this replica reuses the shared
+    `.breadcrumb-list` component rather than duplicating the reference's one-off markup.
+  - **Intro text**: single centered column (no image), container capped to `950px` inside the `1140px` row, `70px`
+    gap above from a dedicated spacer widget (same spacer-as-padding-top technique used on rise-event) and `48px`
+    of the row's own padding below only (not symmetric). First paragraph has a bold lead sentence (`<b>` inline,
+    not a separate widget) followed by unbold continuation text in the same `<p>`.
+  - **Full-width portfolio screenshot row**: flush against the rows above/below (`0px` gap both sides, confirmed),
+    `1140px` container, `10px` widget-wrap padding producing a `1120px`-wide image.
+  - **"User Experience Design & Backend Integration" heading block**: centered H2 + paragraph capped to `1000px`,
+    with genuinely symmetric `48px` padding top and bottom (unlike rise-event's equivalent block, which measured
+    asymmetric `11px`/`57px` — confirmed independently per page, not reused).
+  - **"Conclusion & Feedback" block**: same `1000px`-capped centered pattern, but an `H3` (`22px/42px`) rather
+    than an `H2`, and `0` padding of its own (flush against the gallery row above and the pagination nav below).
+  - **Assets downloaded and verified via PIL** (`assets/images/`): `cs-bar-hero-banner.webp` (`1403×322`),
+    `cs-bar-portfolio.webp` (`1120×747`), `cs-bar-web.webp` (`300×504`), `cs-bar-logo.webp` (`296×137`),
+    `cs-bar-currency.webp` (`415×291`), `cs-bar-app.webp` (`300×504`).
+  - **Pagination**: "Previous Post" → `rise-event.html` (local, wired up); "Next Post" →
+    `https://www.cloudconverge.io/case-studies/pharmacy-ecommerce-store/` (kept external — not yet replicated).
+    `portfolio.html`'s ToddyOffers card and rise-event's "Next Post" link both updated from the external
+    reference URL to this new local file.
+  - Verified clean console (0 errors, one unrelated browser-extension warning) and network (`56` requests across
+    two loads, all `200`, `0` `404`s).
+  - **Mobile verification** via the same-origin `<iframe>`-at-`375px` technique: hero height drops to `297px`
+    (matching the reference's own `max-width:1024px` padding rule for the bare `.wraper_inner_banner` selector —
+    confirmed via dynamic CSS, extrapolated using the same `+20px` inner-content offset confirmed at desktop,
+    since the site has no separate `767px` override for this selector), H1 shrinks to `24px/36px`, paragraphs
+    switch to `text-align:justify`, the 3-column gallery stacks to a single column, and pagination stacks
+    vertically with no horizontal overflow (`scrollWidth 359` ≤ `innerWidth 374`).
+  - **Mobile fix pass (user-reported difference, no screenshot attached — re-audited the reference's own
+    per-element dynamic CSS from scratch rather than guess at what looked wrong):**
+    - **Real bug — gallery collapsed to near-0px height once stacked.** `.cs-bar-gallery-web`/`.cs-bar-gallery-app`
+      had no explicit height of their own; at desktop they got their height "for free" via the row's
+      `align-items:stretch` matching the taller `.cs-bar-gallery-mid` column, but the moment the row switches to
+      `flex-direction:column` at `<=1024px` each column sizes independently — with no content and only a
+      `background-image` (which never affects box height), they collapsed to ~`20px` (just their own padding).
+      Fixed by adding `min-height:500px` (desktop) / `400px` (`<=1024px`) to the web/app boxes and converting the
+      logo/currency boxes from a fixed `height:240px` to `min-height:240px` (desktop) / `190px` (`<=1024px`) —
+      all four values read directly from the reference's own dynamic CSS for these exact element ids, not
+      reverse-engineered from the visual bug.
+    - **Missing breadcrumb mobile shrink**: this page's breadcrumb widget (`id eeb7ef4`) does have a
+      `max-width:767px` override to `font-size:12px;line-height:20px` — missed originally because the first
+      breadcrumb-related id found during the build was a hidden, unused Yoast breadcrumb elsewhere in the markup,
+      not this real one. Added, matching portfolio-ecommerce's identical pattern.
+    - **Missing `25px` widget-wrap padding at `<=767px`** on the intro column (`4cd129fa`), the "User Experience
+      Design" column (`417348ad`), and the "Conclusion & Feedback" column (`4b9556d8`) — all three read `0px`
+      padding at desktop but gain `25px` at this breakpoint on the reference; only the intro column's mobile
+      padding had been added originally. Added `padding:25px` to `.cs-bar-solution-inner` and
+      `.cs-bar-conclusion-inner` at `<=767px` to match.
+    - **Missing `text-align:justify` at `<=767px`** on the "User Experience Design" and "Conclusion & Feedback"
+      paragraphs (ids `f41f2f1`/`448830fe`) — only the two intro paragraphs had this originally; the reference
+      applies it to every body paragraph on the page, not just the intro ones.
+    - Re-verified via the iframe technique: `scrollWidth 359` ≤ `innerWidth 374` (no overflow) and a screenshot at
+      the gallery's scroll position confirms all three images now render at full size instead of collapsing.
+
+## Previous completed page
+
+- `rise-event.html`: Complete. Simplest case-study template in this project — hero + breadcrumb + a single 50/50
+  text/image row + a centered "Solution" H2/paragraph block + a two-image gallery row + prev/next pagination.
+  Two content sections (the "Solution" block and the gallery row) are built with Elementor's newer `e-con`
+  flexbox-container system rather than classic `.elementor-top-section`, and were only found by sibling-walking —
+  any future audit on this site must check for `e-con`-based elements, not just classic sections. Two real
+  Elementor spacer widgets (`71px` under the breadcrumb, collapsing to `0` at `max-width:767px`; `48px` between
+  the "Solution" block and the gallery, unchanged on mobile) reproduced as `padding-top` on the following section.
+  - **Mid-session fix (user-reported alignment difference):** `.cs-rise-image-col` originally used
+    `align-items:center` to vertically center the image within its (taller) column — but the reference actually
+    top-aligns it: the column stretches to match the text column's height via the row's own
+    `align-items:stretch`, while the image itself is a plain block child with a uniform `10px` padding and no
+    vertical centering, leaving empty space below rather than splitting it evenly above/below. Confirmed via
+    `getComputedStyle` on the live reference (widget-wrap `padding:10px`, column `align-items:stretch`, image has
+    no `align-self`/`margin` centering) and fixed by changing `align-items` to `flex-start`.
+  - Verified clean console/network (`37` requests, `200`/`304`, `0` `404`s) and mobile behavior (`375px`, via the
+    same-origin iframe technique — `resize_window` remained unreliable this session): row stacks to a single
+    column, spacer collapses to `0`, H1 shrinks to `24px/36px`, paragraphs justify, no horizontal overflow.
+
 ## Previous completed page
 
 - `portfolio-ecommerce.html`: Complete. Two alternating 50/50 text+image rows (H1 "Ecommerce Store Development
