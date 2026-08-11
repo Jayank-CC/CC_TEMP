@@ -1,0 +1,319 @@
+/* Case study: EO Network - Rise 2022 (Rise Event)
+   Reference: https://www.cloudconverge.io/case-studies/rise-event/
+   Prefix: cs-rise-
+   Structurally the simplest case-study template in this project: hero +
+   breadcrumb + a single 50/50 text/image row + prev/next pagination — no
+   second "mission" row, no dash-list, no gallery, no hover-slide effect on
+   the image (confirmed absent: the reference's image widget here carries no
+   ".move-image-left-right" class, unlike the portfolio-ecommerce page's
+   gallery images). All values below were read directly from the reference's
+   own dynamic CSS (document.styleSheets, filtered by each element's
+   Elementor data-id) rather than guessed from the sibling case-study pages,
+   since several details differ per page even when the layout looks similar
+   (breadcrumb keeps its default 14px/26px size here — no mobile shrink —
+   and the image shadow is a lighter rgba(0,0,0,.2) with 0 border-radius). */
+
+/* ---------- Breadcrumb color override ----------
+   Same theme-level override as every other case-study page: solid black
+   instead of the shared blue/gray scheme. Scoped to this page only. */
+.cs-rise-page .breadcrumb-list a,
+.cs-rise-page .breadcrumb-list a:hover,
+.cs-rise-page .breadcrumb-sep,
+.cs-rise-page .breadcrumb-list li,
+.cs-rise-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-rise-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+/* Unlike portfolio-ecommerce's breadcrumb, this page's final crumb text
+   ("Rise Event") is short enough that the reference never needed a
+   mobile flex-wrap or font-size override — confirmed via the reference's
+   own dynamic CSS (no max-width:767px rule at all for this breadcrumb
+   widget's font-size), so none is added here either. */
+
+/* ---------- Hero banner (single full-bleed baked image, edge to edge) ---------- */
+.cs-rise-hero {
+  overflow: hidden;
+}
+.cs-rise-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 767px) {
+  /* Same theme-level ".case-studies-banner img" rule as every other
+     case-study page's hero (confirmed identical class on this page's
+     hero): fixed 260px height, left-anchored crop. */
+  .cs-rise-hero img {
+    min-height: 260px;
+    object-fit: cover;
+    object-position: left center;
+  }
+}
+
+/* ---------- Text + image row ----------
+   Reference: two 570px columns inside a 1140px container with 0 side
+   padding on the container itself (confirmed via getComputedStyle — same
+   pattern as portfolio-ecommerce, where the shared .container class's
+   15px side padding had to be overridden for this exact reason). */
+.cs-rise-row {
+  /* The 71px gap under the breadcrumb comes from a real, dedicated
+     Elementor spacer widget sitting between the breadcrumb and this row on
+     the reference (confirmed via DOM sibling inspection, not left as an
+     unexplained number) — reproduced as padding-top here rather than
+     adding an extra empty element, since the visual result is identical.
+     There is NO equivalent gap below this row: the reference's next
+     section (the "Solution" heading block) sits flush against this row's
+     bottom edge (confirmed: row bottom = next section top, 0px gap), so no
+     padding-bottom is added. */
+  padding-top: 71px;
+}
+.cs-rise-row-inner {
+  display: flex;
+  align-items: stretch;
+  /* Overrides the shared .container class's 15px side padding — this
+     row's own Elementor container has genuine 0 side padding at its
+     1140px max-width on the reference. */
+  padding: 0;
+}
+.cs-rise-col {
+  flex: 0 0 50%;
+  max-width: 50%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.cs-rise-text-col {
+  padding: 45px;
+}
+.cs-rise-text-col h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-rise-text-col p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-rise-text-col p:last-child {
+  margin-bottom: 0;
+}
+.cs-rise-image-col {
+  /* Reference top-aligns the image inside its column rather than centering
+     it: the column stretches to match the taller text column's height (via
+     the row's align-items:stretch), but the image itself sits flush at the
+     top with a uniform 10px padding, leaving empty space below rather than
+     splitting it evenly above/below. Confirmed via getComputedStyle on the
+     live reference (widget-wrap padding:10px, column align-items:stretch,
+     image is a plain block child with no vertical centering applied). */
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.cs-rise-image-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Reference: rgba(0,0,0,.2) shadow, 0 border-radius — a lighter shadow
+     and no rounding, unlike portfolio-ecommerce's images (.5 opacity +
+     4px radius). Confirmed via getComputedStyle on the live reference;
+     not reused verbatim from the sibling page. */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- "Solution" heading + text block ----------
+   Centered H2 + paragraph, both capped to a 1050px inner width inside the
+   1140px container (confirmed via getComputedStyle — the reference sets
+   this as a literal max-width on the inner flex container, not padding). */
+.cs-rise-solution-inner {
+  max-width: 1050px;
+  margin: 0 auto;
+  /* Measured directly, not symmetric: 11px above the H2, 57px below the
+     paragraph (the reference's own inner padding here is genuinely
+     asymmetric, not a rounded 50px guess). */
+  padding: 11px 0 57px;
+  text-align: center;
+}
+.cs-rise-solution h2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-rise-solution p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0;
+}
+
+/* ---------- Two-image row ----------
+   Two 550x757 screenshots side by side, 50/50, each with 10px padding on
+   its own column (creating a 20px total gap between them) and the same
+   rgba(0,0,0,.2)/0-radius shadow as the row-1 image — confirmed identical
+   via getComputedStyle on both image widgets. Below 768px the reference's
+   flex container wraps to a single column with no explicit override
+   needed (default e-con flex-wrap behavior). */
+.cs-rise-gallery {
+  /* A second dedicated spacer widget (48px) sits between the "Solution"
+     text block and this image row on the reference; this row's own
+     bottom edge then sits flush against the pagination nav (0px gap,
+     confirmed via getBoundingClientRect) so no bottom padding is added. */
+  padding-top: 48px;
+}
+.cs-rise-gallery-inner {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
+.cs-rise-gallery-col {
+  flex: 1 1 50%;
+  min-width: 280px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cs-rise-gallery-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- Next/previous pagination (reuses the same visual pattern as
+   every other case-study page's pagination) ---------- */
+.cs-rise-pagination {
+  padding: 50px 0 60px;
+}
+.cs-rise-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-rise-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-rise-nav-prev {
+  margin-right: auto;
+}
+.cs-rise-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-rise-nav-next .cs-rise-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-rise-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-rise-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-rise-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-rise-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-rise-nav-link:hover .cs-rise-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Same tablet-stacks-early pattern confirmed on every other case-study
+   page: columns go to width:100% inside (max-width:1024px) and
+   (min-width:768px), independent of the max-width:767px typography tier. */
+@media (max-width: 1024px) {
+  .cs-rise-row-inner {
+    flex-direction: column;
+  }
+  .cs-rise-col {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .cs-rise-text-col {
+    padding: 25px 15px 0;
+  }
+  .cs-rise-image-col {
+    padding: 15px;
+  }
+}
+@media (max-width: 767px) {
+  /* The 71px gap under the breadcrumb comes from a dedicated Elementor
+     spacer widget on the reference, and that spacer's own dynamic CSS
+     explicitly collapses it to "--spacer-size: 0px" at this breakpoint —
+     confirmed directly, not assumed from the desktop value shrinking
+     proportionally. The visible ~25px gap that remains on mobile comes
+     entirely from the text column's own padding below, so this row's
+     padding-top must drop to 0 here rather than to a smaller-but-nonzero
+     guess (which would double the gap). */
+  .cs-rise-row {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .cs-rise-text-col h1 {
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+  }
+  .cs-rise-text-col p {
+    text-align: justify;
+  }
+  .cs-rise-text-col {
+    padding: 25px;
+  }
+  .cs-rise-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-rise-nav-prev,
+  .cs-rise-nav-next {
+    margin: 0;
+  }
+  .cs-rise-nav-next {
+    flex-direction: row;
+  }
+  .cs-rise-nav-next .cs-rise-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}

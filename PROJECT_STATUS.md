@@ -2,129 +2,88 @@
 
 ## Current task
 
-- **Reference:** https://www.cloudconverge.io/case-studies/portfolio-ecommerce/
-- **Local target:** `case-studies/portfolio-ecommerce.html` (flat file, one directory level deep, same convention as
-  the Helm Boots case study), `css/pages/case-study-ecommerce.css` (`cs-ecom-` prefix), no page-specific JS needed.
-- **Last updated:** 2026-08-10
+- **Reference:** https://www.cloudconverge.io/case-studies/rise-event/
+- **Local target:** `case-studies/rise-event.html` (flat file, same 1-level-deep convention as every other case
+  study), `css/pages/case-study-rise-event.css` (`cs-rise-` prefix), no page-specific JS needed.
+- **Last updated:** 2026-08-11
 - **State:** Complete, built from scratch this session.
-  - **Structurally different template from the Helm Boots case study** (both are the theme's "case-studies" post
-    type, but Elementor content differs per page): this page is two alternating 50/50 text+image rows (left-aligned
-    H1/paragraphs, not centered) instead of one centered text column with a masonry gallery. H1 "Ecommerce Store
-    Development Using BigCommerce For Dainty Jewells"; breadcrumb current-page text "ECommerce Website Using
-    BigCommerce Platform" — confirmed these two strings (plus the `<title>`, a third distinct string) are all
-    different from each other on the reference, not a copy-paste error.
-  - **Row 1** (text left / image right): H1 + a lead paragraph + 3 plain `<p>` lines each starting with a literal
-    "–" en-dash (not a real `<ul>`, confirmed via DOM — `– Migration to BigCommerce` / `– Integration with
-    fulfillment partners` / `– Integration with Sage`) + 3 more paragraphs. The image column holds one tall
-    composite image (`daintyjewells-portfolio-scaled-1.webp`, native `1285×2560`) — confirmed via `naturalWidth`/
-    `naturalHeight` vs. displayed size that it's naturally scaled (`width:100%;height:auto`), not cropped; the
-    "Spring Collection"/"Feminine, Fun, Fresh"/"Modest Fashions" content visible inside it is baked into that one
-    file, same pattern as the Helm Boots gallery composites.
-  - **Row 2** (image left / text right, mirrored): image is `BigCommerce-Product-Page-1-scaled-1.webp` (native
-    `1685×2104`, also naturally scaled, no crop). Text side is "Our Mission" (H2) + a paragraph, then
-    "Implementation" (H3) + 2 paragraphs, wrapped in a light-gray (`rgb(244,244,244)`) box with `45px` padding that
-    stretches to the full row height via the column's default `align-items:stretch` — reproduces the reference's
-    visible empty gray space below the shorter text block exactly.
-  - **Both gallery images share the reference's theme-level `.move-image-left-right` class**: `box-shadow:0 0 10px
-    rgba(0,0,0,.5)`, `border-radius:4px`, and on hover `transform:translate3d(-10px,0,0)` with a `0.3s ease-in-out`
-    transition — read directly from the reference's `document.styleSheets` (not guessed), and re-verified on the
-    rebuilt page via `getComputedStyle` while synthetically hovering (`matrix(1,0,0,1,-10,0)` confirmed applied).
-  - **Columns measured at `1140px` container / `570px` each, 0 gap between them** — the visual gap comes entirely
-    from the image column's own `15px` side padding (present on whichever side has the image, left or right); the
-    text column runs edge to edge with 0 padding.
-  - **Pagination**: this page is chronologically first, so only a "Next Post" link exists (reference's own theme
-    markup reserves empty "previous"/"back" slots) pointing at the Helm Boots case study. Reused the same visual
-    circle-arrow/eyebrow/title pattern built for the Helm Boots page's pagination, right-aligned via
-    `justify-content:flex-end` since there's no previous item.
-  - **Responsive — a genuine tablet tier exists here** (unlike Helm Boots' single 767px breakpoint): read directly
-    off the reference's dynamic CSS that every column gets `width:100%` inside a
-    `(max-width:1024px) and (min-width:768px)` query, i.e. the two-column rows already stack at tablet width, not
-    just at phone width. Typography changes (H1 `24px/36px`, paragraph `text-align:justify`) still only fire at the
-    narrower `max-width:767px` tier, matching the confirmed Helm Boots pattern.
-  - **Links wired up**: `portfolio.html`'s Dainty Jewells card and the Helm Boots page's "Previous Post" link both
-    updated from the external reference URL to this new local file.
-  - Verified clean console (0 errors) and network (`33` requests, all `200`/`304`, 0 `404`s) on this page; no
-    horizontal overflow (`scrollWidth === clientWidth`). Broken-image check flagged only pre-existing shared
-    mega-menu thumbnails (lazy-load-not-yet-triggered, same known non-issue documented on every other page in this
-    file) — all `cs-ecom-*` page-owned assets loaded successfully.
-- **2026-08-10 fix pass #5 — desktop breadcrumb-to-row gap + full mobile audit.** User reported a missing gap
-  between the breadcrumb and the first `.cs-ecom-row` on desktop, and asked for a full mobile review.
-  - **Desktop gap root cause:** `.cs-ecom-row:first-of-type{padding-top:60px}` never matched row 1, because
-    `:first-of-type` counts by tag name among ALL siblings, not by class — the hero `<section class="cs-ecom-hero">`
-    is also a `<section>` and is the true first section-tag sibling, so the pseudo-class silently never applied to
-    either `.cs-ecom-row`. Rather than re-patch this with another sibling-count selector (which caused a second,
-    subtler bug — see below), added explicit `.cs-ecom-row-1`/`.cs-ecom-row-2` classes to the two row `<section>`s
-    in the HTML and gave each its own padding rule directly.
-  - **Second bug found while fixing the first:** an earlier interim fix (`.cs-ecom-row{padding:60px 0 0}` +
-    `.cs-ecom-row + .cs-ecom-row{padding-top:0}`) restored row 1's gap correctly but incorrectly zeroed out row 2's
-    own independent top padding as a side effect. Read the reference's actual dynamic CSS directly (its own
-    per-section-id rules, not a shared pattern) and confirmed row 1 and row 2 have genuinely different,
-    independently-authored padding: row 1 = `60px` top only (no bottom), row 2 = `48px` top AND bottom (`3em 0em`
-    in the reference's own shorthand). Replaced the shared-selector hack with `.cs-ecom-row-1{padding-top:60px}`
-    and `.cs-ecom-row-2{padding:48px 0}`.
-  - **Also found and fixed while re-measuring desktop:** `.cs-ecom-text-col` had `padding:45px 0` (0 horizontal) —
-    a leftover claim from this page's original build that the text column runs "edge to edge." Re-measured
-    directly on the live reference (`h1` left offset vs. its column's left offset) and confirmed the column
-    actually has a uniform `45px` padding on all four sides, not just top/bottom. Fixed to `padding:45px`. Desktop
-    gap measurements after both fixes: breadcrumb-to-H1 `105px` (`60` row padding + `45` column padding, matches
-    reference exactly), row1-image-column-bottom to row2-H2 `93px` (`48` row2 padding + `45` mission-column
-    padding, also an exact match) — both confirmed via direct `getBoundingClientRect` comparison against the live
-    reference, not approximated.
-  - **Mobile audit (`max-width:767px`), all values read from the reference's own dynamic CSS by element/section id
-    rather than trusted from a resized viewport** — `resize_window` proved unreliable again this session (same
-    known limitation as prior pages): it intermittently reports a spoofed `window.innerWidth` without the
-    browser's actual CSS media-query engine treating the layout as narrow, so a live element measurement taken
-    right after a resize call briefly returned a full desktop `36px` H1 font-size that contradicted every other
-    surrounding measurement — that single reading was discarded once cross-checked against the reference's
-    stylesheet rules directly (`document.styleSheets` → `CSSRule.MEDIA_RULE` → filtered by each element's Elementor
-    `data-id`), which is unaffected by whether the emulated viewport is genuinely narrow.
-    - Breadcrumb: reference shrinks the breadcrumb text itself from `14px/26px` to `12px/20px` at `max-width:767px`
-      (not just wrapping) — missing this made our build's breadcrumb wrap one word earlier than the reference
-      ("Using / BigCommerce" instead of the reference's "BigCommerce / Platform"). Added the font-size/line-height
-      override scoped to `.cs-ecom-page`.
-    - Row 2's own padding shrinks from `48px 0` to `25px 0 0` at this breakpoint (top-only, matching the pattern
-      established on desktop) — added as a `.cs-ecom-row-2` override inside the `767px` block.
-    - Row 1's image (below its text, `.cs-ecom-image-col:last-child` within the row) and row 2's image (above its
-      mission box, `.cs-ecom-image-col:first-child`) carry different Elementor-authored margins at this width —
-      row 1: `25px` top / `20px` sides / `10px` bottom; row 2: `0` top / `15px` sides / `15px` bottom. Targeted by
-      DOM position (`:first-child`/`:last-child` within `.cs-ecom-row-inner`, since each row only ever has these
-      two children) instead of another tag-counting pseudo-class, to avoid repeating the `:first-of-type` mistake.
-    - "Our Mission" gray box margin corrected from `0 20px` (guessed) to a uniform `20px` on all sides — confirmed
-      via the reference's own rule for that column's id (`margin:20px`, not `margin:0 20px`).
-    - H1 mobile size (`24px/36px`) and paragraph `justify` were already correct from the original build; confirmed
-      via the same stylesheet-rule technique, not re-guessed.
-  - Re-verified the rebuilt local page at a genuinely-confirmed `320px`-wide viewport (checked
-    `window.innerWidth` immediately before every measurement, in the same batch, to catch any silent revert):
-    breadcrumb wraps identically to the reference (`Home / Portfolio` line 1, `ECommerce Website Using
-    BigCommerce / Platform` line 2, matching heights), hero crop unchanged and correct, both rows' image margins
-    and row-2's padding all match the reference's own values exactly, mission box margin/padding match, pagination
-    centers correctly, and `document.documentElement.scrollWidth` (`305px`) does not exceed `window.innerWidth`
-    (`320px`) — no horizontal overflow. Re-checked desktop afterward (screenshot + measurement) to confirm the
-    padding-uniformity fix caused no regression there.
-- **2026-08-10 fix pass #6 — uneven 50/50 column split on desktop.** User attached a screenshot of the local page
-  showing the text/image gap looked off. Measured both columns directly: text column `585px` wide, image column
-  `525px` wide — not the equal `570px`/`570px` split the reference has. Two separate root causes, both fixed:
-  1. `.cs-ecom-col` used `flex:1 1 0` (equal flex-*grow*), not a literal 50% width. With `flex-basis:0`, equal
-     grow only makes the two columns' *flexible* content area equal — each column's own padding/margin is then
-     added on top of that as a fixed, non-flexible amount. Since the text column carries `90px` of padding (45
-     left + 45 right) and the image column only `~30px`, the text column ended up `60px` wider than the image
-     column even though both had `flex-grow:1`. The reference doesn't use this model at all — its Elementor
-     columns are literal `width:50%`, which isn't affected by a child's own padding. Changed
-     `.cs-ecom-col` to `flex:0 0 50%; max-width:50%` (and added a `100%` override inside the existing
-     `max-width:1024px` stacked block, where the row switches to `flex-direction:column`).
-  2. Separately, `.cs-ecom-row-inner` reuses the shared `.container` class, which carries a sitewide `15px` side
-     padding — correct for every other page that uses it, but this specific row's own Elementor container on the
-     reference has genuine `0` side padding at its `1140px` max-width (confirmed via `getComputedStyle` on the
-     live reference), so the inherited `15px` was silently shrinking the row's content width from `1140px` to
-     `1110px`. Added a `.cs-ecom-row-inner{padding:0}` override scoped to this row class only — no shared file
-     touched.
-  - Re-verified after both fixes: both rows now measure `570px`/`570px` (container `265`→`1405`, exactly matching
-    the reference's own `.elementor-container` rect), and the text-to-image gap is `60px` on both rows, matching
-    the reference exactly. Re-checked mobile afterward via the same-origin `<iframe>`-at-`375px` technique (direct
-    `resize_window` was unreliable again this pass, stuck reporting the desktop width even across fresh tabs) —
-    confirmed the fix doesn't affect mobile at all, since columns fully stack to `100%` width at that breakpoint
-    (the 50/50-split bug is desktop/tablet-only, where columns sit side by side); the previously-verified mobile
-    margins (`25px 20px 10px` row 1 image, etc.) still measured correctly unchanged.
+  - **Structurally the simplest case-study template in this project**: hero + breadcrumb + a single 50/50
+    text/image row (H1 "EO Network - Rise 2022" + 2 paragraphs, image right) + a centered "Solution" H2/paragraph
+    block + a two-image gallery row + prev/next pagination. No dash-list, no second mirrored row, no gray "Our
+    Mission" box, no hover-slide effect on the image (confirmed absent: this page's image widget carries no
+    `.move-image-left-right` class, unlike portfolio-ecommerce's gallery images).
+  - **Two content sections were nearly missed entirely**: the "Solution integrates Dynamics CRM, 3rd Party
+    Databases & API" H2/paragraph block and the two-image gallery row are both built with Elementor's newer
+    flexbox-container system (`e-con`/`e-con-inner`/`e-con-box`), not the classic `.elementor-top-section` system
+    every other page on this site uses. A `.elementor-top-section` query completely misses both — they were only
+    found by manually walking `nextElementSibling` from the row-1 section. Any future page audit on this site must
+    check for `e-con`-based elements in addition to classic sections, not just assume the classic system covers
+    everything.
+  - **Two real Elementor spacer widgets, found the same way** (sibling-walking, not left as unexplained gaps):
+    one between the breadcrumb and row 1 (`71px` desktop, confirmed collapsing to `--spacer-size:0px` at
+    `max-width:767px` via the spacer's own dynamic CSS — not assumed from proportional shrinking), and a second
+    between the "Solution" block and the gallery row (`48px`, no mobile override found on the reference, so it
+    stays `48px` at every width). Both reproduced as `padding-top` on the following section rather than as extra
+    empty elements — visually identical, simpler markup. Every other section boundary on this page (row-1 bottom →
+    Solution top; gallery bottom → pagination top) measured a genuine `0px` gap with no spacer — confirmed via
+    direct `getBoundingClientRect` chains, not assumed symmetric with the spacers that do exist.
+  - **Columns**: two literal `50%`-width columns (`flex:0 0 50%; max-width:50%`, not equal-grow `flex:1 1 0` —
+    same lesson learned the hard way on portfolio-ecommerce) inside a `1140px` container with genuine `0` side
+    padding on its own Elementor container (the shared `.container` class's `15px` side padding overridden via
+    `.cs-rise-row-inner{padding:0}`, same recurring pattern as every other multi-column case-study row on this
+    site). Image shadow is a lighter `rgba(0,0,0,.2)` with `0` border-radius — confirmed via `getComputedStyle` on
+    the live reference, not reused verbatim from portfolio-ecommerce's `.5`-opacity/`4px`-radius images.
+  - **"Solution" block**: centered H2 + paragraph capped to a `1050px` inner width inside the `1140px` container
+    (a literal `max-width` on the inner flex container, not padding), with measured-asymmetric padding
+    `11px 0 57px` (not a rounded `50px 0` guess).
+  - **Gallery row**: two `550×757` screenshot images, `50/50`, each column carrying `10px` padding (creating a
+    `20px` total gap between them) and the same lighter image shadow as row 1's image. Below `768px` the
+    reference's flex container wraps to a single column via default `e-con` flex-wrap behavior, with no explicit
+    override needed.
+  - **Breadcrumb**: same solid-black override pattern as every other case-study page, but this page's final crumb
+    text ("Rise Event") is short enough that the reference never needed a mobile flex-wrap or font-size override —
+    confirmed via the reference's own dynamic CSS (no `max-width:767px` rule at all for this breadcrumb widget's
+    font-size), so none was added here, unlike portfolio-ecommerce's breadcrumb which does need one.
+  - **Assets downloaded and verified via PIL** (`assets/images/`): `cs-rise-hero-banner.webp` (`1403×322`),
+    `cs-rise-content.webp` (`550×399` — note the source filename `Rise-2022-2048x1485-1.webp` misleadingly implied
+    a much larger master file; confirmed via both PIL and the live page's `naturalWidth`/`naturalHeight` that
+    `550×399` is the genuine displayed size, not assumed from the filename), `cs-rise-middle.webp` and
+    `cs-rise-end.webp` (both `550×757`).
+  - **Pagination**: "Previous Post" → `portfolio-migration-of-helm-boots-to-shopify-plus.html` (local file, wired
+    up); "Next Post" → `https://www.cloudconverge.io/case-studies/bar-drinks-offer-platform/` (kept external — that
+    case study hasn't been replicated locally yet, same convention as every other page's pagination pointing at an
+    unbuilt sibling).
+  - **Links wired up both directions**: `portfolio.html`'s Rise Event card and the Helm Boots page's "Next Post"
+    link both updated from the external reference URL to this new local file.
+  - Verified clean console (0 errors) and network (`37` requests, all `200`/`304`, 0 `404`s) on a fresh reload of
+    this page.
+  - **Mobile/tablet verification** via the same-origin `<iframe>`-at-fixed-width technique (`resize_window` was
+    unreliable again this session — repeatedly stuck reporting the desktop width even across fresh tabs and
+    multiple retry strategies): at `375px`, row 1 stacks to a single column, the breadcrumb-to-row spacer
+    correctly collapses to `0` (text column's own `25px` padding is the only visible gap, matching the reference
+    exactly — not doubled by a leftover nonzero spacer value), H1 shrinks to `24px/36px`, paragraphs switch to
+    `text-align:justify`, the gallery spacer stays `48px` unchanged, and pagination stacks vertically with no
+    horizontal overflow found at either desktop (`1685px`) or mobile (`375px`) widths tested.
+## Previous completed page
+
+- `portfolio-ecommerce.html`: Complete. Two alternating 50/50 text+image rows (H1 "Ecommerce Store Development
+  Using BigCommerce For Dainty Jewells"), each with `.move-image-left-right` hover-slide images sharing a `.5`
+  shadow/`4px` radius; row 2 wraps its text in a light-gray "Our Mission"/"Implementation" box. Genuine tablet
+  breakpoint at `1024px` (columns stack early, before the `767px` typography tier). Pagination is "Next Post"
+  only (chronologically first page), linked to Helm Boots both directions.
+  - Fix pass #5: `.cs-ecom-row:first-of-type` never matched (counts by tag, not class, among ALL section
+    siblings including the hero) — replaced with explicit `.cs-ecom-row-1`/`.cs-ecom-row-2` classes, each with
+    its own genuinely-different padding (`60px` top-only vs. `48px 0`). Also fixed `.cs-ecom-text-col` from
+    `45px 0` to a uniform `45px` (measured on all 4 sides, not just top/bottom).
+  - Fix pass #6 (caught via user screenshot): `.cs-ecom-col` used `flex:1 1 0` (equal grow) instead of literal
+    `flex:0 0 50%` — equal grow only equalizes flexible space, not total column width, once each column's own
+    padding is added on top; text column (90px padding) ended up 60px wider than the image column (30px
+    padding) despite equal `flex-grow`. Also found `.cs-ecom-row-inner` inheriting the shared `.container`
+    class's `15px` side padding where this row's own reference container has genuine `0` — overridden per-row.
+  - Full mobile audit at genuinely-confirmed `320px`/`375px`: breadcrumb text shrinks `14/26px`→`12/20px` at
+    `767px` (affects word-wrap point), row-2 padding shrinks to `25px 0 0`, row-1/row-2 images carry different
+    Elementor margins targeted by `:first-child`/`:last-child` DOM position (not another tag-counting
+    pseudo-class). No horizontal overflow at any width tested.
 
 ## Previous completed page
 
