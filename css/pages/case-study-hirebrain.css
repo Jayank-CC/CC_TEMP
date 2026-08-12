@@ -1,0 +1,262 @@
+/* Case study: HireBrain AI Development
+   Reference: https://www.cloudconverge.io/case-studies/hirebrain/
+   Prefix: cs-hb-
+   Same "simple centered" template family as corporate-gifts/verve-portrait
+   (centered text blocks alternating with full-width screenshots), just with
+   more repetitions: 4 text blocks (intro, 2 heading-blocks, conclusion) and
+   3 full-width screenshot rows, instead of 1 heading-block/1-2 screenshots.
+   Confirmed section-by-section via direct DOM/CSS inspection:
+   - Hero: same ".case-studies-banner img" real-<img> full-bleed pattern as
+     corporate-gifts/verve/geotechnical (this page's own ".wraper_inner_banner"
+     is again present but display:none) — a fourth confirmed instance.
+   - All 4 text blocks (intro/section2/section3/conclusion) share IDENTICAL
+     padding: 32px 0 desktop, 4em (64px) 0 at <=1024px, 0 at <=767px —
+     confirmed via document.styleSheets on all 4 independently (genuinely
+     uniform here, unlike corporate-gifts where intro/heading-block padding
+     differed at desktop).
+   - Text column is the same 1000px max-width, centered, 25px padding at
+     <=767px (confirmed via the widget-wrap's own dynamic CSS) as
+     corporate-gifts/verve.
+   - Section 2 ("AI Integration for Form Filling") and section 3 ("Bug Fixes
+     for Better Performance") each hold TWO headings with their own
+     paragraph(s) stacked in one column, not two separate sections — a
+     20px gap between every single widget (heading-to-paragraph,
+     paragraph-to-heading, paragraph-to-paragraph alike), confirmed via
+     getBoundingClientRect gap measurement, not assumed.
+   - Headings are genuinely NOT all H1/H2: intro is H1 (36px/42px), the two
+     section-2 headings are both H2 (26px/50px, matches the corporate-gifts
+     "heading block" H2 size), but section 3 uses H4 (22px/38px) for "Bug
+     Fixes for Better Performance" and H5 (22px/30px) for "Effects and
+     Outcomes", and Conclusion uses H6 (22px/27px) — confirmed via tag-name
+     inspection, not assumed to all be H2 like the simpler sibling pages.
+   - The third screenshot (b3, 1170x766) was still showing the site's
+     `pagespeed_static` 1x1 lazy-load placeholder at audit time — reading
+     its rendered box gave a false SQUARE (1120x1120), the same trap already
+     documented on the verve-portrait/pharmacy pages. Used the img's real
+     `width`/`height` HTML attributes (1170/766) instead, which reflect the
+     true intrinsic ratio regardless of load state. */
+
+.cs-hb-page .breadcrumb-list a,
+.cs-hb-page .breadcrumb-list a:hover,
+.cs-hb-page .breadcrumb-sep,
+.cs-hb-page .breadcrumb-list li,
+.cs-hb-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-hb-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (real <img>, full-bleed, ".case-studies-banner" pattern) ---------- */
+.cs-hb-hero {
+  overflow: hidden;
+}
+.cs-hb-hero img {
+  width: 100%;
+  display: block;
+}
+
+/* ---------- Spacer ---------- */
+.cs-hb-spacer {
+  height: 60px;
+}
+
+/* ---------- Shared centered text-block styling (intro/section2/section3/conclusion) ---------- */
+.cs-hb-block {
+  padding: 32px 0;
+}
+.cs-hb-block-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.cs-hb-block-inner h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-hb-block-inner h2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-hb-block-inner h4 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 38px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-hb-block-inner h5 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 30px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-hb-block-inner h6 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 27px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-hb-block-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-hb-block-inner p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Full-width screenshot rows (all 3 reuse this exact class) ---------- */
+.cs-hb-gallery-row {
+  padding: 0;
+}
+.cs-hb-gallery-inner {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cs-hb-gallery-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Next/previous pagination (same visual pattern as every other
+   case-study page) ---------- */
+.cs-hb-pagination {
+  padding: 50px 0 60px;
+}
+.cs-hb-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-hb-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-hb-nav-prev {
+  margin-right: auto;
+}
+.cs-hb-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-hb-nav-next .cs-hb-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-hb-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-hb-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-hb-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-hb-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-hb-nav-link:hover .cs-hb-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Values read directly from the reference's own per-element dynamic CSS
+   (document.styleSheets filtered by each element's Elementor data-id).
+   H4/H5/H6 (section3/conclusion headings) have no measured mobile
+   override — left at desktop size rather than guessed. */
+@media (max-width: 1024px) {
+  .cs-hb-block {
+    padding: 64px 0;
+  }
+}
+@media (max-width: 767px) {
+  .cs-hb-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-hb-hero img {
+    min-height: 260px;
+    object-fit: cover;
+    object-position: left center;
+  }
+  .cs-hb-spacer {
+    height: 20px;
+  }
+  .cs-hb-block {
+    padding: 0;
+  }
+  .cs-hb-block-inner {
+    padding: 25px;
+  }
+  .cs-hb-block-inner h1 {
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .cs-hb-block-inner h2 {
+    font-size: 22px;
+  }
+  .cs-hb-block-inner p {
+    text-align: justify;
+  }
+  .cs-hb-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-hb-nav-prev,
+  .cs-hb-nav-next {
+    margin: 0;
+  }
+  .cs-hb-nav-next {
+    flex-direction: row;
+  }
+  .cs-hb-nav-next .cs-hb-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}

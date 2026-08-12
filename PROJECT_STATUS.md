@@ -2,6 +2,54 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/case-studies/hirebrain/
+- **Local target:** `case-studies/hirebrain.html` (flat file), `css/pages/case-study-hirebrain.css`
+  (`cs-hb-` prefix), no page-specific JS needed.
+- **Last updated:** 2026-08-12
+- **State:** Complete, built from scratch this session.
+  - **Structure — same "simple centered" template family as corporate-gifts/verve-portrait**, just with more
+    repetitions: hero + breadcrumb + one spacer (`60px`/`20px` mobile) + **4 centered text blocks** (intro,
+    two heading-blocks, conclusion) alternating with **3 full-width screenshot rows**, then pagination. All 4
+    text blocks share IDENTICAL padding (`32px 0` desktop, `64px 0` at `<=1024px`, `0` at `<=767px`) — confirmed
+    via `document.styleSheets` on all 4 independently, genuinely uniform here (unlike corporate-gifts, where the
+    intro/heading blocks had different desktop padding from each other).
+  - **Headings are NOT uniformly H1/H2** — confirmed via tag-name inspection, not assumed: intro is H1
+    (`36px/42px`), the two headings inside "AI Integration for Form Filling" are both H2 (`26px/50px`, same
+    "heading block" size as corporate-gifts), but "Bug Fixes for Better Performance"/"Effects and Outcomes" are
+    H4 (`22px/38px`)/H5 (`22px/30px`), and "Conclusion" is H6 (`22px/27px`). No measured mobile override exists
+    for H4/H5/H6, so they were left at desktop size on mobile rather than guessed.
+  - **Third screenshot (`cs-hb-b3.webp`) was caught mid-lazy-load at audit time** — its rendered box read as a
+    false square (`1120x1120`) through the site's `pagespeed_static` placeholder, the same trap already
+    documented on verve-portrait/pharmacy. Used the `<img>`'s real `width`/`height` HTML attributes (`1170x766`)
+    instead, which are reliable regardless of load state — avoided repeating that bug this time.
+  - **Asset download hit a real Chrome download-confirmation snag this session**: triggering 3-4
+    `fetch()`+blob+`<a download>` calls back-to-back in one script (the established technique) left 2 of the 4
+    downloads stuck as `Unconfirmed *.crdownload`/`*.tmp` files indefinitely — Chrome appears to require a
+    genuine user-gesture click (not a scripted `.click()`) to confirm blob downloads reliably after the first
+    one in a session. Fixed by rendering one real, visible `<a>` link on the page and using the `computer` tool
+    to physically click it (a real mouse event) — all pending downloads (including the ones already stuck)
+    completed immediately after that one real click. Worth remembering for future asset-heavy pages: batch
+    fewer scripted downloads per call, or plan for one real click to "unstick" a stalled batch.
+  - **Assets** (`assets/images/`): `cs-hb-hero-banner.webp` (`1403x322`), `cs-hb-b1.webp` (`1170x780`),
+    `cs-hb-b2.webp` (`1170x855`), `cs-hb-b3.webp` (`1170x766`) — all verified via PIL after download.
+  - **Verification method note (same limitation as the geotechnical page):** this environment's browser-
+    automation extension refuses `file://` navigation and won't load `file://` resources inside an `<iframe>`
+    from an `https:` parent either, so the local build was sanity-checked via an `iframe.srcdoc` (inlined HTML +
+    CSS, no `file://` reference) for structure/overflow at 1440/767/390px widths (`scrollWidth` matched frame
+    width exactly at both mobile widths, confirming no horizontal overflow) — not a true rendered-in-browser
+    screenshot comparison. All CSS values themselves were taken directly from the live reference via
+    `getComputedStyle`/`getBoundingClientRect`/`document.styleSheets`, not eyeballed from a screenshot.
+  - **Pagination:** "Previous Post" → `migration-of-geotechnical-industry.html` (local, wired up both
+    directions — geotechnical's own "Next Post" updated from the external reference URL to this new local
+    file); "Next Post" → `https://www.cloudconverge.io/case-studies/implementing-dynamics-m365/` (kept external
+    — not yet replicated). `portfolio.html`'s "HIREBRAIN" card updated from the external reference URL to this
+    new local file.
+  - **Not yet done:** a true rendered-screenshot comparison in a real browser (blocked per the note above), and
+    a genuine mobile/tablet viewport re-check with a working `resize_window` (unavailable again this session —
+    stayed at the sandbox's fixed `1685px` viewport regardless of the width requested).
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/case-studies/migration-of-geotechnical-industry/
 - **Local target:** `case-studies/migration-of-geotechnical-industry.html` (flat file),
   `css/pages/case-study-geotechnical.css` (`cs-geo-` prefix), no page-specific JS needed.
