@@ -1,0 +1,397 @@
+/* Case study: Website Development For Proleve
+   Reference: https://www.cloudconverge.io/case-studies/website-development-for-proleve/
+   Prefix: cs-prv-
+   Content root confirmed via [data-elementor-id] audit is `.elementor-41525`.
+   Section data-ids (17800ba/93b235b/90879f5/7fe48bd/d0496c4/3447070) are DISTINCT
+   from the geotechnical/dynamics-m365/atmos-cooling shared-template family's own
+   ids (0c9be32/2c439de/3adba17/95e264d) — this page is its OWN independent
+   Elementor build, not another copy of that duplicated template, even though it
+   lands on a structurally similar "alternating 50/50 + single-column Result +
+   single-column Conclusion" layout. Every value below was measured fresh on this
+   page's own reference, not assumed from that family.
+
+   Structure: hero + breadcrumb + spacer (60px/20px mobile) + intro row (text
+   LEFT/image RIGHT, H1 + 1 paragraph) + "Challenge & Solution" row (image
+   LEFT/text RIGHT, H2 + 2 plain paragraphs + 2 bold-lead mini-items, confirmed
+   via `<b>` inspection not assumed) + "Results & Impact" single full-width
+   column (H3 + 1 justified paragraph + 1 image, all stacked in one column, NOT
+   a 50/50 row — confirmed via `querySelectorAll('.elementor-column')` on that
+   section returning exactly 1 column) + "Conclusion" single full-width column
+   (H4 + 1 paragraph) + prev/next pagination.
+
+   Both 50/50 rows: text column widget-wrap padding is `45px`, image column
+   widget-wrap padding is `0px`. **Fix pass (user-reported: "image alignment is
+   wrong and all the images have transitions in the reference page but not in
+   our page").** Two real bugs found via direct measurement, not assumed:
+   1. The intro row's image column widget-wrap is genuinely
+      `display:flex;align-items:center` — confirmed via `getBoundingClientRect`
+      showing an equal `68px` gap above AND below the (shorter) image within
+      its taller column, exactly the same centering bug pattern already fixed
+      once before on dynamics-m365's own intro row. The challenge row's image
+      column has NO such override (`align-items:normal`, `gapAbove:0px`,
+      confirmed top-aligned) — so only the intro row needed the fix, matching
+      the exact same asymmetry dynamics-m365 had.
+   2. ALL THREE images (`cs-prv-b1/b2/b3`) carry the reference's own
+      `move-image-left-right` hover-slide treatment — missed in the original
+      build (which had assumed no treatment without directly checking). Global
+      site CSS confirmed via `document.styleSheets`: `.move-image-left-right
+      .elementor-widget-container img { transition: 0.3s ease-in-out; }` and
+      `.move-image-left-right:hover .elementor-widget-container img {
+      transform: translate3d(-10px,0,0); }`. Each image ALSO carries its own
+      per-widget `border-radius:4px; box-shadow: rgb(177,177,177) 0px 0px 10px
+      0px` rule (confirmed via a `document.styleSheets` selector match on the
+      widget's own element id, e.g. `.elementor-element-a1649c9 img`) — this
+      shadow color is a flat, OPAQUE light gray (`rgb(177,177,177)`, no alpha
+      channel), genuinely different from the `rgba(0,0,0,.5)`/`.2` black
+      shadows used by every other case-study page in this project carrying
+      this same treatment family — measured directly via `getComputedStyle`,
+      not copied from a sibling.
+
+   Typography (confirmed via direct `getComputedStyle` on the real heading/
+   paragraph elements, not assumed reused): H1 `36px/42px/600` (desktop
+   text-align:left), H2 `20px/50px/600` (desktop text-align:left — genuinely
+   SMALLER than the usual 26px "heading block" H2 elsewhere in this project,
+   measured directly, not a typo), H3 `20px/42px/600` (left, both desktop AND
+   mobile), H4 `20px/38px/600` (left, both desktop AND mobile). All heading
+   color `rgb(29,26,78)` (--color-heading). Paragraphs `16px/26px`, color
+   `rgb(25,25,25)` (--color-body); desktop text-align is genuinely NON-UNIFORM
+   per block (intro/challenge: left; results: justify; conclusion: left) —
+   confirmed independently per section, not assumed.
+
+   Section padding measured independently per block: intro `0px`, challenge
+   `60px 0px` (unchanged at the `<=1024px` tablet tier too — confirmed via the
+   same-origin-iframe technique at 1024px), results `0px` (its own inset comes
+   from the widget-wrap's own `40px 45px` padding, not section padding), and a
+   genuine TABLET-ONLY bug on conclusion: `0px` at desktop, but `111px 0px 0px`
+   at exactly `<=1024px` — the same signature "111px 0 0" tablet-only leak
+   pattern already fixed once before on dynamics-m365's own Conclusion block
+   (this project's CLAUDE.md-mandated per-viewport testing caught it again
+   here rather than assuming it was page-specific to that other page) — reset
+   to `0` at `<=767px` (confirmed the live reference's own mobile padding-top
+   computes back to `0px` there, so this override must NOT leak past the
+   tablet tier).
+
+   IMPORTANT CONTENT NOTE — reproduced verbatim, not a bug in this build: the
+   reference's own "Conclusion" paragraph for this page is a leftover
+   copy-paste from the Atmos Cooling / Dynamics 365 case study — it reads "For
+   Atmos, a major technology opportunity resulted by harnessing Microsoft
+   Dynamics Business Central, Azure, and M365..." instead of anything about
+   Proleve or Shopify. Confirmed genuine (not a script artifact) via a fresh
+   page reload in a brand-new tab before finalizing. Per this project's
+   replication mandate, the reference's own literal text is the source of
+   truth even where the reference itself is factually wrong — flagged to the
+   user in chat rather than silently "corrected" to on-topic content.
+
+   Mobile values confirmed via the same-origin `<iframe src="own URL">`
+   technique at a true ~390px width: hero `297px`, spacer `20px`, ALL section
+   paddings collapse to `0`, both 50/50 rows stack to full width in natural DOM
+   order (text-then-image for intro since text is column 0; image-then-text
+   for challenge since image is column 0 there — no manual reordering needed).
+   H1 shrinks to `24px/30px` and switches from left to CENTER at mobile
+   (confirmed directly, a genuine desktop/mobile alignment split, not an
+   error); H2 similarly switches from left to CENTER at `20px/32px`; H3/H4
+   STAY left-aligned at mobile (`20px/36px` and `20px/38px` respectively) —
+   confirmed independently, not assumed uniform with H1/H2. All four
+   paragraphs converge to `text-align:justify` at mobile regardless of their
+   differing desktop alignment. */
+
+.cs-prv-page .breadcrumb-list a,
+.cs-prv-page .breadcrumb-list a:hover,
+.cs-prv-page .breadcrumb-sep,
+.cs-prv-page .breadcrumb-list li,
+.cs-prv-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-prv-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (background-image, ".wraper_inner_banner" pattern) ---------- */
+.cs-prv-hero {
+  height: 322px;
+  background-image: url("../../assets/images/cs-prv-hero-banner.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgb(20, 20, 20);
+}
+
+/* ---------- Spacer ---------- */
+.cs-prv-spacer {
+  height: 60px;
+}
+
+/* ---------- 50/50 rows (intro / challenge) ---------- */
+.cs-prv-row {
+  padding: 0;
+}
+.cs-prv-row-inner {
+  display: flex;
+}
+.cs-prv-col {
+  flex: 1 1 0;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.cs-prv-text-col {
+  padding: 45px;
+}
+.cs-prv-image-col {
+  padding: 0;
+}
+.cs-prv-intro .cs-prv-image-col {
+  display: flex;
+  align-items: center;
+}
+.cs-prv-image-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgb(177, 177, 177);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-prv-image-col:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+.cs-prv-row-inner h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-prv-row-inner h2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-prv-row-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-prv-row-inner p:last-child {
+  margin-bottom: 0;
+}
+.cs-prv-challenge {
+  padding: 60px 0;
+}
+
+/* ---------- Results & Impact (single full-width column: heading + paragraph
+   + image, all stacked) ---------- */
+.cs-prv-results {
+  padding: 0;
+}
+.cs-prv-results-inner {
+  padding: 40px 45px;
+  box-sizing: border-box;
+}
+.cs-prv-results-inner h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-prv-results-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: justify;
+  margin: 0 0 20px;
+}
+.cs-prv-results-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgb(177, 177, 177);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-prv-results-inner img:hover {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---------- Conclusion (single full-width column, plain container) ---------- */
+.cs-prv-conclusion {
+  padding: 0;
+}
+.cs-prv-conclusion-inner {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cs-prv-conclusion-inner h4 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 38px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-prv-conclusion-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0;
+}
+
+/* ---------- Prev/next pagination ---------- */
+.cs-prv-pagination {
+  padding: 50px 0 60px;
+}
+.cs-prv-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-prv-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-prv-nav-prev {
+  margin-right: auto;
+}
+.cs-prv-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-prv-nav-next .cs-prv-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-prv-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-prv-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-prv-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-prv-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-prv-nav-link:hover .cs-prv-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Framework-level column-stacking is inherited from the shared css/style.css
+   / css/responsive.css already loaded on every page. Page-specific overrides
+   below, confirmed on this page's own reference via the same-origin-iframe
+   technique at true 1024px and ~390px widths. */
+@media (max-width: 1024px) {
+  .cs-prv-hero {
+    height: 297px;
+  }
+  .cs-prv-conclusion {
+    padding: 111px 0 0;
+  }
+}
+@media (max-width: 767px) {
+  .cs-prv-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-prv-hero {
+    height: 297px;
+  }
+  .cs-prv-spacer {
+    height: 20px;
+  }
+  .cs-prv-row-inner {
+    flex-direction: column;
+  }
+  .cs-prv-text-col {
+    padding: 20px;
+  }
+  .cs-prv-image-col {
+    padding: 20px;
+  }
+  .cs-prv-row-inner h1 {
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+  }
+  .cs-prv-row-inner h2 {
+    font-size: 20px;
+    line-height: 32px;
+    text-align: center;
+  }
+  .cs-prv-row-inner p {
+    text-align: justify;
+  }
+  .cs-prv-challenge {
+    padding: 0;
+  }
+  .cs-prv-results-inner {
+    padding: 20px;
+  }
+  .cs-prv-results-inner h3 {
+    font-size: 20px;
+    line-height: 36px;
+  }
+  .cs-prv-results-inner p {
+    text-align: justify;
+  }
+  .cs-prv-conclusion {
+    padding: 0;
+  }
+  .cs-prv-conclusion-inner {
+    padding: 20px;
+  }
+  .cs-prv-conclusion-inner p {
+    text-align: justify;
+  }
+  .cs-prv-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-prv-nav-prev,
+  .cs-prv-nav-next {
+    margin: 0;
+  }
+  .cs-prv-nav-next {
+    flex-direction: row;
+  }
+  .cs-prv-nav-next .cs-prv-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}

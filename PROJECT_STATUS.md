@@ -2,6 +2,92 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/case-studies/website-development-for-proleve/
+- **Local target:** `case-studies/website-development-for-proleve.html` (flat file),
+  `css/pages/case-study-proleve.css` (`cs-prv-` prefix), no page-specific JS needed.
+- **Last updated:** 2026-08-12
+- **State:** Complete, built from scratch this session.
+  - **Content root confirmed via `[data-elementor-id]` audit is `.elementor-41525`.** Section data-ids
+    (`17800ba`/`93b235b`/`90879f5`/`7fe48bd`/`d0496c4`/`3447070`) are DISTINCT from the geotechnical/
+    dynamics-m365/atmos-cooling shared-template family's own ids — this is its OWN independent Elementor
+    build, not another copy of that duplicated template, even though it lands on a structurally similar
+    "alternating 50/50 + single-column Result + single-column Conclusion" layout. Every value was measured
+    fresh on this page's own reference, not assumed from that family.
+  - **Structure:** hero + breadcrumb + spacer (60px/20px mobile) + intro row (text LEFT/image RIGHT, H1 + 1
+    paragraph) + "Challenge & Solution" row (image LEFT/text RIGHT — mirrored, confirmed via direct column
+    inspection — H2 + 2 plain paragraphs + 2 bold-lead mini-items, confirmed via `<b>` tag inspection) +
+    "Results & Impact" SINGLE full-width column (H3 + 1 justified paragraph + 1 image, all three stacked in
+    ONE column — confirmed via `querySelectorAll('.elementor-column')` on that section returning exactly 1
+    element, NOT a 50/50 row like the two rows above it) + "Conclusion" single full-width column (H4 + 1
+    paragraph) + prev/next pagination.
+  - **Typography measured independently per block, genuinely non-uniform:** H1 `36px/42px/600` (left at
+    desktop), H2 `20px/50px/600` (left at desktop — deliberately smaller than the usual `26px` "heading
+    block" H2 seen elsewhere in this project, confirmed via direct measurement, not a typo), H3 `20px/42px/
+    600` (left, both desktop AND mobile), H4 `20px/38px/600` (left, both desktop AND mobile). Paragraph
+    desktop alignment is also non-uniform per block: intro/challenge left, results justify, conclusion left
+    — all four converge to `justify` at mobile.
+  - **Section padding measured independently per block:** intro `0px`, challenge `60px 0px` (unchanged at
+    the `<=1024px` tablet tier too, confirmed via the same-origin-iframe technique), results `0px` (its own
+    inset comes from the widget-wrap's own `40px 45px` padding, not section padding). **Genuine tablet-only
+    bug found and baked in from the start:** conclusion is `0px` at desktop, but `111px 0px 0px` at exactly
+    `<=1024px`, resetting to `0` at `<=767px` — the same signature "111px 0 0" tablet-only leak pattern
+    already documented once before on dynamics-m365's own Conclusion block. CLAUDE.md's mandated
+    per-viewport testing caught the identical bug pattern recurring on a page from a completely different
+    Elementor template, confirming it as this site's own framework-level quirk rather than a one-off.
+  - **IMPORTANT CONTENT FINDING, flagged to the user in chat:** the reference's own "Conclusion" paragraph
+    for this page is a leftover copy-paste from the Atmos Cooling / Dynamics 365 case study — it reads "For
+    Atmos, a major technology opportunity resulted by harnessing Microsoft Dynamics Business Central, Azure,
+    and M365..." instead of anything about Proleve or Shopify. Confirmed genuine (not a script artifact) via
+    a fresh page reload in a brand-new tab before finalizing. Per this project's replication mandate, the
+    reference's own literal text was reproduced verbatim rather than silently "corrected" — the user was
+    told directly and can ask for a corrected paragraph if desired.
+  - **Hero** uses the same `.wraper_inner_banner` background-image pattern: `322px` desktop, `297px` at both
+    `<=1024px` and `<=767px`.
+  - **Breadcrumb renders fully intact** — "Home > Portfolio > Website Development for Proleve" — confirmed
+    via direct text extraction, no normalization needed.
+  - **Assets** (`assets/images/`): `cs-prv-hero-banner.webp` (`1920x459`), `cs-prv-b1.webp` (`540x428`),
+    `cs-prv-b2.webp` (`540x663`), `cs-prv-b3.webp` (`1020x447`) — all verified via PIL after download (real
+    URLs recovered from `data-pagespeed-lazy-src` since 2 of the 3 case-study images were still on the
+    site's lazy-load placeholder GIF at audit time).
+  - **Verification method:** rendered via the local dev server end-to-end at desktop width — hero/
+    breadcrumb/intro/challenge/results/conclusion/pagination all confirmed visually correct by scrolling
+    through real screenshots; zero console errors; no horizontal overflow (`scrollWidth 1670` vs
+    `innerWidth 1685`); same-origin-iframe mobile check at `390px` confirmed hero collapses to `~297px`, H1/
+    H2 switch from left to CENTER (genuine desktop/mobile alignment split, confirmed directly), H3/H4 STAY
+    left at mobile, both 50/50 rows stack to full width in natural DOM order, no overflow (`scrollWidth
+    372`).
+  - **Pagination:** "Previous Post" → `migration-of-el-guapo.html` (local, wired up both directions —
+    el-guapo's own "Next Post" updated from the external reference URL to this new local file). "Next Post"
+    → `https://www.cloudconverge.io/case-studies/development-for-we-are-egg-using-net-contentful/` (kept
+    external — not yet replicated, confirmed as a real link on the reference). `portfolio.html`'s existing
+    "PROLEVE" card updated from the external reference URL to this new local file (its image asset,
+    `port-proleve.webp`, was already present locally from an earlier session).
+  - **Fix pass (user-reported: "image alignment is wrong and all the images have transitions in the
+    reference page but not in our page add that too").** Two real bugs found via direct measurement:
+    1. All three images (`cs-prv-b1/b2/b3`) actually carry the reference's own `move-image-left-right`
+       hover-slide treatment — missed in the original build. Added `border-radius:4px`, `box-shadow:0 0
+       10px rgb(177,177,177)` (a flat opaque light gray — confirmed genuinely different from the
+       `rgba(0,0,0,.5)`/`.2` black shadow used on every sibling page carrying this treatment, not copied),
+       `transition:transform .3s ease-in-out`, and `:hover{transform:translate3d(-10px,0,0)}` to all three.
+    2. The intro row's image was flush to the top of its column instead of vertically centered. Root cause:
+       `.cs-prv-row-inner` had `align-items:flex-start`, which stopped the two columns from stretching to
+       equal height in the first place — so even after adding `align-items:center` to the intro image
+       column, there was no extra vertical space to center within (the column's own height already
+       equalled the image's height). Confirmed via `getBoundingClientRect` on the live reference that its
+       row uses the flex default (`stretch`), and only the INTRO image column's widget-wrap additionally
+       gets `align-items:center` — the challenge row's image column has no such override and stays
+       genuinely top-aligned (`gapAbove:0`). Fixed by removing `align-items:flex-start` from
+       `.cs-prv-row-inner` (reverting to default `stretch`) and adding
+       `.cs-prv-intro .cs-prv-image-col{display:flex;align-items:center}` scoped to the intro row only.
+       Re-verified: intro image now centers with an equal gap above/below (`54px`/`54px` locally vs. the
+       reference's own `68px`/`68px` — the small difference is just from this build's slightly different
+       paragraph line-wrap length, not a bug); challenge image stays top-aligned (`0px`/`192px` locally vs.
+       reference's `0px`/`189px`); no horizontal overflow after the fix.
+  - **Not yet done:** a genuine mobile/tablet viewport re-check across all 9 required widths with a working
+    `resize_window` (only 390px/desktop spot-checked this session via the iframe technique).
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/case-studies/migration-of-el-guapo/
 - **Local target:** `case-studies/migration-of-el-guapo.html` (flat file),
   `css/pages/case-study-el-guapo.css` (`cs-elg-` prefix), no page-specific JS needed.
