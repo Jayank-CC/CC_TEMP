@@ -2,11 +2,64 @@
 
 ## Current task
 
-- **Reference:** https://www.cloudconverge.io/case-studies/pharmacy-ecommerce-store/
-- **Local target:** `case-studies/pharmacy-ecommerce-store.html` (flat file, same convention as every other case
-  study), `css/pages/case-study-pharmacy.css` (`cs-pharm-` prefix), no page-specific JS needed.
-- **Last updated:** 2026-08-11
+- **Reference:** https://www.cloudconverge.io/case-studies/corporate-gifts/
+- **Local target:** `case-studies/corporate-gifts.html` (flat file), `css/pages/case-study-corporate-gifts.css`
+  (`cs-corp-` prefix), no page-specific JS needed.
+- **Last updated:** 2026-08-12
 - **State:** Complete, built from scratch this session.
+  - **Important discovery — this page uses the OTHER site-wide hero pattern.** Every case study audited so far
+    (bar-drinks, pharmacy, rise-event) used `.wraper_inner_banner` (an empty div with a CSS `background-image`).
+    This page's `.wraper_inner_banner` is present in the DOM but `display:none` (confirmed via
+    `getComputedStyle`) — it renders nothing. The real visible hero is the OTHER theme template,
+    `.case-studies-banner img` (a genuine `<img>`, also used by Helm Boots/ecommerce/rise-event's own hero
+    per their own PROJECT_STATUS.md history): full-bleed width, intrinsic `height:auto` at desktop (native
+    `2048x453` ratio, no distortion), collapsing to a fixed `min-height:260px; object-fit:cover;
+    object-position:left center` crop at `<=767px`. First download attempt grabbed the wrong asset (the hidden
+    `wraper_inner_banner`'s unused background image, a 360x540 portrait AVIF) before this was caught by
+    re-inspecting `elementFromPoint` at the actual visible hero pixel — re-downloaded the correct
+    `Encardio-header2-2048x453-1.webp` (2048x453) from the real `.case-studies-banner img` element.
+    **Lesson for future audits:** always confirm a suspected hero element is actually visible
+    (`display`/`getBoundingClientRect().height`) before trusting its `background-image`, and check
+    `elementFromPoint` on the real rendered pixels if unsure — this site mixes both hero patterns
+    unpredictably per page, not by any obvious convention.
+  - **Structure:** hero + breadcrumb + one spacer (60px desktop, 20px `<=767px`) + a centered intro text row
+    (H1 36px/42px + two plain paragraphs, 20px gap between them via `margin-bottom`/`:last-child` reset — same
+    pattern as bar-drinks) + one full-width screenshot (native ~3:2 ratio, no forced square crop, simple
+    `width:100%;height:auto`, unlike pharmacy's `object-fit:fill` square boxes) + a centered heading block (H2
+    26px/50px + one paragraph) + a second full-width screenshot + prev/next pagination. No "Conclusion" block.
+  - **Per-block desktop padding is genuinely non-uniform** (measured independently, not assumed): intro block
+    `16px 0`, heading block `32px 0` — both different from each other and from pharmacy's `0` — but both
+    converge to the *same* `4em`/`64px 0` at `<=1024px` and `0` at `<=767px`, confirmed via
+    `document.styleSheets`.
+  - **Assets** (`assets/images/`): `cs-corp-hero-banner.webp` (`2048x453`, converted from the reference's
+    source `.webp`), `cs-corp-gallery-1.webp` (`1170x780`), `cs-corp-gallery-2.webp` (`1200x800`) — all
+    downloaded via the in-page `fetch()`+blob+`<a download>` technique into the mounted Downloads folder, then
+    moved into `assets/images/` (direct `curl` from the sandbox shell is blocked for this domain — confirmed
+    via a `403 blocked-by-allowlist` from the sandbox's proxy — so the browser-download route is required for
+    every asset on this site, not just a fallback).
+  - **Pagination:** "Previous Post" → `pharmacy-ecommerce-store.html` (local, wired up, and pharmacy's own
+    "Next Post" updated from the external reference URL to this new local file); "Next Post" →
+    `https://www.cloudconverge.io/case-studies/verve-portrait-photoshoot-session/` (kept external — not yet
+    replicated). `portfolio.html`'s Corporate Gifts ("Packed With Purpose") card updated from the external
+    reference URL to this new local file.
+  - Verified clean console (0 errors) and network (15 initial-load requests, all `200`/`304`, `0` `404`s); the
+    two lazy-loaded gallery `<img>`s briefly read `naturalWidth:0`/`complete:false` under scripted
+    `scrollIntoView` in this automated tab (a known automation-timing artifact documented elsewhere in this
+    project, not a real bug) — forcing `loading="eager"` confirmed both decode correctly at their native sizes
+    (`1170x780`, `1200x800`), and the live screenshots taken during the normal scroll-through already showed
+    both rendering correctly regardless.
+  - **No horizontal overflow at any of the 9 required widths** (1920/1440/1366/1280/1024/768/480/390/360),
+    verified via the same-origin `<iframe>` + `scrollWidth` technique. **Mobile verification** at `375px`:
+    hero crops to `260px` (`object-fit:cover`, `object-position:left center`), breadcrumb stays on one visual
+    row (its long final item's text wraps internally within that flex item rather than forcing a second row or
+    overflowing — no dedicated reference-side override was found for this widget's mobile wrap behavior, since
+    the only matching breakpoint rules target the widget's non-inline layout variant, which doesn't apply
+    here), spacer `20px`, intro padding `0`, H1 `24px`.
+
+## Previous completed page
+
+- `pharmacy-ecommerce-store.html`: Complete, built from scratch, then fixed for a genuinely missing second intro
+  paragraph.
   - **Simplest case-study template built in this project so far**: hero + breadcrumb + a single centered text row
     (H1 + one plain paragraph, no bold lead, no dash-list) + one square screenshot + a centered heading block +
     a second square screenshot + prev/next pagination. No "Conclusion & Feedback" block — confirmed genuinely
@@ -34,6 +87,12 @@
     real desktop padding.
   - **H1 is `42px/48px` here** — noticeably larger than every sibling case study's `36px/42px` H1, confirmed via
     `getComputedStyle`, not reused.
+  - **Fix pass (user-reported, screenshot attached) — genuinely missing second intro paragraph.** The original
+    build only included the first intro `<p>`; the reference actually has a second full paragraph
+    ("Shombhob.com aims to be the premier pharmacy provider within Bangladesh...") in a separate Elementor
+    text-editor widget directly below the first, with a `20px` gap between them (same `margin-bottom:20px` +
+    `:last-child` reset pattern as bar-drinks). Confirmed via a fresh `get_page_text` dump of the live
+    reference, added the missing `<p>` to the HTML and the matching CSS rule.
   - **Assets downloaded and verified via PIL** (`assets/images/`): `cs-pharm-hero-banner.webp` (`1403×322`),
     `cs-pharm-web.webp` (`1024×768`), `cs-pharm-app.webp` (`1024×768`).
   - **Pagination**: "Previous Post" → `bar-drinks-offer-platform.html` (local, wired up); "Next Post" →

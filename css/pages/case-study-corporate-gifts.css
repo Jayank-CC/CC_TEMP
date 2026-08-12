@@ -1,0 +1,263 @@
+/* Case study: Corporate Gifts E-Commerce Website Migration & Development
+   Reference: https://www.cloudconverge.io/case-studies/corporate-gifts/
+   Prefix: cs-corp-
+   Structure: hero + breadcrumb + one spacer + a centered intro text row
+   (H1 + two plain paragraphs) + one full-width screenshot + a centered
+   heading block (H2 + one paragraph) + a second full-width screenshot +
+   prev/next pagination. No "Conclusion" block, no square-crop screenshots
+   (unlike pharmacy's forced 1:1 box) — both screenshots here keep their
+   native ~3:2 aspect ratio, same simple `width:100%;height:auto` treatment
+   as bar-drinks' single portfolio row.
+   Measured directly off the reference via getBoundingClientRect/
+   getComputedStyle/document.styleSheets — not assumed from sibling pages:
+   - Hero: this page does NOT use the ".wraper_inner_banner" background-image
+     theme template every other case study on this site uses (that element
+     is present in the DOM but `display:none` here — confirmed via
+     getComputedStyle, not a guess). It uses the OTHER site-wide hero
+     pattern instead, `.case-studies-banner img` (a real <img>, also used by
+     the Helm Boots/ecommerce/rise-event pages): full-bleed width, intrinsic
+     `height:auto` at desktop (no distortion — native 2048x453 ratio matches
+     rendered ratio), collapsing to a fixed `min-height:260px;
+     object-fit:cover; object-position:left center` crop at <=767px.
+     Confirmed via document.styleSheets, not estimated.
+   - Single spacer widget under the breadcrumb: 60px desktop (40px own
+     spacer height + 10px padding top/bottom on its wrapper), collapsing to
+     20px at <=767px (spacer itself goes to 0, but the 10px/10px wrapper
+     padding has no override and stays put — confirmed via
+     document.styleSheets, no matching breakpoint rule for the wrapper).
+   - Intro block padding is a real 16px top/bottom at desktop (NOT 0 like
+     pharmacy's equivalent block) and the heading block is 32px top/bottom
+     at desktop — both genuinely different per-block desktop values, but
+     both converge to the same 4em (64px) 0 at <=1024px and 0 at <=767px.
+   - H1 is 36px/42px (matches bar-drinks' size, not pharmacy's larger
+     42px/48px) — confirmed via getComputedStyle, not reused blindly. */
+
+.cs-corp-page .breadcrumb-list a,
+.cs-corp-page .breadcrumb-list a:hover,
+.cs-corp-page .breadcrumb-sep,
+.cs-corp-page .breadcrumb-list li,
+.cs-corp-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-corp-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (real <img>, full-bleed, ".case-studies-banner" pattern) ---------- */
+.cs-corp-hero {
+  overflow: hidden;
+}
+.cs-corp-hero img {
+  width: 100%;
+  display: block;
+}
+
+/* ---------- Spacer ---------- */
+.cs-corp-spacer {
+  height: 60px;
+}
+
+/* ---------- Intro text (single centered column, no image) ---------- */
+.cs-corp-intro {
+  padding: 16px 0;
+}
+.cs-corp-intro-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.cs-corp-intro-inner h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-corp-intro-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-corp-intro-inner p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Full-width screenshot rows (both reuse this exact class) ---------- */
+.cs-corp-gallery-row {
+  padding: 0;
+}
+.cs-corp-gallery-inner {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cs-corp-gallery-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- "User Experience Design & Migration Journey" heading block ---------- */
+.cs-corp-solution {
+  padding: 32px 0;
+}
+.cs-corp-solution-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  text-align: center;
+}
+.cs-corp-solution-inner h2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-corp-solution-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0;
+}
+
+/* ---------- Next/previous pagination (same visual pattern as every other
+   case-study page) ---------- */
+.cs-corp-pagination {
+  padding: 50px 0 60px;
+}
+.cs-corp-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-corp-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-corp-nav-prev {
+  margin-right: auto;
+}
+.cs-corp-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-corp-nav-next .cs-corp-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-corp-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-corp-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-corp-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-corp-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-corp-nav-link:hover .cs-corp-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Values read directly from the reference's own per-element dynamic CSS
+   (document.styleSheets filtered by each element's Elementor data-id). */
+@media (max-width: 1024px) {
+  .cs-corp-intro {
+    padding: 64px 0;
+  }
+  .cs-corp-solution {
+    padding: 64px 0;
+  }
+}
+@media (max-width: 767px) {
+  .cs-corp-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-corp-hero img {
+    min-height: 260px;
+    object-fit: cover;
+    object-position: left center;
+  }
+  .cs-corp-spacer {
+    height: 20px;
+  }
+  .cs-corp-intro {
+    padding: 0;
+  }
+  .cs-corp-intro-inner {
+    padding: 25px;
+  }
+  .cs-corp-intro-inner h1 {
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .cs-corp-intro-inner p {
+    text-align: justify;
+  }
+  .cs-corp-solution {
+    padding: 0;
+  }
+  .cs-corp-solution-inner {
+    padding: 25px;
+    box-sizing: border-box;
+  }
+  .cs-corp-solution-inner h2 {
+    font-size: 22px;
+  }
+  .cs-corp-solution-inner p {
+    text-align: justify;
+  }
+  .cs-corp-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-corp-nav-prev,
+  .cs-corp-nav-next {
+    margin: 0;
+  }
+  .cs-corp-nav-next {
+    flex-direction: row;
+  }
+  .cs-corp-nav-next .cs-corp-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
