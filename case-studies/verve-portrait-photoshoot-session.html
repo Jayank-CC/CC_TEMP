@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description"
+    content="Case study: Verve Portraits' family photography booking platform, migrated to WooCommerce and integrated with Mystratus, Salesforce, AWS S3/Lambda, and Klaviyo.">
+  <title>Family Photography Platform - Verve Portrait | Case Study | CloudConverge</title>
+  <link rel="icon" href="../assets/images/CloudConverge_Final_Logo_CC_Small_Color_V1-150x150.png" sizes="32x32">
+  <link rel="icon" href="../assets/images/CloudConverge_Final_Logo_CC_Small_Color_V1-300x300.png" sizes="192x192">
+  <link rel="preload" as="image" href="../assets/images/cs-verve-hero-banner.webp" fetchpriority="high">
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/dm-sans-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins-600-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/pages/case-study-verve-portrait.css">
+</head>
+
+<body class="cs-verve-page">
+
+  <div id="site-header-placeholder"></div>
+
+  <main id="content">
+
+    <!-- ============================= HERO BANNER (real <img>, full-bleed, ".case-studies-banner"
+         pattern — same theme template as corporate-gifts) ============================= -->
+    <div class="case-studies-banner cs-verve-hero">
+      <img src="../assets/images/cs-verve-hero-banner.webp" alt="Family Photography Platform - Verve Portrait"
+        width="1403" height="322" fetchpriority="high">
+    </div>
+
+    <!-- ============================= BREADCRUMB ============================= -->
+    <div class="breadcrumb-bar">
+      <div class="container">
+        <ul class="breadcrumb-list">
+          <li><a href="../index.html">Home</a></li>
+          <li aria-hidden="true" class="breadcrumb-sep">
+            <svg viewBox="0 0 192 512" width="8" height="16">
+              <path fill="currentColor"
+                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z">
+              </path>
+            </svg>
+          </li>
+          <li><a href="../portfolio.html">Portfolio</a></li>
+          <li>
+            <span aria-hidden="true" class="breadcrumb-sep">
+              <svg viewBox="0 0 192 512" width="8" height="16">
+                <path fill="currentColor"
+                  d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z">
+                </path>
+              </svg>
+            </span>
+            <span aria-current="page">Verve Portrait - Photoshoot Session</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============================= SPACER (60px / 20px mobile) ============================= -->
+    <div class="cs-verve-spacer" aria-hidden="true"></div>
+
+    <!-- ============================= INTRO TEXT (single centered column, no image, 4 paragraphs) ============================= -->
+    <section class="cs-verve-intro">
+      <div class="container cs-verve-intro-inner">
+        <h1>Family Photography Platform - Verve Portrait</h1>
+        <p>The client wanted to create a simple online integration platform for Verve Portraits, a company that
+          offers photo sessions for families, couples, and newborns. The platform helps clients find and book the
+          right photoshoot session through a website accessible on iPhones and Android devices. Verve Portraits,
+          focused on being a leading photo session company in Australia, are passionate storytellers and love to
+          document families and all the special milestones throughout their lives.</p>
+        <p>At Cloud Converge, we transitioned Verve Portraits&rsquo; web presence to an enhanced site within
+          WooCommerce and collaborated with Fulfillment to improve the e-commerce store. We provided a
+          contemporary site that improved the Verve Portraits&rsquo; site functionality while providing the
+          ability for Verve Portraits to efficiently manage partners to fulfill orders.</p>
+        <p>We also integrated Verve Portraits&rsquo; website with Mystratus, and integrated Salesforce Accounting
+          to be enable syncing of data including inventory, orders, cancellations, and returns. Our workload with
+          partners meant Verve Portraits orders could be delivered faster and in a more efficient manner.
+          Additionally, Cloud Converge was retained to provide continuous support with website updates, managing
+          available booking session dates and times, and connecting with other systems in the online marketing
+          space.</p>
+        <p>To build upon the platform, we also incorporated AWS S3 to keep photos secure and save up space. With
+          AWS S3 managing image storage, the platform is able to read high-resolution photos with optimal speed,
+          freeing the server of any computing capacity or memory restrictions. We incorporated AWS Lambda to
+          automate backend tasks including image optimization, image file transfers, scheduled data syncing, etc.
+          This will improve the performance of the platform and reduce the amount of operational input needed to
+          accomplish these tasks regularly. We integrated Salesforce CRM into the platform to allow all
+          client-matter, lead registration, opportunity tracking, and booking to be done using Salesforce. This
+          allows users to have one visual representation of their interactions with customers. We incorporated
+          myStratus which is a scheduling and studio management software by StudioPlus Software. This allows Verve
+          Portraits&rsquo; clients to see real-time scheduling availability and book sessions based on available
+          time directly from the website. Lastly, we incorporated Klaviyo for email marketing to allow Verve
+          Portraits to schedule booking confirmations, reminders, follow-up emails, and marketing campaigns with
+          precision and automation.</p>
+      </div>
+    </section>
+
+    <!-- ============================= FULL-WIDTH PORTFOLIO SCREENSHOT ============================= -->
+    <section class="cs-verve-gallery-row">
+      <div class="container cs-verve-gallery-inner">
+        <img src="../assets/images/cs-verve-gallery-1.webp" alt="Verve Portrait website screenshot" width="1120"
+          height="747" loading="lazy">
+      </div>
+    </section>
+
+    <!-- ============================= "USER EXPERIENCE DESIGN" HEADING + TEXT ============================= -->
+    <section class="cs-verve-solution">
+      <div class="container cs-verve-solution-inner">
+        <h2>User Experience Design &amp; Backend Integration</h2>
+        <p>The design of the site enables an efficient experience, with a clean and straightforward design for
+          ease of navigation by users seeking photo sessions. We selected the color palette for the site to create
+          an Airy, Modern, and welcoming feel. Our solution efficiently integrates with the client&rsquo;s POS
+          system, as well as connecting to multiple Payment Gateways, and an SMS provider in Australia. To provide
+          a consistent user experience, the website for Verve Portraits was developed on the Elementor platform
+          for a unified and user-friendly web user experience.</p>
+      </div>
+    </section>
+
+    <!-- ============================= TWO-COLUMN PORTRAIT PHOTO GALLERY ============================= -->
+    <section class="cs-verve-photos">
+      <div class="container cs-verve-photos-inner">
+        <div class="cs-verve-photos-col">
+          <img src="../assets/images/cs-verve-gallery-2.webp" alt="Verve Portrait family photography sample"
+            width="744" height="1024" loading="lazy">
+        </div>
+        <div class="cs-verve-photos-col">
+          <img src="../assets/images/cs-verve-gallery-3.webp" alt="Verve Portrait family photography sample"
+            width="744" height="1024" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= PREV / NEXT PAGINATION ============================= -->
+    <nav class="cs-verve-pagination" aria-label="Case study navigation">
+      <div class="container cs-verve-pagination-inner">
+        <a class="cs-verve-nav-link cs-verve-nav-prev" href="corporate-gifts.html">
+          <span class="cs-verve-nav-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </span>
+          <span class="cs-verve-nav-text">
+            <span class="cs-verve-nav-eyebrow">Previous Post</span>
+            <span class="cs-verve-nav-title">Corporate Gifts E-Commerce Website Migration &amp; Development</span>
+          </span>
+        </a>
+        <a class="cs-verve-nav-link cs-verve-nav-next"
+          href="https://www.cloudconverge.io/case-studies/migration-of-geotechnical-industry/">
+          <span class="cs-verve-nav-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </span>
+          <span class="cs-verve-nav-text">
+            <span class="cs-verve-nav-eyebrow">Next Post</span>
+            <span class="cs-verve-nav-title">Enterprise IT Optimization &amp; Cybersecurity for Market Leader</span>
+          </span>
+        </a>
+      </div>
+    </nav>
+
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script defer src="../js/header.js"></script>
+  <script defer src="../js/footer.js"></script>
+  <script defer src="../js/script.js"></script>
+  <script defer src="../js/include.js"></script>
+</body>
+
+</html>

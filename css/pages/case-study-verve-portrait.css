@@ -1,0 +1,291 @@
+/* Case study: Family Photography Platform - Verve Portrait
+   Reference: https://www.cloudconverge.io/case-studies/verve-portrait-photoshoot-session/
+   Prefix: cs-verve-
+   Structure: hero + breadcrumb + one spacer + a centered intro text row (H1 +
+   FOUR plain paragraphs — the longest intro block in this project so far) +
+   one full-width screenshot + a centered heading block (H2 + one paragraph)
+   + a two-column portrait photo gallery + prev/next pagination. Same
+   skeleton as corporate-gifts (same measured spacer/padding/typography
+   values, confirmed independently rather than assumed), but with two
+   genuine differences:
+   1. Hero: same ".case-studies-banner img" real-<img> pattern as
+      corporate-gifts (this page's own ".wraper_inner_banner" is also
+      present but display:none — confirmed again, not a one-off).
+   2. The closing gallery is NOT a forced-square object-fit:fill box like
+      pharmacy's screenshots. Both images use the site's lazy-loading
+      mechanism (a 1x1 "pagespeed_static" placeholder GIF with the real URL
+      in `data-pagespeed-lazy-src`) — measuring the LIVE reference through
+      this placeholder before it swaps in gives a false "550x550 square"
+      reading purely because the 1x1 placeholder is itself square. Directly
+      opening the real asset URL in a fresh tab gave the true native size,
+      744x1024 (portrait), and the only CSS rule beyond the framework
+      default (`height:auto;max-width:100%`) is a `box-shadow` — so the
+      image is NOT force-cropped to a square; it renders at its natural
+      ~3:4 ratio inside a ~550px-wide column (~757px tall at desktop),
+      with `box-shadow:0 0 10px rgba(0,0,0,.5)`.
+      **Lesson for future audits on this site:** never trust a rendered
+      size measured through this pagespeed-lazy placeholder mechanism —
+      always resolve `data-pagespeed-lazy-src` and check the real asset's
+      own natural dimensions in a fresh tab before concluding an image is
+      "square" or "cropped". (Worth a follow-up check on the pharmacy
+      page's own square-screenshot conclusion, since it used the same lazy
+      mechanism — not yet re-verified.) */
+
+.cs-verve-page .breadcrumb-list a,
+.cs-verve-page .breadcrumb-list a:hover,
+.cs-verve-page .breadcrumb-sep,
+.cs-verve-page .breadcrumb-list li,
+.cs-verve-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-verve-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (real <img>, full-bleed, ".case-studies-banner" pattern) ---------- */
+.cs-verve-hero {
+  overflow: hidden;
+}
+.cs-verve-hero img {
+  width: 100%;
+  display: block;
+}
+
+/* ---------- Spacer ---------- */
+.cs-verve-spacer {
+  height: 60px;
+}
+
+/* ---------- Intro text (single centered column, no image, 4 paragraphs) ---------- */
+.cs-verve-intro {
+  padding: 16px 0;
+}
+.cs-verve-intro-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.cs-verve-intro-inner h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-verve-intro-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-verve-intro-inner p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Full-width screenshot row ---------- */
+.cs-verve-gallery-row {
+  padding: 0;
+}
+.cs-verve-gallery-inner {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cs-verve-gallery-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- "User Experience Design & Backend Integration" heading block ---------- */
+.cs-verve-solution {
+  padding: 32px 0;
+}
+.cs-verve-solution-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  text-align: center;
+}
+.cs-verve-solution-inner h2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-verve-solution-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0;
+}
+
+/* ---------- Two-column portrait photo gallery ----------
+   1140px container, two flex columns (50% each above 768px, 100%/stacked
+   below), 10px padding around each image widget, 20px total gap between
+   columns (10px right padding on col 1 + 10px left padding on col 2).
+   Images keep their natural ~3:4 portrait ratio (NOT forced square) with a
+   soft drop shadow. */
+.cs-verve-photos {
+  padding: 10px 0;
+}
+.cs-verve-photos-inner {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cs-verve-photos-col {
+  flex: 1 1 50%;
+  min-width: 280px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cs-verve-photos-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Next/previous pagination (same visual pattern as every other
+   case-study page) ---------- */
+.cs-verve-pagination {
+  padding: 50px 0 60px;
+}
+.cs-verve-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-verve-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-verve-nav-prev {
+  margin-right: auto;
+}
+.cs-verve-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-verve-nav-next .cs-verve-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-verve-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-verve-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-verve-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-verve-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-verve-nav-link:hover .cs-verve-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Values read directly from the reference's own per-element dynamic CSS
+   (document.styleSheets filtered by each element's Elementor data-id). */
+@media (max-width: 1024px) {
+  .cs-verve-intro {
+    padding: 64px 0;
+  }
+  .cs-verve-solution {
+    padding: 64px 0;
+  }
+}
+@media (max-width: 767px) {
+  .cs-verve-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-verve-hero img {
+    min-height: 260px;
+    object-fit: cover;
+    object-position: left center;
+  }
+  .cs-verve-spacer {
+    height: 20px;
+  }
+  .cs-verve-intro {
+    padding: 0;
+  }
+  .cs-verve-intro-inner {
+    padding: 25px;
+  }
+  .cs-verve-intro-inner h1 {
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .cs-verve-intro-inner p {
+    text-align: justify;
+  }
+  .cs-verve-solution {
+    padding: 0;
+  }
+  .cs-verve-solution-inner {
+    padding: 25px;
+    box-sizing: border-box;
+  }
+  .cs-verve-solution-inner h2 {
+    font-size: 22px;
+  }
+  .cs-verve-solution-inner p {
+    text-align: justify;
+  }
+  .cs-verve-photos-col {
+    flex: 1 1 100%;
+  }
+  .cs-verve-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-verve-nav-prev,
+  .cs-verve-nav-next {
+    margin: 0;
+  }
+  .cs-verve-nav-next {
+    flex-direction: row;
+  }
+  .cs-verve-nav-next .cs-verve-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
