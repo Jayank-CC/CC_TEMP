@@ -2,11 +2,56 @@
 
 ## Current task
 
-- **Reference:** https://www.cloudconverge.io/case-studies/corporate-gifts/
-- **Local target:** `case-studies/corporate-gifts.html` (flat file), `css/pages/case-study-corporate-gifts.css`
-  (`cs-corp-` prefix), no page-specific JS needed.
+- **Reference:** https://www.cloudconverge.io/case-studies/verve-portrait-photoshoot-session/
+- **Local target:** `case-studies/verve-portrait-photoshoot-session.html` (flat file),
+  `css/pages/case-study-verve-portrait.css` (`cs-verve-` prefix), no page-specific JS needed.
 - **Last updated:** 2026-08-12
 - **State:** Complete, built from scratch this session.
+  - **Important lesson — the site's `pagespeed_static` lazy-load placeholder gives false "square" image
+    measurements, and this retroactively fixed a real bug on the pharmacy page.** This page's closing gallery
+    (`verve-portrait-pic-2.webp`/`-pic-3.webp`) uses the same lazy mechanism as pharmacy's screenshots: a 1x1
+    `pagespeed_static/1.JiBnMqyl6S.gif` placeholder with the real URL in `data-pagespeed-lazy-src`. Measuring
+    the live reference through this placeholder (before the real asset swaps in) reads a rendered box of
+    `550x550` — genuinely square — purely because the *placeholder itself* is a 1x1 (1:1) image, not because
+    the real photo is square. Opening the real asset URL directly in a fresh tab gave the true native size,
+    `744x1024` (portrait), and the only CSS rule beyond the framework default (`height:auto;max-width:100%`)
+    is a `box-shadow` — the image is NOT force-cropped. **This prompted a re-check of the pharmacy page's own
+    "1024x1024 forced square, `object-fit:fill`" finding from an earlier session, which used the exact same
+    lazy mechanism — and it was indeed wrong.** The reference's real `<img>` attributes are `width="1024"
+    height="768"` (native ratio, no distortion). Fixed retroactively this session (see "Previous completed
+    page" below) — this is the first confirmed case in this project of a shipped page needing a correction for
+    a measurement artifact, not a UI bug.
+  - **Structure:** hero + breadcrumb + one spacer (60px desktop, 20px `<=767px`) + a centered intro text row
+    (H1 36px/42px + **four** plain paragraphs, the longest intro block in this project so far, `20px` gaps
+    between each) + one full-width screenshot (`1120x747` rendered, native ratio, no distortion) + a centered
+    heading block (H2 26px/50px + one paragraph) + a two-column portrait photo gallery (natural `744x1024`
+    ratio, `0 0 10px rgba(0,0,0,.5)` box-shadow, 50/50 flex columns stacking to 100% at `<768px`) + prev/next
+    pagination. No "Conclusion" block. Same per-block desktop padding values as corporate-gifts (intro `16px
+    0`, heading `32px 0`, both converging to `64px 0` at `<=1024px` and `0` at `<=767px`) — confirmed
+    independently via `document.styleSheets`, not just assumed reused.
+  - **Hero** is the same `.case-studies-banner img` real-`<img>` pattern as corporate-gifts (this page's own
+    `.wraper_inner_banner` is again present but `display:none`) — a second confirmed instance of this pattern
+    on a case-study page, not a one-off. The composite hero photo (dark family portrait + a floating website
+    mockup screenshot) is a single baked-in image file (`Verve-BANNER.webp`, `1403x322`), not two separately
+    overlaid elements — confirmed via `elementFromPoint` returning the same `<img>` at both regions.
+  - **Assets** (`assets/images/`): `cs-verve-hero-banner.webp` (`1403x322`), `cs-verve-gallery-1.webp`
+    (`1170x780`), `cs-verve-gallery-2.webp` (`744x1024`), `cs-verve-gallery-3.webp` (`744x1024`) — all
+    downloaded via the established in-page `fetch()`+blob+`<a download>` technique.
+  - **Pagination:** "Previous Post" → `corporate-gifts.html` (local, wired up both directions — corporate-gifts'
+    own "Next Post" updated from the external reference URL to this new local file); "Next Post" →
+    `https://www.cloudconverge.io/case-studies/migration-of-geotechnical-industry/` (kept external, page title
+    on the reference reads "Enterprise IT Optimization & Cybersecurity for Market Leader" despite the
+    mismatched URL slug — reproduced verbatim, not corrected). `portfolio.html`'s Verve Portrait card updated
+    from the external reference URL to this new local file.
+  - Verified clean console (0 errors) and network (15 initial-load requests, all `200`/`304`, `0` `404`s). **No
+    horizontal overflow at any of the 9 required widths** (1920/1440/1366/1280/1024/768/480/390/360), verified
+    via the same-origin `<iframe>` + `scrollWidth` technique. **Mobile verification** at `375px`: hero crops to
+    `260px` (`object-fit:cover`, `object-position:left center`), spacer `20px`, two photo columns stack
+    full-width (`331px` each, confirmed via differing `top` values, not side-by-side).
+
+## Previous completed page
+
+- `corporate-gifts.html`: Complete, built from scratch this session.
   - **Important discovery — this page uses the OTHER site-wide hero pattern.** Every case study audited so far
     (bar-drinks, pharmacy, rise-event) used `.wraper_inner_banner` (an empty div with a CSS `background-image`).
     This page's `.wraper_inner_banner` is present in the DOM but `display:none` (confirmed via
@@ -93,6 +138,17 @@
     text-editor widget directly below the first, with a `20px` gap between them (same `margin-bottom:20px` +
     `:last-child` reset pattern as bar-drinks). Confirmed via a fresh `get_page_text` dump of the live
     reference, added the missing `<p>` to the HTML and the matching CSS rule.
+  - **Fix pass (2026-08-12, caught while auditing the verve-portrait page, not user-reported) — screenshots
+    were wrongly forced into a square crop.** Both screenshots had been built with `width="1024" height="1024"`
+    and `object-fit:fill`, based on an earlier session's measurement of the reference showing a `1024x1024`
+    rendered box. That measurement was taken through the site's `pagespeed_static` 1x1-GIF lazy-load
+    placeholder before the real asset swapped in — the placeholder itself is square, which produces a false
+    "square" reading regardless of the real image's actual ratio. Re-inspecting the reference's real `<img
+    width height>` attributes (independent of whether the pixels themselves finish loading) showed
+    `1024`/`768` — the genuine native ratio. Fixed the HTML `height` attribute to `768` and removed the
+    `aspect-ratio:1/1; object-fit:fill` CSS override in favor of plain `width:100%;height:auto`, matching every
+    sibling page's single-screenshot treatment. Re-verified via screenshot: both images now render at their
+    natural, undistorted `4:3` ratio.
   - **Assets downloaded and verified via PIL** (`assets/images/`): `cs-pharm-hero-banner.webp` (`1403×322`),
     `cs-pharm-web.webp` (`1024×768`), `cs-pharm-app.webp` (`1024×768`).
   - **Pagination**: "Previous Post" → `bar-drinks-offer-platform.html` (local, wired up); "Next Post" →

@@ -2,24 +2,24 @@
    Reference: https://www.cloudconverge.io/case-studies/pharmacy-ecommerce-store/
    Prefix: cs-pharm-
    Simplest case-study template built so far: hero + breadcrumb + a single
-   centered text row + one square screenshot + a centered heading block +
-   a second square screenshot + pagination. No dash-list, no second text
-   paragraph, no "Conclusion" block (confirmed absent via DOM — this page's
-   content genuinely ends after the second screenshot, unlike bar-drinks).
-   Two details confirmed via direct DOM inspection rather than assumed from
-   the sibling pages:
+   centered text row + one screenshot + a centered heading block + a second
+   screenshot + pagination. No dash-list, no second text paragraph, no
+   "Conclusion" block (confirmed absent via DOM — this page's content
+   genuinely ends after the second screenshot, unlike bar-drinks).
    1. Same "wraper_inner_banner" background-image hero technique as
       bar-drinks (not an <img> tag) — reused verbatim since it's the same
       site-wide theme template, not page-specific.
-   2. Both screenshots are real <img> tags (not background-image like
-      bar-drinks' gallery), but the reference forces a natively 1024x768
-      image into a 1024x1024 square box with no object-fit set — the
-      default is "fill", which stretches/distorts the image vertically by
-      ~33%. Confirmed via getComputedStyle on the live reference
-      (object-fit: fill, width/height both 1024px despite the img's own
-      width/height attributes reading 1024/768) and visually verified via
-      screenshot that this distortion is genuinely present on the
-      reference, not a bug to avoid replicating. */
+   2. **Correction (2026-08-12, caught while auditing the verve-portrait
+      page):** both screenshots were previously built as a forced
+      1024x1024 square with `object-fit:fill`. That was wrong — the earlier
+      measurement was taken through this site's `pagespeed_static` 1x1-GIF
+      lazy-load placeholder before the real asset swapped in, which reads
+      as a false "square" every time. The reference's actual `<img width
+      height>` attributes are `1024`/`768` — the real native ratio, no
+      distortion. Fixed to plain `width:100%;height:auto`, matching
+      bar-drinks/corporate-gifts/verve's single-screenshot rows. See
+      `case-study-verve-portrait.css` for the full writeup of this
+      lazy-placeholder measurement trap. */
 
 /* ---------- Breadcrumb color override ----------
    Same theme-level override and one-off "Icon List" widget note as every
@@ -107,14 +107,16 @@
   margin-bottom: 0;
 }
 
-/* ---------- Full-width square screenshot rows (both web and app reuse
-   this exact class) ----------
+/* ---------- Full-width screenshot rows (both web and app reuse this
+   exact class) ----------
    1140px container, 10px widget-wrap padding (1140 - 20 = 1120px... but
    the image itself is capped to 1024px natively, so the reference's own
    image widget renders at 1024px centered rather than stretching to fill
    the full 1120px available width — confirmed via getBoundingClientRect:
    the image column itself is only 1044px wide (1024 + 2x10 padding), not
-   the full 1140px container). */
+   the full 1140px container). Image keeps its native 1024x768 ratio (see
+   file-header correction note above) — plain width:100%;height:auto,
+   no forced square, no object-fit. */
 .cs-pharm-gallery-row {
   padding: 0;
 }
@@ -127,12 +129,7 @@
 .cs-pharm-gallery-inner img {
   display: block;
   width: 100%;
-  /* Forces the native 1024x768 image into a 1:1 box, matching the
-     reference's own object-fit:fill stretch rather than a natural
-     width:100%;height:auto scale (which would preserve the 4:3 ratio and
-     not match the reference's visibly taller crop). */
-  /* aspect-ratio: 1 / 1; */
-  object-fit: fill;
+  height: auto;
 }
 
 /* ---------- "User Experience Design & Backend Integration" heading block ----------
