@@ -1,0 +1,382 @@
+/* Case study: Website Development for Atmos Cooling
+   Reference: https://www.cloudconverge.io/case-studies/website-development-for-atmos-cooling/
+   Prefix: cs-atmos-
+   Content root confirmed via [data-elementor-id] audit is `.elementor-40633`
+   (NOT `.elementor-15927`, which turned out to be the shared header/mega-menu
+   template also present in the DOM — a trap avoided this session by checking
+   every `[data-elementor-id]` root's own content instead of assuming the
+   first one found was the page body).
+
+   This page is a genuine HYBRID of two template families already
+   established elsewhere in this project, confirmed section-by-section via
+   direct measurement, not assumed:
+   - Intro + "User Experience Design & Backend Integration" rows reuse the
+     exact same "alternating 50/50" Elementor element ids as
+     migration-of-geotechnical-industry / implementing-dynamics-m365
+     (0c9be32 intro, 2c439de challenge, 95e264d conclusion) — a fourth
+     confirmed instance of this duplicated template. As always, shared ids
+     do NOT mean shared values: this page's Challenge row has 60px 0 desktop
+     padding (not 48px), no bold-lead mini-items (just 3 plain paragraphs),
+     and neither image column is vertically centered here (both are plain
+     top-aligned/`align-items:normal`, confirmed via getComputedStyle — the
+     dynamics-m365 page's intro-image centering bug does NOT recur here).
+   - "Solution and Implementation" reuses the OTHER established template
+     family instead — the "simple centered" 1000px-max-width / 10px-padding
+     / text-align:center heading-block pattern from bar-drinks/pharmacy/
+     corporate-gifts/verve/hirebrain (confirmed via the exact same
+     max-width:1000px;padding:10px widget-wrap measurement) — NOT the
+     "Result" single-column left-aligned pattern used by the sibling pages'
+     equivalent section. Contains a heading + 4 separate text-editor
+     widgets (1 intro paragraph + 3 bold-lead mini-items), all centered.
+   - The full-page screenshot section (no heading, one tall portrait image)
+     is its own thing: a plain full-width section with NO extra max-width
+     override, just a widget-wrap padding of 30px on every side (confirmed
+     via getComputedStyle at both desktop AND a true ~372px mobile width via
+     the same-origin-iframe technique below — this 30px inset does NOT
+     shrink responsively, unlike every percentage/max-width-based box on
+     this page).
+   - "Conclusion" is the plain shared `.container` box (1140-15-15=1110px,
+     no extra override) with an H3 (not H4/H6 like the sibling pages) at
+     20px/42px/600 — matching the shared "Result"-tier heading style
+     elsewhere in this project, just reused on a different tag/section here.
+
+   Hero uses the OTHER site-wide hero pattern this time — `.wraper_inner_banner`
+   background-image (NOT the `.case-studies-banner img` real-<img> pattern
+   used by hirebrain/dynamics-m365/geotechnical) — confirmed via
+   getComputedStyle showing `.wraper_inner_banner` is genuinely `display:block`
+   and visible on THIS page (the other pattern's container wasn't even
+   present). Same background-image hero technique already established on
+   bar-drinks/pharmacy: height 322px desktop (184px+118px padding + 20px
+   line-height), 297px at both <=1024px AND <=767px (175px+102px+20px,
+   confirmed as the SAME framework-level default already used on
+   bar-drinks, not page-specific, so safe to reuse without re-deriving).
+
+   Breadcrumb: the reference's OWN raw markup for this page reads
+   "Home > > Website Development for Atmos Cooling" — a broken/empty middle
+   crumb on the live site itself (confirmed via the raw `#crumbs` HTML dump).
+   Per this project's established convention (applied identically on every
+   other case-study page regardless of each reference's own quirks), this is
+   normalized to the standard Home / Portfolio / current-page structure
+   rather than reproduced as a literal blank crumb.
+
+   Mobile-inset values below were confirmed via a true ~372px viewport using
+   the same-origin `<iframe src="own URL">` technique (an iframe gets its
+   own browsing context, so its media queries and computed styles reflect
+   genuine narrow-viewport rendering) — not guessed from the desktop pattern
+   or copied from sibling pages. */
+
+.cs-atmos-page .breadcrumb-list a,
+.cs-atmos-page .breadcrumb-list a:hover,
+.cs-atmos-page .breadcrumb-sep,
+.cs-atmos-page .breadcrumb-list li,
+.cs-atmos-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-atmos-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (background-image, ".wraper_inner_banner" pattern) ---------- */
+.cs-atmos-hero {
+  height: 322px;
+  background-image: url("../../assets/images/cs-atmos-hero-banner.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgb(30, 78, 196);
+}
+
+/* ---------- Spacer ---------- */
+.cs-atmos-spacer {
+  height: 60px;
+}
+
+.cs-atmos-challenge .cs-atmos-text-col {
+  border-radius: 4px;
+}
+
+/* ---------- Shared 50/50 row (intro + "User Experience Design & Backend Integration") ---------- */
+.cs-atmos-row {
+  padding: 0;
+}
+.cs-atmos-row-inner {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cs-atmos-col {
+  flex: 0 0 50%;
+  max-width: 50%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.cs-atmos-text-col {
+  padding: 45px;
+  box-sizing: border-box;
+}
+.cs-atmos-text-col h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-atmos-text-col h2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-atmos-text-col p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-atmos-text-col p:last-child {
+  margin-bottom: 0;
+}
+.cs-atmos-image-col {
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+.cs-atmos-image-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-atmos-image-col:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+.cs-atmos-challenge {
+  padding: 60px 0;
+}
+
+/* ---------- "Solution and Implementation" (centered "simple" block, 1000px/10px pattern) ---------- */
+.cs-atmos-solution {
+  padding: 32px 0 64px;
+}
+.cs-atmos-solution-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.cs-atmos-solution-inner h2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-atmos-solution-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-atmos-solution-inner p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Tall full-width screenshot (plain container, 30px inset every side) ---------- */
+.cs-atmos-showcase {
+  padding: 0;
+}
+.cs-atmos-showcase-inner {
+  padding: 30px;
+  box-sizing: border-box;
+  background-color: #eee9e5;
+}
+.cs-atmos-showcase-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- "Conclusion" (plain shared .container box) ---------- */
+.cs-atmos-conclusion {
+  padding: 30px 0 0;
+}
+.cs-atmos-conclusion-inner h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-atmos-conclusion-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-atmos-conclusion-inner p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Prev/next pagination (this page is the last in the chain — only
+   a "Previous Post" link exists; margin-right:auto on .cs-atmos-nav-prev
+   already left-aligns it correctly with no "next" counterpart needed) ---------- */
+.cs-atmos-pagination {
+  padding: 50px 0 60px;
+}
+.cs-atmos-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-atmos-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-atmos-nav-prev {
+  margin-right: auto;
+}
+.cs-atmos-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-atmos-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-atmos-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-atmos-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-atmos-nav-link:hover .cs-atmos-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Framework-level column-stacking (classic .elementor-column -> 100% at
+   <=1024px, further at <=767px) is inherited from the shared css/style.css
+   / css/responsive.css already loaded on every page. Only page-specific
+   padding/typography overrides are listed below, each independently
+   confirmed on this page's own reference (not copied from siblings, even
+   where the values happen to match). */
+@media (max-width: 1024px) {
+  .cs-atmos-hero {
+    height: 297px;
+  }
+  .cs-atmos-solution {
+    padding: 64px 0;
+  }
+  .cs-atmos-conclusion {
+    padding: 111px 0 0;
+  }
+}
+@media (max-width: 767px) {
+  .cs-atmos-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-atmos-hero {
+    height: 297px;
+  }
+  .cs-atmos-spacer {
+    height: 20px;
+  }
+  .cs-atmos-col {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  .cs-atmos-text-col {
+    padding: 10px;
+  }
+  .cs-atmos-challenge .cs-atmos-text-col {
+    padding: 30px;
+    background-color: #f4f4f4;
+    margin-top: 20px;
+  }
+  .cs-atmos-text-col h1 {
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+  }
+  .cs-atmos-text-col p {
+    text-align: justify;
+  }
+  .cs-atmos-intro .cs-atmos-image-col {
+    padding: 5px;
+  }
+  .cs-atmos-challenge .cs-atmos-image-col {
+    padding: 5px;
+  }
+  .cs-atmos-text-col h2 {
+    line-height: 30px;
+    text-align: center;
+  }
+  .cs-atmos-challenge {
+    padding: 0;
+  }
+  .cs-atmos-solution {
+    padding: 0;
+  }
+  .cs-atmos-solution-inner {
+    padding: 20px;
+  }
+  .cs-atmos-solution-inner h2 {
+    line-height: 30px;
+  }
+  .cs-atmos-solution-inner p {
+    text-align: justify;
+    margin: 0 0 5px;
+  }
+  .cs-atmos-conclusion-inner p {
+    text-align: justify;
+  }
+  .cs-atmos-conclusion-inner h3 {
+    margin: 0 0 5px;
+  }
+  .cs-atmos-conclusion {
+    padding: 30px 0 0;
+  }
+  .cs-atmos-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-atmos-nav-prev {
+    margin: 0;
+  }
+}

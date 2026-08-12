@@ -2,6 +2,65 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/case-studies/website-development-for-atmos-cooling/
+- **Local target:** `case-studies/website-development-for-atmos-cooling.html` (flat file),
+  `css/pages/case-study-atmos-cooling.css` (`cs-atmos-` prefix), no page-specific JS needed.
+- **Last updated:** 2026-08-12
+- **State:** Complete, built from scratch this session.
+  - **Content root confirmed via `[data-elementor-id]` audit is `.elementor-40633`** (NOT `.elementor-15927`,
+    which turned out to be the shared header/mega-menu template also present in the DOM) — avoided by checking
+    every `[data-elementor-id]` root's own content instead of assuming the first one found was the page body.
+  - **Genuine HYBRID of two template families already established elsewhere in this project**, confirmed
+    section-by-section via direct measurement, not assumed:
+    - Intro + "User Experience Design & Backend Integration" rows reuse the exact same "alternating 50/50"
+      Elementor element ids as `migration-of-geotechnical-industry.html`/`implementing-dynamics-m365.html`
+      (`0c9be32` intro, `2c439de` challenge, `95e264d` conclusion) — a fourth confirmed instance of this
+      duplicated template. Shared ids do NOT mean shared values: this page's Challenge row has `60px 0` desktop
+      padding (not `48px`), no bold-lead mini-items (just 3 plain paragraphs), and neither image column is
+      vertically centered here (both `align-items:normal`, confirmed via `getComputedStyle` — the
+      dynamics-m365 intro-image centering bug does not recur here).
+    - "Solution and Implementation" reuses the OTHER established template family instead — the "simple
+      centered" `1000px`-max-width/`10px`-padding/`text-align:center` heading-block pattern from
+      bar-drinks/pharmacy/corporate-gifts/verve/hirebrain — NOT the "Result" single-column left-aligned pattern
+      used by the sibling pages' equivalent section. Heading + 4 text-editor widgets (1 intro paragraph + 3
+      bold-lead mini-items), all centered.
+    - The full-page screenshot section (no heading, one tall portrait image) is its own thing: a plain
+      full-width section with no extra max-width override, just a `30px` widget-wrap inset on every side
+      (confirmed at both desktop and a true ~372px mobile width via the same-origin-iframe technique — this
+      inset does NOT shrink responsively, unlike every percentage/max-width-based box on this page).
+    - "Conclusion" is the plain shared `.container` box (`1140-15-15=1110px`, no extra override) with an H3
+      (not H4/H6 like sibling pages) at `20px/42px/600` — matching the shared "Result"-tier heading style
+      elsewhere in this project, just reused on a different tag/section here.
+  - **Hero uses the OTHER site-wide hero pattern** — `.wraper_inner_banner` background-image (NOT the
+    `.case-studies-banner img` real-`<img>` pattern used by hirebrain/dynamics-m365/geotechnical) — confirmed
+    via `getComputedStyle` showing `.wraper_inner_banner` is genuinely `display:block` and visible on this page
+    (the other pattern's container wasn't even present). Reused the same background-image hero technique
+    already established on bar-drinks/pharmacy: height `322px` desktop, `297px` at both `<=1024px` and
+    `<=767px` — confirmed as the same framework-level default, not page-specific.
+  - **Breadcrumb normalization:** the reference's own raw markup for this page reads "Home > > Website
+    Development for Atmos Cooling" — a broken/empty middle crumb on the live site itself. Per this project's
+    established convention (applied identically on every other case-study page regardless of each reference's
+    own quirks), normalized to the standard Home / Portfolio / current-page structure rather than reproduced
+    literally.
+  - **Verification method:** local build sanity-checked via `iframe.srcdoc` (inlined HTML + actual page CSS +
+    a small hand-copied subset of shared base CSS — `.container`, `.breadcrumb-bar`/`-list`, `body`) at
+    1440/1024/767/390px widths: zero horizontal overflow at any width, showcase inset held at a constant `30px`
+    across every width tested (confirming the non-responsive inset), and `.cs-atmos-conclusion` padding-top
+    correctly read `30px` at 1440/767/390px and `111px` only at the 1024px tablet tier (matching the intended
+    scoped override, not a leak).
+  - **Assets** (`assets/images/`): `cs-atmos-hero-banner.webp` (`1403x322`), `cs-atmos-b1.webp` (`540x484`),
+    `cs-atmos-b2.webp` (`540x1022`), `cs-atmos-b3.webp` (`1080x1501`) — all verified via PIL after copying from
+    the mounted Downloads folder.
+  - **Pagination:** this page is LAST in the case-study chain (per the reference's own next-post link, which
+    points onward to a page not yet built) — only a "Previous Post" link exists, → `implementing-dynamics-
+    m365.html` (local, wired up both directions — dynamics-m365's own "Next Post" updated from the external
+    reference URL to this new local file). `portfolio.html`'s "ATMOS COOLING" card updated from the external
+    reference URL to this new local file.
+  - **Not yet done:** a true rendered-screenshot comparison in a real browser, and a genuine mobile/tablet
+    viewport re-check with a working `resize_window`.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/case-studies/implementing-dynamics-m365/
 - **Local target:** `case-studies/implementing-dynamics-m365.html` (flat file),
   `css/pages/case-study-dynamics-m365.css` (`cs-dyn-` prefix), no page-specific JS needed.
