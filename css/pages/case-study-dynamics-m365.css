@@ -1,0 +1,398 @@
+/* Case study: Implementing Microsoft Dynamics & M365 for Industrial Air
+   Conditioning Company (ATMOS / Kabu Projects)
+   Reference: https://www.cloudconverge.io/case-studies/implementing-dynamics-m365/
+   Prefix: cs-dyn-
+   Same "alternating 50/50" Elementor template family as
+   case-study-geotechnical.css — confirmed via IDENTICAL Elementor element
+   ids across both pages (0c9be32 intro, 2c439de challenge, 3adba17 result,
+   95e264d conclusion), i.e. both pages were built from the same duplicated
+   template. IMPORTANT: shared element ids do NOT mean shared values — every
+   measurement below was independently re-confirmed on THIS page's own live
+   reference, not copied from geotechnical. Differences found:
+   - Result box: max-width 1020px here (NOT geotechnical's 1050px). Same
+     double-restriction bug pattern (`.container`'s own 15px padding plus a
+     naive max-width override shrinks it further) fixed the same way, with
+     `padding:0` baked in from the start rather than discovered as a bug.
+   - Result section margin-bottom: 60px here (NOT geotechnical's 48px).
+   - Conclusion heading is an H4 here (NOT geotechnical's H6), sized
+     20px/38px/600 — this matches geotechnical's OWN H4 style (Result
+     heading), just applied to a different tag/section on this page.
+   - Conclusion box: 970px here (NOT geotechnical's 1110px, which is just
+     the plain `.container`). This page's own reference renders the
+     Conclusion heading/paragraph at exactly 970px; the precise Elementor
+     box-model mechanism producing that number from a 1140px container
+     could not be fully traced (no inline style, wrap padding read 0px),
+     but 970px was the repeatedly-confirmed rendered value on the live
+     reference and is treated as ground truth here via a direct
+     `max-width:970px` override.
+   - Mobile (<=767px) Challenge row padding: 20px 0 0 here (NOT
+     geotechnical's 30px 0 0) — confirmed via this page's own
+     document.styleSheets, not assumed.
+   - Result widget structure differs: geotechnical uses one paragraph,
+     this page's Result section is ONE large text-editor widget containing
+     many <p> tags (including empty spacer <p></p> elements, all margin:0,
+     spacing coming from line-height not margin). Rebuilt here as normal
+     <p> tags with the project's standard 20px margin-bottom convention
+     rather than replicating the raw empty-paragraph markup.
+   - Tablet-only Conclusion padding override (111px 0 0 at <=1024px) is
+     confirmed on THIS page's own reference too (not just inherited/copied
+     from geotechnical) — both pages happen to carry the identical rule. */
+
+.cs-dyn-page .breadcrumb-list a,
+.cs-dyn-page .breadcrumb-list a:hover,
+.cs-dyn-page .breadcrumb-sep,
+.cs-dyn-page .breadcrumb-list li,
+.cs-dyn-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-dyn-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (real <img>, full-bleed, ".case-studies-banner" pattern) ---------- */
+.cs-dyn-hero {
+  overflow: hidden;
+}
+.cs-dyn-hero img {
+  width: 100%;
+  display: block;
+}
+
+/* ---------- Spacer ---------- */
+.cs-dyn-spacer {
+  height: 60px;
+}
+
+/* ---------- Shared 50/50 row (intro + "Challenge & Solution") ---------- */
+.cs-dyn-row {
+  padding: 0;
+}
+.cs-dyn-row-inner {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cs-dyn-col {
+  flex: 0 0 50%;
+  max-width: 50%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.cs-dyn-text-col {
+  padding: 45px;
+  box-sizing: border-box;
+}
+.cs-dyn-text-col h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-dyn-text-col h2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-dyn-text-col p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-dyn-text-col p:last-child {
+  margin-bottom: 0;
+}
+.cs-dyn-image-col {
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+/* Intro row's image column is vertically CENTERED within the row (confirmed
+   via getComputedStyle on the live reference: its widget-wrap is
+   display:flex;align-items:center — the image is shorter than the taller
+   text column and sits centered with equal top/bottom gaps, not flush to
+   the top). The Challenge row's image column has NO such override
+   (confirmed alignItems:normal / gapTop:0 on the reference) — it stays
+   top-aligned, which is already the default block-flow behavior here, so
+   no extra rule is needed for it. */
+.cs-dyn-intro .cs-dyn-image-col {
+  display: flex;
+  align-items: center;
+}
+.cs-dyn-image-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-dyn-image-col:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+.cs-dyn-challenge {
+  padding: 48px 0;
+}
+
+/* ---------- "Result" (single full-width column) ---------- */
+.cs-dyn-result {
+  padding: 0;
+  margin-bottom: 60px;
+}
+.cs-dyn-result-inner {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+.cs-dyn-result-inner h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-dyn-result-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: justify;
+  margin: 0 0 20px;
+}
+.cs-dyn-result-inner p:last-of-type {
+  margin-bottom: 20px;
+}
+.cs-dyn-result-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-dyn-result-inner img:hover {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---------- "Conclusion" (single full-width column, narrower box) ---------- */
+.cs-dyn-conclusion {
+  padding: 0;
+}
+.cs-dyn-conclusion-inner {
+  max-width: 970px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.cs-dyn-conclusion-inner h4 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 38px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-dyn-conclusion-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0;
+}
+
+/* ---------- Next/previous pagination (same visual pattern as every other
+   case-study page) ---------- */
+.cs-dyn-pagination {
+  padding: 50px 0 60px;
+}
+.cs-dyn-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-dyn-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-dyn-nav-prev {
+  margin-right: auto;
+}
+.cs-dyn-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-dyn-nav-next .cs-dyn-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-dyn-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-dyn-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-dyn-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-dyn-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-dyn-nav-link:hover .cs-dyn-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Values read directly from the reference's own per-element dynamic CSS
+   (document.styleSheets filtered by each element's Elementor data-id).
+   Elementor's default column-stacking behavior (classic .elementor-column
+   -> width:100% at <=1024px, further at <=767px) is inherited from the
+   shared framework rules already loaded via css/style.css /
+   css/responsive.css on every page — no extra rule needed here beyond the
+   page-specific padding/typography overrides below. */
+@media (max-width: 1024px) {
+  /* Confirmed on this page's OWN live reference via document.styleSheets
+     (not just borrowed from the sibling geotechnical page, though both
+     pages happen to carry the identical rule from the shared template). */
+  .cs-dyn-conclusion {
+    padding: 111px 0 0;
+  }
+}
+@media (max-width: 767px) {
+  .cs-dyn-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-dyn-hero img {
+    min-height: 260px;
+    object-fit: cover;
+    object-position: left center;
+  }
+  .cs-dyn-spacer {
+    height: 20px;
+  }
+  .cs-dyn-col {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  /* Text/image column insets below are NOT uniform across the two 50/50
+     rows on mobile — confirmed by loading the live reference itself inside
+     a same-origin iframe sized to a real ~372px viewport (so its own media
+     queries actually apply) and walking the ancestor chain from each
+     heading/image to the section, reading computed margin/padding at each
+     level, rather than guessing from the desktop pattern:
+     - Intro text column (comes first in DOM): plain padding:25px, no extra
+       margin on its widget-wrap.
+     - Intro image column (comes second): the widget-wrap carries
+       margin:25px 15px 0 (25px gap above, separating it from the text
+       above; 15px side inset; flush at the bottom) and no padding of its
+       own — reproduced as padding, since there's no visible border/bg to
+       make margin vs padding distinguishable.
+     - Challenge image column (comes first in this mirrored row): the
+       widget-wrap carries margin:0 15px (flush top/bottom, 15px side
+       inset only) — no top gap, since it's already first in the stack.
+     - Challenge text column (comes second): the widget-wrap carries BOTH
+       margin:20px (all sides) AND padding:25px inside that — a combined
+       45px inset on every side from the column edge, confirmed via
+       getBoundingClientRect at every ancestor level, not just guessed as
+       the same 25px used by the intro text column. */
+  .cs-dyn-text-col {
+    padding: 0px;
+  }
+  .cs-dyn-challenge .cs-dyn-text-col {
+    padding: 28px;
+  }
+  .cs-dyn-text-col h2 {
+    text-align: center;
+    margin-bottom: 0px;
+  }
+  .cs-dyn-text-col h1 {
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+  }
+  .cs-dyn-text-col p {
+    text-align: justify;
+  }
+  .cs-dyn-intro .cs-dyn-image-col {
+    padding: 25px 15px 0;
+  }
+  .cs-dyn-challenge .cs-dyn-image-col {
+    padding: 0 15px;
+  }
+  .cs-dyn-challenge {
+    padding: 20px 0 0;
+  }
+  /* Result's single content column is ONE widget-wrap holding the heading,
+     every paragraph, AND the image together — confirmed the same 45px
+     margin(20)+padding(25) combo applies uniformly on all four sides to
+     that whole wrap (not just 25px side-only, as an earlier draft assumed),
+     so the image is inset by the same amount as the text, not full-bleed. */
+  .cs-dyn-result-inner {
+    padding: 45px;
+  }
+  .cs-dyn-result-inner p {
+    text-align: justify;
+  }
+  /* Conclusion's own left/right inset is a plain 25px (matches the intro
+     text column's convention, confirmed directly) — but its SECTION-level
+     top padding must be explicitly reset here. Without this, the tablet-
+     only "padding: 111px 0 0" rule above (scoped to <=1024px) would keep
+     applying at mobile widths too, since <=767px is also <=1024px and no
+     rule in this block was overriding it — leaving a huge blank gap above
+     "Conclusion" on phones that the live reference does not have (its own
+     mobile computed padding-top measured 0px via the same iframe
+     technique). */
+  .cs-dyn-conclusion {
+    padding: 0;
+  }
+  .cs-dyn-conclusion-inner {
+    padding: 0 25px;
+  }
+  .cs-dyn-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-dyn-nav-prev,
+  .cs-dyn-nav-next {
+    margin: 0;
+  }
+  .cs-dyn-nav-next {
+    flex-direction: row;
+  }
+  .cs-dyn-nav-next .cs-dyn-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}

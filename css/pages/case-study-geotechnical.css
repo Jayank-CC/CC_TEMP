@@ -281,6 +281,15 @@
    shared framework rules already loaded via css/style.css /
    css/responsive.css on every page — no extra rule needed here beyond the
    page-specific padding/typography overrides below. */
+@media (max-width: 1024px) {
+  /* Confirmed via the sibling implementing-dynamics-m365 page, which reuses
+     this exact Elementor element id from the same duplicated template —
+     this page's own reference also carries this tablet-only override
+     (previously flagged as measured-but-not-yet-applied). */
+  .cs-geo-conclusion {
+    padding: 111px 0 0;
+  }
+}
 @media (max-width: 767px) {
   .cs-geo-page .breadcrumb-list li {
     font-size: 12px;

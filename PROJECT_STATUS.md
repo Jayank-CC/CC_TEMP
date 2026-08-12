@@ -2,6 +2,112 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/case-studies/implementing-dynamics-m365/
+- **Local target:** `case-studies/implementing-dynamics-m365.html` (flat file),
+  `css/pages/case-study-dynamics-m365.css` (`cs-dyn-` prefix), no page-specific JS needed.
+- **Last updated:** 2026-08-12
+- **State:** Complete, built from scratch this session.
+  - **Same "alternating 50/50" Elementor template family as `migration-of-geotechnical-industry.html`** —
+    confirmed via IDENTICAL Elementor element ids reused across both pages (`0c9be32` intro, `2c439de`
+    challenge, `3adba17` result, `95e264d` conclusion), i.e. both pages were built from the same duplicated
+    template. **Important: shared element ids do NOT mean shared values** — every measurement was
+    independently re-confirmed on this page's own live reference rather than copied from geotechnical, and
+    several genuinely differ:
+    - Result box `max-width` is `1020px` here (geotechnical: `1050px`). Same double-restriction bug pattern
+      (`.container`'s own `15px` padding plus a naive `max-width` override shrinks it further) was baked in
+      as a fix from the start this time (`padding:0` on `.cs-dyn-result-inner`), rather than discovered
+      after the fact.
+    - Result section `margin-bottom` is `60px` here (geotechnical: `48px`).
+    - Conclusion heading is an **H4** here (geotechnical: H6), sized `20px/38px/600` — this matches
+      geotechnical's own H4 style (its Result heading), just applied to a different tag/section on this page.
+    - Conclusion box is `970px` here (geotechnical: `1110px`, which is just the plain `.container`). This
+      page's own reference renders the Conclusion heading/paragraph at exactly `970px`; the precise
+      Elementor box-model mechanism producing that number from a `1140px` container could not be fully
+      traced (no inline style found, wrap padding read `0px`), but `970px` was the repeatedly-confirmed
+      rendered value on the live reference and was used as ground truth via a direct `max-width:970px`
+      override on `.cs-dyn-conclusion-inner`.
+    - Mobile (`<=767px`) Challenge row padding is `20px 0 0` here (geotechnical: `30px 0 0`) — confirmed via
+      this page's own `document.styleSheets`, not assumed.
+    - Result widget structure differs: geotechnical uses one paragraph; this page's Result section is ONE
+      large text-editor widget containing many raw `<p>` tags (including empty spacer `<p></p>` elements,
+      all `margin:0`, spacing coming from line-height not margin). Rebuilt here as normal `<p>` tags using
+      the project's standard `20px` margin-bottom convention rather than replicating the raw empty-paragraph
+      markup, consistent with this project's established content-normalization convention.
+    - The tablet-only Conclusion padding override (`111px 0 0` at `<=1024px`) is confirmed on this page's OWN
+      reference too (not just inherited/copied from geotechnical) — both pages happen to carry the identical
+      rule from the shared template.
+  - **Verification method note (same limitation as every prior page this session):** this environment's
+    browser-automation extension refuses `file://` navigation and won't load `file://` resources inside an
+    `<iframe>` from an `https:` parent either. Sanity-checked the local build via an `iframe.srcdoc` (inlined
+    HTML + the actual page CSS + a small hand-copied subset of the shared base CSS — `.container`,
+    `.breadcrumb-bar`/`-list`, `body` — pulled directly from `css/style.css` rather than guessed) at
+    1440/1024/767/390px widths: zero horizontal overflow at any width (`scrollWidth` matched frame width
+    exactly), 50/50 intro columns split evenly (`555/555` at 1440px, `497/497` at 1024px), Result box measured
+    `1020px` and Conclusion `970px` as intended at desktop, and both correctly collapse to full-width stacking
+    below `767px`. Not a true rendered-in-browser screenshot comparison — exact CSS values themselves came
+    from direct live-reference measurement (`getComputedStyle`/`getBoundingClientRect`/`document.styleSheets`),
+    not from eyeballing this local render.
+  - **Assets** (`assets/images/`): `cs-dyn-hero-banner.webp` (`1403x322`), `cs-dyn-b1.webp` (`768x608`),
+    `cs-dyn-b2.webp` (`540x694`, was a lazy-placeholder false-square `540x540` before checking the `<img>`'s
+    own `width`/`height` attributes), `cs-dyn-b3.webp` (`1100x482`, same lazy trap avoided, was reading as
+    `1020x1020`) — all verified via PIL after download, downloaded via the real-click technique from the
+    start (zero stuck `Unconfirmed`/`.crdownload` files this time, unlike hirebrain's batch).
+  - **Pagination:** "Previous Post" → `hirebrain.html` (local, wired up both directions — hirebrain's own
+    "Next Post" updated from the external reference URL to this new local file); "Next Post" →
+    `https://www.cloudconverge.io/case-studies/website-development-for-atmos-cooling/` (kept external — not
+    yet replicated). `portfolio.html`'s "KABU PROJECTS" card updated from the external reference URL to this
+    new local file.
+  - **Not yet done:** a true rendered-screenshot comparison in a real browser (blocked per the note above),
+    and a genuine mobile/tablet viewport re-check with a working `resize_window` (unavailable again this
+    session).
+  - **Fix pass (user-reported: "section 1 image is not aligned same as the reference page" + "page is not
+    similar in mobile screen"), same session.** Two real bugs found and fixed:
+    1. **Intro-row image vertical alignment.** The initial build left the intro row's image column at
+       default top-alignment. Direct measurement of the live reference (`getComputedStyle` on the column's
+       widget-wrap) showed it's actually `display:flex;align-items:center` — the image (which is shorter
+       than the taller text column) sits vertically centered with equal top/bottom gaps, not flush to the
+       top. Confirmed the Challenge row's image column has NO such override (`alignItems:normal`, top gap
+       `0px`) — it's genuinely top-aligned there, matching the existing default, so only the intro row
+       needed the fix. Added `.cs-dyn-intro .cs-dyn-image-col{display:flex;align-items:center}`.
+    2. **Mobile layout was wrong in several places.** Discovered a new verification technique this session
+       that finally gives TRUE mobile measurements instead of cross-referencing scattered
+       `document.styleSheets` rules by hand: loading the live reference itself inside a **same-origin
+       `<iframe>`** (`src` = the page's own URL) sized to a real narrow width — since the iframe gets its
+       own browsing context, its `window.innerWidth` and CSS media queries respond to the iframe's own
+       width, not the parent tab's, so `getComputedStyle`/`getBoundingClientRect` inside that iframe reflect
+       genuine mobile rendering. (This only works for pages reachable over `https:` on the same origin —
+       still not usable for this project's own `file://`-based local build, so the local build is still
+       sanity-checked via the existing `iframe.srcdoc` overflow-only technique, just with much more accurate
+       target values now.) Using this, found and fixed:
+       - The Result section's single content column (heading + every paragraph + the image, all one
+         widget-wrap) gets a combined `margin:20px` + `padding:25px` = **45px inset on every side** at
+         mobile — the initial build only had `padding:0 25px` (25px sides only, 0 top/bottom, and the image
+         wasn't inset at all). Fixed `.cs-dyn-result-inner{padding:45px}` inside the `max-width:767px` block.
+       - The Challenge row's text column carries the same `margin:20px`+`padding:25px`=45px combo (unlike
+         the Intro text column, which is genuinely just `padding:25px` with no extra margin) — the initial
+         build wrongly applied the same 25px to both. Added
+         `.cs-dyn-challenge .cs-dyn-text-col{padding:45px}`.
+       - The Intro image column gets `margin:25px 15px 0` at mobile (25px gap above separating it from the
+         text stacked above it, 15px side inset, flush at the bottom); the Challenge image column gets
+         `margin:0 15px` (no top gap, since it's already first in that row's stack) — these are genuinely
+         different from each other, but the initial build used one shared
+         `.cs-dyn-image-col{padding:0 25px 25px}` rule for both. Split into
+         `.cs-dyn-intro .cs-dyn-image-col{padding:25px 15px 0}` and
+         `.cs-dyn-challenge .cs-dyn-image-col{padding:0 15px}`.
+       - **Real bug, not just an inaccuracy:** `.cs-dyn-conclusion`'s tablet-only `padding:111px 0 0` rule
+         (scoped to `max-width:1024px`) was never reset inside the `max-width:767px` block. Since a `767px`
+         viewport also matches the `1024px` query, and no rule in the mobile block overrode it, the tablet
+         padding was silently leaking through to phones too — confirmed the live reference's own mobile
+         `padding-top` computes to `0px` (measured through the same iframe technique) — producing a large,
+         wrong blank gap above "Conclusion" on every phone width. Added `.cs-dyn-conclusion{padding:0}`
+         inside the `767px` block to reset it.
+     Re-verified the local build afterward via the `iframe.srcdoc` technique at 1440/767/390px: intro image
+     now centers with equal top/bottom gaps at desktop, gains a top-only `25px` gap and collapses correctly
+     at mobile; Result's inset measures the full `45px` on all sides at mobile; Conclusion's mobile
+     `padding-top` now computes `0px` as intended; no horizontal overflow at any width tested.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/case-studies/hirebrain/
 - **Local target:** `case-studies/hirebrain.html` (flat file), `css/pages/case-study-hirebrain.css`
   (`cs-hb-` prefix), no page-specific JS needed.
