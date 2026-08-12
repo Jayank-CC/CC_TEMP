@@ -349,9 +349,22 @@
   .cs-egg-challenge .cs-egg-row-inner {
     flex-direction: column;
   }
+  .cs-egg-col {
+    /* The desktop-only explicit `width:50%` (added to force an even 570/570 split at desktop —
+       see the desktop fix-pass note above) does NOT get overridden by `flex-direction:column`
+       alone, since `width` is a separate property from the flex shorthand. Without this reset
+       both stacked columns rendered at half the phone's width instead of full width, squeezing
+       the image and text into a narrow center strip — confirmed as a real bug via the
+       same-origin-iframe technique, not present on the reference. */
+    width: 100%;
+  }
   .cs-egg-text-col,
   .cs-egg-image-col {
     padding: 20px;
+  }
+  .cs-egg-image-col img {
+    width: 100%;
+    margin: 0;
   }
   .cs-egg-ux,
   .cs-egg-result,
