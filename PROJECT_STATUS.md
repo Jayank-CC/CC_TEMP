@@ -2,6 +2,112 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/case-studies/development-for-we-are-egg-using-net-contentful/
+- **Local target:** `case-studies/development-for-we-are-egg-using-net-contentful.html` (flat file),
+  `css/pages/case-study-we-are-egg.css` (`cs-egg-` prefix), no page-specific JS needed.
+- **Last updated:** 2026-08-12
+- **State:** Complete, built from scratch this session; verified end-to-end including a mobile CSS fix.
+  - **Structure (9 sections):** hero + breadcrumb + spacer (60px/20px mobile) + intro (single centered
+    column: H1 + 2 paragraphs) + "Challenge & Solution" 50/50 row (image LEFT/text RIGHT: H2 + 2 paragraphs
+    + H3 sub-heading + 1 paragraph) + "User Experience Design & Backend Integration" single centered column
+    (H4 + 2 paragraphs, no image) + a modern Elementor `e-con` flexbox 2-image gallery (`flex-wrap:wrap`,
+    not a `flex-direction` change, to stack at mobile) + "Result" single centered column (no image) +
+    single full-width screenshot + "Conclusion" single centered column + prev/next pagination.
+  - **Genuine DIV-based Elementor heading widgets, confirmed not an oversight:** "Result"'s and
+    "Conclusion"'s heading widgets are literally `<div>` tags on the live reference (not h1-h6), with a
+    genuinely unstyled computed style (`20px/26px/400 weight`, body color `rgb(25,25,25)`, not the bold
+    `rgb(29,26,78)` heading color used everywhere else). Built with real semantic `<h5>`/`<h6>` tags for
+    document structure per this project's convention, but styled to visually match the reference's actual
+    unbold treatment exactly (`.cs-egg-row-inner h5, .cs-egg-row-inner h6{font-weight:400;color:var(--color-body)}`).
+  - **Genuine desktop alignment split, confirmed via direct measurement, not assumed:** H1 is centered but
+    its own paragraphs are LEFT-aligned at desktop (not centered) — the opposite split from several sibling
+    pages where headings and paragraphs share the same alignment.
+  - **Image hover-shadow treatment** (`cs-egg-b1`, both gallery images, `cs-egg-b2`) reuses the
+    `.move-image-left-right` pattern, with `box-shadow:0 0 10px rgba(0,0,0,.2)` — matching the superior-group
+    alpha, confirmed fresh via `getComputedStyle` on this page's own reference, not copied.
+  - **Assets** (`assets/images/`): `cs-egg-hero-banner.webp` (`1920x459`), `cs-egg-b1.webp` (`540x694`),
+    `cs-egg-gallery-1.webp` (`550x757`), `cs-egg-gallery-2.webp` (`550x757`), `cs-egg-b2.webp` (`1120x818`) —
+    all verified via PIL after download.
+  - **Verification method:** rendered via the local dev server end-to-end at desktop width — all 9 sections
+    confirmed visually correct; zero console errors; network requests all `200`/`304`, no `404`s. Mobile
+    verified via the same-origin-iframe technique at a true `390px` width: hero collapses to `297px`, H1
+    stays centered, both 50/50 row and gallery correctly stack to a single column, no horizontal overflow
+    (`scrollWidth 372`).
+  - **Fix pass (self-caught during mobile verification, before reporting completion).** The mobile check
+    initially returned `introPAlign:"left"` for the intro section's first paragraph, contradicting the
+    intended mobile behavior (paragraphs switch to `justify` at mobile, matching every sibling page in this
+    project). Root cause: a redundant rule `.cs-egg-intro h1 + p, .cs-egg-intro p{text-align:left}` had been
+    added (duplicating the base `.cs-egg-row-inner p{text-align:left}` rule, which already covers desktop).
+    Because `.cs-egg-intro h1 + p` (adjacent-sibling selector) has HIGHER specificity (`0,1,2`) than the
+    mobile media query's `.cs-egg-row-inner p{text-align:justify}` rule (`0,1,1`) and carries no media guard
+    of its own, it permanently locked ONLY the first paragraph (the one immediately following `<h1>`) to
+    `left` at every viewport, silently overriding the mobile `justify` rule for that one paragraph while the
+    second paragraph correctly justified. Fixed by deleting the redundant rule entirely — the base desktop
+    rule and the existing mobile media rule already produce the correct behavior on their own. Re-verified
+    via the same iframe technique: both intro paragraphs now read `justify` at `390px` width, while desktop
+    stays `left` for both and H1 stays centered at both — no regression.
+  - **Pagination:** "Previous Post" → `website-development-for-proleve.html` (local, wired up both
+    directions — proleve's own "Next Post" updated from the external reference URL to this new local file).
+    "Next Post" → `https://www.cloudconverge.io/case-studies/m365-business-central-implementation-for-rostar-filters/`
+    (kept external — not yet replicated, confirmed as a real link on the reference). `portfolio.html`'s
+    existing "WE ARE EGG" card updated from the external reference URL to this new local file (its image
+    asset, `port-we-are-egg.jpg`, was already present locally from an earlier session).
+  - **Fix pass (user-reported: "the page have many differences make the page exactly same as the reference
+    page").** A full section-by-section re-audit against the live reference (direct DOM structure dump,
+    `getComputedStyle` diffing per section, and a real side-by-side screenshot scroll-through) found and
+    fixed real bugs beyond the earlier mobile-alignment fix:
+    1. **Fabricated section, not on the reference at all.** An earlier audit pass had invented a 2-column
+       image gallery (`cs-egg-gallery-*`) between "Result" and the full-width screenshot. Re-verification via
+       `querySelectorAll('.elementor-column')`/`img` on the reference's actual corresponding section
+       (`data-id="6c9d923"`) found exactly ONE column and ONE image widget there, whose lazy-src resolves to
+       `EGG-Centre.webp` at `1120x818` — the SAME image already correctly used as this page's single
+       full-width screenshot (`cs-egg-b2.webp`). Removed the entire fabricated gallery section from the HTML
+       and its now-dead CSS rules (`.cs-egg-gallery*` selectors, both desktop and the `<=767px` mobile
+       override); rewrote this file's header doc comment to stop describing a section that doesn't exist.
+       The two now-orphaned `cs-egg-gallery-1/2.webp` assets were left in place (file-delete permission not
+       requested for two harmless unused files) but are no longer referenced anywhere.
+    2. **Result/Conclusion heading weight regression.** `.cs-egg-row-inner h5, h6` had drifted to
+       `font-weight:600`, contradicting this file's own documented finding (and a fresh `getComputedStyle`
+       re-check on the live reference confirming `400`) that these two headings are genuinely unstyled plain
+       body text. Fixed back to `font-weight:400`.
+    3. Re-verified every other previously-documented measurement directly against the reference during this
+       pass rather than trusting the prior audit blindly: all section paddings (intro `0`, challenge `60/60`,
+       ux `32/32`, result `32/64`, screenshot `0/0`, conclusion `32/64`), heading sizes/weights/alignments,
+       the challenge row's 50/50 column split (`570px`/`570px`), image treatments (`border-radius:4px`,
+       `box-shadow:0 0 10px rgba(0,0,0,.2)`), hero height (`~322px`), breadcrumb text, and both pagination
+       links/titles all came back matching exactly — no further changes needed. Also confirmed the
+       full-width screenshot's visible pink/salmon "frame" is baked into the downloaded `cs-egg-b2.webp`
+       image's own pixels (verified via PIL: corner pixel `(235,139,141)`), not a missing CSS decoration —
+       no fix needed there.
+    Re-verified afterward via a real side-by-side screenshot scroll-through of the live reference next to the
+    local dev-server build (not just computed-style diffing) end-to-end from hero through pagination — every
+    section now matches visually; zero console errors; no `404`s.
+  - **Second fix pass (user-reported via screenshot: "Challenge & Solution" image/text columns don't
+      match height).** Direct `getBoundingClientRect` comparison against the live reference found the real
+      cause: the reference renders this image at its own NATIVE `540px` width (matching its own
+      `width="540"` HTML attribute) inside the wider `570px` column, leaving a symmetric `~15px` inset each
+      side — it is NOT stretched to fill the column. My CSS had `.cs-egg-image-col img{width:100%}`,
+      stretching it to `733px` tall instead of the reference's `694px`, exaggerating the (expected, genuine)
+      height gap against the text column. Fixed by giving `.cs-egg-image-col img` its own rule:
+      `width:540px;max-width:100%;margin:0 auto` (separated out from the shared `.cs-egg-showcase-inner img`
+      selector, which correctly keeps `width:100%` since that section's image genuinely does fill its full
+      container). Fixing this surfaced two more real bugs: (a) `.cs-egg-challenge .cs-egg-row-inner` had
+      `max-width:none`, letting the row stretch to the FULL viewport at wide screens instead of the
+      reference's actual `1140px` cap — this is what made the gap balloon further at wide widths beyond just
+      the image-stretch bug. Changed to an explicit `max-width:1140px` (removing it outright wasn't enough,
+      since the page's own `.cs-egg-row-inner{max-width:1000px}` base rule would otherwise win by source
+      order). (b) `.cs-egg-col{flex:1 1 0}` rendered the two columns unequally (`525px`/`615px`) once the
+      image column's padding diverged from the text column's — a genuine flex-basis:0 quirk. Switched to
+      explicit `flex:0 0 50%;width:50%`, forcing a true 570/570 split. Re-verified: image renders at exactly
+      `540x694` matching the reference, columns split evenly at `570px` each with a `15px` inset on each side
+      of the image, and a real side-by-side screenshot at the same scroll position now matches the reference
+      pixel-for-pixel (also had to work around a stale browser CSS cache on the dev server mid-check — a
+      cache-busted stylesheet reload was needed to see the true corrected render).
+  - **Not yet done:** a genuine mobile/tablet viewport re-check across all 9 required widths with a working
+    `resize_window` (only 390px/desktop spot-checked this session via the iframe technique).
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/case-studies/website-development-for-proleve/
 - **Local target:** `case-studies/website-development-for-proleve.html` (flat file),
   `css/pages/case-study-proleve.css` (`cs-prv-` prefix), no page-specific JS needed.

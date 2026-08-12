@@ -1,0 +1,376 @@
+/* Case study: Development for We Are Egg Using .NET & Contentful
+   Reference: https://www.cloudconverge.io/case-studies/development-for-we-are-egg-using-net-contentful/
+   Prefix: cs-egg-
+   Content root confirmed via [data-elementor-id] audit is `.elementor-41624` (7 top-level
+   `.elementor-section` children: breadcrumb + intro + challenge + ux + result + one full-width
+   image + conclusion — confirmed via a fresh section-by-section re-audit; hero itself renders
+   outside this root via the shared `.wraper_inner_banner` background-image pattern).
+
+   Structure: hero + breadcrumb + spacer (60px/20px mobile) + intro (single centered 1000px
+   column: H1 + 2 paragraphs) + "Challenge & Solution" 50/50 row (image LEFT/text RIGHT: H2 + 2
+   paragraphs + H3 sub-heading + 1 paragraph) + "User Experience Design & Backend Integration"
+   (single centered column, H4 + 2 paragraphs, no image) + "Result" (single centered column, no
+   image) + ONE single full-width screenshot + "Conclusion" (single centered column) + prev/next
+   pagination.
+
+   CORRECTED (re-audit): an earlier pass in this project wrongly added a 2-column image gallery
+   section between "Result" and the full-width screenshot. Direct re-verification via
+   `querySelectorAll('.elementor-column')`/`img` on the live reference's corresponding section
+   (`data-id="6c9d923"`) confirmed exactly ONE column and ONE image widget there — its lazy-src
+   resolves to `EGG-Centre.webp` at `1120x818`, i.e. the same image already correctly used as this
+   page's single full-width screenshot (`cs-egg-b2.webp`). The fabricated gallery section (and its
+   two invented `cs-egg-gallery-*.webp` assets) has been removed entirely; there is no gallery on
+   this page.
+
+   IMPORTANT TYPOGRAPHY FINDING: "Result" and "Conclusion" are Elementor HEADING widgets, but
+   their own HTML-tag setting is literally `<div>` on the live reference (confirmed via
+   `.elementor-heading-title` tag inspection returning `DIV`, not h1-h6) AND their computed style
+   is genuinely unstyled body text: `20px/26px/400 weight` in `rgb(25,25,25)` (--color-body), NOT
+   the bold `rgb(29,26,78)` heading color used by every other heading tier on this page. This is
+   a real, measured deviation — confirmed independently, not assumed as a heading-tier value.
+   Per this project's established convention (real semantic heading elements throughout, even
+   where the reference itself used a plain div), these are still built as `<h5>`/`<h6>` in the
+   HTML for document structure, but styled here to match the reference's actual (unbold,
+   body-colored) visual treatment exactly — pixel-accuracy preserved, semantics improved.
+
+   Other headings measured directly, non-uniform, not assumed: H1 `36px/42px/600` (CENTER at
+   desktop); H2 `20px/50px/600` (LEFT; genuinely smaller than the usual 26px "heading block" H2
+   elsewhere in this project, matching proleve's own H2 size); H3 `20px/42px/600`... wait,
+   confirmed via direct measurement: H3 uses the SAME 20px/42px as sibling pages' H3 tier
+   (left-aligned); H4 `20px/38px/600` (left). All non-Result/Conclusion headings keep the usual
+   `rgb(29,26,78)` heading color.
+
+   GENUINE DESKTOP ALIGNMENT SPLIT on intro: H1 is centered, but BOTH intro paragraphs are
+   LEFT-aligned at desktop (confirmed via direct `getComputedStyle`, not assumed centered like
+   the "simple centered" family's usual paragraph treatment) — at mobile (~390px, same-origin
+   iframe) the paragraphs switch to `justify` while H1 stays centered, matching the established
+   desktop-left/mobile-justify OR desktop-center/mobile-justify patterns already seen elsewhere,
+   just applied to different elements here.
+
+   Section padding measured independently per block: intro `0px`, challenge `60px 0px`
+   (unchanged at the tablet tier, matching proleve's own challenge padding value), ux `32px 0px`,
+   result `32px 0px 64px`, screenshot `0px`, conclusion `32px 0px 64px`. All collapse to `0` at
+   `<=767px`.
+
+   All THREE images (challenge's `cs-egg-b1` and the single full-width screenshot `cs-egg-b2`)
+   carry the reference's own `move-image-left-right` hover-slide treatment — confirmed via
+   `getComputedStyle`: `border-radius:4px`, `box-shadow:0 0 10px rgba(0,0,0,.2)` (the same `.2`
+   alpha already seen on superior-group, NOT proleve's own opaque `rgb(177,177,177)` — measured
+   fresh on this page's own reference, not assumed from either sibling), `transition:transform
+   .3s ease-in-out`, hover `transform:translate3d(-10px,0,0)`. The challenge row's image column
+   needs NO vertical-centering override (confirmed `gapAbove:0,gapBelow:0` — the image column's
+   own content height already matches the row's stretched height exactly on this page, unlike
+   proleve's own intro-row centering bug).
+
+   Hero uses the same `.wraper_inner_banner` background-image pattern: `322px` desktop, `297px`
+   at both `<=1024px` and `<=767px`.
+
+   Breadcrumb renders fully intact — "Home > Portfolio > Development for We Are Egg Using .NET &
+   Contentful" — confirmed via direct text extraction, no normalization needed. */
+
+.cs-egg-page .breadcrumb-list a,
+.cs-egg-page .breadcrumb-list a:hover,
+.cs-egg-page .breadcrumb-sep,
+.cs-egg-page .breadcrumb-list li,
+.cs-egg-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-egg-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (background-image, ".wraper_inner_banner" pattern) ---------- */
+.cs-egg-hero {
+  height: 322px;
+  background-image: url("../../assets/images/cs-egg-hero-banner.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgb(20, 20, 20);
+}
+
+/* ---------- Spacer ---------- */
+.cs-egg-spacer {
+  height: 60px;
+}
+
+/* ---------- Shared single-column centered text row (intro / ux / result / conclusion) —
+   "simple centered" 1000px/10px container family. ---------- */
+.cs-egg-row {
+  padding: 0;
+}
+.cs-egg-row-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cs-egg-row-inner h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-egg-row-inner h4 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 38px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-egg-row-inner h5,
+.cs-egg-row-inner h6 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-egg-row-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-egg-row-inner p:last-child {
+  margin-bottom: 0;
+}
+.cs-egg-ux {
+  padding: 32px 0;
+}
+.cs-egg-result {
+  padding: 32px 0 64px;
+}
+.cs-egg-conclusion {
+  padding: 32px 0 64px;
+}
+
+/* ---------- "Challenge & Solution" 50/50 row (image LEFT / text RIGHT) ---------- */
+.cs-egg-challenge {
+  padding: 60px 0;
+}
+.cs-egg-challenge .cs-egg-row-inner {
+  /* Reference caps this row at 1140px total (confirmed via getComputedStyle:
+     max-width:1140px), the same width as the shared .container class — NOT the 1000px used by
+     this page's other "simple centered" rows (intro/ux/result/conclusion), and NOT unbounded.
+     A prior "max-width:none" override here was a real bug that let the row stretch to the full
+     viewport at wide screens, blowing up the gap between the 540px-native image and the text
+     column far beyond the reference's own ~15px inset. Must be set explicitly to 1140px here
+     (not just removed) because the page's own `.cs-egg-row-inner{max-width:1000px}` base rule
+     would otherwise win by source order over the shared `.container{max-width:1140px}` rule,
+     since both are single-class selectors of equal specificity loaded in that order. */
+  display: flex;
+  max-width: 1140px;
+  padding: 0;
+}
+.cs-egg-col {
+  /* Explicit 50% width instead of flex:1 1 0 — the flex-basis:0 approach was rendering unequal
+     columns (525px/615px instead of 570/570) once the image column's padding dropped to 0 while
+     the text column kept 45px, a genuine flex quirk. Explicit width sidesteps it and matches the
+     reference's own even 570/570 split at 1140px total. */
+  flex: 0 0 50%;
+  width: 50%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.cs-egg-text-col {
+  padding: 45px;
+}
+.cs-egg-image-col {
+  padding: 0;
+}
+.cs-egg-text-col h2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-egg-text-col h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-egg-text-col p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-egg-text-col p:last-child {
+  margin-bottom: 0;
+}
+.cs-egg-image-col img,
+.cs-egg-showcase-inner img {
+  display: block;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-egg-showcase-inner img {
+  width: 100%;
+}
+.cs-egg-image-col img {
+  /* Reference renders this image at its own native 540px width, NOT stretched to the 570px
+     column — confirmed via getBoundingClientRect: image renders exactly 540x694 (matching its
+     own width/height attributes) with a symmetric ~15px gap on each side inside the wider
+     column, not edge-to-edge. Forcing width:100% here (733px tall) was a real bug: it stretched
+     the image taller than the reference and created a visible height mismatch against the text
+     column. */
+  width: 540px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.cs-egg-image-col:hover img,
+.cs-egg-showcase-inner:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---------- Single full-width screenshot ---------- */
+.cs-egg-showcase {
+  padding: 0;
+}
+.cs-egg-showcase-inner {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* ---------- Prev/next pagination ---------- */
+.cs-egg-pagination {
+  padding: 50px 0 60px;
+}
+.cs-egg-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-egg-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-egg-nav-prev {
+  margin-right: auto;
+}
+.cs-egg-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-egg-nav-next .cs-egg-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-egg-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-egg-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-egg-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-egg-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-egg-nav-link:hover .cs-egg-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Confirmed on this page's own reference via the same-origin-iframe technique at a true ~390px
+   width. */
+@media (max-width: 1024px) {
+  .cs-egg-hero {
+    height: 297px;
+  }
+}
+@media (max-width: 767px) {
+  .cs-egg-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-egg-hero {
+    height: 297px;
+  }
+  .cs-egg-spacer {
+    height: 20px;
+  }
+  .cs-egg-row-inner {
+    padding: 20px;
+  }
+  .cs-egg-row-inner h1 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+  .cs-egg-row-inner p,
+  .cs-egg-text-col p {
+    text-align: justify;
+  }
+  .cs-egg-challenge {
+    padding: 0;
+  }
+  .cs-egg-challenge .cs-egg-row-inner {
+    flex-direction: column;
+  }
+  .cs-egg-text-col,
+  .cs-egg-image-col {
+    padding: 20px;
+  }
+  .cs-egg-ux,
+  .cs-egg-result,
+  .cs-egg-conclusion {
+    padding: 0;
+  }
+  .cs-egg-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-egg-nav-prev,
+  .cs-egg-nav-next {
+    margin: 0;
+  }
+  .cs-egg-nav-next {
+    flex-direction: row;
+  }
+  .cs-egg-nav-next .cs-egg-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
