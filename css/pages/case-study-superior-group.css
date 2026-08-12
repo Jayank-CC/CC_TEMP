@@ -1,0 +1,378 @@
+/* Case study: Website Development For Superior Group
+   Reference: https://www.cloudconverge.io/case-studies/website-development-for-superior-group/
+   Prefix: cs-sg-
+   Content root confirmed via [data-elementor-id] audit is `.elementor-41284`
+   (NOT `.elementor-15927`, which is the shared header/mega-menu template also
+   present in the DOM — the same trap avoided on every prior case-study page
+   in this project).
+
+   Reuses TWO template families already established elsewhere in this
+   project, both independently re-confirmed via direct measurement on this
+   page's own reference rather than assumed from a sibling:
+   - The gallery row (3 columns: tall image / stacked-pair / tall image) is
+     the SAME layout family as Helm Boots' gallery, but this page's own
+     reference builds it from real `<img>` tags (not CSS `background-image`
+     like Helm Boots) — confirmed via `querySelectorAll('img')` returning 4
+     real elements inside the row. Column widths measured at desktop:
+     outer columns ~380px (image itself renders at its native 340px width,
+     ~20px inset each side); the middle column is ~380px total but wraps an
+     Elementor inner-section with two ~360px-wide stacked sub-columns (10px
+     inset each side) — the two stacked images (`SG-logo.webp` 340x255,
+     `brand-product-SG.webp` scaled from its native 400x300 to the same
+     340px width) sit with a combined ~40px vertical gap between them
+     (measured via `getBoundingClientRect` on both images: `top1+h1=703`,
+     `top2=743`).
+   - The three text blocks (intro H1, "User Experience Design & Backend
+     Integration" H2, "Conclusion & Feedback" H3) reuse the exact same
+     "simple" 1000px-max-width/10px-padding/CENTERED container family
+     already established on bar-drinks/pharmacy/corporate-gifts/verve/
+     hirebrain — confirmed via `getComputedStyle` directly on the H1/H2/H3/
+     `<p>` elements themselves (`textAlign:center` on every one, at both
+     desktop and mobile). An earlier pass on this page wrongly concluded
+     these blocks were left-aligned by reading the outer widget-wrap's own
+     `text-align:left` instead of the actual heading/paragraph elements —
+     the wrap holds no text directly, so its own alignment is irrelevant;
+     checking the real text nodes (not just their container) is the fix.
+     Mobile keeps H1/H2/H3 centered but switches paragraphs to
+     `text-align:justify`, confirmed via the same-origin-iframe technique
+     at a true ~370px width — matching the same desktop-center/mobile-
+     justify split already used on every sibling page in this family.
+   - Desktop section padding measured independently per block (not assumed
+     uniform): intro `16px 0`, challenge `32px 0`, conclusion `32px 0 64px`
+     — the same three values already seen on corporate-gifts' intro/heading
+     blocks, confirmed fresh on this page's own reference.
+   - The single full-width screenshot and the two-column footer image row
+     both carry the same `.move-image-left-right` hover-slide treatment
+     already established on ecommerce.html/rise-event.html/geotechnical
+     (border-radius 4px, box-shadow, translate3d(-10px,0,0) on hover) —
+     confirmed via `getComputedStyle` AND the widget's own
+     `move-image-left-right` class name on the live reference — but this
+     page's own box-shadow alpha is `rgba(0,0,0,.2)`, NOT the `.5` used on
+     every other page carrying this same treatment; measured directly via
+     `getComputedStyle`, not copied from a sibling. The two SMALL stacked
+     gallery images (logo + product lineup) do NOT carry this treatment
+     (`box-shadow:none`, confirmed) — only the two tall gallery images, the
+     single screenshot, and both footer images do. Rather than reusing the
+     reference's own `move-image-left-right` class name verbatim in this
+     project's markup, the treatment is folded directly into this page's
+     own structural classes below, consistent with how ecommerce.html/
+     rise-event.html do it in THIS project (page-owned class names, not a
+     re-declared copy of the reference's own Elementor class).
+
+   Hero uses the same `.wraper_inner_banner` background-image pattern
+   already established on bar-drinks/pharmacy/atmos-cooling: height `322px`
+   desktop, `297px` at both `<=1024px` and `<=767px` — confirmed as the same
+   framework-level default (not re-derived, since the underlying source
+   image here is a much larger `1920x459` file used purely as a
+   `background-size:cover` source, not tied 1:1 to the rendered box height).
+
+   Breadcrumb renders fully intact on this page's own reference — "Home >
+   Portfolio > Website Development for Superior Group" — confirmed via a
+   real rendered screenshot (an earlier raw-text DOM query returned an
+   empty middle crumb, but that query had matched the wrong "breadcrumb"-
+   classed element on the page; the actual visible breadcrumb widget is
+   NOT broken here, unlike atmos-cooling's genuinely broken middle crumb).
+   No content-normalization needed for this page.
+
+   Mobile values confirmed via a true ~370px viewport using the same-origin
+   `<iframe src="own URL">` technique: all three section-level paddings
+   collapse to `0` (spacer `20px`, section padding `0`, widget-wrap padding
+   `20px`, paragraph `text-align:justify`, H1 `24px/30px`), gallery columns
+   and the footer row's two columns all stack to full width. */
+
+.cs-sg-page .breadcrumb-list a,
+.cs-sg-page .breadcrumb-list a:hover,
+.cs-sg-page .breadcrumb-sep,
+.cs-sg-page .breadcrumb-list li,
+.cs-sg-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-sg-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (background-image, ".wraper_inner_banner" pattern) ---------- */
+.cs-sg-hero {
+  height: 322px;
+  background-image: url("../../assets/images/cs-sg-hero-banner.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgb(20, 20, 20);
+}
+
+/* ---------- Spacer ---------- */
+.cs-sg-spacer {
+  height: 60px;
+}
+
+/* ---------- Gallery row (3 columns: tall / stacked-pair / tall) ---------- */
+.cs-sg-gallery {
+  padding: 0;
+}
+.cs-sg-gallery-row {
+  display: flex;
+}
+.cs-sg-gallery-col {
+  flex: 1 1 0;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 20px;
+}
+.cs-sg-gallery-col-mid {
+  padding: 10px;
+}
+.cs-sg-gallery-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.cs-sg-gallery-col-outer img {
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-sg-gallery-col-outer:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+.cs-sg-gallery-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ---------- Shared single-column text row (intro / challenge / conclusion) —
+   same 1000px/10px container family as the "simple centered" pages, but
+   left-aligned here rather than centered. ---------- */
+.cs-sg-row {
+  padding: 0;
+}
+.cs-sg-row-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.cs-sg-row-inner h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-sg-row-inner h2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-sg-row-inner h3 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-sg-row-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-sg-row-inner p:last-child {
+  margin-bottom: 0;
+}
+
+.cs-sg-intro {
+  padding: 16px 0;
+}
+.cs-sg-challenge {
+  padding: 32px 0;
+}
+.cs-sg-conclusion {
+  padding: 32px 0 64px;
+}
+
+/* ---------- Single full-width screenshot ---------- */
+.cs-sg-showcase {
+  padding: 0;
+}
+.cs-sg-showcase-inner {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cs-sg-showcase-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-sg-showcase-inner:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---------- Two-column footer image row ---------- */
+.cs-sg-footer-row {
+  padding: 0;
+}
+.cs-sg-footer-row-inner {
+  display: flex;
+}
+.cs-sg-footer-col {
+  flex: 0 0 50%;
+  max-width: 50%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.cs-sg-footer-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-sg-footer-col:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---------- Prev/next pagination ---------- */
+.cs-sg-pagination {
+  padding: 50px 0 60px;
+}
+.cs-sg-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-sg-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-sg-nav-prev {
+  margin-right: auto;
+}
+.cs-sg-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-sg-nav-next .cs-sg-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-sg-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-sg-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-sg-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-sg-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-sg-nav-link:hover .cs-sg-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Framework-level column-stacking (classic `.elementor-column` -> 100% at
+   <=1024px, further at <=767px) is inherited from the shared css/style.css
+   / css/responsive.css already loaded on every page. Only page-specific
+   padding/typography overrides are listed below, confirmed on this page's
+   own reference via the same-origin-iframe technique at a true ~370px
+   width, not copied from siblings. */
+@media (max-width: 1024px) {
+  .cs-sg-hero {
+    height: 297px;
+  }
+}
+@media (max-width: 767px) {
+  .cs-sg-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-sg-hero {
+    height: 297px;
+  }
+  .cs-sg-spacer {
+    height: 20px;
+  }
+  .cs-sg-gallery-row {
+    flex-direction: column;
+  }
+  .cs-sg-row-inner {
+    padding: 20px;
+  }
+  .cs-sg-row-inner h1 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+  .cs-sg-row-inner p {
+    text-align: justify;
+  }
+  .cs-sg-intro,
+  .cs-sg-challenge,
+  .cs-sg-conclusion {
+    padding: 0;
+  }
+  .cs-sg-footer-row-inner {
+    flex-direction: column;
+  }
+  .cs-sg-footer-col {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  .cs-sg-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-sg-nav-prev,
+  .cs-sg-nav-next {
+    margin: 0;
+  }
+  .cs-sg-nav-next {
+    flex-direction: row;
+  }
+  .cs-sg-nav-next .cs-sg-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}

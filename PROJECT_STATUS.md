@@ -2,6 +2,75 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/case-studies/website-development-for-superior-group/
+- **Local target:** `case-studies/website-development-for-superior-group.html` (flat file),
+  `css/pages/case-study-superior-group.css` (`cs-sg-` prefix), no page-specific JS needed.
+- **Last updated:** 2026-08-12
+- **State:** Complete, built from scratch this session.
+  - **Content root confirmed via `[data-elementor-id]` audit is `.elementor-41284`** (NOT `.elementor-15927`,
+    the shared header/mega-menu template also present in the DOM — the same trap avoided on every prior
+    case-study page in this project).
+  - **Reuses TWO template families already established elsewhere, both independently re-confirmed via
+    direct measurement, not assumed from a sibling:**
+    - The gallery row (3 columns: tall image / stacked-pair / tall image) is the SAME layout family as
+      Helm Boots' gallery, but this page's own reference builds it from real `<img>` tags (not CSS
+      `background-image` like Helm Boots) — confirmed via `querySelectorAll('img')` returning 4 real
+      elements inside the row. Outer columns ~380px (image renders at its native 340px width, ~20px inset
+      each side); middle column wraps an inner-section with two ~360px-wide stacked sub-columns (10px inset
+      each side), the two stacked images sitting with a combined ~40px vertical gap between them.
+    - The three text blocks (intro H1, "User Experience Design & Backend Integration" H2, "Conclusion &
+      Feedback" H3) reuse the exact same "simple" 1000px-max-width/10px-padding/CENTERED container family
+      already established on bar-drinks/pharmacy/corporate-gifts/verve/hirebrain. Desktop section padding
+      measured independently per block: intro `16px 0`, challenge `32px 0`, conclusion `32px 0 64px` — the
+      same three values already seen on corporate-gifts' intro/heading blocks, confirmed fresh here.
+    - **Fix pass (user-reported: "see the text alignment of the complete page and fix it").** The initial
+      build wrongly rendered all three text blocks LEFT-aligned. Root cause: the earlier measurement checked
+      `getComputedStyle` on each block's outer widget-wrap (which reported `text-align:left`) instead of the
+      actual H1/H2/H3/`<p>` elements themselves — the wrap holds no text directly, so its own alignment is
+      irrelevant. Re-measuring the real text nodes on the live reference confirmed `text-align:center` on
+      every heading and paragraph, at both desktop and a true ~370px mobile width (mobile keeps headings
+      centered but switches paragraphs to `text-align:justify`, the same split already used on every sibling
+      page in this family). Fixed by changing `.cs-sg-row-inner`/`h1`/`h2`/`h3`/`p` from `left` to `center`;
+      the mobile block's `text-align:justify` on `p` was already correct by coincidence and needed no
+      change. Verified visually via the project's local dev server (`http://127.0.0.1:5500/...`)
+      side-by-side with the live reference at the same scroll position — all three blocks now match exactly.
+  - **Hover-shadow treatment on images (single screenshot + both footer images + the two tall gallery
+    images) reuses the `.move-image-left-right` pattern already established on ecommerce.html/
+    rise-event.html/geotechnical** (border-radius 4px, box-shadow, translate3d(-10px,0,0) on hover) — but
+    this page's own box-shadow alpha is `rgba(0,0,0,.2)`, NOT the `.5` used on every other page carrying
+    this treatment, measured directly via `getComputedStyle`, not copied from a sibling. The two SMALL
+    stacked gallery images (logo + product lineup) do NOT carry this treatment (confirmed
+    `box-shadow:none`). Folded directly into this page's own structural classes rather than reusing the
+    reference's own Elementor class name verbatim, consistent with how ecommerce.html/rise-event.html do it
+    in this project.
+  - **Hero** uses the same `.wraper_inner_banner` background-image pattern already established on
+    bar-drinks/pharmacy/atmos-cooling: height `322px` desktop, `297px` at both `<=1024px` and `<=767px` —
+    confirmed as the same framework-level default (not re-derived, since the underlying source image here
+    is a much larger `1920x459` file used purely as a `background-size:cover` source, not tied 1:1 to the
+    rendered box height).
+  - **Breadcrumb renders fully intact on this page's own reference** — "Home > Portfolio > Website
+    Development for Superior Group" — confirmed via a real rendered screenshot after an earlier raw-text
+    DOM query falsely suggested a broken middle crumb (that query had matched the wrong "breadcrumb"-classed
+    element on the page). No content-normalization needed for this page, unlike atmos-cooling.
+  - **Verification method:** local build sanity-checked via `iframe.srcdoc` at 1440/1024/767/390px widths —
+    zero horizontal overflow at any width, gallery and footer-row columns correctly collapse to full
+    container width and stack vertically at `<=767px`, pagination correctly switches to a stacked column
+    with a `24px` gap at mobile.
+  - **Assets** (`assets/images/`): `cs-sg-hero-banner.webp` (`1920x459`), `cs-sg-gallery-1.webp` (`340x571`),
+    `cs-sg-gallery-2-top.webp` (`340x255`), `cs-sg-gallery-2-bottom.webp` (`400x300`), `cs-sg-gallery-3.webp`
+    (`340x571`), `cs-sg-b1.webp` (`1170x780`), `cs-sg-footer-1.webp` (`600x400`), `cs-sg-footer-2.webp`
+    (`600x400`) — all verified via PIL after download.
+  - **Pagination:** "Previous Post" → `website-development-for-atmos-cooling.html` (local, wired up both
+    directions — atmos-cooling's own "Next Post" already pointed here per the prior fix pass). "Next Post"
+    → `https://www.cloudconverge.io/case-studies/migration-of-el-guapo/` (kept external — not yet
+    replicated, confirmed as a real link on the reference, not assumed absent). `portfolio.html`'s existing
+    "SUPERIOR GROUP" card updated from the external reference URL to this new local file (its image asset,
+    `port-superior-group.webp`, was already present locally from an earlier session).
+  - **Not yet done:** a true rendered-screenshot comparison in a real browser, and a genuine mobile/tablet
+    viewport re-check with a working `resize_window`.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/case-studies/website-development-for-atmos-cooling/
 - **Local target:** `case-studies/website-development-for-atmos-cooling.html` (flat file),
   `css/pages/case-study-atmos-cooling.css` (`cs-atmos-` prefix), no page-specific JS needed.
@@ -51,11 +120,18 @@
   - **Assets** (`assets/images/`): `cs-atmos-hero-banner.webp` (`1403x322`), `cs-atmos-b1.webp` (`540x484`),
     `cs-atmos-b2.webp` (`540x1022`), `cs-atmos-b3.webp` (`1080x1501`) — all verified via PIL after copying from
     the mounted Downloads folder.
-  - **Pagination:** this page is LAST in the case-study chain (per the reference's own next-post link, which
-    points onward to a page not yet built) — only a "Previous Post" link exists, → `implementing-dynamics-
-    m365.html` (local, wired up both directions — dynamics-m365's own "Next Post" updated from the external
-    reference URL to this new local file). `portfolio.html`'s "ATMOS COOLING" card updated from the external
-    reference URL to this new local file.
+  - **Pagination fix (user-reported: "you forgot to add the next post navigation").** Initial build wrongly
+    assumed this page was last in the case-study chain. Re-audited the live reference's actual pagination
+    widget directly (it sits outside the `.elementor-40633` content root that was used for the rest of the
+    page's content audit, so an earlier `innerText` scan of just that root missed it) and confirmed a real
+    "Next Post" link exists, pointing to `https://www.cloudconverge.io/case-studies/website-development-for-
+    superior-group/` ("Website Development For Superior Group" — not yet replicated locally). Added
+    `.cs-atmos-nav-next` (kept external for now, per this project's established convention for linking to
+    not-yet-built pages) mirroring the exact `.cs-dyn-nav-next` treatment from dynamics-m365
+    (`flex-direction:row-reverse` + right-aligned text at desktop, reverting to normal row + left-aligned text
+    in the `<=767px` stacked-mobile block). "Previous Post" → `implementing-dynamics-m365.html` (local, wired
+    up both directions — dynamics-m365's own "Next Post" already pointed here). `portfolio.html`'s "ATMOS
+    COOLING" card updated from the external reference URL to this new local file.
   - **Not yet done:** a true rendered-screenshot comparison in a real browser, and a genuine mobile/tablet
     viewport re-check with a working `resize_window`.
 

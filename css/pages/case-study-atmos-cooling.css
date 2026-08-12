@@ -250,6 +250,14 @@
 .cs-atmos-nav-prev {
   margin-right: auto;
 }
+.cs-atmos-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-atmos-nav-next .cs-atmos-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
 .cs-atmos-nav-text {
   display: flex;
   flex-direction: column;
@@ -376,7 +384,15 @@
     flex-direction: column;
     gap: 24px;
   }
-  .cs-atmos-nav-prev {
+  .cs-atmos-nav-prev,
+  .cs-atmos-nav-next {
     margin: 0;
+  }
+  .cs-atmos-nav-next {
+    flex-direction: row;
+  }
+  .cs-atmos-nav-next .cs-atmos-nav-text {
+    align-items: flex-start;
+    text-align: left;
   }
 }
