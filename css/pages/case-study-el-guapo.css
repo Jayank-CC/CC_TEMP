@@ -1,0 +1,314 @@
+/* Case study: Migration of El Guapo
+   Reference: https://www.cloudconverge.io/case-studies/migration-of-el-guapo/
+   Prefix: cs-elg-
+   Content root confirmed via [class] audit is `.elementor-41450`.
+
+   Reuses the same "simple centered" 1000px-max-width/10px-padding text-block
+   family already established on bar-drinks/pharmacy/corporate-gifts/verve/
+   hirebrain/superior-group (after its fix) — confirmed via direct
+   `getComputedStyle` on the real h1-h6/p elements themselves (learning
+   carried over from the superior-group text-alignment bug: never trust the
+   outer widget-wrap's own text-align, only the text-bearing elements).
+   `textAlign:center` on every heading and paragraph at desktop; at mobile
+   (~370px via same-origin iframe) headings stay centered, paragraphs switch
+   to `justify`.
+
+   This page uses ALL SIX heading tiers (h1-h6) across its four text blocks,
+   each confirmed via direct measurement to match the same tier sizes used
+   verbatim elsewhere in this project (hirebrain, etc.):
+     h1 36px/42px/600   h2 26px/50px/600   h3 22px/42px/600
+     h4 22px/38px/600   h5 22px/30px/600   h6 22px/27px/600
+   All heading color rgb(29,26,78) (--color-heading), margin-bottom 0 on the
+   heading itself.
+
+   Section padding measured independently PER BLOCK (not assumed uniform,
+   confirmed genuinely different from superior-group's own 16/32/32 64
+   pattern):
+     intro   0px          (desktop AND mobile)
+     block2  32px 0       (0 at mobile)
+     block3  32px 0 64px  (0 at mobile)
+     conclusion 32px 0 64px (0 at mobile, same as block3)
+
+   The three screenshots (`cs-elg-b1/b2/b3`) carry NO hover-shadow treatment
+   at all — confirmed directly via `getComputedStyle` on the reference's own
+   images returning `box-shadow:none` and `border-radius:0px`. This is a
+   genuine deviation from superior-group/atmos-cooling's `.move-image-left-
+   right`-style treatment, not an oversight — do not add it here.
+
+   Hero uses the same `.wraper_inner_banner` background-image pattern:
+   height 322px desktop, 297px at both <=1024px and <=767px — the same
+   framework-level default confirmed on every sibling page, independent of
+   the underlying source image's own native 1920x459 size (background-size:
+   cover crops it; the box height is fixed regardless).
+
+   Breadcrumb renders fully intact — "Home > Portfolio > Migration of El
+   Guapo" — confirmed via a real rendered screenshot after an initial
+   `[class*="breadcrumb"]` query returned a false-negative empty middle
+   crumb (the same recurring query trap seen on superior-group). No
+   content-normalization needed for the breadcrumb.
+
+   The reference's own text-editor widgets place block2/block3/conclusion
+   paragraph text directly inside `.elementor-widget-container` with ZERO
+   `<p>` wrapping; the conclusion's two logical paragraphs are concatenated
+   with no separating whitespace at all in the raw DOM. Per this project's
+   established normalization convention, the HTML rebuilds this as two
+   clean `<p>` tags split at the natural sentence boundary ("...scalability."
+   / "El Guapo Bitters is now capable...") — confirmed via direct
+   `.innerText` extraction on the live reference, cross-checked against an
+   earlier ambiguous raw dump before finalizing (block3 itself has exactly
+   2 paragraphs, no extra trailing content — the "customer engagement"
+   sentence seen in an earlier raw dump belongs to the conclusion block,
+   not block3).
+
+   Mobile values confirmed via the same-origin `<iframe src="own URL">`
+   technique at a true ~370px width: hero 297px, spacer 20px, all four
+   section paddings collapse to 0, widget-wrap padding becomes 20px,
+   headings stay centered, paragraphs switch to justify. */
+
+.cs-elg-page .breadcrumb-list a,
+.cs-elg-page .breadcrumb-list a:hover,
+.cs-elg-page .breadcrumb-sep,
+.cs-elg-page .breadcrumb-list li,
+.cs-elg-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-elg-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (background-image, ".wraper_inner_banner" pattern) ---------- */
+.cs-elg-hero {
+  height: 322px;
+  background-image: url("../../assets/images/cs-elg-hero-banner.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgb(20, 20, 20);
+}
+
+/* ---------- Spacer ---------- */
+.cs-elg-spacer {
+  height: 60px;
+}
+
+/* ---------- Shared single-column centered text row (intro / block2 / block3 /
+   conclusion) — same 1000px/10px "simple centered" container family used
+   across this project. ---------- */
+.cs-elg-row {
+  padding: 0;
+}
+.cs-elg-row-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.cs-elg-row-inner h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-elg-row-inner h2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-elg-row-inner h3 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-elg-row-inner h4 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 38px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-elg-row-inner h5 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 30px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-elg-row-inner h6 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 27px;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-elg-row-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0 0 20px;
+}
+.cs-elg-row-inner p:last-child {
+  margin-bottom: 0;
+}
+
+.cs-elg-intro {
+  padding: 0;
+}
+.cs-elg-block2 {
+  padding: 32px 0;
+}
+.cs-elg-block3 {
+  padding: 32px 0 64px;
+}
+.cs-elg-conclusion {
+  padding: 32px 0 64px;
+}
+
+/* ---------- Full-width screenshots (NO hover-shadow treatment — confirmed
+   genuinely absent on this page's own reference). ---------- */
+.cs-elg-showcase {
+  padding: 0;
+}
+.cs-elg-showcase-inner {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cs-elg-showcase-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Prev/next pagination ---------- */
+.cs-elg-pagination {
+  padding: 50px 0 60px;
+}
+.cs-elg-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-elg-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-elg-nav-prev {
+  margin-right: auto;
+}
+.cs-elg-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-elg-nav-next .cs-elg-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-elg-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-elg-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-elg-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-elg-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-elg-nav-link:hover .cs-elg-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Framework-level column-stacking is inherited from the shared css/style.css
+   / css/responsive.css already loaded on every page. Only page-specific
+   padding/typography overrides are listed below, confirmed on this page's
+   own reference via the same-origin-iframe technique at a true ~370px
+   width. */
+@media (max-width: 1024px) {
+  .cs-elg-hero {
+    height: 297px;
+  }
+}
+@media (max-width: 767px) {
+  .cs-elg-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-elg-hero {
+    height: 297px;
+  }
+  .cs-elg-spacer {
+    height: 20px;
+  }
+  .cs-elg-row-inner {
+    padding: 13px;
+  }
+  .cs-elg-row-inner h1 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+  .cs-elg-row-inner p {
+    text-align: justify;
+  }
+  .cs-elg-intro,
+  .cs-elg-block2,
+  .cs-elg-block3,
+  .cs-elg-conclusion {
+    padding: 0;
+  }
+  .cs-elg-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-elg-nav-prev,
+  .cs-elg-nav-next {
+    margin: 0;
+  }
+  .cs-elg-nav-next {
+    flex-direction: row;
+  }
+  .cs-elg-nav-next .cs-elg-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}

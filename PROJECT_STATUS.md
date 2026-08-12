@@ -2,6 +2,65 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/case-studies/migration-of-el-guapo/
+- **Local target:** `case-studies/migration-of-el-guapo.html` (flat file),
+  `css/pages/case-study-el-guapo.css` (`cs-elg-` prefix), no page-specific JS needed.
+- **Last updated:** 2026-08-12
+- **State:** Complete, built from scratch this session.
+  - **Content root confirmed via `[class]` audit is `.elementor-41450`.** Page load was genuinely slow on this
+    reference — `document.readyState` stayed `"loading"` and `document.body` was `null` immediately after
+    navigation; fixed by retrying with increasing waits (~8s cumulative) until content appeared, not a query bug.
+  - **Reuses the same "simple centered" 1000px-max-width/10px-padding text-block family** already established
+    on bar-drinks/pharmacy/corporate-gifts/verve/hirebrain/superior-group (after its own fix) — confirmed via
+    direct `getComputedStyle` on the real h1-h6/p elements themselves (the superior-group text-alignment lesson
+    applied proactively here: never trust the outer widget-wrap's own `text-align`, only the text-bearing
+    elements). `textAlign:center` on every heading and paragraph at desktop; mobile (~370px, same-origin iframe)
+    keeps headings centered, paragraphs switch to `justify`.
+  - **This page uses ALL SIX heading tiers (h1-h6) across its four text blocks** — intro H1, block2 H2+H3, block3
+    H4+H5, conclusion H6 — each confirmed via direct measurement to match the same tier sizes used verbatim
+    elsewhere in this project (hirebrain, etc.): `h1 36/42/600`, `h2 26/50/600`, `h3 22/42/600`, `h4 22/38/600`,
+    `h5 22/30/600`, `h6 22/27/600`, all color `rgb(29,26,78)`.
+  - **Section padding measured independently per block** (genuinely different from superior-group's own
+    16/32/32 64 pattern): intro `0px` (desktop AND mobile — no mid-tier bump), block2 `32px 0`, block3
+    `32px 0 64px`, conclusion `32px 0 64px` (all collapse to `0` at `<=767px`).
+  - **The three screenshots carry NO hover-shadow treatment at all** — confirmed via `getComputedStyle` on the
+    reference's own images returning `box-shadow:none`/`border-radius:0px`. A genuine deviation from
+    superior-group/atmos-cooling's `.move-image-left-right`-style treatment; not applied here.
+  - **Hero** uses the same `.wraper_inner_banner` background-image pattern: `322px` desktop, `297px` at both
+    `<=1024px` and `<=767px` — the same framework-level default confirmed on every sibling page, independent of
+    the underlying source image's own native `1920x459` size.
+  - **Breadcrumb renders fully intact** — "Home > Portfolio > Migration of El Guapo" — confirmed via a real
+    rendered screenshot after an initial `[class*="breadcrumb"]` query returned a false-negative empty middle
+    crumb (the same recurring query trap seen on superior-group). No content-normalization needed.
+  - **Content normalization applied:** the reference's own text-editor widgets for block2/block3/conclusion place
+    paragraph text directly inside `.elementor-widget-container` with ZERO `<p>` wrapping; the conclusion's two
+    logical paragraphs are concatenated with no separating whitespace at all in the raw DOM. Rebuilt as two clean
+    `<p>` tags split at the natural sentence boundary ("...scalability." / "El Guapo Bitters is now capable...").
+    Block3's exact paragraph content was double-checked via a precise `.elementor-widget-container` query
+    (returned exactly 2 paragraphs, no extra trailing content) after an earlier raw `innerText` dump had looked
+    ambiguous — the "customer engagement" sentence that appeared to run on belongs to the conclusion block, not
+    block3.
+  - **H1 content is literally "EL GUAPO" in the raw DOM** (not a CSS `text-transform` artifact — confirmed via
+    direct `textContent` inspection showing `text-transform:capitalize`, which doesn't affect already-uppercase
+    text) — reproduced verbatim rather than "corrected" to title case.
+  - **Assets** (`assets/images/`): `cs-elg-hero-banner.webp` (`1920x459`), `cs-elg-b1.webp` (`1170x780`),
+    `cs-elg-b2.webp` (`1170x855`), `cs-elg-b3.webp` (`1170x855`) — all verified via PIL after download.
+  - **Verification method:** rendered via the local dev server (`http://127.0.0.1:5500/...`) end-to-end at
+    desktop width — hero/breadcrumb/intro/screenshot1/block2/screenshot2/block3/screenshot3/conclusion/pagination
+    all confirmed visually correct by scrolling through real screenshots; zero console errors; no horizontal
+    overflow (`scrollWidth 1670` vs `innerWidth 1685`); same-origin-iframe mobile check at `390px` confirmed hero
+    collapses to `~297px`, H1 stays centered, paragraphs switch to `justify`, no overflow (`scrollWidth 372`).
+  - **Pagination:** "Previous Post" → `website-development-for-superior-group.html` (local, wired up both
+    directions — superior-group's own "Next Post" updated from the external reference URL to this new local
+    file). "Next Post" → `https://www.cloudconverge.io/case-studies/website-development-for-proleve/` (kept
+    external — not yet replicated, confirmed as a real link on the reference). `portfolio.html`'s existing
+    "EL GUAPO" card updated from the external reference URL to this new local file (its image asset,
+    `port-el-guapo.webp`, was already present locally from an earlier session).
+  - **Not yet done:** a genuine mobile/tablet viewport re-check across all 9 required widths with a working
+    `resize_window` (only 390px/desktop spot-checked this session via the iframe technique).
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/case-studies/website-development-for-superior-group/
 - **Local target:** `case-studies/website-development-for-superior-group.html` (flat file),
   `css/pages/case-study-superior-group.css` (`cs-sg-` prefix), no page-specific JS needed.
