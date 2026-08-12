@@ -2,6 +2,94 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/case-studies/migration-of-geotechnical-industry/
+- **Local target:** `case-studies/migration-of-geotechnical-industry.html` (flat file),
+  `css/pages/case-study-geotechnical.css` (`cs-geo-` prefix), no page-specific JS needed.
+- **Last updated:** 2026-08-12
+- **State:** Complete, built from scratch this session, then corrected via direct DOM measurement against the
+  live reference (this project's file:// / iframe-src rendering route is blocked by the browser extension's own
+  security policy for local files — see "Verification method" note below — so verification here was done by
+  measuring the LIVE reference precisely and diffing those numbers against this page's CSS, rather than a
+  visual side-by-side screenshot of the local build).
+  - **Structure — richer alternating-row template, a genuine structural departure from every other case study
+    built so far** (bar-drinks/pharmacy/corporate-gifts/verve, which are all "centered text block + full-width
+    screenshot" templates): hero + breadcrumb + one spacer (`60px` desktop, `20px` `<=767px`) + a genuine 50/50
+    two-column **intro row** (text LEFT/image RIGHT, H1 `36px/42px` + one paragraph) + a mirrored 50/50
+    **"Challenge & Solution" row** (image LEFT/text RIGHT this time — confirmed via direct measurement, not
+    assumed from the intro row) with a heading + 5 separate text-editor widgets (2 plain paragraphs, then 3
+    bold-lead mini-items "Configuring Azure :"/"Secured Move :"/"Integration :", each its own widget, uniform
+    `20px` gap between every one of the 6 widgets including heading→first-paragraph) + a single full-width
+    **"Result"** column (H3 + one `text-align:justify` paragraph + one image) + a single full-width
+    **"Conclusion"** column (H4 + one paragraph) + prev/next pagination. Both 50/50 rows reuse the
+    `.move-image-left-right` hover-slide image pattern (`border-radius:4px`, `box-shadow:0 0 10px rgba(0,0,0,.5)`,
+    `10px` hover slide) already established on `ecommerce.html`/`rise-event.html`.
+  - **The "Why Us?" 8-card grid and the testimonial-carousel content visible on the live page are NOT separate
+    interactive sections — they're baked into 2 of this page's 3 flat screenshot images.** A live-scroll
+    screenshot pass initially looked like it was missing a testimonials carousel and a project-gallery slider
+    entirely (visible between "Challenge & Solution" and "Result", and inside "Result" itself). A full DOM
+    audit of the reference (`.elementor-31233`'s 6 top-level sections, each `innerText`/`querySelectorAll('img')`
+    dumped individually) found only **3 total `<img>` elements on the entire page**, and their native sizes
+    (`768x608`, `540x694`, `1366x540`) exactly match the 3 assets already downloaded (`cs-geo-b1/b2/b3.webp`) —
+    confirming the "Why Us" grid and the testimonial/project-slider content are flat pixels baked into those
+    same 3 screenshots (the reference itself screenshots parts of the actual client product/site, same pattern
+    as other case studies' single-image "screenshots"), not additional page structure to rebuild. No content was
+    missing after all; this was worth documenting since it's a plausible trap for a future audit on this
+    specific page.
+  - **Two real measurement bugs found and fixed via direct `getComputedStyle`/`getBoundingClientRect` diffing
+    against the live reference** (an earlier session's build had guessed at these two values):
+    1. `.cs-geo-text-col` padding was `38px`; the reference's actual widget-wrap padding on both 50/50 rows'
+       text columns is `45px` (confirmed on both the intro row's LEFT column and the challenge row's RIGHT
+       column independently). Fixed to `45px`.
+    2. `.cs-geo-conclusion-inner` had an extra `max-width:1110px` layered on top of the shared `.container`
+       class's own `max-width:1140px;padding:0 15px` — this double-restricted the content to `1080px` effective
+       width. Measuring the reference's H4/paragraph edges directly against the section's own bounds showed the
+       Conclusion block is just the PLAIN `.container` (no extra override at all): `1140 - 15 - 15 = 1110px`
+       effective width, which the shared class already produces on its own. Removed the redundant
+       `max-width:1110px` rule entirely. (The sibling "Result" block genuinely DOES need its own override,
+       confirmed via the same technique: reference width is `1050px` with ZERO side padding of its own, i.e. a
+       plain `max-width:1050px;margin:0 auto` box, not `.container`'s 15px-padded 1140px box shrunk further —
+       fixed by adding `padding:0` to `.cs-geo-result-inner` so the existing `max-width:1050px` isn't
+       double-reduced the same way Conclusion's was.)
+  - **Verification method note:** this environment's browser-automation extension refuses to navigate any tab to
+    a `file://` URL ("Can't interact with browser internal pages"), and embedding a `file://` URL in an `<iframe>`
+    from an `https:` parent page silently renders nothing (standard Chrome cross-scheme restriction) — so the
+    established "same-origin iframe" trick used on many earlier pages in this project is not available for a
+    pure static-file (no local server) setup. Worked around it two ways: (1) rendered the local page's HTML/CSS
+    directly via an `iframe.srcdoc` (a null-origin document built from the actual page markup + the actual
+    shared/page CSS, both already known from the built files — no `file://` reference needed) to sanity-check
+    structure/stacking/overflow at 1440/767/390px widths (`scrollWidth` stayed under `innerWidth` at both mobile
+    widths tested, confirming no horizontal overflow); (2) for exact pixel values, measured the LIVE reference
+    directly via `getComputedStyle`/`getBoundingClientRect` and diffed those numbers against this page's CSS
+    file by hand (see the two fixes above), rather than eyeballing a rendered local screenshot. `resize_window`
+    also did not visibly change this session's actual browser viewport (stayed `1685px` regardless of the
+    width requested) — a repeat of a known limitation from earlier sessions in this project — so true mobile/
+    tablet pixel values for this specific page (the `<=1024px` tablet-only `.cs-geo-conclusion` padding
+    mentioned in an earlier draft of this file) were **not** re-measured this session and should be treated as
+    unverified rather than assumed correct; the `<=767px` mobile block already in the CSS was carried over
+    from the established sibling-page pattern (spacer `20px`, breadcrumb `12px/20px`, H1 `24px/36px`, paragraphs
+    justify, hero `min-height:260px;object-fit:cover`) and is a reasonable default but not independently
+    confirmed against this page's own reference at a real narrow viewport.
+  - **Fix pass (user-reported via screenshot) — the "Result" image was missing its hover-slide treatment.**
+    The user pointed out this image should carry the same box-shadow/transition as the other case-study images
+    on the page. Confirmed via `getComputedStyle` on the live reference's `.elementor-element-3adba17 img`
+    (`box-shadow: rgba(0,0,0,.5) 0 0 10px 0`, `border-radius:4px`, `transition: all .3s`) and confirmed the
+    widget itself carries the exact `move-image-left-right` class — the same reusable component used on both
+    50/50 rows, not a coincidental visual match. Added `border-radius:4px; box-shadow:0 0 10px rgba(0,0,0,.5);
+    transition:transform .3s ease-in-out` plus a `:hover{transform:translate3d(-10px,0,0)}` rule to
+    `.cs-geo-result-inner img`.
+  - **Assets** (`assets/images/`): `cs-geo-hero-banner.webp` (`2048x453`), `cs-geo-b1.webp` (`768x608`),
+    `cs-geo-b2.webp` (`540x694`), `cs-geo-b3.webp` (`1366x540`) — all verified via PIL after download.
+  - **Pagination:** "Previous Post" → `verve-portrait-photoshoot-session.html` (local, wired up both directions
+    — verve's own "Next Post" updated from the external reference URL to this new local file); "Next Post" →
+    `https://www.cloudconverge.io/case-studies/hirebrain/` (kept external — not yet replicated).
+    `portfolio.html`'s "ENCARDIO RITE" card updated from the external reference URL to this new local file.
+  - **Not yet done:** a true rendered-screenshot comparison of the local file in a real browser (blocked per the
+    note above — would need either a local HTTP server reachable by the browser-automation extension, or the
+    user opening the file directly and reporting back), and a genuine mobile/tablet viewport re-check once
+    `resize_window` or an alternative works in a future session.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/case-studies/verve-portrait-photoshoot-session/
 - **Local target:** `case-studies/verve-portrait-photoshoot-session.html` (flat file),
   `css/pages/case-study-verve-portrait.css` (`cs-verve-` prefix), no page-specific JS needed.

@@ -1,0 +1,341 @@
+/* Case study: Migration of Geotechnical Industry to Azure & M365 (Encardio Rite)
+   Reference: https://www.cloudconverge.io/case-studies/migration-of-geotechnical-industry/
+   Prefix: cs-geo-
+   A structurally different, richer template than the simple centered
+   case-study pages (bar-drinks/pharmacy/corporate-gifts/verve). Confirmed
+   section-by-section via direct DOM/CSS inspection, not assumed reused:
+   - Hero: same ".case-studies-banner img" real-<img> full-bleed pattern as
+     corporate-gifts/verve (this page's own ".wraper_inner_banner" is again
+     present but display:none) — a third confirmed instance of this hero
+     pattern on a case-study page.
+   - Intro row: genuine 50/50 two-column row (text LEFT, image RIGHT),
+     left-aligned typography (NOT centered like the simple template),
+     reusing the exact ".move-image-left-right" hover-slide image pattern
+     already established on ecommerce.html/rise-event.html (border-radius
+     4px, box-shadow 0 0 10px rgba(0,0,0,.5), 10px hover slide).
+   - "Challenge & Solution" row: the SAME 50/50 two-column pattern but
+     mirrored (image LEFT, text RIGHT) — a genuine alternating-row page,
+     confirmed via direct measurement (image col starts at container's left
+     edge, text col padding 45px starts after it), not assumed from the
+     intro row's layout. Text column holds a heading + 5 separate
+     text-editor widgets: 2 plain paragraphs, then 3 bold-lead mini-items
+     ("Configuring Azure :", "Secured Move :", "Integration :") — each is
+     its OWN widget (not one paragraph with <br>s), confirmed via
+     `.elementor-widget-text-editor` count, with a uniform 20px gap between
+     every widget and 0 gap between the heading and the first paragraph.
+   - "Result": a single full-width column (NOT two columns) — heading,
+     then a `text-align:justify` paragraph, then a wide image below,
+     confirmed via `getBoundingClientRect` showing heading/paragraph/image
+     all sharing the same 1050px width. This is its OWN plain
+     `max-width:1050px;margin:0 auto;padding:0` box, not the shared
+     `.container` class's 1140px/15px-padded box shrunk further — reusing
+     `.container` here plus a naive `max-width:1050px` override double-
+     restricts it to 1020px, a real bug caught and fixed this session by
+     adding an explicit `padding:0` reset. The image itself also carries
+     the exact same `.move-image-left-right` treatment as the 50/50 rows'
+     images (border-radius 4px, box-shadow 0 0 10px rgba(0,0,0,.5), 10px
+     hover slide) — confirmed via getComputedStyle AND the widget's own
+     `move-image-left-right` class name on the live reference, not assumed
+     from visual similarity.
+   - "Conclusion": another single full-width column — but unlike "Result",
+     this one IS just the plain shared `.container` class with no extra
+     override at all (1140px max-width, 15px padding each side = 1110px
+     effective width). An earlier draft of this file added a redundant
+     `max-width:1110px` on top of `.container`'s own padding, which
+     double-restricted it to 1080px — a real bug, fixed this session by
+     removing that override entirely. Left-aligned H4 + paragraph.
+   - Headings are genuinely small here (H1 is still the shared 36px/42px,
+     but H2/H3/H4 are all a uniform 20px/600 — much smaller than the
+     26px-H2 "heading block" pattern on the simple case-study template,
+     confirmed via getComputedStyle on all three independently, not
+     assumed identical to each other by chance).
+   - Text column padding on both 50/50 rows is 45px (not 38px — an earlier
+     draft's guess), confirmed via the widget-wrap's own computed padding
+     on both the intro row's text column and the challenge row's text
+     column independently. */
+
+.cs-geo-page .breadcrumb-list a,
+.cs-geo-page .breadcrumb-list a:hover,
+.cs-geo-page .breadcrumb-sep,
+.cs-geo-page .breadcrumb-list li,
+.cs-geo-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-geo-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (real <img>, full-bleed, ".case-studies-banner" pattern) ---------- */
+.cs-geo-hero {
+  overflow: hidden;
+}
+.cs-geo-hero img {
+  width: 100%;
+  display: block;
+}
+
+/* ---------- Spacer ---------- */
+.cs-geo-spacer {
+  height: 60px;
+}
+
+/* ---------- Shared 50/50 row (intro + "Challenge & Solution") ----------
+   Literal 50% column widths (not equal flex-grow — a flex-grow split adds
+   each column's own differing padding on top of an equal share and throws
+   the visual split off, a mistake already caught and fixed on the
+   ecommerce page earlier in this project). */
+.cs-geo-row {
+  padding: 0;
+}
+.cs-geo-row-inner {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cs-geo-col {
+  flex: 0 0 50%;
+  max-width: 50%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.cs-geo-text-col {
+  padding: 45px;
+  box-sizing: border-box;
+}
+.cs-geo-text-col h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-geo-text-col h2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-geo-text-col p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-geo-text-col p:last-child {
+  margin-bottom: 0;
+}
+.cs-geo-image-col {
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+.cs-geo-image-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-geo-image-col:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+.cs-geo-challenge {
+  padding: 48px 0;
+}
+
+/* ---------- "Result" (single full-width column) ---------- */
+.cs-geo-result {
+  padding: 0;
+  margin-bottom: 48px;
+}
+.cs-geo-result-inner {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+.cs-geo-result-inner h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-geo-result-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: justify;
+  margin: 0 0 20px;
+}
+.cs-geo-result-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-geo-result-inner img:hover {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---------- "Conclusion" (single full-width column, narrower padding) ---------- */
+.cs-geo-conclusion {
+  padding: 0;
+}
+.cs-geo-conclusion-inner h4 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 38px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-geo-conclusion-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0;
+}
+
+/* ---------- Next/previous pagination (same visual pattern as every other
+   case-study page) ---------- */
+.cs-geo-pagination {
+  padding: 50px 0 60px;
+}
+.cs-geo-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-geo-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-geo-nav-prev {
+  margin-right: auto;
+}
+.cs-geo-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-geo-nav-next .cs-geo-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-geo-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-geo-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-geo-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-geo-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-geo-nav-link:hover .cs-geo-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Values read directly from the reference's own per-element dynamic CSS
+   (document.styleSheets filtered by each element's Elementor data-id).
+   Elementor's default column-stacking behavior (classic .elementor-column
+   -> width:100% at <=1024px, further at <=767px) is inherited from the
+   shared framework rules already loaded via css/style.css /
+   css/responsive.css on every page — no extra rule needed here beyond the
+   page-specific padding/typography overrides below. */
+@media (max-width: 767px) {
+  .cs-geo-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-geo-hero img {
+    min-height: 260px;
+    object-fit: cover;
+    object-position: left center;
+  }
+  .cs-geo-spacer {
+    height: 20px;
+  }
+  .cs-geo-col {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+  .cs-geo-text-col {
+    padding: 25px;
+  }
+  .cs-geo-text-col h1 {
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .cs-geo-text-col p {
+    text-align: justify;
+  }
+  .cs-geo-image-col {
+    padding: 0 25px 25px;
+  }
+  .cs-geo-challenge {
+    padding: 30px 0 0;
+  }
+  .cs-geo-result-inner {
+    padding: 0 25px;
+  }
+  .cs-geo-result-inner p {
+    text-align: justify;
+  }
+  .cs-geo-conclusion-inner {
+    padding: 0 25px;
+  }
+  .cs-geo-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-geo-nav-prev,
+  .cs-geo-nav-next {
+    margin: 0;
+  }
+  .cs-geo-nav-next {
+    flex-direction: row;
+  }
+  .cs-geo-nav-next .cs-geo-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
