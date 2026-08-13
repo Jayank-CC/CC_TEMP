@@ -2,6 +2,55 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/case-studies/ejmcdougall/
+- **Local target:** `case-studies/ejmcdougall.html` (flat file), `css/pages/case-study-ejmcdougall.css`
+  (`cs-ejmcdougall-` prefix), no page-specific JS needed.
+- **Last updated:** 2026-08-13
+- **State:** Complete, built from scratch this session.
+  - **Structure (5 top-level sections):** breadcrumb + spacer e-con (~40px) + intro 50/50 row (TEXT
+    left: H1 + 1 paragraph + H2 "Challenge:" + 1 paragraph / IMAGE right: `cs-ejmcdougall-b1` 540x485,
+    a plain screenshot mockup with NO hover-shadow treatment) + "Our Approach" 50/50 row (IMAGE left:
+    `cs-ejmcdougall-b2` 463x1771 tall portrait, WITH hover-shadow / TEXT right: H3 + 2 paragraphs + H4
+    "Design Phase" + 4 paragraphs + H5 "Technical Build" + 1 paragraph + H6 "User Features" + 4
+    paragraphs) + "Result" single centered column (H6 + 1 paragraph + 4 short paragraphs each
+    genuinely prefixed with a literal en-dash, confirmed via raw innerHTML NOT a real `<ul>` + 1
+    closing paragraph + full-width image `cs-ejmcdougall-b3` 1020x673, all in the same column).
+  - **Same hero pattern as the rostar-filters sibling page:** a single full-width `<img>`
+    (`EJM-header-2048x453-1.webp`, natural `2048x453`) via `.case-studies-banner`, confirmed NOT the
+    `.wraper_inner_banner` CSS-background pattern used by we-are-egg/proleve/etc.
+  - **Genuine per-image hover-treatment difference, confirmed not an oversight:** the intro row's own
+    image (`cs-ejmcdougall-b1`) is deliberately plain on the reference (`box-shadow:none;border-
+    radius:0` via `getComputedStyle`), while the other two images (`cs-ejmcdougall-b2`/`-b3`) carry the
+    usual `border-radius:4px;box-shadow:0 0 10px rgba(0,0,0,.5)` hover-slide treatment (same `.5` alpha
+    as rostar-filters). Implemented via a `.cs-ejmcdougall-image-plain` modifier class that strips the
+    shared treatment back off for that one image only.
+  - **Typography measured directly, all LEFT-aligned:** H1 `36px/42px/600`; H2 `20px/50px/600`; H3
+    `20px/42px/600`; H4 `20px/38px/600`; H5 `20px/30px/600`; H6 `20px/27px/600` (both "User Features"
+    and "Result" share this same H6 tier) — all `rgb(29,26,78)` heading color, no unstyled-heading
+    quirk on this page (unlike we-are-egg's own Result/Conclusion — confirms each page needs
+    independent measurement).
+  - **Assets** (`assets/images/`): `cs-ejmcdougall-hero.webp` (`2048x453`), `cs-ejmcdougall-b1.webp`
+    (`540x485`), `cs-ejmcdougall-b2.webp` (`463x1771`), `cs-ejmcdougall-b3.webp` (`1020x673`) — all
+    fetched via same-origin `fetch()`+blob+real-click download and verified via PIL after download.
+  - **Pagination:** "Previous Post" → `m365-business-central-implementation-for-rostar-filters.html`
+    (local, wired up both directions — rostar-filters' own "Next Post" updated from the external
+    reference URL to this new local file). "Next Post" → `https://www.cloudconverge.io/case-studies/ozone/`
+    (kept external — not yet replicated, confirmed as a real link on the reference). `portfolio.html`'s
+    existing "E. J. McDougall" card updated from the external reference URL to this new local file (its
+    image asset, `port-ej-mcdougall.webp`, was already present locally from an earlier session).
+  - **Verification method:** rendered via the local dev server (`http://127.0.0.1:5500`, reachable this
+    session) end-to-end at desktop width (`~1670px` viewport) — hero, breadcrumb, intro row, approach
+    row, result section, and pagination all confirmed visually correct via screenshot scroll-through;
+    zero console errors beyond the expected "Live reload enabled" log; no horizontal overflow
+    (`scrollWidth 1670` vs `innerWidth 1685`).
+  - **Not yet done:** a true mobile/tablet viewport re-check against this page's own reference. The
+    `<=767px` CSS block carries over the pattern already fixed on rostar-filters this session (image-
+    col `padding:15px` all sides at mobile, to reproduce the inter-image gap when 50/50 rows stack) as
+    a reasonable default, but was not independently re-measured against THIS page's own reference at a
+    true narrow width this session. Treat mobile as unverified until a future session can re-check it.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/case-studies/m365-business-central-implementation-for-rostar-filters/
 - **Local target:** `case-studies/m365-business-central-implementation-for-rostar-filters.html` (flat file),
   `css/pages/case-study-rostar-filters.css` (`cs-rostar-` prefix), no page-specific JS needed.
@@ -42,12 +91,17 @@
     result image, conclusion, and pagination all confirmed visually correct via screenshot scroll-through;
     zero console errors beyond the expected "Live reload enabled" log; all 15 network requests on initial
     load returned `200`, no `404`s; no horizontal overflow (`scrollWidth 1670` vs `innerWidth 1685`).
-  - **Not yet done:** a true mobile/tablet viewport re-check against this page's own reference. The
-    `<=767px` CSS block follows the same established stacking pattern already verified on we-are-egg's
-    50/50 rows (columns to `flex-direction:column`, `width:100%` reset, paragraphs to `justify`) as a
-    reasonable default, but was not independently re-measured against THIS page's own reference at a true
-    narrow width this session — no `resize_window`/iframe-trick narrow tab was available this session.
-    Treat mobile as unverified until a future session can re-check it with a genuinely narrow viewport.
+  - **Fix pass (user-reported via screenshot): no gap between the intro row's image and the challenge
+    row's image on mobile.** Re-measured via a true `~372px` same-origin-iframe render of this page's
+    own reference (`iframe.src` set to the same URL, read `iframe.contentWindow`/`contentDocument`) and
+    found the real mechanism: each image's `.elementor-widget-wrap` margin is `0 15px` (horizontal only)
+    at desktop but becomes `15px` on ALL sides at mobile — contributing `15px` bottom on the intro
+    image + `15px` top on the challenge image = the reference's exact `30px` gap (confirmed via
+    `getBoundingClientRect`). My mobile CSS had carried over the desktop-only horizontal `0 15px` value
+    unchanged, collapsing the gap to `0`. Fixed by changing `.cs-rostar-image-col` inside the
+    `<=767px` block to `padding:15px` (all sides). The rest of the mobile block (row stacking, column
+    width reset, text-col padding, H1 shrink, paragraph justify) still follows the established
+    we-are-egg pattern and has not been independently re-measured beyond this specific fix.
 
 ## Previous completed page
 

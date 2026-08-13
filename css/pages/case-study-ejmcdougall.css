@@ -1,0 +1,340 @@
+/* Case study: Bringing Fine Wine to the Web -- A Limited Edition eCommerce Journey (E. J. McDougall Wines)
+   Reference: https://www.cloudconverge.io/case-studies/ejmcdougall/
+   Prefix: cs-ejmcdougall-
+   Content root confirmed via [data-elementor-id] audit is `.elementor-45999` (5 top-level children:
+   breadcrumb section + spacer e-con + intro 50/50 row + "Our Approach" 50/50 row + "Result" single-
+   column row).
+
+   Same hero pattern as the rostar-filters sibling page: a single full-width `<img>` (`EJM-header-
+   2048x453-1.webp`, natural `2048x453`) via `.case-studies-banner`, NOT the `.wraper_inner_banner`
+   CSS-background pattern.
+
+   Structure: hero (full-width img) + breadcrumb + spacer (~40px) + intro 50/50 row (TEXT left: H1 +
+   1 paragraph + H2 "Challenge:" + 1 paragraph / IMAGE right: `cs-ejmcdougall-b1` 540x485, a plain
+   screenshot mockup with NO hover-shadow treatment -- confirmed via `getComputedStyle`, genuinely
+   different from the other two images on this page) + "Our Approach" 50/50 row (IMAGE left:
+   `cs-ejmcdougall-b2` 463x1771, a tall portrait crop, WITH the hover-shadow treatment / TEXT right:
+   H3 + 2 paragraphs + H4 "Design Phase" + 4 paragraphs + H5 "Technical Build" + 1 paragraph + H6
+   "User Features" + 4 paragraphs) + "Result" single centered column (H6 + 1 paragraph + 4 short
+   "list" paragraphs each genuinely prefixed with a literal en-dash "-- " -- confirmed via raw
+   innerHTML these are 4 separate <p> tags, NOT a real <ul>, so reproduced as plain paragraphs, not a
+   list element -- + 1 closing paragraph + full-width image `cs-ejmcdougall-b3` 1020x673, all in the
+   SAME column).
+
+   Typography measured directly, all LEFT-aligned (no centered headings): H1 `36px/42px/600`; H2
+   `20px/50px/600`; H3 `20px/42px/600`; H4 `20px/38px/600`; H5 `20px/30px/600`; H6 `20px/27px/600`
+   (BOTH "User Features" and "Result" share this same H6 tier) -- all `rgb(29,26,78)` heading color,
+   no unstyled-heading quirk on this page (unlike we-are-egg's own Result/Conclusion).
+
+   Container max-width 1140px (shared `.container` class, unmodified). Both 50/50 rows split evenly at
+   570/570 (confirmed via `getBoundingClientRect`), column padding 0 on the column element itself.
+   Section padding measured directly: intro `0`, approach `60px 0`, result `0 0 60px`.
+
+   Image hover-shadow treatment (`cs-ejmcdougall-b2`, `cs-ejmcdougall-b3` only -- `cs-ejmcdougall-b1`
+   deliberately excluded, confirmed via `getComputedStyle` returning `box-shadow:none;border-radius:0`
+   on the reference's own intro-row image): `border-radius:4px`, `box-shadow:0 0 10px rgba(0,0,0,.5)`
+   (matching rostar-filters' own `.5` alpha), `transition:transform .3s ease-in-out`, hover
+   `translate3d(-10px,0,0)`.
+
+   Pagination: "Previous Post" -> `m365-business-central-implementation-for-rostar-filters.html`
+   (local, already wired up in both directions from the rostar-filters build); "Next Post" ->
+   `https://www.cloudconverge.io/case-studies/ozone/` (kept external, not yet replicated). */
+
+.cs-ejmcdougall-page .breadcrumb-list a,
+.cs-ejmcdougall-page .breadcrumb-list a:hover,
+.cs-ejmcdougall-page .breadcrumb-sep,
+.cs-ejmcdougall-page .breadcrumb-list li,
+.cs-ejmcdougall-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-ejmcdougall-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (single full-width img) ---------- */
+.cs-ejmcdougall-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Spacer ---------- */
+.cs-ejmcdougall-spacer {
+  height: 40px;
+}
+
+/* ---------- Shared row/container ---------- */
+.cs-ejmcdougall-row {
+  padding: 0;
+}
+.cs-ejmcdougall-row-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0;
+}
+.cs-ejmcdougall-row-inner h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-ejmcdougall-row-inner h6 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 27px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-ejmcdougall-row-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-ejmcdougall-row-inner p:last-of-type {
+  margin-bottom: 0;
+}
+.cs-ejmcdougall-result {
+  padding: 0 0 60px;
+}
+.cs-ejmcdougall-result img {
+  margin-top: 20px;
+}
+
+/* ---------- 50/50 rows (intro: text left/image right; approach: image left/text right) ---------- */
+.cs-ejmcdougall-intro .cs-ejmcdougall-row-inner,
+.cs-ejmcdougall-approach .cs-ejmcdougall-row-inner {
+  display: flex;
+}
+.cs-ejmcdougall-approach {
+  padding: 60px 0;
+}
+.cs-ejmcdougall-col {
+  flex: 0 0 50%;
+  width: 50%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.cs-ejmcdougall-text-col {
+  padding: 45px;
+}
+.cs-ejmcdougall-image-col {
+  padding: 0 15px;
+}
+.cs-ejmcdougall-text-col h2,
+.cs-ejmcdougall-text-col h3,
+.cs-ejmcdougall-text-col h4 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-ejmcdougall-text-col h2 {
+  line-height: 50px;
+}
+.cs-ejmcdougall-text-col h3 {
+  line-height: 42px;
+}
+.cs-ejmcdougall-text-col h4 {
+  line-height: 38px;
+}
+.cs-ejmcdougall-text-col h5 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-ejmcdougall-text-col h6 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 27px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-ejmcdougall-text-col p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-ejmcdougall-text-col p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Image hover-slide treatment (b2 and b3 only, NOT b1) ---------- */
+.cs-ejmcdougall-image-col img,
+.cs-ejmcdougall-result img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-ejmcdougall-image-col:hover img,
+.cs-ejmcdougall-result:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+/* The intro row's own image (cs-ejmcdougall-b1) is deliberately plain on the reference -- confirmed
+   via getComputedStyle returning box-shadow:none;border-radius:0 -- but it still shares the SAME
+   `.move-image-left-right` component class as the other two images, confirmed via a direct stylesheet
+   read on the live reference (`.move-image-left-right:hover img{transform:translate3d(-10px,0,0)}`
+   applies identically regardless of box-shadow/border-radius, which are set per-widget separately).
+   So only border-radius/box-shadow are stripped here -- transition and the hover-slide transform are
+   deliberately KEPT, matching the reference exactly. */
+.cs-ejmcdougall-image-plain img {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ---------- Prev/next pagination (reused verbatim from the rostar-filters sibling page) ---------- */
+.cs-ejmcdougall-pagination {
+  padding: 50px 0 60px;
+}
+.cs-ejmcdougall-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-ejmcdougall-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-ejmcdougall-nav-prev {
+  margin-right: auto;
+}
+.cs-ejmcdougall-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-ejmcdougall-nav-next .cs-ejmcdougall-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-ejmcdougall-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-ejmcdougall-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-ejmcdougall-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-ejmcdougall-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-ejmcdougall-nav-link:hover .cs-ejmcdougall-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   Follows the same established mobile pattern verified on the rostar-filters sibling page (50/50 rows
+   stack to `flex-direction:column`, columns reset to `width:100%`, image-col padding switches from
+   horizontal-only `0 15px` to all-sides `15px` to reproduce the reference's real inter-image gap when
+   stacked, text-col padding, H1 shrinks, paragraphs switch to justify). Not independently re-measured
+   against THIS page's own reference at a true narrow width this session -- treat as a reasonable
+   default carried over from the sibling page, not confirmed pixel-exact, until a future session can
+   re-check it against this page's own reference. */
+@media (max-width: 1024px) {
+  .cs-ejmcdougall-hero img {
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  .cs-ejmcdougall-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-ejmcdougall-spacer {
+    height: 20px;
+  }
+  .cs-ejmcdougall-row-inner {
+    padding: 42px;
+  }
+  .cs-ejmcdougall-intro .cs-ejmcdougall-row-inner,
+  .cs-ejmcdougall-approach .cs-ejmcdougall-row-inner {
+    flex-direction: column;
+    padding: 0;
+  }
+  .cs-ejmcdougall-approach {
+    padding: 0;
+  }
+  .cs-ejmcdougall-col {
+    width: 100%;
+  }
+  #cs-ejmcdougall-approach-text {
+    padding: 20px;
+  }
+  .cs-ejmcdougall-text-col h3 {
+    margin-bottom: 2px;
+  }
+  .cs-ejmcdougall-text-col {
+    padding: 42px;
+  }
+  .cs-ejmcdougall-image-col {
+    padding: 15px;
+  }
+  .cs-ejmcdougall-row-inner h1 {
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+  }
+  .cs-ejmcdougall-row-inner p,
+  .cs-ejmcdougall-text-col p {
+    text-align: justify;
+  }
+  .cs-ejmcdougall-result {
+    padding: 0 0 30px;
+  }
+  .cs-ejmcdougall-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-ejmcdougall-nav-prev,
+  .cs-ejmcdougall-nav-next {
+    margin: 0;
+  }
+  .cs-ejmcdougall-nav-next {
+    flex-direction: row;
+  }
+  .cs-ejmcdougall-nav-next .cs-ejmcdougall-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
