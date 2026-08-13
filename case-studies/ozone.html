@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description"
+    content="Case study: Ozone.in — a complete project planning &amp; quotation platform plus corporate website redevelopment delivered by CloudConverge for Ozone, a global distributor of architectural hardware and security solutions.">
+  <title>Ozone.in &ndash; Comprehensive Project Planning &amp; Quotation Platform &amp; Website Development | Case Study | CloudConverge</title>
+  <link rel="icon" href="../assets/images/CloudConverge_Final_Logo_CC_Small_Color_V1-150x150.png" sizes="32x32">
+  <link rel="icon" href="../assets/images/CloudConverge_Final_Logo_CC_Small_Color_V1-300x300.png" sizes="192x192">
+  <link rel="preload" as="image" href="../assets/images/cs-ozone-hero.webp" fetchpriority="high">
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/dm-sans-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins-600-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/pages/case-study-ozone.css">
+</head>
+
+<body class="cs-ozone-page">
+
+  <div id="site-header-placeholder"></div>
+
+  <main id="content">
+
+    <!-- ============================= HERO BANNER (single full-width img, same pattern as
+         rostar-filters/ejmcdougall — text/imagery baked into the graphic itself) ============================= -->
+    <section class="cs-ozone-hero">
+      <img src="../assets/images/cs-ozone-hero.webp"
+        alt="Ozone.in &ndash; Comprehensive Project Planning &amp; Quotation Platform &amp; Website Development"
+        width="2048" height="453" loading="eager" fetchpriority="high">
+    </section>
+
+    <!-- ============================= BREADCRUMB ============================= -->
+    <div class="breadcrumb-bar">
+      <div class="container">
+        <ul class="breadcrumb-list">
+          <li><a href="../index.html">Home</a></li>
+          <li aria-hidden="true" class="breadcrumb-sep">
+            <svg viewBox="0 0 192 512" width="8" height="16">
+              <path fill="currentColor"
+                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z">
+              </path>
+            </svg>
+          </li>
+          <li><a href="../portfolio.html">Portfolio</a></li>
+          <li>
+            <span aria-hidden="true" class="breadcrumb-sep">
+              <svg viewBox="0 0 192 512" width="8" height="16">
+                <path fill="currentColor"
+                  d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z">
+                </path>
+              </svg>
+            </span>
+            <span aria-current="page">Ozone.in &ndash; Comprehensive Project Planning &amp; Quotation Platform &amp;
+              Website Development</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============================= SPACER ============================= -->
+    <div class="cs-ozone-spacer" aria-hidden="true"></div>
+
+    <!-- ============================= INTRO ROW (50/50, vertically centered — confirmed via reference's
+         own "elementor-section-content-middle" modifier class, unlike the top-aligned rows below.
+         TEXT left / IMAGE CAROUSEL right — H1 + intro paragraph.) ============================= -->
+    <section class="cs-ozone-row cs-ozone-intro">
+      <div class="container cs-ozone-row-inner">
+        <div class="cs-ozone-col cs-ozone-text-col">
+          <h1>Complete Project Planning &amp; Quotation Platform, Ozone Website Development</h1>
+          <p>Ozone is a global distributor of architectural hardware and high-end security solutions. They needed a
+            fast redesign &amp; redevelopment of their website as well as development of a tool to be utilized by
+            Architects at the time of launching a big TV ad campaign. The organization deals in an assortment of
+            products serving commercial, residential, and institutional projects.</p>
+        </div>
+        <div class="cs-ozone-col cs-ozone-carousel-col">
+          <!-- Confirmed via reference DOM: an Elementor image-carousel widget (autoplay 5s, infinite loop,
+               dots navigation, pause on hover/interaction, "effect":"slide") with 3 real slides in this
+               order. Rebuilt here as a small vanilla-JS carousel (see js/script.js, guarded init) since
+               jQuery/Swiper is disallowed. The viewport below has a FIXED aspect-ratio box (matching the
+               reference's own near-constant `.elementor-image-carousel-wrapper` height, ~0.632 ratio,
+               confirmed via getComputedStyle) so switching slides never changes the box's own height --
+               this is what keeps the rest of the row/page from shifting when the carousel advances. Slides
+               translate horizontally inside it, matching the reference's own "slide" transition. -->
+          <div class="cs-ozone-carousel" data-autoplay="5000">
+            <div class="cs-ozone-carousel-viewport">
+              <div class="cs-ozone-carousel-track">
+                <div class="cs-ozone-carousel-slide">
+                  <img src="../assets/images/cs-ozone-carousel-1.webp" alt="ozone" width="588" height="390">
+                </div>
+                <div class="cs-ozone-carousel-slide">
+                  <img src="../assets/images/cs-ozone-carousel-2.webp" alt="ozone" width="597" height="316"
+                    loading="lazy">
+                </div>
+                <div class="cs-ozone-carousel-slide">
+                  <img src="../assets/images/cs-ozone-carousel-3.webp" alt="ozone" width="526" height="359"
+                    loading="lazy">
+                </div>
+              </div>
+            </div>
+            <div class="cs-ozone-carousel-dots" role="tablist" aria-label="Ozone platform screenshots">
+              <button type="button" class="cs-ozone-carousel-dot is-active" aria-label="Slide 1" aria-selected="true"></button>
+              <button type="button" class="cs-ozone-carousel-dot" aria-label="Slide 2" aria-selected="false"></button>
+              <button type="button" class="cs-ozone-carousel-dot" aria-label="Slide 3" aria-selected="false"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= INTRO CONTINUED (single centered column, NO heading — confirmed
+         via reference DOM this section has just two plain paragraphs continuing the intro narrative
+         before the "Business Challenges" heading below) ============================= -->
+    <section class="cs-ozone-row cs-ozone-lede">
+      <div class="container cs-ozone-row-inner">
+        <p>As an advocate of having more architects, sales staff, and channel partners around the world, Ozone
+          wished to digitize and automate how their teams quote, specify, and plan extensive architectural jobs.</p>
+        <p>The traditional process of using emails, spreadsheets, and numerous manual steps was lengthy,
+          time-consuming, error-ridden and non-standardized. To counter these issues, Cloud Converge built a
+          centralized digital platform through which Ozone&rsquo;s sales and design teams could cooperatively add
+          and produce proposals rapidly and accurately.</p>
+      </div>
+    </section>
+
+    <!-- ============================= "BUSINESS CHALLENGES" ROW (50/50, top-aligned: IMAGE left (tall
+         portrait screenshot mockup, plain, no hover-shadow — confirmed via getComputedStyle) / TEXT
+         right — H2 + a bold intro line (confirmed via raw innerHTML this is a bare <strong>, NOT wrapped
+         in a <p>) + a 5-item bullet list whose LAST item reads "Solutions Provided" (confirmed via direct
+         DOM read this is a genuine reference quirk: a heading-like phrase typed as a plain bullet, not an
+         actual heading tag) + H3 + 3 paragraphs + H4 + 5 paragraphs.) ============================= -->
+    <section class="cs-ozone-row cs-ozone-challenges">
+      <div class="container cs-ozone-row-inner">
+        <div class="cs-ozone-col cs-ozone-image-col cs-ozone-image-plain">
+          <img src="../assets/images/cs-ozone-solutions.webp" alt="ozone" width="540" height="1730" loading="lazy">
+        </div>
+        <div class="cs-ozone-col cs-ozone-text-col">
+          <h2>Business Challenges</h2>
+          <strong>Disjointed pre-sales process that isolates sales from product and architects.</strong>
+          <ul class="cs-ozone-bullets">
+            <li>Manual BOM and quotes, which are error-prone</li>
+            <li>Unorganized proposal documentation and varying pricing</li>
+            <li>Outdated corporate site with disjointed user experience</li>
+            <li>Requirement for a scalable, contemporary platform to support brand marketing initiatives</li>
+            <li>Solutions Provided</li>
+          </ul>
+          <h3>Project Planning &amp; Quotation Platform:</h3>
+          <p>We designed and built an internal web-based application for sales reps and architects to utilize that
+            will make every aspect of a project life cycle, from design to cost estimating, possible.</p>
+          <p>The system allows users to upload and store all project documents and architectural plans in a single
+            location. Both teams have the capacity to design a detailed building plan and the project&rsquo;s
+            infrastructure needs. Users can also specify various types of doors and hardware (e.g., hinges, locks,
+            access control, etc.). Ozone software is completely integrated with Ozone&rsquo;s live product
+            catalogue, giving the user the capability to browse products and choose all the fittings and fixtures of
+            the project in real-time.</p>
+          <p>The system creates an accurate Bill of Materials (BOM) for project configurations and automatically
+            generates commercial quotes upon proposing to customers. Role-based access, approval workflows, and
+            versioning make the collaboration process secure and auditable but grant users visibility and
+            accountability among stakeholders.</p>
+          <h4>Design Phase</h4>
+          <p>In tandem with the mobile app, we also created and built Ozone&rsquo;s corporate website in
+            coordination with a scheduled nationwide television advertising campaign.</p>
+          <p>The aim was to create a contemporary and high-performance digital presence that reflected
+            Ozone&rsquo;s design-oriented presence while enhancing user experience and scalability.</p>
+          <p>Ozone&rsquo;s marketing division is now based at a brand-new website with a clean and responsive
+            design for desktop and phone friendly easy navigation via service and category picks. We made sure that
+            performance boosts were achieved, and we adopted SEO best practices to improve the site&rsquo;s
+            visibility and search engine rankings.</p>
+          <p>In addition, a single content management system (CMS) was installed to facilitate a feature for real
+            time updates and management of marketing team&rsquo;s content, and the counting (and counting) site was
+            designed so that any bursts of traffic resulting from a campaign wouldn&rsquo;t bring the site crashing
+            down.</p>
+          <p>In the course of a TV campaign, the site was an important digital contact point, building brand
+            awareness and user interest and leading to leads from marketing campaigns with proper qualifying
+            criteria.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= "CONCLUSION" (single centered column: H5 + paragraph + full-width
+         image, all in the SAME column — matches the result/conclusion pattern used on the rostar-filters
+         and ejmcdougall pages) ============================= -->
+    <section class="cs-ozone-row cs-ozone-conclusion">
+      <div class="container cs-ozone-row-inner">
+        <h5>Conclusion</h5>
+        <p>The Ozone project is an end-to-end digital makeover &ndash; blending operational features with
+          customer-facing enrichments. The project planning tool merged advanced workflows and enhanced internal
+          productivity, while the website transformation maximized the Ozone brand during a high-impact media
+          roll-out. Together, all these components helped Ozone establish their brand as product &amp; technology
+          leaders within the architecture hardware space.</p>
+        <img src="../assets/images/cs-ozone-conclusion.webp" alt="ozone" width="1262" height="602" loading="lazy">
+      </div>
+    </section>
+
+    <!-- No Prev/Next pagination nav on this page — confirmed via full DOM audit of the live reference
+         (no .post-navigation / nav-links markup exists on this specific case study), unlike the
+         rostar-filters and ejmcdougall pages which do have one. Genuine reference variance, not an
+         omission. -->
+
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script defer src="../js/header.js"></script>
+  <script defer src="../js/footer.js"></script>
+  <script defer src="../js/script.js"></script>
+  <script defer src="../js/include.js"></script>
+</body>
+
+</html>

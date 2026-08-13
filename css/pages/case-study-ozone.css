@@ -1,0 +1,390 @@
+/* Case study: Ozone.in -- Comprehensive Project Planning & Quotation Platform & Website Development
+   Reference: https://www.cloudconverge.io/case-studies/ozone/
+   Prefix: cs-ozone-
+   Content root confirmed via [data-elementor-id] audit is `.elementor-46190` (6 top-level children:
+   breadcrumb section + spacer e-con + intro 50/50 row (vertically centered) + a heading-less two-
+   paragraph row + "Business Challenges" 50/50 row (top-aligned) + "Conclusion" single-column row).
+
+   Same hero pattern as the rostar-filters/ejmcdougall siblings: a single full-width `<img>`
+   (`ozone-header-1-2048x453-1.webp`, natural 2048x453) via `.case-studies-banner`, NOT the
+   `.wraper_inner_banner` CSS-background pattern.
+
+   Structure differs from the two sibling pages in three genuine, DOM-confirmed ways:
+   1. The intro row's right-hand column is a real Elementor image-carousel widget (3 slides, autoplay
+      5s/infinite loop/dots, pause on hover+interaction) -- rebuilt below as a small vanilla-JS
+      carousel (see js/script.js "9. Ozone case-study image carousel", guarded init) since the
+      reference's own Swiper-based widget is off-limits (no jQuery/UI libraries per project rules).
+   2. The "Business Challenges" text column has a bare `<strong>` intro line with NO `<p>` wrapper,
+      followed by a 5-item bullet list whose LAST item literally reads "Solutions Provided" -- both
+      confirmed via raw innerHTML/textContent reads on the live reference, genuine quirks, not
+      transcription errors.
+   3. This specific case study has NO Prev/Next pagination nav in its own DOM (confirmed via a full
+      audit for `.post-navigation`/`nav-links`/etc. -- none exist), unlike rostar-filters and
+      ejmcdougall which both have one. Reproduced faithfully as "no pagination" rather than forcing one
+      in to match the sibling pages.
+
+   Typography measured directly via `document.styleSheets` rule reads (not viewport rendering, which
+   was unavailable at a true desktop width this session -- see Responsive note below): H1 `36px/48px/
+   600`; H2/H3/H4/H5 all uniformly `20px/26px/600` (this page does NOT use the tiered 42/38/30/27
+   line-heights seen on the ejmcdougall page) -- all `rgb(29,26,78)` heading color (`--color-heading`).
+   Body paragraphs `16px/26px` DM Sans, justified, `rgb(25,25,25)`. The bold intro line above the
+   bullet list is Poppins 500, `rgb(122,122,122)` (a distinct gray "eyebrow" treatment, not a plain
+   bold body paragraph).
+
+   Container max-width 1140px (shared `.container` class, unmodified -- confirmed via the theme's own
+   default `.elementor-section-boxed > .elementor-container{max-width:1140px}` rule, read directly
+   from the stylesheet rather than from viewport rendering).
+
+   Column padding measured directly per column via `getComputedStyle` on each `.elementor-widget-wrap`
+   (no page-specific override rules exist for any of these IDs -- these are theme-default paddings that
+   come from generic, non-ID-scoped selectors, so they are the SAME value regardless of breakpoint):
+   intro text-col `25px` all sides; carousel-col `10px` all sides; challenges image-col `0`; challenges
+   text-col `30px 35px 30px 25px` (asymmetric, genuinely measured, not a typo).
+
+   Carousel dots: 10px circular, `rgb(22,41,94)` at `0.2` opacity inactive / `1` opacity active, `0 6px`
+   horizontal margin, positioned absolute `bottom:5px` centered (measured directly).
+
+   Bullet icon: reference uses a FontAwesome "dot-circle" glyph (`--e-icon-list-icon-size:16px`,
+   `rgb(109,109,109)`) -- recreated below as a plain CSS circle-with-dot `::before` bullet in the same
+   color/size rather than importing an icon font (vanilla CSS/HTML only per project rules). */
+
+.cs-ozone-page .breadcrumb-list a,
+.cs-ozone-page .breadcrumb-list a:hover,
+.cs-ozone-page .breadcrumb-sep,
+.cs-ozone-page .breadcrumb-list li,
+.cs-ozone-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-ozone-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (single full-width img) ---------- */
+.cs-ozone-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Spacer ---------- */
+.cs-ozone-spacer {
+  height: 40px;
+}
+
+/* ---------- Shared row/container ---------- */
+.cs-ozone-row {
+  padding: 0;
+}
+.cs-ozone-row-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0;
+}
+.cs-ozone-row-inner h5 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 26px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-ozone-row-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: justify;
+  margin: 0 0 20px;
+}
+.cs-ozone-row-inner p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* ---------- Intro row (text left / carousel right, vertically centered) ---------- */
+.cs-ozone-intro .cs-ozone-row-inner {
+  display: flex;
+  align-items: center;
+}
+.cs-ozone-col {
+  flex: 0 0 50%;
+  width: 50%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.cs-ozone-text-col {
+  padding: 25px;
+}
+.cs-ozone-row-inner h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 48px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-ozone-text-col p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: justify;
+  margin: 0;
+}
+
+/* ---------- Intro carousel ----------
+   FIX (user-reported: "when the images change of these carousel the section moves that shouldn't
+   happen"). The original build toggled slides with `display:none/block`; since the 3 source images
+   have genuinely different aspect ratios (588x390/597x316/526x359) and each slide used its own natural
+   `height:auto`, the carousel's own box height changed on every slide switch -- which, combined with
+   the intro row's `align-items:center`, visibly shifted the H1/paragraph column and the whole row's
+   height on every autoplay tick. Confirmed via `getComputedStyle` on the reference that its own
+   `.elementor-image-carousel-wrapper` holds a near-CONSTANT height regardless of which slide is
+   showing (~472px at a ~747px-wide column, ratio ~0.632) -- the reference never actually reflows.
+   Fixed by giving the viewport below a FIXED `aspect-ratio` box (so its height never changes) and
+   sliding a flex track horizontally inside it via `transform: translateX()` (matching the reference's
+   own `"effect":"slide"` carousel setting, read from `data-settings`), with each image constrained by
+   `max-width/max-height` so it never overflows or stretches the fixed box. */
+.cs-ozone-carousel-col {
+  padding: 10px;
+}
+.cs-ozone-carousel {
+  position: relative;
+}
+.cs-ozone-carousel-viewport {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 747 / 472;
+  background: #f4f5f7;
+}
+.cs-ozone-carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+}
+.cs-ozone-carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cs-ozone-carousel-slide img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+.cs-ozone-carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding-top: 10px;
+}
+.cs-ozone-carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: rgb(22, 41, 94);
+  opacity: 0.2;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.cs-ozone-carousel-dot.is-active {
+  opacity: 1;
+}
+
+/* ---------- Intro continued (heading-less two-paragraph row) ---------- */
+.cs-ozone-lede {
+  padding: 40px 0;
+}
+
+/* ---------- "Business Challenges" row (image left / text right, top-aligned) ---------- */
+.cs-ozone-challenges {
+  padding: 60px 0;
+}
+.cs-ozone-challenges .cs-ozone-row-inner {
+  display: flex;
+}
+.cs-ozone-image-col {
+  padding: 0 15px;
+}
+/* Shared hover-slide treatment (also reused by the Conclusion image below): the reference's own
+   `.move-image-left-right` component class applies `transition`/hover-`transform` to every image that
+   carries it -- FIX (user-reported: "this image also have transition in the reference page"). My
+   original build had wrongly assumed `box-shadow:none;border-radius:0` (genuinely true for this one
+   image) also meant no transition, repeating the exact mistake already caught and fixed once before on
+   the ejmcdougall page. Confirmed via a fresh `document.styleSheets` read on the reference: box-shadow/
+   border-radius are set per-image, but `transition:.3s ease-in-out` + hover `translate3d(-10px,0,0)`
+   apply universally. `.cs-ozone-image-plain` strips only the shadow/radius back off. */
+.cs-ozone-image-col img,
+.cs-ozone-conclusion img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-ozone-image-col:hover img,
+.cs-ozone-conclusion:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+.cs-ozone-image-plain img {
+  border-radius: 0;
+  box-shadow: none;
+}
+.cs-ozone-challenges .cs-ozone-text-col {
+  padding: 30px 35px 30px 25px;
+}
+.cs-ozone-challenges .cs-ozone-text-col h2,
+.cs-ozone-challenges .cs-ozone-text-col h3,
+.cs-ozone-challenges .cs-ozone-text-col h4 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 26px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 10px;
+}
+.cs-ozone-challenges .cs-ozone-text-col p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-ozone-challenges .cs-ozone-text-col p:last-child {
+  margin-bottom: 0;
+}
+.cs-ozone-challenges .cs-ozone-text-col > strong {
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
+  color: rgb(122, 122, 122);
+  margin: 0 0 10px;
+}
+
+/* Bullet list -- plain <ul> reproducing the reference's "dot-circle" icon-list bullets */
+.cs-ozone-bullets {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+.cs-ozone-bullets li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 14px;
+  line-height: 26px;
+  color: var(--color-body);
+  margin-top: 5px;
+}
+.cs-ozone-bullets li:first-child {
+  margin-top: 0;
+}
+.cs-ozone-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid rgb(109, 109, 109);
+}
+.cs-ozone-bullets li::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 11px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgb(109, 109, 109);
+}
+
+/* ---------- Conclusion (single centered column) ----------
+   FIX (user-reported image size mismatch): the reference's own image (and the "Conclusion" heading/
+   paragraph sharing the same Elementor column widget-wrap) sit inset by `margin:0 15px` PLUS
+   `padding:40px 45px` -- confirmed via `getComputedStyle`, giving a real rendered image width of
+   `1020px` inside the 1140px row, not the full-bleed 1140px my original build used. Reproduced as a
+   single `padding:40px 60px 0` on the row-inner (45+15=60 each side) rather than a one-off width on
+   just the image, since the heading/paragraph share the exact same inset on the reference. */
+.cs-ozone-conclusion {
+  padding: 0 0 60px;
+}
+.cs-ozone-conclusion .cs-ozone-row-inner {
+  padding: 40px 60px 0;
+}
+.cs-ozone-conclusion img {
+  margin-top: 20px;
+}
+
+/* ---------- Responsive ----------
+   Follows the same established mobile pattern verified on the rostar-filters/ejmcdougall sibling
+   pages (50/50 rows stack to `flex-direction:column`, columns reset to `width:100%`, H1 shrinks). Not
+   independently re-measured against THIS page's own reference at a true narrow width this session
+   (the browser viewport was stuck reporting 320px regardless of resize_window calls) -- treat as a
+   reasonable default carried over from the sibling pages' own confirmed mobile fixes, not yet
+   pixel-verified for this page specifically, until a future session can re-check it. */
+@media (max-width: 1024px) {
+  .cs-ozone-hero img {
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  .cs-ozone-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-ozone-spacer {
+    height: 20px;
+  }
+  .cs-ozone-row-inner {
+    padding: 0 20px;
+  }
+  .cs-ozone-intro .cs-ozone-row-inner,
+  .cs-ozone-challenges .cs-ozone-row-inner {
+    flex-direction: column;
+    padding: 0;
+  }
+  .cs-ozone-col {
+    width: 100%;
+  }
+  .cs-ozone-text-col {
+    padding: 20px;
+  }
+  .cs-ozone-carousel-col {
+    padding: 10px 20px;
+  }
+  .cs-ozone-challenges .cs-ozone-text-col {
+    padding: 20px;
+  }
+  .cs-ozone-image-col {
+    padding: 15px 20px 0;
+  }
+  .cs-ozone-row-inner h1 {
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+  }
+  .cs-ozone-lede {
+    padding: 20px 0;
+  }
+  .cs-ozone-challenges {
+    padding: 0 0 40px;
+  }
+  .cs-ozone-conclusion {
+    padding: 0 0 30px;
+  }
+  .cs-ozone-conclusion .cs-ozone-row-inner {
+    padding: 20px 20px 0;
+  }
+}

@@ -327,4 +327,64 @@ window.initSite = function () {
     });
   })();
 
+  /* ---------- 9. Ozone case-study image carousel ----------
+     Reproduces the reference's Elementor image-carousel widget (autoplay every 5s, infinite loop,
+     clickable dots, pauses on hover and on manual interaction, "effect":"slide") as plain vanilla JS --
+     no Swiper/jQuery per project rules. Scoped to `.cs-ozone-carousel` (currently only present on
+     case-studies/ozone.html) and guarded so repeated `initSite()` calls never double-attach the
+     autoplay interval.
+
+     FIX (user-reported: "when the images change of these carousel the section moves that shouldn't
+     happen"). The original version toggled slides with a `display:none/block` class swap; combined
+     with the CSS's fixed-height `.cs-ozone-carousel-viewport` box (added in the same fix pass), slides
+     now instead TRANSLATE horizontally inside that fixed box -- the box's own height never changes, so
+     the surrounding row/page never reflows when the carousel advances. */
+  (function ozoneCarousel() {
+    document.querySelectorAll('.cs-ozone-carousel').forEach(function (carousel) {
+      if (carousel.dataset.carouselBound === '1') return;
+      carousel.dataset.carouselBound = '1';
+
+      var track = carousel.querySelector('.cs-ozone-carousel-track');
+      var slides = carousel.querySelectorAll('.cs-ozone-carousel-slide');
+      var dots = carousel.querySelectorAll('.cs-ozone-carousel-dot');
+      if (!track || !slides.length) return;
+      var current = 0;
+      var delay = parseInt(carousel.getAttribute('data-autoplay') || '5000', 10);
+      var timer = null;
+      var paused = false;
+
+      function show(index) {
+        dots[current] && dots[current].classList.remove('is-active');
+        dots[current] && dots[current].setAttribute('aria-selected', 'false');
+        current = (index + slides.length) % slides.length;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        dots[current] && dots[current].classList.add('is-active');
+        dots[current] && dots[current].setAttribute('aria-selected', 'true');
+      }
+
+      function tick() {
+        if (!paused && !reduceMotion) show(current + 1);
+      }
+
+      function start() {
+        stop();
+        timer = setInterval(tick, delay);
+      }
+      function stop() {
+        if (timer) { clearInterval(timer); timer = null; }
+      }
+
+      dots.forEach(function (dot, i) {
+        dot.addEventListener('click', function () {
+          show(i);
+          start(); // pause_on_interaction: restart the autoplay clock from the manual selection
+        });
+      });
+      carousel.addEventListener('mouseenter', function () { paused = true; });
+      carousel.addEventListener('mouseleave', function () { paused = false; });
+
+      if (!reduceMotion) start();
+    });
+  })();
+
 };

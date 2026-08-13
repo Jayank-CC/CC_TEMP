@@ -2,6 +2,135 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/case-studies/ozone/
+- **Local target:** `case-studies/ozone.html` (flat file), `css/pages/case-study-ozone.css`
+  (`cs-ozone-` prefix), plus a new shared JS block (`js/script.js`, section "9. Ozone case-study image
+  carousel", guarded/idempotent, following the file's existing numbered-block convention).
+- **Last updated:** 2026-08-13
+- **State:** Complete, built from scratch this session.
+  - **Content root confirmed via `[data-elementor-id]` audit is `.elementor-46190`** (6 top-level
+    children: breadcrumb section + spacer e-con + intro 50/50 row (vertically centered, confirmed via
+    the reference's own `elementor-section-content-middle` modifier class) + a heading-less
+    two-paragraph row + "Business Challenges" 50/50 row (top-aligned) + "Conclusion" single-column row).
+  - **Three genuine, DOM-confirmed structural differences from the rostar-filters/ejmcdougall siblings:**
+    1. The intro row's right-hand column is a real Elementor image-carousel widget (3 slides, autoplay
+       5s/infinite loop/dots, pause on hover+interaction — read directly from `data-settings`) instead
+       of a single static image. Rebuilt as a small vanilla-JS carousel (`.cs-ozone-carousel` +
+       `js/script.js`'s new guarded init block) since Swiper/jQuery is off-limits per project rules.
+       Real slide order confirmed via `data-swiper-slide-index` (not DOM order, which is scrambled by
+       the reference's own loop-clone duplicates): `cs-ozone-carousel-1` (588x390) →
+       `cs-ozone-carousel-2` (597x316) → `cs-ozone-carousel-3` (526x359).
+    2. The "Business Challenges" text column has a bare `<strong>` intro line with NO `<p>` wrapper
+       (confirmed via raw `innerHTML`), styled distinctly (Poppins 500, `rgb(122,122,122)` gray —
+       measured via `getComputedStyle`, not a plain bold body paragraph), followed by a 5-item bullet
+       list whose LAST item literally reads "Solutions Provided" (confirmed via direct
+       `textContent`/`.elementor-icon-list-text` read — a genuine reference quirk, not a transcription
+       error: a heading-like phrase typed as a plain bullet). Bullet icon is a FontAwesome "dot-circle"
+       glyph (`rgb(109,109,109)`, `16px`) — recreated as a plain CSS `::before`/`::after` circle-with-dot
+       rather than importing an icon font.
+    3. This specific case study has NO Prev/Next pagination nav in its own DOM — confirmed via a full
+       audit for `.post-navigation`/`.nav-links`/`nav` elements (only the header mega-menu and mobile
+       side-panel `<nav>`s exist). Reproduced faithfully as "no pagination" rather than forcing one in
+       to match the two sibling pages that do have one.
+  - **Same hero pattern as rostar-filters/ejmcdougall:** a single full-width `<img>`
+    (`ozone-header-1-2048x453-1.webp`, natural `2048x453`) via `.case-studies-banner`, confirmed NOT the
+    `.wraper_inner_banner` CSS-background pattern.
+  - **Typography measured directly via `document.styleSheets` rule reads** (not viewport rendering,
+    which was unavailable at a true desktop width this session — `resize_window` reported success but
+    neither `window.innerWidth` nor the rendered screenshot changed size; see Verification method
+    below): H1 `36px/48px/600`; H2/H3/H4/H5 all uniformly `20px/26px/600` (this page does NOT use the
+    tiered 42/38/30/27 line-heights seen on ejmcdougall) — all `rgb(29,26,78)` heading color. Body
+    paragraphs `16px/26px` DM Sans, justified, `rgb(25,25,25)`.
+  - **Column padding measured directly per column via `getComputedStyle`** (no page-specific override
+    rules exist for any of these widget ids — these are theme-default paddings, confirmed identical
+    regardless of breakpoint): intro text-col `25px` all sides; carousel-col `10px` all sides;
+    challenges image-col `0`; challenges text-col `30px 35px 30px 25px` (asymmetric, genuinely
+    measured). Container max-width confirmed `1140px` (shared `.container`, unmodified) via the theme's
+    own default `.elementor-section-boxed > .elementor-container{max-width:1140px}` rule read directly
+    from the stylesheet.
+  - **Assets** (`assets/images/`): `cs-ozone-hero.webp` (`2048x453`, recovered from the `src` attribute
+    directly since `currentSrc` had resolved to a smaller `768w` responsive variant at the narrow
+    viewport this session was stuck at), `cs-ozone-carousel-1/2/3.webp` (`588x390`/`597x316`/`526x359`),
+    `cs-ozone-solutions.webp` (`540x1730`, the tall "Business Challenges" screenshot mockup),
+    `cs-ozone-conclusion.webp` (`1262x602`, recovered from `srcset`'s `1262w` entry rather than the
+    default `768w` variant) — all fetched via same-origin `fetch()`+blob+real-click download and
+    verified via PIL after download.
+  - **Bug found and fixed during verification: the carousel's initially-active slide never loaded.**
+    `img.complete`/`naturalWidth` on the first (visible, `is-active`) slide read `false`/`0` even after
+    the page had been visually rendering it correctly for several seconds, while the two initially-
+    `display:none` slides loaded fine. Root cause: `loading="lazy"` combined with `display:none` at
+    parse time (the two hidden slides) apparently still gets queued and fetched by Chrome's native lazy
+    loader, but the one always-visible slide's own lazy-load evaluation appears to race with the
+    element's own layout and never fires. Fixed by removing `loading="lazy"` from only the first slide's
+    `<img>` (matching how this project already treats hero images as eager); slides 2/3 keep
+    `loading="lazy"` since they demonstrably do still load correctly once needed.
+  - **Verification method:** rendered via the local dev server (`http://127.0.0.1:5500`, reachable this
+    session) end-to-end — hero, breadcrumb, intro row + carousel, heading-less lede paragraphs, Business
+    Challenges row (image + bullets + sub-headings), and Conclusion all confirmed visually correct via
+    screenshot scroll-through; zero console errors; all `cs-ozone-*` asset requests returned `200`, no
+    `404`s; no horizontal overflow (`scrollWidth` == `clientWidth`). Carousel interaction verified
+    programmatically: clicking a dot correctly switches the active slide/dot and updates
+    `aria-selected`. **`resize_window` did not actually change the rendered viewport this session**
+    (confirmed by screenshotting before/after a resize call to `390x844` — the screenshot stayed at the
+    same desktop width both times), so the CSS `<=767px`/`<=1024px` mobile/tablet rules are carried over
+    from the established rostar-filters/ejmcdougall pattern as a reasonable default, NOT independently
+    pixel-verified against this page's own reference at a true narrow width this session.
+  - **Cross-linking:** ejmcdougall's own "Next Post" link updated from the external reference URL to
+    this new local file (`ozone.html`). `portfolio.html`'s existing "Ozone.in - Web Application" card
+    updated from the external reference URL to this new local file (its image asset, `port-ozone.webp`,
+    was already present locally from an earlier session). This page itself has no pagination nav to
+    wire up (see structural difference #3 above).
+  - **Not yet done:** a true mobile/tablet viewport re-check against this page's own reference — blocked
+    this session by `resize_window` not actually affecting the rendered viewport (see above). A future
+    session with working viewport control should re-verify the carousel's mobile layout in particular,
+    since it's a new component not present on any prior page in this project.
+  - **Fix pass (user-reported, three issues from real rendered screenshots):**
+    1. **"When the images change of these carousel the section moves that shouldn't happen."** Root
+       cause: the original carousel toggled slides via `display:none/block`; since the 3 source images
+       have genuinely different aspect ratios and each used `height:auto`, the carousel's own box height
+       changed on every autoplay tick, which — combined with the intro row's `align-items:center` —
+       visibly shifted the H1/paragraph column and the row's own height. Confirmed via
+       `getComputedStyle` that the reference's own `.elementor-image-carousel-wrapper` holds a
+       near-constant height regardless of slide (`~472px` at a `~747px`-wide column, ratio `~0.632`) —
+       it never actually reflows. Fixed by giving `.cs-ozone-carousel-viewport` a fixed `aspect-ratio:747
+       / 472` box and sliding a flex track horizontally inside it via `transform:translateX()`
+       (`js/script.js`'s carousel block rewritten to move the track instead of toggling slide
+       `display`), matching the reference's own `"effect":"slide"` setting read from `data-settings`.
+       Re-verified programmatically: `viewport.getBoundingClientRect().height` and the H1's own `top`
+       position are now bit-for-bit identical across all 3 slides.
+    2. **"This image also have transition in the reference page" (the tall "Business Challenges"
+       screenshot mockup, `cs-ozone-solutions.webp`).** The original build had wrongly assumed
+       `box-shadow:none;border-radius:0` (genuinely true for this image) also meant no hover transition
+       — the EXACT same mistake already caught once before on the ejmcdougall page. Re-confirmed via a
+       fresh `document.styleSheets` read on the live reference: the shared `.move-image-left-right`
+       class applies `transition:.3s ease-in-out` + hover `translate3d(-10px,0,0)` to this image too;
+       only `box-shadow`/`border-radius` are genuinely absent. Fixed by adding a shared hover-slide rule
+       to both this image and the Conclusion image below, with a `.cs-ozone-image-plain` modifier that
+       strips just the shadow/radius back off this one.
+    3. **"Image size of this image is different than the reference page" (same tall image, and
+       separately the Conclusion image).** Two separate real bugs, both from measuring only the widget-
+       wrap's own `padding` earlier and missing its `margin`:
+       - Challenges image: reference's widget-wrap carries `margin:0 15px` (padding `0`), rendering the
+         image at `540px` inset within its `570px` column — my original build had `padding:0` on
+         `.cs-ozone-image-col`, stretching the image edge-to-edge. Fixed to `padding:0 15px`.
+       - Conclusion image (and, on the reference, the "Conclusion" heading/paragraph sharing the same
+         column widget-wrap): `margin:0 15px` PLUS `padding:40px 45px`, rendering the image at exactly
+         `1020px` inside the `1140px` row — my original build stretched it to the full `1140px`. Fixed
+         by adding `padding:40px 60px 0` (45+15=60 each side) to `.cs-ozone-conclusion .cs-ozone-row-
+         inner` itself (matching the heading/paragraph inset too, not just a one-off image width), with
+         a reduced `20px 20px 0` override at `<=767px`.
+       Re-verified via `getBoundingClientRect`: challenges image now renders at exactly `540px`
+       (previously full column width), conclusion image at exactly `1020px` (previously full `1140px`
+       row width) — both matching the reference's own measured values precisely.
+    A separate user-sent screenshot during this same exchange showed an "Explore Our Other Living
+    Spaces" / "Wardrobes" product grid; that text does not exist anywhere in this project's own files
+    (confirmed via a project-wide grep) and doesn't match this page's content — most likely a stale
+    screenshot from a different browser tab (e.g. Ozone's own live site, visited earlier this session
+    while sourcing assets) rather than this build or its reference. Not acted on; flagged back to the
+    user in chat rather than guessed at.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/case-studies/ejmcdougall/
 - **Local target:** `case-studies/ejmcdougall.html` (flat file), `css/pages/case-study-ejmcdougall.css`
   (`cs-ejmcdougall-` prefix), no page-specific JS needed.
@@ -48,6 +177,19 @@
     col `padding:15px` all sides at mobile, to reproduce the inter-image gap when 50/50 rows stack) as
     a reasonable default, but was not independently re-measured against THIS page's own reference at a
     true narrow width this session. Treat mobile as unverified until a future session can re-check it.
+  - **Fix pass (user-reported: "You forgot to add transitions to the first image").** The initial build
+    had wrongly assumed that because the intro row's image (`cs-ejmcdougall-b1`) lacks
+    `box-shadow`/`border-radius` on the reference, it should ALSO lack the hover
+    `transition`/`transform` — so `.cs-ejmcdougall-image-plain` additionally set `transition:none` and
+    `:hover img{transform:none}`. Confirmed wrong by reading the live reference's own
+    `document.styleSheets` directly: the shared `.move-image-left-right` component class applies
+    `transition:.3s ease-in-out` and `:hover{transform:translate3d(-10px,0,0)}` to ALL THREE images on
+    the page identically (both the "plain" intro image and the two shadowed images carry this exact
+    same class) — `border-radius`/`box-shadow` are set separately per-widget-id and genuinely differ,
+    but the transition/hover-slide is universal. Fixed by removing the incorrect `transition:none` and
+    `:hover{transform:none}` overrides from `.cs-ejmcdougall-image-plain`, keeping only
+    `border-radius:0;box-shadow:none`. Re-verified: the intro image now slides on hover exactly like the
+    other two, while staying visually flat (no shadow/radius) at rest — matching the reference.
 
 ## Previous completed page
 
