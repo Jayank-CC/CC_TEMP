@@ -13,14 +13,20 @@
    image) + ONE single full-width screenshot + "Conclusion" (single centered column) + prev/next
    pagination.
 
-   CORRECTED (re-audit): an earlier pass in this project wrongly added a 2-column image gallery
-   section between "Result" and the full-width screenshot. Direct re-verification via
-   `querySelectorAll('.elementor-column')`/`img` on the live reference's corresponding section
-   (`data-id="6c9d923"`) confirmed exactly ONE column and ONE image widget there — its lazy-src
-   resolves to `EGG-Centre.webp` at `1120x818`, i.e. the same image already correctly used as this
-   page's single full-width screenshot (`cs-egg-b2.webp`). The fabricated gallery section (and its
-   two invented `cs-egg-gallery-*.webp` assets) has been removed entirely; there is no gallery on
-   this page.
+   CORRECTED AGAIN: a prior audit pass wrongly deleted a real 2-column image gallery, having
+   filtered the reference's `root.children` only by the legacy `.elementor-section` class and
+   silently missing it — the gallery actually uses the reference's MODERN Elementor container
+   markup (`e-flex e-con-boxed e-con e-parent`, `data-id="2fc153e"`), not the legacy classes the
+   filtered query checked. A fresh, UNFILTERED audit of all 9 direct children of the content root
+   confirmed the gallery genuinely sits between the "User Experience" section (index 4) and
+   "Result" (index 6). Structure: one `.e-con-inner` (`display:flex;gap:0`) containing two child
+   columns (each `padding:10px`, rendered ~570px at 1140px total), each holding one image. Real
+   URLs (via `data-pagespeed-lazy-src`): `egg1.webp`/`egg2.webp`, HTML attrs `550x757`. Re-confirmed
+   directly via `getComputedStyle`/`getBoundingClientRect` once the reference tab was responsive
+   again: rendered image box is `550x756.99` — i.e. `width:550px;height:auto` (no distortion at
+   all; an earlier note in this session mistakenly concluded a "550x550 square squish" from a
+   stale/mid-load measurement — corrected here). `border-radius:4px`, `box-shadow:0 0 10px
+   rgba(0,0,0,.2)`, the same reusable hover-slide treatment as the page's other images.
 
    IMPORTANT TYPOGRAPHY FINDING: "Result" and "Conclusion" are Elementor HEADING widgets, but
    their own HTML-tag setting is literally `<div>` on the live reference (confirmed via
@@ -184,7 +190,16 @@
   padding: 45px;
 }
 .cs-egg-image-col {
-  padding: 0;
+  /* Reference's real mechanism (found via ancestor-chain inspection): the image's own
+     `.elementor-widget-wrap` carries `margin: 0 15px` at EVERY viewport, not just desktop — it
+     is not a one-off centering hack. At desktop this shrinks the 570px column to 540px content
+     width, exactly matching the image's native size (540x694) with zero extra clamping needed;
+     at mobile (measured directly on the reference at a true ~320px width) the same margin
+     shrinks the column to 275px, and the image (via max-width:100%) shrinks to fill that
+     reduced width — 305px column minus 30px margin = 275px, confirmed exactly. Reproduced here
+     as `padding:0 15px` on the column itself (equivalent visual result, no extra breakpoint
+     rules needed).  */
+  padding: 0 15px;
 }
 .cs-egg-text-col h2 {
   font-size: 20px;
@@ -224,18 +239,41 @@
   width: 100%;
 }
 .cs-egg-image-col img {
-  /* Reference renders this image at its own native 540px width, NOT stretched to the 570px
-     column — confirmed via getBoundingClientRect: image renders exactly 540x694 (matching its
-     own width/height attributes) with a symmetric ~15px gap on each side inside the wider
-     column, not edge-to-edge. Forcing width:100% here (733px tall) was a real bug: it stretched
-     the image taller than the reference and created a visible height mismatch against the text
-     column. */
-  width: 540px;
-  max-width: 100%;
-  margin: 0 auto;
+  /* width:100% of the now-padded column (see .cs-egg-image-col above) naturally resolves to
+     540px at desktop and shrinks correctly at any narrower width — no fixed pixel width or
+     auto-margin centering hack needed. */
+  width: 100%;
 }
 .cs-egg-image-col:hover img,
 .cs-egg-showcase-inner:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---------- 2-column image gallery (between UX and Result) ---------- */
+.cs-egg-gallery {
+  padding: 1px 0;
+}
+.cs-egg-gallery-inner {
+  display: flex;
+  gap: 0;
+  max-width: 1140px;
+  padding: 0;
+}
+.cs-egg-gallery-col {
+  flex: 0 0 50%;
+  width: 50%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.cs-egg-gallery-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-egg-gallery-col:hover img {
   transform: translate3d(-10px, 0, 0);
 }
 
@@ -333,7 +371,15 @@
     height: 20px;
   }
   .cs-egg-row-inner {
+    /* Base 20px matches result/conclusion's own mobile widget-wrap padding (confirmed directly
+       on the reference at a true ~320px width); intro/ux genuinely differ (25px each,
+       confirmed the same way) and get their own override below — NOT uniform across all four
+       "simple centered" blocks like a prior pass assumed. */
     padding: 20px;
+  }
+  .cs-egg-intro .cs-egg-row-inner,
+  .cs-egg-ux .cs-egg-row-inner {
+    padding: 25px;
   }
   .cs-egg-row-inner h1 {
     font-size: 24px;
@@ -349,6 +395,12 @@
   .cs-egg-challenge .cs-egg-row-inner {
     flex-direction: column;
   }
+  .cs-egg-gallery-inner {
+    flex-direction: column;
+  }
+  .cs-egg-gallery-col {
+    width: 100%;
+  }
   .cs-egg-col {
     /* The desktop-only explicit `width:50%` (added to force an even 570/570 split at desktop —
        see the desktop fix-pass note above) does NOT get overridden by `flex-direction:column`
@@ -358,14 +410,12 @@
        same-origin-iframe technique, not present on the reference. */
     width: 100%;
   }
-  .cs-egg-text-col,
-  .cs-egg-image-col {
-    padding: 20px;
-  }
-  .cs-egg-image-col img {
-    width: 100%;
-    margin: 0;
-  }
+  /* .cs-egg-text-col and .cs-egg-image-col intentionally have NO padding override here.
+     Reference's text column keeps the SAME 45px total inset at mobile as at desktop (confirmed
+     directly on the reference at a true ~320px width: `.elementor-widget-wrap` margin:20px +
+     padding:25px = 45px, identical to the desktop value), and the image column keeps its own
+     `padding:0 15px` from the unconditional base rule too — a real bug in an earlier pass
+     reduced both to 20px at mobile. */
   .cs-egg-ux,
   .cs-egg-result,
   .cs-egg-conclusion {

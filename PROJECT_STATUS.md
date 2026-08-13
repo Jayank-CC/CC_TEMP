@@ -5,14 +5,38 @@
 - **Reference:** https://www.cloudconverge.io/case-studies/development-for-we-are-egg-using-net-contentful/
 - **Local target:** `case-studies/development-for-we-are-egg-using-net-contentful.html` (flat file),
   `css/pages/case-study-we-are-egg.css` (`cs-egg-` prefix), no page-specific JS needed.
-- **Last updated:** 2026-08-12
-- **State:** Complete, built from scratch this session; verified end-to-end including a mobile CSS fix.
+- **Last updated:** 2026-08-13
+- **State:** Complete, including a correction pass this session that restored a wrongly-deleted gallery
+  section (see note below).
+  - **CORRECTION (this session):** a prior audit pass wrongly deleted the 2-image gallery entirely. That
+    audit filtered the reference's `root.children` only by the legacy `.elementor-section` class, so it
+    silently skipped the gallery, which uses the reference's MODERN Elementor container markup (`e-flex
+    e-con-boxed e-con e-parent`, `data-id="2fc153e"`) — the audit concluded (wrongly) that no gallery
+    existed. The user caught this via a reference screenshot ("you forgot to add these 2 images in our
+    page"). Fixed by: re-confirming the gallery's exact position via an UNFILTERED walk of all 9
+    `root.children` (gallery sits at index 5, between "User Experience" at index 4 and "Result" at index
+    6); downloading the two real images (`egg1.webp`/`egg2.webp`, same-origin `fetch()` + blob + real-click
+    download, since direct `curl` to the reference domain is not reachable from the sandbox) and verifying
+    `550x757` via PIL; restoring the HTML section and CSS (`.cs-egg-gallery`/`-inner`/`-col`) at the correct
+    position; and re-confirming via live `getComputedStyle`/`getBoundingClientRect` that the images render
+    at their natural `550x757` size with NO distortion (an earlier note in this same session had wrongly
+    concluded a "550x550 square squish" from what was evidently a stale/mid-load measurement — corrected
+    once the reference tab responded again). **This session's re-verification was structural/value-level
+    only** (HTML section order confirmed via `grep`, CSS brace balance confirmed, asset dimensions confirmed
+    via PIL, gallery CSS values transcribed directly from live `getComputedStyle` measurements) — no local
+    dev server was reachable this session (`http://127.0.0.1:5500` connection refused) and `file://`
+    navigation is blocked by the browser-automation extension, so a fresh rendered screenshot of the
+    restored gallery was NOT captured. The mobile `flex-direction:column` stacking rule for the gallery
+    follows the same established pattern already verified on this page's "Challenge & Solution" 50/50 row,
+    but was not independently re-measured against the reference at a true narrow width this session — treat
+    the gallery's own mobile behavior as a reasonable default, not confirmed pixel-exact, until a session
+    with a working dev server can re-check it.
   - **Structure (9 sections):** hero + breadcrumb + spacer (60px/20px mobile) + intro (single centered
     column: H1 + 2 paragraphs) + "Challenge & Solution" 50/50 row (image LEFT/text RIGHT: H2 + 2 paragraphs
     + H3 sub-heading + 1 paragraph) + "User Experience Design & Backend Integration" single centered column
-    (H4 + 2 paragraphs, no image) + a modern Elementor `e-con` flexbox 2-image gallery (`flex-wrap:wrap`,
-    not a `flex-direction` change, to stack at mobile) + "Result" single centered column (no image) +
-    single full-width screenshot + "Conclusion" single centered column + prev/next pagination.
+    (H4 + 2 paragraphs, no image) + a modern Elementor `e-con` flexbox 2-image gallery (`display:flex;gap:0`
+    at desktop, `flex-direction:column` to stack at `<=767px`) + "Result" single centered column (no image)
+    + single full-width screenshot + "Conclusion" single centered column + prev/next pagination.
   - **Genuine DIV-based Elementor heading widgets, confirmed not an oversight:** "Result"'s and
     "Conclusion"'s heading widgets are literally `<div>` tags on the live reference (not h1-h6), with a
     genuinely unstyled computed style (`20px/26px/400 weight`, body color `rgb(25,25,25)`, not the bold
@@ -103,8 +127,38 @@
       of the image, and a real side-by-side screenshot at the same scroll position now matches the reference
       pixel-for-pixel (also had to work around a stale browser CSS cache on the dev server mid-check — a
       cache-busted stylesheet reload was needed to see the true corrected render).
-  - **Not yet done:** a genuine mobile/tablet viewport re-check across all 9 required widths with a working
-    `resize_window` (only 390px/desktop spot-checked this session via the iframe technique).
+  - **Third fix pass (user-reported: "its not same as the reference page in the mobile screen").**
+    Discovered mid-session that one of the browser tabs happened to sit at a genuine ~320px window width
+    (not a simulated iframe), giving TRUE mobile measurements directly on both the reference and the local
+    build without the iframe/zoom-scaling artifacts seen earlier (`resize_window` still does not actually
+    change the viewport in this environment, matching every prior session's note). Found and fixed three
+    more real bugs surfaced only at true mobile width:
+    1. The desktop fix-pass's `.cs-egg-col{width:100%}` mobile reset was correct, but the earlier
+       `.cs-egg-text-col, .cs-egg-image-col{padding:20px}` and `.cs-egg-image-col img{width:100%;margin:0}`
+       mobile overrides were wrong. Direct ancestor-chain inspection on the reference found the real
+       mechanism: the image's own `.elementor-widget-wrap` carries `margin:0 15px` at EVERY viewport, not
+       just desktop — confirmed identical at both ~1685px and ~320px. Replaced the desktop fix's
+       `width:540px;margin:0 auto` hack with the simpler, universally-correct `.cs-egg-image-col{padding:0
+       15px}` + `.cs-egg-image-col img{width:100%}`, which now naturally resolves to `540px` at desktop
+       (570px column − 30px) and `275px` at mobile (305px column − 30px) with zero breakpoint-specific rules
+       needed. Removed the incorrect mobile overrides entirely.
+    2. The text column's mobile padding was wrongly set to `20px`; the reference's own `.elementor-widget-wrap`
+       for this column carries `margin:20px` + `padding:25px` = `45px` total at mobile — IDENTICAL to its
+       own desktop value — confirmed directly, not assumed. No override needed; removed the incorrect `20px`
+       mobile rule so the unconditional base `padding:45px` applies at every width.
+    3. `.cs-egg-row-inner{padding:20px}` in the mobile block was applied uniformly to all four "simple
+       centered" blocks (intro/ux/result/conclusion), but the reference's own mobile widget-wrap padding is
+       genuinely NOT uniform: intro and ux are `25px`, result and conclusion are `20px` — confirmed
+       independently on all four at the same true ~320px width. Added a `25px` override scoped to
+       `.cs-egg-intro`/`.cs-egg-ux` specifically.
+    Re-verified afterward on the true mobile viewport: hero `297px`, intro padding `25px` with both
+    paragraphs `justify`, challenge image renders at exactly `275.27x353.77px` (matching the reference's own
+    measurement to the pixel) inside a `305.26px`-wide stacked column, ux/result/conclusion padding correct
+    per-section, text column `45px` inset, zero horizontal overflow (`scrollWidth 305` at `viewportWidth
+    320`), zero console errors.
+  - **Not yet done:** a full 9-viewport sweep (1920/1440/1366/1280/1024/768/480/390/360) — this session's
+    true-mobile checks were done at whatever width the browser tab happened to provide (~320px and ~1685px),
+    not the specific required breakpoints, since `resize_window` still doesn't work in this environment.
 
 ## Previous completed page
 
