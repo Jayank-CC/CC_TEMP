@@ -1,0 +1,228 @@
+/* Case study: Implementing SharePoint & M365 for Industrial Air Conditioning Company (Atmos / Kabu
+   Projects)
+   Reference: https://www.cloudconverge.io/case-studies/implementing-sharepoint-atmos/
+   Prefix: cs-spatmos-
+   Content root confirmed via [data-elementor-id] audit (5 top-level children: breadcrumb section
+   `2d24dcd` + spacer e-con `46633b7` + intro 50/50 row `0c9be32` + Solution/Results 50/50 row `2c439de`
+   + Conclusion single-column row `3adba17`). Reuses the SAME shared Elementor template family already
+   confirmed on the geotechnical/dynamics-m365/atmos-cooling/ozone case studies -- but every value below
+   (typography, padding, margin, hover treatment, alignment) was independently re-measured on THIS
+   page's own reference rather than assumed, per the "shared element IDs do NOT mean shared values"
+   rule.
+
+   Typography matches the rostar-filters/ejmcdougall tiered convention EXACTLY (confirmed fresh via
+   `document.styleSheets` reads on this page's own reference): H1 `36px/42px/600`; H2 `20px/50px/600`;
+   H3 `20px/42px/600` (used only in the Conclusion heading); all `rgb(29,26,78)` Poppins
+   (`--color-heading`). Body paragraphs `16px/26px/400` DM Sans, `rgb(25,25,25)` (`--color-body`),
+   left-aligned (not justified on this page -- confirmed).
+
+   Column widget-wrap insets match the rostar-filters/ejmcdougall convention exactly: text-col
+   `padding:45px margin:0`; image-col `padding:0 margin:0 15px` (an effective 15px inset each side).
+
+   Hero reuses the EXISTING `assets/images/cs-atmos-hero-banner.webp` asset (pixel-diff confirmed same
+   underlying photo as this page's own "Atmos-banner.jpg", ~2/255 mean diff -- lossy re-compression of
+   the same source, not a different image) rather than downloading a near-duplicate, per the project's
+   asset-reuse rule.
+
+   Three genuine copy-paste content quirks on this page (all reproduced VERBATIM per the "replication,
+   not redesign" mandate -- flagged to the user in chat, not silently corrected):
+   1. Breadcrumb current-page text reads "Implementing Dynamics & Microsoft 365 for Industrial Air
+      Conditioning Company" -- "Dynamics" instead of "SharePoint" -- while the real H1 correctly says
+      "SharePoint".
+   2. The Conclusion image's alt text reads "Implementing Dynamics & Microsoft 365 for Industrial Air
+      Conditioning Company" -- same "Dynamics" mix-up.
+   3. The hero image's alt text reads "Website Development for Atmos Cooling" -- carried over verbatim
+      from the sibling atmos-cooling page, not rewritten for this SharePoint case study.
+   All three confirmed via direct `textContent`/`alt` attribute reads on the live reference, not
+   transcription errors on my part.
+
+   Both 50/50 rows use `align-items:flex-start` (top-aligned), NOT vertically centered -- confirmed via
+   the reference's own DOM (neither row carries an `elementor-section-content-middle` modifier, unlike
+   ozone's intro row). */
+
+.cs-spatmos-page .breadcrumb-list a,
+.cs-spatmos-page .breadcrumb-list a:hover,
+.cs-spatmos-page .breadcrumb-sep,
+.cs-spatmos-page .breadcrumb-list li,
+.cs-spatmos-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-spatmos-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (single full-width img, reused atmos-cooling banner asset) ---------- */
+.cs-spatmos-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Spacer ---------- */
+.cs-spatmos-spacer {
+  height: 40px;
+}
+
+/* ---------- Shared row/container ---------- */
+.cs-spatmos-row {
+  padding: 0;
+}
+.cs-spatmos-row-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.cs-spatmos-col {
+  flex: 0 0 50%;
+  width: 50%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.cs-spatmos-text-col {
+  padding: 45px;
+  margin: 0;
+}
+.cs-spatmos-image-col {
+  padding: 0;
+  margin: 0 15px;
+}
+
+.cs-spatmos-row-inner h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-spatmos-row-inner h2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0;
+}
+.cs-spatmos-row-inner h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 10px;
+}
+.cs-spatmos-row-inner p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-spatmos-row-inner p:last-child {
+  margin-bottom: 0;
+}
+
+/* Shared hover-slide treatment, reused across every image on this page (intro, solution, and
+   conclusion images all carry the reference's own `.move-image-left-right` transition/hover-transform
+   -- confirmed via `document.styleSheets` on the live reference, none of the three images on this page
+   are "plain"/shadowless, unlike some sibling pages). */
+.cs-spatmos-image-col img,
+.cs-spatmos-conclusion img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-spatmos-image-col:hover img,
+.cs-spatmos-conclusion:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---------- Intro row (text left / image right) ---------- */
+.cs-spatmos-intro {
+  padding: 0;
+}
+
+/* ---------- "Solution"/"Results" row (image left / text right) ---------- */
+.cs-spatmos-challenge {
+  padding: 0;
+}
+.cs-spatmos-challenge .cs-spatmos-text-col h2:not(:first-child) {
+  margin-top: 20px;
+}
+.cs-spatmos-challenge .cs-spatmos-text-col p em {
+  font-style: italic;
+}
+
+/* ---------- Conclusion (single centered column) ---------- */
+.cs-spatmos-conclusion {
+  padding: 0 0 60px;
+}
+.cs-spatmos-conclusion .cs-spatmos-row-inner {
+  display: block;
+  padding: 40px 60px 0;
+}
+.cs-spatmos-conclusion img {
+  margin-top: 20px;
+}
+
+/* ---------- Responsive ----------
+   Follows the same established mobile pattern verified on the rostar-filters/ejmcdougall/ozone sibling
+   pages (50/50 rows stack to `flex-direction:column`, columns reset to `width:100%`, H1 shrinks).
+   Browser viewport control was unavailable this session (resize_window does not change the actual
+   rendered viewport in this environment) -- treat as a reasonable default carried over from the
+   sibling pages' own confirmed mobile fixes, not yet pixel-verified for this page specifically, until a
+   future session can re-check it. */
+@media (max-width: 1024px) {
+  .cs-spatmos-hero img {
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  .cs-spatmos-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-spatmos-spacer {
+    height: 20px;
+  }
+  .cs-spatmos-row-inner {
+    flex-direction: column;
+    padding: 0 24px;
+  }
+  .cs-spatmos-col {
+    width: 100%;
+  }
+  .cs-spatmos-text-col {
+    padding: 20px 0;
+    margin: 0;
+  }
+  .cs-spatmos-image-col {
+    padding: 0;
+    margin: 15px 0;
+  }
+  .cs-spatmos-row-inner h1 {
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+  }
+  .cs-spatmos-row-inner h2 {
+    text-align: center;
+  }
+  .cs-spatmos-row-inner p {
+    text-align: justify;
+  }
+  .cs-spatmos-row-inner p:last-child {
+    text-align: justify;
+  }
+  .cs-spatmos-conclusion .cs-spatmos-row-inner {
+    padding: 20px 20px 0;
+  }
+}

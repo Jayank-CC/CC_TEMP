@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description"
+    content="Case study: Implementing a SharePoint & Microsoft 365 intranet portal for Atmos, an Industrial Air Conditioning Company and part of Kabu Projects, led by CloudConverge.">
+  <title>Implementing SharePoint &amp; Microsoft 365 for Industrial Air Conditioning Company | Case Study | CloudConverge</title>
+  <link rel="icon" href="../assets/images/CloudConverge_Final_Logo_CC_Small_Color_V1-150x150.png" sizes="32x32">
+  <link rel="icon" href="../assets/images/CloudConverge_Final_Logo_CC_Small_Color_V1-300x300.png" sizes="192x192">
+  <link rel="preload" as="image" href="../assets/images/cs-atmos-hero-banner.webp" fetchpriority="high">
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/dm-sans-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins-600-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/pages/case-study-sharepoint-atmos.css">
+</head>
+
+<body class="cs-spatmos-page">
+
+  <div id="site-header-placeholder"></div>
+
+  <main id="content">
+
+    <!-- ============================= HERO BANNER (single full-width img via .case-studies-banner, same
+         pattern as rostar-filters/ejmcdougall/ozone). REUSES the existing
+         assets/images/cs-atmos-hero-banner.webp asset rather than downloading a near-duplicate: this
+         page's own reference serves the identical banner photo as a separately re-encoded JPEG
+         ("Atmos-banner.jpg", pixel-diff confirmed ~2/255 mean, consistent with lossy re-compression of
+         the SAME source image, not a different photo) -- confirmed via PIL before deciding to reuse,
+         per this project's asset-reuse rule. The alt text below is intentionally NOT about SharePoint --
+         see the doc comment at the end of this file. ============================= -->
+    <section class="cs-spatmos-hero">
+      <img src="../assets/images/cs-atmos-hero-banner.webp" alt="Website Development for Atmos Cooling"
+        width="1403" height="322" loading="eager" fetchpriority="high">
+    </section>
+
+    <!-- ============================= BREADCRUMB (the current-page crumb text below is intentionally NOT
+         about SharePoint -- see the doc comment at the end of this file) ============================= -->
+    <div class="breadcrumb-bar">
+      <div class="container">
+        <ul class="breadcrumb-list">
+          <li><a href="../index.html">Home</a></li>
+          <li aria-hidden="true" class="breadcrumb-sep">
+            <svg viewBox="0 0 192 512" width="8" height="16">
+              <path fill="currentColor"
+                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z">
+              </path>
+            </svg>
+          </li>
+          <li><a href="../portfolio.html">Portfolio</a></li>
+          <li>
+            <span aria-hidden="true" class="breadcrumb-sep">
+              <svg viewBox="0 0 192 512" width="8" height="16">
+                <path fill="currentColor"
+                  d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z">
+                </path>
+              </svg>
+            </span>
+            <span aria-current="page">Implementing Dynamics &amp; Microsoft 365 for Industrial Air
+              Conditioning Company</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============================= SPACER ============================= -->
+    <div class="cs-spatmos-spacer" aria-hidden="true"></div>
+
+    <!-- ============================= INTRO ROW (50/50: TEXT left / IMAGE right — H1 + intro paragraph.
+         Reuses the exact same 36/42/20/50/20/42 tiered typography and column paddings already
+         established on the rostar-filters/ejmcdougall sibling pages, confirmed fresh on THIS page's own
+         reference rather than assumed.) ============================= -->
+    <section class="cs-spatmos-row cs-spatmos-intro">
+      <div class="container cs-spatmos-row-inner">
+        <div class="cs-spatmos-col cs-spatmos-text-col">
+          <h1>Implementing SharePoint &amp; M365 for Industrial Air Conditioning Company</h1>
+          <p>Atmos, a part of Kabu Projects, is a fast growing industrial solution provider. As the company grew,
+            they identified a number of inefficiencies that stemmed from using many disparate internal tools and
+            manual processes. Employees were struggling to adequately manage essential functions of the business
+            such as tracking sales orders, accessing invoices, monitoring service orders, processing product
+            returns, and managing documents and contracts. Organizational knowledge suffered through scattered
+            systems, and employees often relied on email or informal, offline requests to manage processes,
+            resulting in delayed information, duplicated efforts and limited transparency.</p>
+        </div>
+        <div class="cs-spatmos-col cs-spatmos-image-col">
+          <img src="../assets/images/cs-spatmos-portal.webp" alt="SharePoint Development Work" width="1920"
+            height="1094" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= "SOLUTION" / "RESULTS" ROW (50/50: IMAGE left / TEXT right — H2
+         "Solution" + 1 paragraph + H2 "Results" + 2 paragraphs, confirmed via raw innerHTML the second
+         "Results" paragraph is a separate <p> for the closing client quote, not one run-on block.
+         Confirmed via getComputedStyle this row uses 48px 0 section padding, distinct from the
+         intro/conclusion rows.) ============================= -->
+    <section class="cs-spatmos-row cs-spatmos-challenge">
+      <div class="container cs-spatmos-row-inner">
+        <div class="cs-spatmos-col cs-spatmos-image-col">
+          <img src="../assets/images/cs-spatmos-solution.webp" alt="Atmos SharePoint intranet portal" width="1460"
+            height="1920" loading="lazy">
+        </div>
+        <div class="cs-spatmos-col cs-spatmos-text-col">
+          <h2>Solution</h2>
+          <p>In order to overcome these problems, we worked with Atmos to design a centralized intranet portal to
+            fulfill their operational needs. This single platform showcased business functions and ensured
+            employees had role based access to information and services such as real-time tracking of their sales
+            orders, access to invoice information, dashboards tracking service orders and return processes. The
+            portal included a searchable contracts repository, discussion boards for departments and teams, and
+            secure file management capabilities. The portal also provided seamless connectivity to
+            Atmos&rsquo; existing ERP and CRM systems to ensure the flow and consistency of real-time data. We also
+            built in user-specific roles and permissions that reflected their department structures and
+            confidentiality classifications.</p>
+          <h2>Results</h2>
+          <p>The results of the intranet portal were immediate and measurable. Employees that were unable to spend
+            over 10 minutes locating the service order details could quickly access the information they needed in
+            under a minute. Monthly internal requests for invoice copies declined more than 90%, and requests to
+            the operations and HR teams regarding documents disappeared completely. The overall satisfaction score
+            for internal systems increased from 62% to 91% in the first quarter of implementation. Employees found
+            the portal easy to navigate and appreciated the transparency and many self-service capabilities it
+            provided.</p>
+          <p>As the Head of Operations at Atmos put it: &ldquo;<strong><em>the intranet portal completely changed
+            how we do things internally; it&rsquo;s a one-stop shop that adds visibility, speed and structure to
+            our core functions.</em></strong>&ldquo;</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= "CONCLUSION" (single centered column: H3 + paragraph + full-width
+         image, all in the SAME column — matches the rostar-filters/ejmcdougall/ozone Conclusion
+         pattern. The image's alt text below is intentionally NOT about SharePoint -- see the doc
+         comment at the end of this file.) ============================= -->
+    <section class="cs-spatmos-row cs-spatmos-conclusion">
+      <div class="container cs-spatmos-row-inner">
+        <h3>Conclusion</h3>
+        <p>This intranet portal project is a perfect example of how impactful digital solutions can influence
+          operational efficiency when appropriately designed, particularly in fast-growing organizations. For
+          Atmos, the portal was not just a communication tool; it was the beginning of a connected, transparent,
+          agile workplace. By centralizing key processes on a single accessible platform, Atmos was able to equip
+          employees with tools, reduce friction in day-to-day work, and lay a foundation for scalable growth.</p>
+        <img src="../assets/images/cs-spatmos-reference.webp"
+          alt="Implementing Dynamics &amp; Microsoft 365 for Industrial Air Conditioning Company" width="1100"
+          height="482" loading="lazy">
+      </div>
+    </section>
+
+    <!-- No Prev/Next pagination nav on this page — confirmed via a full DOM audit of the live reference
+         (no .post-navigation / nav-links markup exists), matching the ozone page's own genuine "no
+         pagination" state rather than an omission. -->
+
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script defer src="../js/header.js"></script>
+  <script defer src="../js/footer.js"></script>
+  <script defer src="../js/script.js"></script>
+  <script defer src="../js/include.js"></script>
+</body>
+
+</html>
