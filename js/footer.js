@@ -175,7 +175,7 @@ window.__PARTIALS.footer = `
           <li><a href="/workculture.html">Work Culture</a></li>
           <li><a href="#careers">Careers</a></li>
           <li><a href="#blog">Blog</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="/contact.html">Contact</a></li>
         </ul>
       </div>
 

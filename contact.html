@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact CloudConverge | Get in Touch</title>
+  <meta name="description"
+    content="Connect with CloudConverge to discuss Cloud migration, Ecommerce, Mobile App Development and Internet Marketing requirements. Offices in the USA and India.">
+  <link rel="icon" href="assets/images/CloudConverge_Final_Logo_CC_Small_Color_V1-150x150.png" sizes="32x32">
+  <link rel="icon" href="assets/images/CloudConverge_Final_Logo_CC_Small_Color_V1-300x300.png" sizes="192x192">
+  <link rel="preload" as="image" href="assets/images/contact-us-main-image-1.webp">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/dm-sans-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/poppins-600-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/pages/contact.css">
+</head>
+
+<body class="contact-page">
+
+  <div id="site-header-placeholder"></div>
+
+  <main id="content">
+
+    <!-- ============================= INNER BANNER =============================
+         Shared `.inner-banner`/`.inner-banner-overlay` structure (same pattern as about.html),
+         with this page's own background image overridden in css/pages/contact.css --
+         `.inner-banner` in the shared css/style.css hard-codes about.html's own
+         `teamphoto-about.webp`, so every page reusing it must override the image, not just
+         the structure. Reference measured height: 380px (no overlay tint -- the darkened look
+         is baked into the photo itself, confirmed via getComputedStyle: overlay background is
+         fully transparent, matching about.html's own commented-out overlay). -->
+    <section class="inner-banner contact-hero">
+      <div class="inner-banner-overlay"></div>
+    </section>
+
+    <!-- ============================= BREADCRUMB ============================= -->
+    <div class="breadcrumb-bar">
+      <div class="container">
+        <ul class="breadcrumb-list">
+          <li><a href="index.html">Home</a></li>
+          <li aria-hidden="true" class="breadcrumb-sep">
+            <svg viewBox="0 0 448 512" width="12" height="12">
+              <path fill="currentColor"
+                d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
+              </path>
+            </svg>
+          </li>
+          <li><span aria-current="page">Contact</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============================= GET IN TOUCH + CONTACT FORM + OFFICE CARDS =============================
+         Both rows (text+form, and the USA/India cards) sit in this SAME section on the
+         reference -- confirmed the user is right to call this out: reproduced here as two
+         stacked row-divs inside one `<section>` rather than two separate `<section>` tags.
+         Row 1 is a 2-column Elementor row (col-50/col-50 classes, but the REAL rendered split
+         is 60/40 -- 683px/456px out of a 1140px container, confirmed via getBoundingClientRect,
+         not an even 50/50 despite the class names). Section padding measured 90px 0 0 (bottom
+         edge comes from the equal-height columns, not extra section padding). -->
+    <section class="contact-intro">
+      <div class="container contact-intro-grid">
+        <div class="contact-intro-text">
+          <h1>Get In Touch</h1>
+          <p>Connect with us to discuss your requirements regarding migration to Cloud &ndash; AWS, Microsoft
+            Azure, Google Cloud, Ecommerce solutions development, Mobile App Development and Internet
+            Marketing.</p>
+          <p>We have clients from over 12 countries &ndash; USA, India, UK, Australia; verified by an
+            independent third party agency &ndash; including mobile apps, web applications, ecommerce
+            websites and internet marketing campaign.</p>
+          <p class="contact-detail-line"><b>Phone Number: </b><a href="tel:+917827902509">+91 7827902509</a></p>
+          <p class="contact-detail-line"><b>Email Address: </b><a
+              href="mailto:info@cloudconverge.io">info@cloudconverge.io</a></p>
+          <div class="container contact-offices-grid">
+            <div class="contact-offices-cards">
+              <div class="office-card">
+                <img src="assets/images/contact-flag-usa.png" alt="USA flag" width="30" height="30" loading="lazy">
+                <h4>USA</h4>
+                <p>565, Plandome RD, Unit 107, <br>Manhasset New York &ndash; 11030</p>
+              </div>
+              <div class="office-card">
+                <img src="assets/images/contact-flag-india.png" alt="India flag" width="30" height="30" loading="lazy">
+                <h4>INDIA</h4>
+                <p><strong>Delhi :</strong> E 44/2, Pocket B, Okhla Phase II,<br>New Delhi &ndash; 110020<br><br>
+                  <strong>Noida :</strong> Smartworks Corporate Park, Tower A, First Floor Sector 125, Noida &ndash;
+                  201313
+                </p>
+              </div>
+            </div>
+            <div class="contact-offices-spacer" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- Reuses the site's existing shared `.contact-form`/`.form-field`/`.btn-submit` styling
+             (already defined in css/style.css for the footer's own contact card) -- confirmed via
+             getComputedStyle that this page's form card is visually identical (same border-top
+             accent color, same border-radius, same input styling), just in a different outer
+             layout (no dark `.footer-contact` background here). Only the card shell and the
+             button's slightly different padding are page-specific overrides below. -->
+        <div class="contact-form-card">
+          <h3 class="contact-form-heading">Contact Us</h3>
+          <form class="contact-form" autocomplete="off">
+            <div class="form-field">
+              <input type="text" name="name" placeholder="Name*" required>
+              <span class="field-error"></span>
+            </div>
+            <div class="form-field">
+              <input type="email" name="email" placeholder="Email*" required>
+              <span class="field-error"></span>
+            </div>
+            <div class="form-field">
+              <input type="tel" name="phone" placeholder="Phone*" required>
+              <span class="field-error"></span>
+            </div>
+            <div class="form-field">
+              <textarea name="message" placeholder="Message"></textarea>
+              <span class="field-error"></span>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn btn-primary btn-submit contact-submit-btn">Submit Now</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ============================= OFFICE CARDS =============================
+           Also 60/40, matching the row above. The right column (40%) is a genuine empty
+           Elementor column on the reference -- confirmed via a direct DOM audit (0 widgets
+           inside it), kept white so it's invisible against the page background. Reproduced
+           verbatim as a real empty spacer div rather than dropped, per the project's
+           "replication, not redesign" rule -- it has no visible effect since it's
+           white-on-white, but the grid math (card row capped at 60% width) matches the
+           reference exactly this way. -->
+
+    </section>
+
+    <!-- ============================= MAP =============================
+         Reference embeds a live Google Maps iframe (`maps.google.com/maps?...&output=embed`,
+         no API key required -- the free "output=embed" method, not the paid Maps Embed API).
+         This project's CLAUDE.md bans iframes/remote embeds sitewide; the user was asked
+         directly about this specific conflict and explicitly chose to keep the iframe as a
+         one-off approved exception for this page rather than substitute a static image or
+         omit the section. Full-width, no container cap, fixed 460px height -- matches the
+         reference's own full_width/stretched section exactly. -->
+    <section class="contact-map">
+      <iframe
+        src="https://maps.google.com/maps?q=565,+Plandome+RD,+Unit+107,+Manhasset+New+York+-+11030&t=m&z=14&output=embed&iwloc=near"
+        width="100%" height="460" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="CloudConverge USA office location"></iframe>
+    </section>
+
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+
+  <script src="js/header.js?v=3" defer></script>
+  <script src="js/footer.js?v=3" defer></script>
+  <script src="js/script.js?v=3" defer></script>
+  <script src="js/include.js?v=3" defer></script>
+</body>
+
+</html>

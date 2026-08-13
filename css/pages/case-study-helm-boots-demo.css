@@ -205,7 +205,7 @@
 .cs-helmdemo-hero {
   position: relative;
   background:
-    linear-gradient(rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.52)),
+    linear-gradient(rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.6)),
     url("../../assets/images/cs-helmdemo-hero.webp") center center / cover
       no-repeat;
   padding: 150px 20px 60px;

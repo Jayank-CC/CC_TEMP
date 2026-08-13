@@ -23,7 +23,7 @@ window.__PARTIALS.header = `
         </li>
         <li class="menu-item"><a href="/portfolio.html">Portfolio</a></li>
         <li class="menu-item"><a href="#blog">Blog</a></li>
-        <li class="menu-item"><a href="#contact">Contact</a></li>
+        <li class="menu-item"><a href="/contact.html">Contact</a></li>
       </ul>
     </nav>
 
@@ -320,7 +320,7 @@ window.__PARTIALS.header = `
       </li>
       <li class="m-item"><a href="/portfolio.html">Portfolio</a></li>
       <li class="m-item"><a href="#blog">Blog</a></li>
-      <li class="m-item"><a href="#contact">Contact</a></li>
+      <li class="m-item"><a href="/contact.html">Contact</a></li>
     </ul>
   </nav>
 </div>

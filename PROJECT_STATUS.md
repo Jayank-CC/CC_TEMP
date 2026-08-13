@@ -2,6 +2,228 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/contact/
+- **Local target:** `contact.html` (root-level flat file, `contact-` prefix -- follows the
+  about.html/top-level-page naming convention, NOT the `cs-` case-study prefix),
+  `css/pages/contact.css`, no page-specific JS needed.
+- **Last updated:** 2026-08-13
+- **State:** Built this session. HTML/CSS structural checks (brace balance, asset existence,
+  tag balance, forbidden-framework grep) all pass, but NO rendered browser verification was
+  possible -- same standing environment limitation documented under the helm-boots-demo entry
+  below (no persistent local dev server reachable by the browser tool this session).
+  - **Content root confirmed via `[data-elementor-id="16524"]` audit is 4 top-level sections,
+    all living INSIDE the elementor content div** (unlike every case-study page in this
+    project, this page has no separate theme-level inner-banner/breadcrumb OUTSIDE the
+    elementor root -- but the rendered result is visually identical to the shared
+    `.inner-banner`/`.breadcrumb-bar` pattern already used by about.html, so that shared
+    structure was reused rather than duplicated): hero banner + breadcrumb ("Home > Contact")
+    + "Get In Touch"/"Contact Us" 60/40 row (text+detail-lines / form card) + office-cards
+    60/40 row (USA/India cards / genuinely empty column) + full-width Google Maps iframe.
+  - **Genuine 60/40 column split on BOTH the intro row and the office-cards row, despite both
+    using Elementor's `col-50`/`col-50` classes.** Confirmed via direct `getBoundingClientRect`
+    on the reference: 683px/456px of a 1140px container (not an even 570/570) -- a custom
+    per-widget width override that isn't reflected in the class names. Implemented as explicit
+    `width:60%`/`width:40%` rather than trusting the col-50 class naming.
+  - **Hero reuses the EXISTING `contact-us-main-image-1.webp` asset** -- this exact file was
+    already sitting locally, unused/orphaned (from an earlier, apparently abandoned attempt at
+    this same page in a prior session), confirmed as the correct asset by matching the
+    reference's own CSS `background-image` filename exactly. `.inner-banner` in the shared
+    `css/style.css` is hard-coded to about.html's own `teamphoto-about.webp` background, so a
+    page-scoped override (`.contact-page .contact-hero`) was added rather than touching the
+    shared rule. Height 380px, no overlay tint (the darkened look is baked into the photo
+    itself -- confirmed the overlay div's background is fully transparent on the reference,
+    matching about.html's own commented-out overlay).
+  - **Contact form card reuses the site's EXISTING shared `.contact-form`/`.btn-submit`/
+    `.field-error`/`.form-field` classes** (already defined in `css/style.css` for the
+    sitewide footer contact section) rather than reinventing new styling -- confirmed via
+    `getComputedStyle` that the border-top accent color (`rgb(30,78,196)` = `--color-primary`),
+    border-radius (4px), and input styling are pixel-identical to the shared component on this
+    page's own reference. Only genuinely different values got page-scoped overrides: the card
+    shell's own padding/margin (`33px 20px` / `0 15px`, distinct from the footer's `.fc-form-
+    card` which uses `40px 60px 50px` / `margin-left:100px` for its own different dark-band
+    layout) and the submit button's padding (`12px 45px` here vs the shared default `14px
+    46px`).
+  - **Office-cards row's 40% right column is a confirmed genuine EMPTY Elementor column on the
+    reference** (0 widgets inside it, verified via direct DOM audit of its widget-wrap) --
+    reproduced as a real empty spacer div per the "replication, not redesign" mandate, even
+    though it has no visible effect (white-on-white against the page background). The 60% left
+    column holds a nested 50/50 two-card row (USA/India), each a white rounded card (radius
+    5px, shadow `rgba(0,26,87,.08) 0 14px 46px`, 15px padding, 20px gap between cards --
+    measured from each card's own asymmetric 10px margins, simplified to one `gap:20px`) with a
+    30x30 flag PNG + centered H4 title (17px/600) + centered address paragraph (16px/26px, with
+    inline `<strong>` labels for the India card's Delhi/Noida sub-addresses).
+  - **Assets** (`assets/images/`): `contact-us-main-image-1.webp` (`1920x578`, reused, already
+    present locally) + two newly downloaded flag icons, `contact-flag-usa.png` and
+    `contact-flag-india.png` (`30x30` each, same-origin `fetch()`+blob+real-click download,
+    verified via PIL).
+  - **IMPORTANT — genuine architecture conflict, resolved via direct user decision, not a
+    silent judgment call.** The reference's map section is a live Google Maps `iframe`
+    (`maps.google.com/maps?...&output=embed`, the free no-API-key embed method, confirmed via
+    `data-widget_type="google_maps.default"`). This project's CLAUDE.md explicitly bans
+    iframes/remote embeds sitewide (vanilla HTML/CSS/JS only). This was flagged to the user
+    directly with three options (static map image + link-out, omit the section, or embed it
+    anyway as a one-off exception) -- **the user explicitly chose to keep the live iframe as a
+    one-off approved exception for this page.** Implemented as a plain, unstyled `<iframe>`
+    (full width, no container cap, fixed `460px` height, `loading="lazy"`) -- matching the
+    reference's own full-width/stretched section exactly. No other page in this project uses an
+    iframe; this is a scoped, user-approved exception to the sitewide rule, not a precedent for
+    future pages.
+  - **Shared header/footer nav updated (affects every page).** The reference's own header nav
+    links "Contact" to `/contact/` (confirmed via direct `href` read on the live reference, all
+    3 occurrences: desktop nav, mobile nav, and the footer's own quick-links list) -- but this
+    project's `js/header.js`/`js/footer.js` had those same 3 "Contact" links pointing to
+    `#contact` (a same-page anchor scrolling to the shared footer's own contact form), presumably
+    because the dedicated page didn't exist locally yet. Updated all three to `/contact.html`,
+    matching the existing `/portfolio.html` absolute-path convention already used for that nav
+    item. Did NOT touch the separate "Get A Quote" CTA button, which still points to `#contact`
+    -- that's a different link with different intended behavior, not part of this fix. This is
+    a shared-component change affecting every page in the project; the only effect is the
+    destination URL for existing "Contact" text links, not any structural/visual change, so the
+    blast radius is low, but flagging it here per the "check the effect on existing pages"
+    rule.
+  - **Fix pass #1 (user screenshot of the actual rendered form card: no visible border/card
+    shell, and the submit button rendered as a plain unstyled gray browser-default button
+    instead of a filled blue button).** Two real bugs, both from the initial build, found by
+    diffing against the reference's own markup/CSS:
+    1. **Submit button missing its base classes.** The reference's button is
+       `class="btn btn-primary btn-submit"` -- `.btn` (in the shared `css/style.css`) supplies
+       `border:0;border-radius:4px;padding` etc. and `.btn-primary` supplies the actual blue
+       background/white text; `.btn-submit` on its own only defines the darker `:hover`
+       background, nothing for the base state. The initial build's `<button>` only had
+       `class="btn-submit contact-submit-btn"`, omitting `.btn`/`.btn-primary` entirely -- so it
+       rendered with the browser's own default gray button chrome. Fixed by adding
+       `btn btn-primary` to the button's class list.
+    2. **Form card had only a `border-top` accent, no border on the other 3 sides.** Re-checked
+       `getComputedStyle` on all four sides of the reference's own widget-wrap (not just
+       `border-top`, which was all that got checked originally): `border-top:~5px`, but
+       `border-right/bottom/left` are ALSO `~1px solid` the same primary blue -- a thin full
+       box outline with a thicker top accent, not a top-accent-only card. Fixed
+       `.contact-form-card` to `border:1px solid var(--color-primary); border-top:5px solid
+       var(--color-primary)`.
+  - **Fix pass #2 (user-reported: hovering the contact form card lifts it slightly upward on
+    the reference, no hover effect on the local build).** The reference's form column carries
+    an `img-box-hover-effect` class whose real rule (read via `document.styleSheets`) is
+    `.img-box-hover-effect:hover .elementor-widget-wrap{transform:translate3d(0,-5px,0)}` with
+    a `0.4s cubic-bezier(0.2,0,0.3,1)` transition on the base state -- the same "lift on hover"
+    family of effect already documented elsewhere in this project (e.g. the helm-boots-demo
+    button's `hover-style-five`), just applied to the whole card here instead of a button.
+    Added `.contact-form-card{transition:transform .4s cubic-bezier(.2,0,.3,1)}` +
+    `:hover{transform:translate3d(0,-5px,0)}`.
+  - **Fix pass #3 (user screenshot + description: the USA/India office cards visually read as
+    if they sit inside the SAME div as "Get In Touch," directly under the email line, with the
+    form card's bottom-right corner still visible right alongside them).** Root cause: the
+    initial build used `align-items:flex-start` on `.contact-intro-grid`, plus a hand-picked
+    `padding-bottom:90px` hack on `.contact-intro-text`, as a guess at reproducing the row's
+    real bottom spacing. But the reference actually uses plain flexbox `align-items:stretch`
+    (the default) -- confirmed via `getBoundingClientRect`/`getComputedStyle` earlier this
+    session: both the text column AND the form-card column render at the exact same height
+    (`502px`), i.e. the shorter text column is stretched by its flex parent to match the taller
+    form card, leaving genuine empty whitespace below the email line rather than a hard stop.
+    With `flex-start` instead, the two columns keep their own natural (unequal) heights, so
+    the text column's box ends much sooner than the form card's -- and since the next
+    top-level section (office cards) starts immediately after THIS row ends (which is still
+    governed by the taller/form column either way), the shorter text column's *visual* content
+    ends up sitting right next to the office-cards section with no visual gap, while the form
+    card's tail is still hanging on the right at that same height -- exactly the "same div"
+    illusion described. Fixed by removing the `flex-start`/`padding-bottom:90px` hack entirely
+    and reverting `.contact-intro-grid` to `align-items:stretch` (also corrected the analogous
+    `.contact-offices-grid` from `flex-start` to `stretch` for consistency, since the office
+    row's real empty spacer column should likewise stretch to match its sibling, matching how
+    the reference's own confirmed-empty 40% column behaves).
+  - **Fix pass #4 (user screenshot pair, reference vs. local: still a much bigger gap between
+    "Email Address" and the office cards than the reference shows, even after fix pass #3's
+    `align-items:stretch` correction).** Root cause: reusing the shared `.contact-form`/
+    `.form-field` sizing (borrowed from the sitewide footer contact form) was itself wrong for
+    THIS page -- direct `getBoundingClientRect` measurement of the reference's own form widget
+    gives a total height of `369px`, but the shared component's values (`.form-field` 25px
+    gap, input `height:50px`) would produce roughly `427px` for the same 4 fields + button. That
+    ~58px overshoot, stacked on top of the (correctly-sized) heading, made the whole form card
+    render taller than the reference's real `502px` column height -- and because `align-items:
+    stretch` correctly matches BOTH columns to the TALLER one, the shorter text column (and the
+    row's overall bottom edge) got pulled down along with it, reproducing exactly the "big gap
+    before the cards" the user's second screenshot showed. This page's own form fields are
+    genuinely tighter than the shared footer version, not a copy of it: measured input height
+    ~44px (not 50px), padding `12px 15px` (not `0 14px`), `.form-field` gap ~5-6px between
+    fields (not 25px), `.form-submit` margin-top ~6px (not 10px). Added page-scoped overrides
+    (`.contact-page .contact-form input/textarea/.form-field/.form-submit`) shrinking just
+    this page's instance of the shared component back down to match.
+  - **Fix pass #5 (user-reported: the office cards should be in the SAME section as "Get In
+    Touch," not a separate `<section>`).** The original build had them as two separate
+    top-level `<section>` tags -- `.contact-intro` and `.contact-offices` -- which actually
+    matched what a direct `[data-elementor-id]` DOM audit of the reference showed (two sibling
+    top-level Elementor sections, confirmed via `parentElement`/`data-id` checks earlier this
+    session). The user asked for them merged regardless, and since both blocks share the same
+    transparent/white background with zero margin between them on the reference (so the visual
+    result is identical either way), there's no visual-accuracy cost to complying. Restructured
+    `contact.html` so the office-cards markup is now a second row-div inside the SAME
+    `<section class="contact-intro">` as the "Get In Touch" row, instead of its own section.
+    Moved the section-level padding accordingly: `.contact-intro` is now `padding:90px 0`
+    (top AND bottom) instead of `90px 0 0`, and the now-removed `.contact-offices` section's own
+    `0 0 90px` was folded into that same bottom value; the two row-divs still sit flush against
+    each other (zero gap), matching how the two former sections had zero margin between them.
+    Mobile breakpoint updated to match (`.contact-offices-grid{margin-top:40px}` at `<=767px`
+    instead of padding on a now-nonexistent section).
+  - **Fix pass #6 (user manually edited `contact.html` themselves, moving the office cards to be
+    nested INSIDE `.contact-intro-text` right after the email line, and asked for the CSS fixed
+    to match).** While updating the CSS for this new nesting, re-measuring the live reference
+    to find the right gap value turned up the ACTUAL mechanism behind the "same div" look the
+    user had been describing all along: the office-cards section is a genuine separate
+    top-level Elementor section, but its inner content carries `margin-top:-110px` -- a
+    negative margin that pulls it up into the empty stretched whitespace left below the
+    (shorter) text column, so it visually sits only 45px below the email line (measured
+    directly: email-line bottom `863px`, card top `908px`). Since the user has now restructured
+    the HTML to put the cards genuinely in-flow right after the email paragraph, that same
+    net 45px visual gap was reproduced directly as `margin-top:45px` on `.contact-offices-grid`
+    -- no negative-margin trick needed anymore, now that they're truly adjacent in the DOM.
+    Also: the office-cards markup still carries the shared `.container` class (max-width:1140px,
+    padding:0 15px, margin:0 auto) left over from when it was its own full-width row -- now that
+    it's nested inside the already-60%-wide `.contact-intro-text` column, that padding would add
+    unwanted extra insets, so it's neutralized with a page-scoped override
+    (`max-width:none;margin:45px 0 0;padding:0`). Dropped the now-obsolete 60/40 split on
+    `.contact-offices-cards`/`.contact-offices-spacer` (cards now fill 100% of the text column;
+    the spacer div has no layout role anymore and is `display:none`), and cleaned up the
+    matching mobile `@media` rules that referenced the old structure.
+  - **Fix pass #7 (user-reported: the "Contact Us" form card's height mismatches the
+    reference).** Direct fallout from fix pass #6's HTML restructure: once the office cards
+    became nested INSIDE `.contact-intro-text`, that column's own natural content height grew
+    (h1 + 2 paragraphs + 2 detail lines + the whole cards block, instead of just the text). With
+    `.contact-intro-grid` still set to `align-items:stretch` (correct for the ORIGINAL
+    unnested structure, where both columns genuinely rendered at an equal 502px on the
+    reference), the form card was being stretched to match this now-much-taller text column --
+    rendering noticeably taller than the reference's real, independent form-card height. On the
+    actual reference the form card's height is entirely unaffected by the cards, since they live
+    in an unrelated section there. Fixed by switching `.contact-intro-grid` to
+    `align-items:flex-start`, so the form card now sizes to its own natural content height again
+    (matching its real ~502px) regardless of how tall the text column grows.
+  - **Fix pass #8 (user-reported: card height still doesn't match after fix pass #7).**
+    `align-items:flex-start` correctly decoupled the form card from the text column's height,
+    but the card's own INTERNAL spacing (heading line-height defaulted to the browser's
+    "normal" instead of the reference's actual `42px`, plus small rounding across the tightened
+    field margins from fix pass #4) still wasn't summing to the reference's exact total.  Rather
+    than keep chasing sub-pixel rounding across every nested margin, locked
+    `.contact-form-card` to the reference's own directly-measured total border-box height --
+    `height:502px` (matches `getBoundingClientRect` on the reference's card wrap exactly). Also
+    added the missing `line-height:42px` on `.contact-form-heading` (was relying on the
+    browser's unstyled default, not the reference's real measured value). Confirmed this doesn't
+    clip anything: the card's actual content (heading + 4 fields + button) only totals ~391px
+    against ~430px of available space inside the 502px box (after its 33px/20px padding and
+    borders), so the ~39px of blank space at the bottom is intentional slack, not a bug --  the
+    reference's own card has the same kind of ~34px unused space at its bottom for the same
+    reason. Reset to `height:auto` inside the `<=767px` mobile block, since a fixed desktop
+    pixel height has no reason to carry over once the layout stacks to a single column.
+  - **Not yet done:** full rendered screenshot/DOM comparison at desktop/tablet/mobile widths
+    (blocked by the same local-render environment limitation documented under helm-boots-demo
+    below); console/network error check; horizontal-overflow check; the mobile `@media`
+    breakpoints are a reasonable carried-over default from this project's other 50/50 rows, not
+    independently re-measured against this page's own reference at true narrow widths. Given
+    how many "genuinely non-uniform" surprises other pages in this project have turned up under
+    later user screenshots (60/40 splits instead of 50/50, missing side borders, missing hover
+    effects, wrong align-items axis, oversized shared-component field spacing, section-merging,
+    a hidden negative-margin trick on the reference), any remaining value on this page should be
+    treated as unverified until either a real render or a user screenshot confirms it.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/case-studies/helm-boots-demo/
 - **Local target:** `case-studies/helm-boots-demo.html` (flat file),
   `css/pages/case-study-helm-boots-demo.css` (`cs-helmdemo-` prefix), no page-specific JS needed.

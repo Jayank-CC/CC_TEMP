@@ -1,0 +1,260 @@
+/* Contact page
+   Reference: https://www.cloudconverge.io/contact/
+   Prefix: contact- (top-level marketing page, follows the about.html/`about-` naming
+   convention, NOT the `cs-` case-study prefix).
+
+   Content root confirmed via [data-elementor-id="16524"] audit is 4 top-level sections, all
+   living INSIDE the elementor content div (unlike the case-study pages, this page has no
+   separate theme-level inner-banner/breadcrumb OUTSIDE the elementor root -- but the rendered
+   result is visually identical to the shared `.inner-banner`/`.breadcrumb-bar` pattern already
+   used by about.html, so that shared structure was reused rather than duplicated):
+   1. Hero banner (`.wraper_inner_banner`, height 380px, background image
+      `contact-us-main-image-1.webp` -- confirmed via the reference's own CSS `background-image`
+      URL, and this exact file was already sitting locally, unused, from an earlier session) +
+      breadcrumb ("Home > Contact").
+   2. "Get In Touch" / "Contact Us" row -- col-50/col-50 Elementor classes, but the REAL
+      rendered split is 60/40 (683px/456px of a 1140px container, confirmed via
+      getBoundingClientRect -- Elementor's class names don't always match the actual custom
+      width override). Left: H1 45px + 2 paragraphs + 2 flush "label: value" detail lines
+      (Phone Number / Email Address, bold gray-blue label `rgb(97,102,112)` + plain black
+      link). Right: a white bordered form card that reuses the SAME visual treatment as this
+      site's existing shared footer contact form (`.contact-form`/`.btn-submit` etc. in
+      css/style.css) -- confirmed via getComputedStyle that the border-top accent color
+      (`rgb(30,78,196)`), border-radius (4px), and input styling are pixel-identical to the
+      shared component; only the card shell padding/margin and the submit button's padding are
+      genuinely different here and given page-scoped overrides below.
+   3. Office-cards row -- ALSO 60/40, matching the row above. The 40% right column is a
+      confirmed genuine EMPTY Elementor column on the reference (0 widgets, verified via direct
+      DOM audit) -- reproduced as an inert spacer div rather than dropped, per the
+      "replication, not redesign" rule (it's invisible either way, white-on-white). The 60%
+      left column holds a nested 50/50 two-card row (USA / INDIA), each a white rounded card
+      (radius 5px, shadow `rgba(0,26,87,.08) 0 14px 46px`, 15px padding) with a 30x30 flag
+      image + H4 title (17px/600, centered) + centered address paragraph (16px/26px). Measured
+      gap between the two cards: 20px (from each card's own asymmetric 10px margin, simplified
+      here to a single `gap:20px` on the flex row -- same visual result).
+   4. Full-width Google Maps iframe (`output=embed`, no API key), fixed 460px height, no
+      container cap -- confirmed via widget-type audit (`google_maps.default`) and via checking
+      there is no separate custom overlay card (the little place-info card visible over the map
+      is Google's own native embed rendering for the `q=` query, not custom HTML on this site).
+      NOTE: this project's CLAUDE.md bans iframes/remote embeds sitewide. This exact conflict
+      was raised with the user directly; they explicitly chose to keep the live iframe here as
+      a one-off approved exception rather than substitute a static map image or omit the
+      section -- see PROJECT_STATUS.md. */
+
+/* ---------- Hero override (shared `.inner-banner` is hard-coded to about.html's own image) ---------- */
+.contact-page .contact-hero {
+  height: 380px;
+  background-image: url("../../assets/images/contact-us-main-image-1.webp");
+}
+
+/* ---------- "Get In Touch" / "Contact Us" row + office cards (same section) ---------- */
+.contact-intro {
+  padding: 90px 0;
+}
+.contact-intro-grid {
+  display: flex;
+  align-items: flex-start;
+}
+.contact-intro-text {
+  width: 60%;
+}
+.contact-intro-text h1 {
+  font-size: 45px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.contact-intro-text p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.contact-intro-text .contact-detail-line {
+  font-size: 16px;
+  line-height: 26px;
+  margin: 0;
+}
+.contact-intro-text .contact-detail-line b {
+  color: rgb(97, 102, 112);
+  font-weight: 700;
+}
+.contact-intro-text .contact-detail-line a {
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+}
+.contact-intro-text .contact-detail-line a:hover {
+  color: var(--color-primary);
+}
+
+.contact-form-card {
+  width: 40%;
+  /* Locked to the reference's own exact measured total (border-box, including its 33px/20px
+     padding and top/side borders) -- getBoundingClientRect on the reference's card wrap gives
+     502px flat. The card's actual content (heading + 4 fields + button) only fills ~391px of
+     the 430px available inside that height, leaving ~39px of blank space at the bottom --
+     that's not a bug, the reference's own card has the same ~34px of unused space at its
+     bottom (confirmed via its own widget measurements), so this height is what reproduces that
+     genuine slack rather than fighting it via margins. */
+  height: 502px;
+  margin: 0 15px;
+  padding: 33px 20px;
+  background: #fff;
+  border: 1px solid var(--color-primary);
+  border-top: 5px solid var(--color-primary);
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.contact-form-card:hover {
+  transform: translate3d(0, -5px, 0);
+}
+.contact-form-heading {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.contact-submit-btn {
+  padding: 12px 45px;
+}
+
+/* This page's own form fields render noticeably TIGHTER than the shared footer contact form
+   that `.contact-form`/`.form-field` were borrowed from -- confirmed via direct
+   getBoundingClientRect measurement of the reference's own form widget (total height 369px,
+   not the ~427px the shared 25px-field-gap/50px-input-height values would produce). Real
+   measured values: input height ~44px (not 50px), padding 12px 15px (not "0 14px"),
+   `.form-field` gap ~5-6px between fields (not 25px), `.form-submit` margin-top ~6px (not
+   10px). Page-scoped overrides below shrink the shared component back down to match this
+   page's own reference -- this is what was making the whole "Get In Touch" row (and
+   everything stacked after it) render noticeably taller than the reference, pushing the office
+   cards down with an oversized gap after the email line. */
+.contact-page .contact-form .form-field {
+  margin-bottom: 6px;
+}
+.contact-page .contact-form input {
+  height: 44px;
+  padding: 12px 15px;
+}
+.contact-page .contact-form textarea {
+  padding: 12px 15px;
+}
+.contact-page .contact-form .form-submit {
+  margin-top: 6px;
+}
+
+/* ---------- Office cards (now nested inside .contact-intro-text, right after the email
+   line, per the current HTML structure). On the live reference these cards actually live in a
+   SEPARATE top-level Elementor section below -- but that section's own inner content carries a
+   `margin-top:-110px`, pulling it up to sit only 45px below the email line (measured directly:
+   email-line bottom 863px, card top 908px = 45px gap). Reproducing that same 45px visual gap
+   here directly as a margin, now that the cards are genuinely in-flow right after the email
+   line rather than needing a negative-margin trick. The cards no longer need a 60/40 split
+   (that was for when this was its own full-width row with an empty 40% sibling column) --
+   they now simply fill 100% of the already-60%-wide text column. */
+.contact-offices-grid {
+  /* still carries the shared `.container` class in the HTML (max-width:1140px, margin:0 auto,
+     padding:0 15px) from when this was its own full-width row -- neutralized here since it's
+     now nested inside the already-sized 60%-wide `.contact-intro-text` column, where that
+     padding would just add unwanted extra insets. */
+  max-width: none;
+  margin: 45px 0 0;
+  padding: 0;
+}
+.contact-offices-cards {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+.contact-offices-spacer {
+  display: none;
+}
+.office-card {
+  flex: 1 1 0;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(0, 26, 87, 0.08) 0 14px 46px 0;
+  padding: 15px;
+  text-align: center;
+}
+.office-card img {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 12px;
+}
+.office-card h4 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: center;
+  margin: 0 0 10px;
+}
+.office-card p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0;
+}
+
+/* ---------- Map ---------- */
+.contact-map {
+  padding: 0;
+}
+.contact-map iframe {
+  display: block;
+  width: 100%;
+  height: 460px;
+}
+
+/* ---------- Responsive ----------
+   Follows the same established mobile pattern already verified on this project's other 50/50
+   rows (stack to `flex-direction:column`, columns reset to `width:100%`). Browser viewport
+   control was unavailable this session (see the standing environment-limitation note in
+   PROJECT_STATUS.md) -- treat as a reasonable carried-over default, not pixel-verified for
+   this specific page yet. */
+@media (max-width: 1024px) {
+  .contact-map iframe {
+    height: 350px;
+  }
+}
+@media (max-width: 767px) {
+  .contact-intro {
+    padding: 40px 0;
+  }
+  .contact-intro-grid {
+    flex-direction: column;
+  }
+  .contact-intro-text,
+  .contact-form-card {
+    width: 100%;
+  }
+  .contact-intro-text {
+    padding-bottom: 30px;
+  }
+  .contact-form-card {
+    height: auto;
+    margin: 0 0 40px;
+  }
+  .contact-intro-text h1 {
+    font-size: 30px;
+    line-height: 36px;
+  }
+  .contact-offices-grid {
+    margin-top: 30px;
+  }
+  .contact-offices-cards {
+    flex-direction: column;
+  }
+  .contact-map iframe {
+    height: 280px;
+  }
+}
