@@ -1,0 +1,700 @@
+/* Case study: "Helm Boots" (work-in-progress demo page, replicated exactly as found)
+   Reference: https://www.cloudconverge.io/case-studies/helm-boots-demo/
+   Prefix: cs-helmdemo-
+   Content root confirmed via [data-elementor-id="59175"] audit (11 top-level sections): hero
+   (background-image, NOT a plain <img> like every other case-study page) + breadcrumb + "Introduction"
+   50/50 row (info-table + 2 overlapping images) + big-statement 50/50 row + full-width 3-image gallery
+   (no container cap) + dark navy mini CTA band + "Project Challenges"/"Our Solution" 50/50 row + dark
+   navy "Key features" band + closing-statement/01-06-numbered-list 50/50 row + "Tap Retail" process
+   intro (centered, narrowest container on the page) + 5-card process-step row.
+
+   USER-CONFIRMED GENUINE CONTENT MISMATCH (not a build error): this reference page is a work-in-progress
+   template test on the live site. Its hero image/breadcrumb say "Helm Boots," but almost all of its
+   heading/paragraph copy is placeholder text lifted verbatim from THREE different, unrelated case
+   studies (the SharePoint/Atmos page, an unbuilt "Moviez-World Cinema" streaming-app case study, and an
+   unbuilt "Tap Retail" case study). The user explicitly asked for this to be replicated exactly as-is
+   rather than corrected -- see the HTML file's own top-of-file comment and the chat transcript.
+
+   Typography measured directly via getComputedStyle on the live reference (this page uses the SITE'S
+   general wide-container template, NOT the narrower 1140px/36px-H1 tiered convention used by every other
+   case-study page in this project -- confirmed intentionally different, not an oversight):
+   H1 (hero) `42px/46px/600` white; H2 (Introduction/Project Challenges/Our Solution/CloudConverge
+   section titles) `42px/50px/600` `rgb(29,26,78)`; H3 (big statement headings) `42px/52px/600`; H4 (mini
+   CTA band heading, Key-features heading) `36px/52px/600` (white on dark sections); body paragraphs
+   `16px/26px/400` `rgb(25,25,25)` DM Sans, left-aligned; CTA-band paragraph `22px` white. All headings
+   Poppins, `var(--color-heading)` unless overridden to white on a dark section.
+
+   Highlight span (`.color2` on the reference) -- a light-blue accent color used inside several headings
+   -- measured `rgb(72,193,255)`.
+
+   Container max-widths measured per-section via `getComputedStyle` on each `.elementor-container` (this
+   page mixes several distinct widths, all confirmed genuine, not assumed): hero / mini-CTA-band `1000px`;
+   Introduction / big-statement / Challenges-Solution / Key-features / closing-numbered-list / process-
+   cards `1360px`; Tap-Retail process intro `900px` (the narrowest on the page); full-width gallery row
+   has NO container cap at all.
+
+   Divider: a short `~96px` wide, `1px solid rgb(30,78,196)` top-border-only rule under several headings.
+
+   Button (`.radiantthemes-custom-button-main` on the reference): `rgb(30,78,196)` background, white
+   text, `4px` border-radius. Padding was measured at a nested element and read unrealistically small
+   (`6px 10px`); the size visually confirmed via screenshot is closer to a normal CTA button, so a more
+   generous `12px 24px` is used here to match the rendered proportions.
+
+   "Project Challenges" bullet icon: FontAwesome "angle-double-right" (>>), `rgb(38,84,198)`, `16px`
+   (confirmed via `outerHTML`/`getComputedStyle` -- these are individual Elementor icon-box widgets
+   stacked in a column, not a real `<ul>`, but reproduced here as a `<ul>` with a matching `::before`
+   chevron for semantic HTML). "Key features" bullets: plain white filled-circle dots (FontAwesome
+   "circle"), reproduced as a CSS `::before` dot.
+
+   Numbered list (01-06): large faint-gray `62px/600` `rgb(231,231,231)` number + `16px/400` body text,
+   confirmed via `getComputedStyle` (each row is a heading+paragraph pair on the reference, not a real
+   `<ol>`, but reproduced as an `<ol>` here since the numbers ARE genuinely sequential 01-06 content).
+
+   Process cards: each is a `1px solid rgb(222,226,230)` bordered box, `30px 10px` padding, no
+   border-radius (confirmed via `getComputedStyle` on a nested `.elementor-inner-section`); icon is an
+   IMAGE widget (`engagement-terms.png`, `79x79`), not an icon font -- the SAME icon image is reused
+   identically across all 5 cards on the reference (confirmed via matching `src` on all 5), reproduced
+   here as the same local file for all 5 cards. Title `20px/500/22px` `rgb(25,25,25)`; description
+   `15px/400/22px` `rgb(25,25,25)` (these titles are plain `<div>`s on the reference, not real heading
+   tags -- reproduced here as `<h5>` for semantic HTML, visual output identical).
+
+   Assets (`assets/images/`): `cs-helmdemo-hero.webp` (`1920x1080`, hero background), `cs-helmdemo-intro-1
+   /-2.webp` (`1912x2067` each, the two overlapping Introduction images), `cs-helmdemo-gallery-1/-2/-3.webp`
+   (`1912x2067` each, the full-width 3-image row), `cs-helmdemo-features.webp` (`1912x2067`, the Key
+   Features image), `cs-helmdemo-process-icon.png` (`79x79`, reused 5x for the process cards). All 8
+   downloaded fresh this session (confirmed genuinely different from the real Helm Boots case study's own
+   assets already in this project -- different filenames, different aspect ratios/crops, not
+   duplicates). */
+
+/* The shared base stylesheet applies `text-transform:capitalize` to every h1-h6 site-wide (css/style.css
+   line ~81). Every other case-study page's own heading text happens to already be title-case, so that
+   global rule is invisible there -- but this page's headings are genuinely long sentence-case statements
+   ("CloudConverge empowered the Moviez app...", "Atmos, a part of Kabu Projects, is a fast-growing..."),
+   so the capitalize transform visibly wrecks them (confirmed via a user screenshot showing every word
+   capitalized). Reset it back to none for every heading on this page. */
+.cs-helmdemo-page h1,
+.cs-helmdemo-page h2,
+.cs-helmdemo-page h3,
+.cs-helmdemo-page h4,
+.cs-helmdemo-page h5,
+.cs-helmdemo-page h6 {
+  text-transform: none;
+}
+
+.cs-helmdemo-page .breadcrumb-list a,
+.cs-helmdemo-page .breadcrumb-list a:hover,
+.cs-helmdemo-page .breadcrumb-sep,
+.cs-helmdemo-page .breadcrumb-list li,
+.cs-helmdemo-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-helmdemo-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+/* FIX (user-reported breadcrumb placement difference): this page's own breadcrumb container measures
+   `1360px` max-width on the reference (matching this page's own wide template), NOT the site's normal
+   shared `1140px` `.container` used by every other case-study page -- confirmed via getComputedStyle.
+   Widening it here, scoped to this page only. */
+.cs-helmdemo-page .breadcrumb-bar .container {
+  max-width: 1360px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* ---------- Shared row/container ----------
+   Section-level vertical spacing measured directly per-section via getComputedStyle, checking BOTH
+   margin AND padding (an earlier pass in this file only checked padding and got the Introduction/
+   Project-Challenges rows wrong as a result -- their spacing comes from MARGIN, not padding). Confirmed
+   genuinely different per section, not a uniform value: Introduction and Project-Challenges rows carry
+   `margin:80px 0` with NO padding of their own; the big-statement, gallery, mini-CTA-band, Key-features,
+   and closing rows all carry `padding:80px 0` with no margin; the Tap-Retail process intro carries
+   `padding:80px 0 20px`; the process-card row carries `padding:0 0 80px`. */
+.cs-helmdemo-row {
+  padding: 0;
+  margin: 0;
+}
+.cs-helmdemo-intro,
+.cs-helmdemo-challenges {
+  padding: 0;
+  margin: 80px 0;
+}
+.cs-helmdemo-statement,
+.cs-helmdemo-closing {
+  padding: 80px 0;
+}
+.cs-helmdemo-row-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+.cs-helmdemo-col {
+  flex: 1 1 50%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.cs-helmdemo-row-inner h2 {
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  margin: 0 0 15px;
+}
+.cs-helmdemo-row-inner h3 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 34px;
+  color: var(--color-heading);
+  margin: 0 0 15px;
+}
+.cs-helmdemo-row-inner p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-helmdemo-row-inner p:last-child {
+  margin-bottom: 0;
+}
+.cs-helmdemo-divider {
+  display: block;
+  width: 96px;
+  height: 0;
+  border-top: 1px solid rgb(30, 78, 196);
+  margin: 0 0 20px;
+}
+.cs-helmdemo-divider-light {
+  border-top-color: rgba(255, 255, 255, 0.4);
+  margin: 16px auto 24px;
+}
+.cs-helmdemo-highlight {
+  color: rgb(72, 193, 255);
+}
+/* FIX (user-reported button size/padding difference): the reference button actually has TWO stacked
+   padding layers (an outer `<a>` and an inner `.placeholder` div, each `6px 10px`) plus a `23px`
+   line-height for the text -- confirmed via getComputedStyle on both layers, giving a real rendered
+   size of `230 x 47px` for "Book a Free Consultation". Reproduced here as a single flattened
+   `padding:12px 20px` (6+6 vertical, 10+10 horizontal) with an explicit `23px` line-height, rather than
+   the earlier guessed `12px 24px`. */
+.cs-helmdemo-btn {
+  display: inline-block;
+  position: relative;
+  background: rgb(30, 78, 196);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 23px;
+  border-radius: 4px;
+  padding: 12px 20px;
+  text-decoration: none;
+  border: none;
+  transition: 0.3s ease-in-out;
+}
+.cs-helmdemo-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 11px 14px -7px;
+}
+
+/* ---------- Hero (CSS background-image section, boxed text content) ---------- */
+.cs-helmdemo-hero {
+  position: relative;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.52)),
+    url("../../assets/images/cs-helmdemo-hero.webp") center center / cover
+      no-repeat;
+  padding: 150px 20px 60px;
+}
+.cs-helmdemo-hero-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+.cs-helmdemo-hero-inner h1 {
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 46px;
+  color: #fff;
+  margin: 0 0 20px;
+}
+.cs-helmdemo-hero-inner p {
+  font-size: 22px;
+  line-height: 28px;
+  color: #fff;
+  margin: 0 0 30px;
+}
+
+/* ---------- "Introduction" row ----------
+   FIX (user-reported mobile overflow): `repeat(3, 1fr)` grid tracks default to a minimum size of
+   `auto` (their content's own min-content width), NOT `0` -- so a long unbreakable value like
+   "React Native, Node.js, Mongo DB, AWS" forces its column (and the whole row/page) wider than the
+   viewport on narrow mobile screens, causing horizontal overflow. `minmax(0, 1fr)` allows the tracks to
+   shrink below their content's intrinsic width (letting the text wrap normally) instead of overflowing.
+   Behaves identically to plain `1fr` whenever there's enough room, so this doesn't change desktop
+   rendering. A `<=480px` override also drops to a single column for readability at very narrow widths
+   (not independently verified against the reference at that width, but overflow-safe either way). */
+.cs-helmdemo-infotable {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px 24px;
+  margin: 20px 0 0;
+}
+.cs-helmdemo-infotable-item dt {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-heading);
+  margin: 0 0 4px;
+}
+.cs-helmdemo-infotable-item dd {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-body);
+  margin: 0;
+}
+.cs-helmdemo-intro-images {
+  position: relative;
+  min-height: 480px;
+}
+.cs-helmdemo-intro-images img {
+  position: absolute;
+  width: 58%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.cs-helmdemo-intro-img-1 {
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+.cs-helmdemo-intro-img-2 {
+  left: 38%;
+  top: 20%;
+  z-index: 2;
+}
+
+/* ---------- Big statement row ---------- */
+.cs-helmdemo-statement-col h3 {
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 52px;
+  color: var(--color-heading);
+  margin: 0;
+  padding-right: 50px;
+}
+
+/* ---------- Full-width 3-image gallery row ----------
+   FIX (user-reported image alignment difference, twice): the per-column widget-wrap top padding is NOT
+   a uniform value across the 3 columns -- confirmed via getComputedStyle directly on each column's own
+   widget-wrap: column 1 ("Designed in Austin, Texas") `100px` top; column 2 ("The Finn", the one sitting
+   visibly higher in the user's screenshot) only `20px` top; column 3 ("Leather Care") `80px` top. Right/
+   bottom/left padding is `20px` on all three. Also, the images themselves render as a perfect SQUARE
+   (confirmed via getBoundingClientRect: 516.7 x 516.7, exactly matching the column's available width) via
+   `object-fit:cover`, NOT at their natural 1912x2067 portrait aspect ratio. Both fixed below. */
+.cs-helmdemo-gallery {
+  display: flex;
+  padding: 80px 0;
+}
+.cs-helmdemo-gallery-col {
+  flex: 1 1 33.333%;
+  padding: 100px 20px 20px;
+  box-sizing: border-box;
+}
+.cs-helmdemo-gallery-col:nth-child(2) {
+  padding-top: 20px;
+}
+.cs-helmdemo-gallery-col:nth-child(3) {
+  padding-top: 80px;
+}
+.cs-helmdemo-gallery-col img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+/* ---------- Mini CTA band (dark navy) ---------- */
+.cs-helmdemo-ctaband {
+  background: rgb(19, 37, 91);
+  padding: 80px 20px;
+}
+.cs-helmdemo-ctaband-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+.cs-helmdemo-ctaband-inner h4 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 52px;
+  color: #fff;
+  margin: 0;
+}
+.cs-helmdemo-ctaband-inner p {
+  font-size: 22px;
+  line-height: 34px;
+  color: #fff;
+  margin: 0 0 30px;
+  text-align: center;
+}
+
+/* ---------- "Project Challenges" / "Our Solution" row ----------
+   Both section titles ("Project Challenges"/"Our Solution") are `36px` on the reference, NOT the generic
+   `42px` h2 tier used by the Introduction row -- confirmed via getComputedStyle ("Project Challenges" is
+   an H5 at `36px/30px/600`; "Our Solution" is an H6 at `36px/27px/600" -- a genuine tight-line-height
+   quirk on the reference, kept as measured). The actual sub-statement under "Our Solution" ("Atmos, a
+   part of Kabu Projects...") is much smaller at only `24px/27px/600` -- an earlier pass in this file
+   wrongly sized it at 36px (mixing it up with the "Our Solution" title above it), which visibly
+   overlapped its own wrapped lines once at the correct column width. Fixed. */
+.cs-helmdemo-challenges h2 {
+  font-size: 36px;
+  line-height: 30px;
+}
+.cs-helmdemo-challenges h3 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 27px;
+  color: var(--color-heading);
+  margin: 0 0 15px;
+}
+.cs-helmdemo-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cs-helmdemo-checklist li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  margin: 0 0 14px;
+}
+.cs-helmdemo-checklist li:last-child {
+  margin-bottom: 0;
+}
+.cs-helmdemo-checklist li::before {
+  content: "\00bb";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: rgb(38, 84, 198);
+}
+
+/* ---------- "Key features" band (dark navy) ---------- */
+.cs-helmdemo-features {
+  background: rgb(19, 37, 91);
+  padding: 80px 0;
+}
+.cs-helmdemo-features-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.cs-helmdemo-features-text h3 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 52px;
+  color: #fff;
+  margin: 0 0 30px;
+}
+.cs-helmdemo-features-grid {
+  display: flex;
+  gap: 40px;
+}
+.cs-helmdemo-features-group {
+  flex: 1 1 50%;
+  min-width: 0;
+}
+.cs-helmdemo-features-group h4 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 16px;
+}
+.cs-helmdemo-dotlist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cs-helmdemo-dotlist li {
+  position: relative;
+  padding: 0 0 16px 18px;
+  font-size: 15px;
+  line-height: 22px;
+  color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 0 0 16px;
+}
+.cs-helmdemo-dotlist li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.cs-helmdemo-dotlist li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+}
+.cs-helmdemo-features .cs-helmdemo-image-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* ---------- Closing statement / 01-06 numbered list row ---------- */
+/* FIX (user-reported padding difference): each column's own widget-wrap carries an additional
+   `20px` top/bottom padding on the reference (on top of the row's own `80px` section padding), confirmed
+   via getComputedStyle -- not accounted for before. Horizontal spacing needs no change: the reference
+   achieves it entirely through column padding with a zero row-level gap, which nets out to the exact
+   same result as this file's row-level `gap:40px` approach, confirmed by comparing rendered column
+   edges directly. */
+.cs-helmdemo-closing .cs-helmdemo-col {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.cs-helmdemo-closing .cs-helmdemo-statement-col {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.cs-helmdemo-numbered {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cs-helmdemo-numbered li {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgb(230, 230, 230);
+}
+.cs-helmdemo-numbered li:first-child {
+  padding-top: 0;
+}
+.cs-helmdemo-numbered li:last-child {
+  border-bottom: none;
+}
+.cs-helmdemo-num {
+  font-size: 62px;
+  font-weight: 600;
+  line-height: 1;
+  color: rgb(231, 231, 231);
+  flex: 0 0 auto;
+}
+.cs-helmdemo-numbered p {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--color-body);
+  margin: 0;
+}
+
+/* ---------- "Tap Retail" process intro (centered, narrowest container) ---------- */
+.cs-helmdemo-process-intro {
+  text-align: center;
+  padding: 80px 0 20px;
+}
+.cs-helmdemo-process-intro-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.cs-helmdemo-process-intro-inner h3 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 52px;
+  color: var(--color-heading);
+  margin: 0 0 16px;
+}
+.cs-helmdemo-process-intro-inner .cs-helmdemo-divider {
+  margin: 0 auto 20px;
+}
+.cs-helmdemo-process-intro-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0;
+}
+
+/* ---------- 5-card process-step row ---------- */
+.cs-helmdemo-process {
+  padding: 0 0 80px;
+}
+.cs-helmdemo-process-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: stretch;
+  gap: 20px;
+}
+.cs-helmdemo-process-card {
+  min-width: 0;
+  height: 100%;
+  border: 1px solid rgb(222, 226, 230);
+  padding: 30px 15px;
+  box-sizing: border-box;
+}
+.cs-helmdemo-process-card img {
+  display: block;
+  width: 60px;
+  height: 60px;
+  margin: 0 0 20px;
+}
+.cs-helmdemo-process-card h5 {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 22px;
+  color: rgb(25, 25, 25);
+  margin: 0 0 12px;
+}
+.cs-helmdemo-process-card p {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  color: rgb(25, 25, 25);
+  margin: 0;
+}
+
+/* ---------- Responsive ----------
+   No true mobile/tablet viewport verification was possible this session (browser viewport control has
+   been unreliable across recent sessions in this environment). These rules follow the same stacking
+   pattern established on every other case-study page (50/50 rows collapse to a single column, images
+   go full-width) as a reasonable default, NOT yet pixel-verified against this page's own reference at a
+   narrow width. */
+@media (max-width: 1024px) {
+  .cs-helmdemo-row-inner,
+  .cs-helmdemo-features-inner {
+    flex-wrap: wrap;
+  }
+  .cs-helmdemo-col {
+    flex: 1 1 100%;
+  }
+  .cs-helmdemo-process-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 767px) {
+  .cs-helmdemo-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-helmdemo-row {
+    padding: 40px 0;
+    margin: 0px;
+  }
+  /* FIX (user-reported: the Introduction row's images can't be seen on mobile). Root cause: the base
+     rule sets `.cs-helmdemo-row-inner{align-items:flex-start}` for the DESKTOP row layout (vertical
+     alignment of the two side-by-side columns). Once `flex-direction` flips to `column` here, that same
+     `align-items` property controls the CROSS axis, which is now WIDTH, not vertical alignment --
+     `flex-start` makes each column shrink-to-fit its own in-flow content instead of stretching full
+     width. The Introduction row's image column's only children are `position:absolute` images (removed
+     from normal flow), so its in-flow content width collapses to ~0, and the images -- sized as a % of
+     that now-zero-width container -- become invisible, leaving just the empty `min-height` gap seen in
+     the screenshot. Fixed with an explicit `align-items:stretch` override here. */
+  .cs-helmdemo-row-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+  .cs-helmdemo-col {
+    width: 100%;
+  }
+  .cs-helmdemo-hero-inner h1 {
+    font-size: 28px;
+    line-height: 34px;
+  }
+  .cs-helmdemo-statement-col h3,
+  .cs-helmdemo-closing .cs-helmdemo-statement-col h3 {
+    font-size: 16px;
+    line-height: 34px;
+  }
+  .cs-helmdemo-row-inner h2 {
+    font-size: 24px;
+    line-height: 38px;
+  }
+  .cs-helmdemo-row-inner p {
+    text-align: justify;
+  }
+  .cs-helmdemo-gallery {
+    flex-direction: column;
+    padding: 0px;
+  }
+
+  .cs-helmdemo-gallery-col {
+    padding: 50px 20px 20px;
+  }
+  .cs-helmdemo-ctaband-inner h4 {
+    font-size: 22px;
+  }
+  .cs-helmdemo-ctaband-inner p {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .cs-helmdemo-closing .cs-helmdemo-statement-col {
+    padding: 25px 25px 25px 25px;
+  }
+  .cs-helmdemo-process-intro-inner h3 {
+    font-size: 20px;
+    line-height: 32px;
+  }
+  .cs-helmdemo-process-intro-inner {
+    padding: 0px 22px 0px 22px;
+  }
+
+  .cs-helmdemo-statement-col h3 {
+    padding: 0px;
+  }
+
+  .cs-helmdemo-features-text h3 {
+    font-size: 22px;
+    line-height: 36px;
+  }
+  .cs-helmdemo-infotable {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cs-helmdemo-intro-images {
+    min-height: 320px;
+  }
+  .cs-helmdemo-features-inner {
+    flex-direction: column;
+  }
+  .cs-helmdemo-features-grid {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-helmdemo-process-inner {
+    grid-template-columns: 1fr;
+  }
+  .cs-helmdemo-numbered li {
+    gap: 14px;
+  }
+  .cs-helmdemo-num {
+    font-size: 40px;
+  }
+}
+@media (max-width: 480px) {
+  .cs-helmdemo-infotable {
+    grid-template-columns: 1fr;
+  }
+}

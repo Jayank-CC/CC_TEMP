@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description"
+    content="Case study: Helm Boots (work-in-progress demo page, replicated as found on the live reference).">
+  <title>Helm Boots | Case Study | CloudConverge</title>
+  <link rel="icon" href="../assets/images/CloudConverge_Final_Logo_CC_Small_Color_V1-150x150.png" sizes="32x32">
+  <link rel="icon" href="../assets/images/CloudConverge_Final_Logo_CC_Small_Color_V1-300x300.png" sizes="192x192">
+  <link rel="preload" as="image" href="../assets/images/cs-helmdemo-hero.webp" fetchpriority="high">
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/dm-sans-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/poppins-600-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/pages/case-study-helm-boots-demo.css">
+</head>
+
+<body class="cs-helmdemo-page">
+
+  <!-- ============================= NOTE ON THIS PAGE'S CONTENT (read before editing) =============================
+       This reference page (https://www.cloudconverge.io/case-studies/helm-boots-demo/) is a genuine,
+       confirmed work-in-progress/demo page on the live site, NOT a coherent finished case study. The
+       user (site owner) confirmed via chat: replicate it exactly as-is, including the mismatched
+       content, rather than correcting it. Every section below reproduces the reference verbatim:
+       - Hero background image + breadcrumb say "Helm Boots", but the H1/intro copy is the unrelated
+         SharePoint/Atmos case-study text (repeated 5+ times across this page).
+       - The "Introduction" info-table describes an entirely different, unrelated project
+         ("Moviez-World Cinema", an on-demand movie streaming app) with its own Project
+         Name/Category/Location/Services/Industry/Technologies fields.
+       - The "Project Challenges" / "Our Solution" row, "Key features" row, and closing 01-06 list all
+         belong to that same unrelated Moviez-World Cinema streaming-app narrative.
+       - The final "Tap Retail" heading + 5-step agile process section belongs to yet a THIRD unrelated
+         project.
+       None of this is a transcription error on this build's part -- it is what the live reference
+       genuinely contains today, confirmed via direct DOM/text reads. ============================= -->
+
+  <div id="site-header-placeholder"></div>
+
+  <main id="content">
+
+    <!-- ============================= HERO (full-bleed CSS background-image section, NOT a single <img>
+         like the other case-study pages -- confirmed via getComputedStyle this is a background-image on
+         the section itself, boxed inner content capped at 1000px) ============================= -->
+    <section class="cs-helmdemo-hero">
+      <div class="cs-helmdemo-hero-inner">
+        <h1>Implementing SharePoint &amp; M365 for Industrial Air Conditioning Company</h1>
+        <p>Atmos, a part of Kabu Projects, is a fast growing industrial solution provider. As the company grew,
+          they identified a number of inefficiencies that stemmed from using many disparate internal tools and
+          manual processes.</p>
+        <a class="cs-helmdemo-btn" href="#contact">Book a Free Consultation</a>
+      </div>
+    </section>
+
+    <!-- ============================= BREADCRUMB (says "Helm Boots" -- the one piece of this page that
+         actually matches its own title) ============================= -->
+    <div class="breadcrumb-bar">
+      <div class="container">
+        <ul class="breadcrumb-list">
+          <li><a href="../index.html">Home</a></li>
+          <li aria-hidden="true" class="breadcrumb-sep">
+            <svg viewBox="0 0 192 512" width="8" height="16">
+              <path fill="currentColor"
+                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z">
+              </path>
+            </svg>
+          </li>
+          <li><a href="../portfolio.html">Portfolio</a></li>
+          <li>
+            <span aria-hidden="true" class="breadcrumb-sep">
+              <svg viewBox="0 0 192 512" width="8" height="16">
+                <path fill="currentColor"
+                  d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z">
+                </path>
+              </svg>
+            </span>
+            <span aria-current="page">Helm Boots</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============================= "INTRODUCTION" ROW (50/50: TEXT left (H2 + 3 paragraphs +
+         Project Name/Category/Location/Services Offered/Industry/Technologies info-table describing the
+         unrelated "Moviez-World Cinema" project) / IMAGE right (2 overlapping tall screenshots, confirmed
+         via getBoundingClientRect: image 1 top-left, image 2 offset ~140px right / ~96px down,
+         overlapping diagonally)) ============================= -->
+    <section class="cs-helmdemo-row cs-helmdemo-intro">
+      <div class="container cs-helmdemo-row-inner">
+        <div class="cs-helmdemo-col cs-helmdemo-text-col">
+          <h2>Introduction</h2>
+          <span class="cs-helmdemo-divider" aria-hidden="true"></span>
+          <p>Atmos, a part of Kabu Projects, is a fast growing industrial solution provider. As the company grew,
+            they identified a number of inefficiencies that stemmed from using many disparate internal tools and
+            manual processes.</p>
+          <p>Employees were struggling to adequately manage essential functions of the business such as tracking
+            sales orders, accessing invoices, monitoring service orders, processing product returns, and managing
+            documents and contracts.</p>
+          <p>Organizational knowledge suffered through scattered systems, and employees often relied on email or
+            informal, offline requests to manage processes, resulting in delayed information, duplicated efforts
+            and limited transparency.</p>
+          <dl class="cs-helmdemo-infotable">
+            <div class="cs-helmdemo-infotable-item">
+              <dt>Project Name</dt>
+              <dd>Moviez-World Cinema</dd>
+            </div>
+            <div class="cs-helmdemo-infotable-item">
+              <dt>Location</dt>
+              <dd>Global</dd>
+            </div>
+            <div class="cs-helmdemo-infotable-item">
+              <dt>Industry</dt>
+              <dd>Media &amp; Entertainment</dd>
+            </div>
+            <div class="cs-helmdemo-infotable-item">
+              <dt>Category</dt>
+              <dd>On-Demand Streaming App</dd>
+            </div>
+            <div class="cs-helmdemo-infotable-item">
+              <dt>Services Offered</dt>
+              <dd>Design &amp; Development</dd>
+            </div>
+            <div class="cs-helmdemo-infotable-item">
+              <dt>Technologies</dt>
+              <dd>React Native, Node.js, Mongo DB, AWS</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="cs-helmdemo-col cs-helmdemo-image-col cs-helmdemo-intro-images">
+          <img src="../assets/images/cs-helmdemo-intro-1.webp" alt="cs-helm-boots" width="1912" height="2067"
+            loading="lazy" class="cs-helmdemo-intro-img-1">
+          <img src="../assets/images/cs-helmdemo-intro-2.webp" alt="cs-helm-boots" width="1912" height="2067"
+            loading="lazy" class="cs-helmdemo-intro-img-2">
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= BIG STATEMENT ROW (50/50: big H3 statement left with a light-blue
+         highlighted phrase (`.color2` on the reference, rgb(72,193,255)) / 3 paragraphs right, all still
+         the same SharePoint/Atmos placeholder copy) ============================= -->
+    <section class="cs-helmdemo-row cs-helmdemo-statement">
+      <div class="container cs-helmdemo-row-inner">
+        <div class="cs-helmdemo-col cs-helmdemo-statement-col">
+          <h3>Atmos, a part of Kabu Projects, is a fast-growing industrial
+            <span class="cs-helmdemo-highlight">solution provider</span>. As the company grew, they identified a
+            number of inefficiencies</h3>
+        </div>
+        <div class="cs-helmdemo-col cs-helmdemo-text-col">
+          <p>Atmos, a part of Kabu Projects, is a fast growing industrial solution provider. As the company grew,
+            they identified a number of inefficiencies that stemmed from using many disparate internal tools and
+            manual processes.</p>
+          <p>Employees were struggling to adequately manage essential functions of the business such as tracking
+            sales orders, accessing invoices, monitoring service orders, processing product returns, and managing
+            documents and contracts.</p>
+          <p>Organizational knowledge suffered through scattered systems, and employees often relied on email or
+            informal, offline requests to manage processes, resulting in delayed information, duplicated efforts
+            and limited transparency.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= FULL-WIDTH 3-IMAGE GALLERY ROW (no container max-width on the
+         reference -- confirmed via getComputedStyle; 3 equal columns, ~20px padding each side)
+         ============================= -->
+    <section class="cs-helmdemo-gallery">
+      <div class="cs-helmdemo-gallery-col">
+        <img src="../assets/images/cs-helmdemo-gallery-1.webp" alt="cs-helm-boots" width="1912" height="2067"
+          loading="lazy">
+      </div>
+      <div class="cs-helmdemo-gallery-col">
+        <img src="../assets/images/cs-helmdemo-gallery-2.webp" alt="cs-helm-boots" width="1912" height="2067"
+          loading="lazy">
+      </div>
+      <div class="cs-helmdemo-gallery-col">
+        <img src="../assets/images/cs-helmdemo-gallery-3.webp" alt="cs-helm-boots" width="1912" height="2067"
+          loading="lazy">
+      </div>
+    </section>
+
+    <!-- ============================= MINI CTA BAND (dark navy rgb(19,37,91) background, centered,
+         container capped 1000px -- H4 heading (36px) with a `.color2` highlighted word + paragraph +
+         "Book a Free Consultation" button) ============================= -->
+    <section class="cs-helmdemo-ctaband">
+      <div class="container cs-helmdemo-ctaband-inner">
+        <h4>Atmos, a part of Kabu Projects, is a <span class="cs-helmdemo-highlight">fast-growing</span>
+          industrial solution provider.</h4>
+        <span class="cs-helmdemo-divider cs-helmdemo-divider-light" aria-hidden="true"></span>
+        <p>Atmos, a part of Kabu Projects, is a fast growing industrial solution provider. As the company grew,
+          they identified a number of inefficiencies that stemmed from using many disparate internal tools and
+          manual processes.</p>
+        <a class="cs-helmdemo-btn" href="#contact">Book a Free Consultation</a>
+      </div>
+    </section>
+
+    <!-- ============================= "PROJECT CHALLENGES" / "OUR SOLUTION" ROW (50/50, top-aligned:
+         LEFT "Project Challenges" H2 + paragraph + 5 items each with a blue ">>" (FontAwesome
+         angle-double-right, rgb(38,84,198)) icon -- genuinely about an unrelated OTT movie-streaming
+         app / RIGHT "Our Solution" H2 + H3 sub-statement + 2 paragraphs, back to the Atmos placeholder
+         copy) ============================= -->
+    <section class="cs-helmdemo-row cs-helmdemo-challenges">
+      <div class="container cs-helmdemo-row-inner">
+        <div class="cs-helmdemo-col cs-helmdemo-text-col">
+          <h2>Project Challenges</h2>
+          <span class="cs-helmdemo-divider" aria-hidden="true"></span>
+          <p>Creating an on-demand global movie streaming app is a complex task that goes far beyond just
+            delivering the video content. Entering the OTT space may sound simple, but the client majorly lacked
+            the scalable infrastructure needed to support high-definition video delivery to users across
+            different regions.</p>
+          <ul class="cs-helmdemo-checklist">
+            <li>The client was seeking to create a scalable multi-language content delivery and management
+              system.</li>
+            <li>Working has to offer a smooth, buffer-free HD streaming experience across global regions and
+              networks.</li>
+            <li>Struggling to integrate secure, globally accepted payment gateways like Stripe and Apple In-App
+              Purchase.</li>
+            <li>Challenging to meet the engagement of users and create a cinematic user interface for mobile and
+              smart TV users.</li>
+            <li>For personalized recommendations, it is required to implement an AI-based recommendation
+              engine.</li>
+          </ul>
+        </div>
+        <div class="cs-helmdemo-col cs-helmdemo-text-col">
+          <h2>Our Solution</h2>
+          <span class="cs-helmdemo-divider" aria-hidden="true"></span>
+          <h3>Atmos, a part of Kabu Projects, is a fast growing industrial solution provider.</h3>
+          <p>Atmos, a part of Kabu Projects, is a fast growing industrial solution provider. As the company grew,
+            they identified a number of inefficiencies that stemmed from using many disparate internal tools and
+            manual processes.</p>
+          <p>Employees were struggling to adequately manage essential functions of the business such as tracking
+            sales orders, accessing invoices, monitoring service orders, processing product returns, and managing
+            documents and contracts. Organizational knowledge suffered through scattered systems, and employees
+            often relied on email or informal, offline requests to manage processes, resulting in delayed
+            information, duplicated efforts and limited transparency.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= "KEY FEATURES" BAND (dark navy background, container 1360px:
+         LEFT H3 "Key features developed with the solution." (with highlighted "solution.") + 2-col
+         Admin Panel / User App lists, each item a white filled-circle bullet + repeated placeholder
+         line, confirmed genuine on the reference (not a copy/paste error on this build's part) / RIGHT a
+         single screenshot image) ============================= -->
+    <section class="cs-helmdemo-features">
+      <div class="container cs-helmdemo-features-inner">
+        <div class="cs-helmdemo-col cs-helmdemo-features-text">
+          <h3>Key features developed with the <span class="cs-helmdemo-highlight">solution.</span></h3>
+          <div class="cs-helmdemo-features-grid">
+            <div class="cs-helmdemo-features-group">
+              <h4>Admin Panel</h4>
+              <ul class="cs-helmdemo-dotlist">
+                <li>For personalized recommendations, it is required to implement an AI-based recommendation
+                  engine.</li>
+                <li>For personalized recommendations, it is required to implement an AI-based recommendation
+                  engine.</li>
+                <li>For personalized recommendations, it is required to implement an AI-based recommendation
+                  engine.</li>
+              </ul>
+            </div>
+            <div class="cs-helmdemo-features-group">
+              <h4>User App</h4>
+              <ul class="cs-helmdemo-dotlist">
+                <li>For personalized recommendations, it is required to implement an AI-based recommendation
+                  engine.</li>
+                <li>For personalized recommendations, it is required to implement an AI-based recommendation
+                  engine.</li>
+                <li>For personalized recommendations, it is required to implement an AI-based recommendation
+                  engine.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="cs-helmdemo-col cs-helmdemo-image-col">
+          <img src="../assets/images/cs-helmdemo-features.webp" alt="cs-helm-boots" width="1912" height="2067"
+            loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= CLOSING STATEMENT / "01-06" NUMBERED LIST ROW (50/50: LEFT big
+         H3 statement (with highlighted "cinematic") + "Book a Free Consultation" button / RIGHT a
+         6-row numbered list, each row a large faint gray number (rgb(231,231,231), 62px) + a short line
+         of the SAME repeated, truncated Atmos placeholder sentence -- confirmed genuine via direct
+         textContent read, not a copy/paste mistake on this build's part) ============================= -->
+    <section class="cs-helmdemo-row cs-helmdemo-closing">
+      <div class="container cs-helmdemo-row-inner">
+        <div class="cs-helmdemo-col cs-helmdemo-statement-col">
+          <h3>CloudConverge empowered the Moviez app to deliver access to vast content library supporting
+            multiple languages and delivering an overwhelming <span class="cs-helmdemo-highlight">cinematic</span>.
+            movie watching experience to the users.</h3>
+          <a class="cs-helmdemo-btn" href="#contact">Book a Free Consultation</a>
+        </div>
+        <div class="cs-helmdemo-col cs-helmdemo-numbered-col">
+          <ol class="cs-helmdemo-numbered">
+            <li><span class="cs-helmdemo-num">01</span><p>Atmos, a part of Kabu Projects, is a fast-growing
+                industrial solution provider. As the company grew, they identified a number.</p></li>
+            <li><span class="cs-helmdemo-num">02</span><p>Atmos, a part of Kabu Projects, is a fast-growing
+                industrial solution provider. As the company grew, they identified a number.</p></li>
+            <li><span class="cs-helmdemo-num">03</span><p>Atmos, a part of Kabu Projects, is a fast-growing
+                industrial solution provider. As the company grew, they identified a number.</p></li>
+            <li><span class="cs-helmdemo-num">04</span><p>Atmos, a part of Kabu Projects, is a fast-growing
+                industrial solution provider. As the company grew, they identified a number.</p></li>
+            <li><span class="cs-helmdemo-num">05</span><p>Atmos, a part of Kabu Projects, is a fast-growing
+                industrial solution provider. As the company grew, they identified a number.</p></li>
+            <li><span class="cs-helmdemo-num">06</span><p>Atmos, a part of Kabu Projects, is a fast-growing
+                industrial solution provider. As the company grew, they identified a number.</p></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= "TAP RETAIL" PROCESS INTRO (centered, container capped 900px --
+         confirmed via getComputedStyle, narrower than every other row on this page -- H3 with a
+         highlighted "strategy" + paragraph, describing a THIRD unrelated project) ============================= -->
+    <section class="cs-helmdemo-row cs-helmdemo-process-intro">
+      <div class="container cs-helmdemo-process-intro-inner">
+        <h3>Our agile app development process and <span class="cs-helmdemo-highlight">strategy</span> for Tap
+          Retail.</h3>
+        <span class="cs-helmdemo-divider" aria-hidden="true"></span>
+        <p>At CloudConverge, we delivered Tap Retail through a clear, agile-driven development framework focused
+          on rapid iterations, continuous feedback, and future scalability. From planning to deployment, our
+          approach ensured a seamless product journey and elevated operational performance.</p>
+      </div>
+    </section>
+
+    <!-- ============================= 5-STEP PROCESS CARD ROW (5 equal cards, each a thin
+         `1px solid rgb(222,226,230)` bordered box, `30px 10px` padding, no radius -- confirmed via
+         getComputedStyle -- with a small image-box icon (`cs-helmdemo-process-icon.png`, 79x79) + title +
+         description) ============================= -->
+    <section class="cs-helmdemo-process">
+      <div class="container cs-helmdemo-process-inner">
+        <div class="cs-helmdemo-process-card">
+          <img src="../assets/images/cs-helmdemo-process-icon.png" alt="engagement-terms" width="79" height="79"
+            loading="lazy">
+          <h5>Strategize and Analyze</h5>
+          <p>We began with market research, competitor benchmarking, and technical planning to define goals,
+            user flows, and core platform architecture.</p>
+        </div>
+        <div class="cs-helmdemo-process-card">
+          <img src="../assets/images/cs-helmdemo-process-icon.png" alt="engagement-terms" width="79" height="79"
+            loading="lazy">
+          <h5>Design and Prototype</h5>
+          <p>Wireframes and interactive UI mockups were created with a cinematic look, emphasizing intuitive
+            navigation and cross-device compatibility for global users.</p>
+        </div>
+        <div class="cs-helmdemo-process-card">
+          <img src="../assets/images/cs-helmdemo-process-icon.png" alt="engagement-terms" width="79" height="79"
+            loading="lazy">
+          <h5>Develop and Integrate</h5>
+          <p>Weekly agile sprints enabled modular feature development, secure Stripe integration, multilingual
+            tagging, and smart TV optimization with seamless backend workflows.</p>
+        </div>
+        <div class="cs-helmdemo-process-card">
+          <img src="../assets/images/cs-helmdemo-process-icon.png" alt="engagement-terms" width="79" height="79"
+            loading="lazy">
+          <h5>Test and Optimize</h5>
+          <p>Every sprint included QA, device testing, and performance tuning to ensure HD playback,
+            responsiveness, and uninterrupted viewing across regions.</p>
+        </div>
+        <div class="cs-helmdemo-process-card">
+          <img src="../assets/images/cs-helmdemo-process-icon.png" alt="engagement-terms" width="79" height="79"
+            loading="lazy">
+          <h5>Scale and Sustain</h5>
+          <p>Post-launch, we scaled infrastructure on AWS, deployed updates via CI/CD pipelines, and integrated
+            analytics for ongoing user engagement and growth.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- No Prev/Next pagination nav on this page -- confirmed via full DOM audit of the live reference. -->
+
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script defer src="../js/header.js"></script>
+  <script defer src="../js/footer.js"></script>
+  <script defer src="../js/script.js"></script>
+  <script defer src="../js/include.js"></script>
+</body>
+
+</html>

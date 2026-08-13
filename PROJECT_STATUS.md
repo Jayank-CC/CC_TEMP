@@ -2,63 +2,201 @@
 
 ## Current task
 
-- **Reference:** https://www.cloudconverge.io/case-studies/implementing-sharepoint-atmos/
-- **Local target:** `case-studies/implementing-sharepoint-atmos.html` (flat file),
-  `css/pages/case-study-sharepoint-atmos.css` (`cs-spatmos-` prefix), no page-specific JS needed (no
-  carousel or other custom widget on this page — plain hover-shadow images only, same shared pattern as
-  rostar-filters/ejmcdougall).
+- **Reference:** https://www.cloudconverge.io/case-studies/helm-boots-demo/
+- **Local target:** `case-studies/helm-boots-demo.html` (flat file),
+  `css/pages/case-study-helm-boots-demo.css` (`cs-helmdemo-` prefix), no page-specific JS needed.
 - **Last updated:** 2026-08-13
-- **State:** HTML/CSS built this session; verification (screenshot/DOM comparison, console/network/
-  overflow check, mobile/tablet re-check) not yet performed — see Not yet done below.
-  - **Content root confirmed via `[data-elementor-id]` audit** (5 top-level children: breadcrumb section
-    `2d24dcd` + spacer e-con `46633b7` + intro 50/50 row `0c9be32` + Solution/Results 50/50 row `2c439de`
-    + Conclusion single-column row `3adba17`). Reuses the same shared Elementor template family as
-    several sibling case studies (geotechnical/dynamics-m365/atmos-cooling/ozone) but every measured
-    value below was independently re-confirmed on this page's own reference, per the "shared element IDs
-    do NOT mean shared values" rule.
-  - **Structure:** hero (reused asset) + breadcrumb + spacer (~40px) + intro 50/50 row (TEXT left: H1 +
-    1 paragraph about Atmos/Kabu Projects / IMAGE right: `cs-spatmos-portal.webp` 1920x1094, hover-shadow)
-    + Solution/Results 50/50 row (IMAGE left: `cs-spatmos-solution.webp` 1460x1920, hover-shadow / TEXT
-    right: H2 "Solution" + 1 paragraph + H2 "Results" + 2 paragraphs, the second being a separate `<p>`
-    for the closing client quote — confirmed via raw innerHTML, not a run-on block) + Conclusion single
-    centered column (H3 + 1 paragraph + full-width image `cs-spatmos-reference.webp` 1100x482,
-    hover-shadow). **No Prev/Next pagination nav** — confirmed via full DOM audit, genuine absence like
-    ozone (not an omission).
-  - **Typography matches the rostar-filters/ejmcdougall tiered convention exactly, re-confirmed fresh on
-    this reference:** H1 `36px/42px/600`; H2 `20px/50px/600`; H3 `20px/42px/600`; all `rgb(29,26,78)`
-    Poppins. Body paragraphs `16px/26px/400` DM Sans, `rgb(25,25,25)`, left-aligned (not justified).
-    Column insets also match exactly: text-col `padding:45px margin:0`; image-col `padding:0 margin:0
-    15px`. Both 50/50 rows are top-aligned (`align-items:flex-start`), not vertically centered.
-  - **Hero reuses the EXISTING `assets/images/cs-atmos-hero-banner.webp` asset** rather than downloading
-    a new one: pixel-diff via PIL confirmed this page's own "Atmos-banner.jpg" is the same underlying
-    photo (mean diff ~1.97/255, max 36, only 2.95% of pixels differing by >10 — consistent with lossy
-    re-compression of the same source), per the project's "do not create duplicate copies of an existing
-    asset" rule. The separately-downloaded `cs-spatmos-hero.webp` (1403x322) was NOT used for this
-    reason and can be discarded in a future cleanup pass.
-  - **Three genuine copy-paste content quirks, reproduced VERBATIM per the replication mandate (flagged
-    to the user in chat, not silently corrected):**
-    1. Breadcrumb current-page text reads "Implementing Dynamics & Microsoft 365 for Industrial Air
-       Conditioning Company" — says "Dynamics" instead of "SharePoint" — while the real H1 correctly
-       says "SharePoint".
-    2. The Conclusion image's `alt` text reads the same "...Dynamics..." string as the breadcrumb above.
-    3. The hero image's `alt` text reads "Website Development for Atmos Cooling" — carried over verbatim
-       from the sibling atmos-cooling page, never rewritten for this SharePoint case study.
-    All three confirmed via direct `textContent`/`alt` attribute reads on the live reference.
-  - **Assets** (`assets/images/`): `cs-spatmos-portal.webp` (1920x1094), `cs-spatmos-solution.webp`
-    (1460x1920), `cs-spatmos-reference.webp` (1100x482) — newly downloaded and copied in this session;
-    plus the reused `cs-atmos-hero-banner.webp` (see above).
-  - **Sanity-checked this session (not full visual verification):** all four asset URLs return `200` via
-    the local dev server; HTML tag balance confirmed programmatically; no Bootstrap/jQuery/React/Vue/
-    Angular strings present; no `cs-spatmos-*` selectors leaked into the shared `css/style.css` /
-    `css/responsive.css` files; script tag order and placeholder divs match the mandated pattern.
-  - **Not yet done:** full rendered screenshot/DOM comparison against the live reference at desktop width;
-    mobile/tablet re-check (carried over responsive rules are a reasonable default from the rostar-
-    filters/ejmcdougall/ozone sibling pattern, NOT yet independently pixel-verified for this page);
-    console/network error check via a real browser session; horizontal-overflow check; cross-linking
-    (no existing `portfolio.html` card links directly to this page yet — the existing "KABU PROJECTS"
-    card points to the separate `implementing-dynamics-m365.html` sibling page; whether the live
-    portfolio grid has a distinct card for this SharePoint case study was not confirmed this session and
-    should be checked before assuming one is missing).
+- **State:** HTML/CSS built this session; NO rendered browser verification was possible (see
+  Verification method below) — see Not yet done.
+  - **IMPORTANT — this reference page is a confirmed work-in-progress/demo page, not a finished case
+    study.** Its hero image and breadcrumb say "Helm Boots," but almost every heading/paragraph is
+    placeholder copy lifted verbatim from THREE unrelated pages: the SharePoint/Atmos case study (repeated
+    5+ times), an unbuilt "Moviez-World Cinema" streaming-app case study (Introduction info-table,
+    Project Challenges, Our Solution, Key Features, closing 01-06 list), and an unbuilt "Tap Retail" case
+    study (the final process-steps section). I flagged this to the user before building and they
+    explicitly confirmed: replicate it exactly as-is, mismatches included, rather than correcting it.
+  - **Content root confirmed via `[data-elementor-id="59175"]` audit is 11 top-level sections:** hero
+    (CSS `background-image`, NOT a plain `<img>` like every other case-study page in this project) +
+    breadcrumb + "Introduction" 50/50 row (info-table + 2 overlapping images) + big-statement 50/50 row +
+    full-width 3-image gallery (confirmed NO container max-width, unlike every other section) + dark navy
+    mini CTA band + "Project Challenges"/"Our Solution" 50/50 row + dark navy "Key features" band +
+    closing-statement/"01-06"-numbered-list 50/50 row + "Tap Retail" process intro (centered, narrowest
+    container on the page at `900px`) + 5-card process-step row. No Prev/Next pagination nav.
+  - **Typography/colors measured directly via `getComputedStyle`, confirmed this page uses the site's
+    general wide-container template, NOT the 1140px/36px-H1 case-study convention used by every sibling
+    page:** H1 `42px/46px/600` white; H2 `42px/50px/600` `rgb(29,26,78)`; H3 (big statements) `42px/52px/
+    600`; H4 (dark-band headings) `36px/52px/600` white; body `16px/26px/400` `rgb(25,25,25)`, left-
+    aligned. A light-blue highlight span (`.color2` on the reference) measured `rgb(72,193,255)`.
+    Container widths mixed per-section: `1000px` (hero, mini-CTA-band), `1360px` (most rows), `900px`
+    (Tap Retail intro), no cap (gallery row).
+  - **Novel components built fresh for this page (none reusable from other pages' own dedicated CSS,
+    per the "load only the current page's stylesheet" rule):** an info-table `<dl>` grid (Project
+    Name/Category/Location/Services Offered/Industry/Technologies); two overlapping absolutely-positioned
+    images in the Introduction row (measured offsets: image 2 sits `~140px` right / `~96px` down from
+    image 1, confirmed via `getBoundingClientRect`); a `»` chevron bullet list (FontAwesome
+    "angle-double-right", `rgb(38,84,198)`, reproduced as a CSS `::before`); a white-dot bullet list for
+    the Key Features band; a large-faint-number `01–06` list (`62px` `rgb(231,231,231)`); 5 bordered
+    process-step cards (`1px solid rgb(222,226,230)`, `30px 10px` padding, no radius) each reusing the
+    SAME icon image (`engagement-terms.png`, confirmed identical `src` on all 5 on the reference).
+  - **Assets** (`assets/images/`, all newly downloaded this session via same-origin `fetch()`+blob+
+    real-click, confirmed genuinely different from the real Helm Boots case study's own existing assets
+    — different filenames, different crop/aspect ratio, not duplicates): `cs-helmdemo-hero.webp`
+    (`1920x1080`), `cs-helmdemo-intro-1.webp`/`-2.webp` (`1912x2067` each), `cs-helmdemo-gallery-1/-2/-3
+    .webp` (`1912x2067` each), `cs-helmdemo-features.webp` (`1912x2067`), `cs-helmdemo-process-icon.png`
+    (`79x79`, reused 5x).
+  - **Verification method — significant environment limitation this session:** the bash sandbox's local
+    HTTP server was not usable for browser-based verification. Root cause found during the fix pass below:
+    each `mcp__workspace__bash` call runs in its own ephemeral process tree — a backgrounded `python3 -m
+    http.server` (via `&`/`nohup`/`disown`) is killed the instant that bash call returns, so there was
+    never a persistent server for the browser tool to reach on any later call, regardless of `localhost`
+    vs `127.0.0.1` vs `file://`. A real rendered comparison needs either a dev server the USER keeps
+    running on their own machine (e.g. VS Code Live Server, apparently used successfully in earlier
+    sessions per older entries in this file) or the user's own visual check — which is exactly how the
+    bugs in the fix pass below were actually found and fixed.
+  - **Fix pass #1 (user report: "a lot of differences," hero banner not loading, CTA button hover
+    transition wrong).** Found by re-inspecting the live reference's `getComputedStyle`/
+    `document.styleSheets` directly (still no local rendering available):
+    1. **Hero banner not loading — real bug, fixed.** CSS `url()` path was `../assets/images/...` but this
+       stylesheet lives at `css/pages/`, two levels below project root — every other page's own CSS
+       correctly uses `../../assets/images/...` (confirmed via grep across `css/pages/`). Fixed.
+    2. **Button hover transition — real bug, fixed.** The reference button's parent carries a
+       `hover-style-five` theme class whose real `:hover` rule is `box-shadow: rgba(0,0,0,.25) 0px 11px
+       14px -7px; transform: translateY(-5px);` (a lift effect) — not the background-darken I'd invented.
+       Fixed `.cs-helmdemo-btn`/`:hover`.
+    3. **Several approximated typography/padding values corrected after re-measuring:** hero paragraph
+       `22px` (was `18px`); hero overlay `rgb(0,0,0)` at `.52` opacity (was a guessed navy tint); "Our
+       Solution" sub-heading is an `<h6>` on the reference at `36px/27px/600` (was a generic `26px/34px`);
+       closing-row statement heading is `42px/52px/600` matching the other big-statement row (had wrongly
+       shrunk it); "Tap Retail" and "Key features" headings are both `36px/52px/600` (wrong line-heights
+       before). Section-level vertical padding was a blanket guessed `60px` everywhere — real
+       per-section values vary: Introduction/Project-Challenges `0/0`; big-statement/gallery/mini-CTA-
+       band/Key-features/closing `80px/80px`; Tap-Retail intro `80px/20px`; process-card row `0/80px`;
+       hero `150px/60px`. Rewrote row padding per-section instead of one shared value.
+  - **Fix pass #2 (user screenshot of the actual rendered "closing" section: every word was capitalized —
+    "CloudConverge Empowered The Moviez App To Deliver..." instead of sentence case).** Root cause: the
+    shared `css/style.css` applies `text-transform: capitalize` to every `h1`-`h6` site-wide (line ~81).
+    Every other case-study page's headings happen to already BE title-case in their source text, so that
+    global rule is invisible there — but this page genuinely has long sentence-case statements promoted to
+    heading tags ("CloudConverge empowered the Moviez app...", "Atmos, a part of Kabu Projects, is a
+    fast-growing..."), so the transform visibly broke them. Fixed by adding a page-scoped
+    `text-transform: none` reset on all headings. This was NOT something the reference/getComputedStyle
+    audit method had caught, because the audit reads the REFERENCE's computed style (already correct),
+    not a mismatch between this page's shared base CSS and this page's own content — a class of bug that
+    genuinely required the user's screenshot to surface.
+  - **Fix pass #3 (three more user screenshots of specific sections, each showing a real, confirmed
+    difference from the reference):**
+    1. **3-image full-width gallery row — wrong image crop AND wrong column padding.** Re-measuring the
+       reference directly: the per-column padding is asymmetric (`100px` top, `20px` right/bottom/left on
+       the widget-wrap), not a uniform `20px`. More importantly, each image renders as a perfect SQUARE
+       (`516.7 x 516.7`, confirmed via `getBoundingClientRect`) via `object-fit:cover`, not at its natural
+       1912x2067 portrait ratio — the build was stretching them tall instead of center-cropping to a
+       square. Fixed `.cs-helmdemo-gallery-col` padding to `100px 20px 20px` and the images to
+       `aspect-ratio:1/1; object-fit:cover`.
+    2. **"Project Challenges"/"Our Solution" row — overlapping text and a missing gap before the row.**
+       Two separate real bugs: (a) I had guessed the "Our Solution" sub-statement heading at `36px`,
+       reusing a measurement that actually belonged to the "Our Solution" TITLE two lines above it — the
+       real sub-statement is much smaller, `24px/27px/600`; at 36px with only a 27px line-height, three
+       wrapped lines visibly overlapped each other once rendered, exactly matching the user's screenshot.
+       Also fixed the two section titles ("Project Challenges"/"Our Solution") from a generic `42px` down
+       to the reference's actual `36px` (H5 `30px` line-height / H6 `27px` line-height respectively — a
+       genuine tight, inconsistent-with-itself quirk on the reference, kept as measured). (b) The visible
+       gap between the previous dark CTA band and this row was missing because I had only ever checked
+       `padding` on this section and found `0/0` — I never checked `margin`, which is genuinely `80px 0`
+       on this row (and on the Introduction row above it). This is the exact same category of mistake
+       already documented and fixed twice before elsewhere in this project (ozone, sharepoint-atmos) —
+       "check both padding AND margin separately" — repeated a third time on this page before being
+       caught again via the user's screenshot. Fixed by giving `.cs-helmdemo-intro`/`.cs-helmdemo-
+       challenges` an explicit `margin:80px 0` instead of relying on section padding.
+    3. **5-card process-step row — uneven card heights.** Switched `.cs-helmdemo-process-inner` from
+       `display:flex` (which should default to equal-height `stretch` but evidently wasn't producing
+       flush borders in the user's actual browser) to `display:grid` with `grid-template-columns:repeat(5,
+       1fr)` and explicit `align-items:stretch` plus `height:100%` on each card — a more robust,
+       unambiguous way to force all 5 borders to the exact same height regardless of each card's own text
+       length, matching the reference's own confirmed-equal `393px` column height. Updated the
+       `@media` breakpoints (2-column, then 1-column) to match the new grid layout.
+    None of these three fixes have been re-confirmed with a fresh screenshot yet — still blocked by the
+    local-render limitation above (see Not yet done).
+  - **Fix pass #4 (user screenshot: breadcrumb placement/indent differs from the reference).** Root
+    cause: this page's HTML reuses the shared `.breadcrumb-bar`/`.container` markup (correctly, per the
+    "never duplicate shared components" rule), which centers within the site's normal shared `1140px`
+    `.container` used by every other case-study page. But THIS specific reference's own breadcrumb
+    container actually measures `1360px` max-width with `0` horizontal padding (confirmed via
+    `getComputedStyle` and cross-checked against the rendered list's own `left` offset) — matching this
+    page's own wide template, not the standard site-wide value. Fixed with a page-scoped override,
+    `.cs-helmdemo-page .breadcrumb-bar .container { max-width:1360px; padding:0 }`, rather than touching
+    the shared component itself (which must stay `1140px` for every other page).
+  - **Fix pass #5 (user screenshot: the middle image in the 3-image gallery row sits noticeably higher
+    than the two outer ones).** Root cause: I had applied a single uniform `100px` top padding to all 3
+    gallery columns' widget-wraps. Re-measuring each column individually (not just column 1, which is
+    where the original `100px` value came from) shows the top padding is genuinely DIFFERENT per column
+    on the reference: column 1 ("Designed in Austin, Texas") `100px`; column 2 ("The Finn") only `20px`;
+    column 3 ("Leather Care") `80px`. Fixed with `:nth-child(2)`/`:nth-child(3)` overrides on
+    `.cs-helmdemo-gallery-col`.
+  - **Fix pass #6 (user screenshot: closing-row button size/padding differs from the reference).** Two
+    fixes: (a) the reference button actually has TWO stacked padding layers (an outer `<a>` and an inner
+    `.placeholder` div, each `6px 10px`) plus a `23px` line-height, giving a real rendered size of
+    `230x47px` for "Book a Free Consultation" — confirmed via `getComputedStyle` on both layers. Flattened
+    to a single `padding:12px 20px; line-height:23px` on `.cs-helmdemo-btn` (was a guessed `12px 24px`
+    with no explicit line-height). (b) Each column in this row also carries its own `20px` top/bottom
+    widget-wrap padding on top of the row's `80px` section padding — added via `.cs-helmdemo-closing
+    .cs-helmdemo-col{padding-top/bottom:20px}`. (Horizontal column spacing needed no change: confirmed by
+    comparing rendered column edges that the reference's zero-gap-plus-column-padding approach nets out
+    to the exact same visual result as this file's existing row-level `gap:40px`.)
+  - **Not yet done:** full rendered screenshot/DOM comparison at desktop/tablet/mobile widths (still
+    blocked by the environment limitation above); console/network error check; horizontal-overflow check;
+    the two-overlapping-image composite in the Introduction row was positioned by estimate and has not
+    been visually confirmed; mobile/tablet CSS rules remain an unverified carried-over default. Given the
+    local-render blocker, continuing to rely on the user's own screenshots of specific sections remains the
+    most reliable way to catch remaining differences — six fix passes in this session alone were found
+    exactly that way, not via my own audit method. Given how many per-column/per-section values on this
+    page have turned out to be genuinely non-uniform (asymmetric padding, mismatched font sizes between
+    sibling headings, stacked double-padding on buttons, etc.), any remaining section on this page should
+    be treated as "probably not uniform until independently measured," not assumed consistent with its
+    neighbors.
+  - **Fix pass #7 (user report: Introduction row overflows horizontally on mobile).** Root cause: the
+    Project-Name/Category/Location/Services-Offered/Industry/Technologies info-table used
+    `grid-template-columns: repeat(3, 1fr)`. Plain `1fr` tracks default to a minimum size of `auto` (their
+    content's own min-content width), not `0` — so a long unbreakable value like "React Native, Node.js,
+    Mongo DB, AWS" forced its column, and the whole row/page, wider than the viewport on narrow phones.
+    Fixed to `repeat(3, minmax(0, 1fr))` (behaves identically to plain `1fr` whenever there's room, so no
+    desktop change) plus added responsive drops to 2 columns at `<=767px` and 1 column at `<=480px` for
+    readability. Not independently re-verified at a real narrow viewport this session (see the
+    viewport-control limitations noted elsewhere in this file), but the underlying CSS grid overflow
+    mechanism is well-understood and this is the standard fix for it.
+  - **Fix pass #8 (user screenshot: the Introduction row's two overlapping images are entirely invisible
+    on mobile, leaving just a blank gap).** Root cause: `.cs-helmdemo-row-inner` sets
+    `align-items:flex-start` for the DESKTOP layout (vertical alignment between the two side-by-side
+    columns). The `<=767px` override flips `flex-direction` to `column`, which re-purposes `align-items`
+    to control the CROSS axis -- now WIDTH instead of vertical position. `flex-start` in that mode makes
+    each column shrink-to-fit its own IN-FLOW content width instead of stretching to the row's full
+    width. The Introduction row's image column's only children are `position:absolute` images (removed
+    from normal flow entirely), so its in-flow content width collapses to ~0 -- and the images,
+    sized as a percentage of that now-zero-width container, become invisible, leaving only the empty
+    `min-height` gap visible in the screenshot. Fixed by adding `align-items:stretch` and an explicit
+    `.cs-helmdemo-col{width:100%}` inside the same `<=767px` block. Not independently re-verified at a
+    real narrow viewport this session, but this is a well-understood, standard flexbox cross-axis
+    behavior change, not a guess.
+
+## Previous completed page
+
+- **Reference:** https://www.cloudconverge.io/case-studies/implementing-sharepoint-atmos/
+- **Local target:** `case-studies/implementing-sharepoint-atmos.html`,
+  `css/pages/case-study-sharepoint-atmos.css` (`cs-spatmos-` prefix).
+- **State:** HTML/CSS built; sanity-checked (asset 200s, tag balance, no forbidden frameworks) but full
+  rendered screenshot/DOM comparison and mobile/tablet re-check were NOT performed and remain outstanding.
+  - Structure: hero (reused `cs-atmos-hero-banner.webp` asset, pixel-diff confirmed same source photo as
+    this page's own banner) + breadcrumb + spacer + intro 50/50 row (H1+paragraph / hover-shadow image) +
+    Solution/Results 50/50 row (hover-shadow image / H2 "Solution"+paragraph + H2 "Results"+2 paragraphs)
+    + Conclusion single column (H3+paragraph+hover-shadow image). No pagination nav.
+  - Typography matches the rostar-filters/ejmcdougall tiered convention: H1 `36/42/600`; H2 `20/50/600`;
+    H3 `20/42/600`; all `rgb(29,26,78)`. Text-col `padding:45px margin:0`; image-col `padding:0 margin:0
+    15px`.
+  - Three genuine copy-paste quirks reproduced verbatim (flagged to the user): breadcrumb and Conclusion-
+    image alt both say "Dynamics" instead of "SharePoint"; hero alt says "Atmos Cooling" (carried over
+    from the sibling page).
+  - **Not yet done:** full rendered screenshot/DOM comparison, console/network/overflow check, mobile/
+    tablet re-check, and confirming whether the live portfolio grid has its own card for this page (none
+    added locally this session).
 
 ## Previous completed page
 
