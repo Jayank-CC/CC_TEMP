@@ -2,6 +2,55 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/case-studies/m365-business-central-implementation-for-rostar-filters/
+- **Local target:** `case-studies/m365-business-central-implementation-for-rostar-filters.html` (flat file),
+  `css/pages/case-study-rostar-filters.css` (`cs-rostar-` prefix), no page-specific JS needed.
+- **Last updated:** 2026-08-13
+- **State:** Complete, built from scratch this session.
+  - **Structure (6 top-level sections):** breadcrumb + spacer e-con (~40px) + intro 50/50 row (TEXT left:
+    H1 + 1 paragraph / IMAGE right: `cs-rostar-b1` 768x608) + "Challenge & Solution" 50/50 row (IMAGE left:
+    `cs-rostar-b2` 540x694 / TEXT right: H2 + 1 paragraph + 3 bold-label paragraphs using inline `<b>` tags)
+    + "Result" single centered column (H3 + 1 paragraph + full-width image `cs-rostar-b3` 1366x540, all in
+    the SAME column) + "Conclusion" single centered column (H4 + 1 paragraph) + prev/next pagination.
+  - **Genuine hero difference from sibling case studies:** this page does NOT use the `.wraper_inner_banner`
+    CSS-background-image pattern (confirmed `display:none` on `.case-studies-template` pages via the theme's
+    own stylesheet — a real, page-type-wide rule, not specific to this one page). Instead it uses a separate
+    `.case-studies-banner` wrapper containing a single full-width `<img>` (natural `2048x453`) with the page
+    title and the ROSTAR client logo baked directly into the graphic itself — confirmed via DOM audit there
+    is no separate text/logo overlay element. Reproduced as a plain `width:100%;height:auto` image.
+  - **Genuine typography difference from we-are-egg:** "Result"/"Conclusion" headings here are ordinary
+    styled `h3`/`h4` (`20px/42px/600` and `20px/38px/600`, `rgb(29,26,78)` heading color) — confirmed fresh
+    via `getComputedStyle`, NOT the plain-div/unstyled-body-color treatment found on we-are-egg's own
+    Result/Conclusion. Confirms each page needs independent measurement; patterns don't carry over
+    automatically even between structurally similar sibling case studies.
+  - **Image hover-shadow treatment** (`cs-rostar-b1`, `cs-rostar-b2`, `cs-rostar-b3`) reuses the established
+    hover-slide pattern (`border-radius:4px`, `transition:transform .3s ease-in-out`, hover
+    `translate3d(-10px,0,0)`), with `box-shadow:0 0 10px rgba(0,0,0,.5)` — the `.5` alpha confirmed fresh via
+    `getComputedStyle` on this page's own reference (matches dynamics-m365's alpha, not we-are-egg's `.2`).
+  - **Assets** (`assets/images/`): `cs-rostar-hero.webp` (`2048x453`), `cs-rostar-b1.webp` (`768x608`),
+    `cs-rostar-b2.webp` (`540x694`), `cs-rostar-b3.webp` (`1366x540`) — all fetched via same-origin
+    `fetch()`+blob+real-click download and verified via PIL after download; all natural aspect ratios,
+    no distortion despite `object-fit:fill` appearing in computed style (box always matched natural aspect).
+  - **Pagination:** "Previous Post" → `development-for-we-are-egg-using-net-contentful.html` (local, wired
+    up both directions — we-are-egg's own "Next Post" updated from the external reference URL to this new
+    local file). "Next Post" → `https://www.cloudconverge.io/case-studies/ejmcdougall/` (kept external — not
+    yet replicated, confirmed as a real link on the reference). `portfolio.html`'s existing "ROSTAR" card
+    updated from the external reference URL to this new local file (its image asset, `port-rostar.webp`, was
+    already present locally from an earlier session).
+  - **Verification method:** rendered via the local dev server (`http://127.0.0.1:5500`, reachable this
+    session) end-to-end at desktop width (`~1670px` viewport) — hero, breadcrumb, intro row, challenge row,
+    result image, conclusion, and pagination all confirmed visually correct via screenshot scroll-through;
+    zero console errors beyond the expected "Live reload enabled" log; all 15 network requests on initial
+    load returned `200`, no `404`s; no horizontal overflow (`scrollWidth 1670` vs `innerWidth 1685`).
+  - **Not yet done:** a true mobile/tablet viewport re-check against this page's own reference. The
+    `<=767px` CSS block follows the same established stacking pattern already verified on we-are-egg's
+    50/50 rows (columns to `flex-direction:column`, `width:100%` reset, paragraphs to `justify`) as a
+    reasonable default, but was not independently re-measured against THIS page's own reference at a true
+    narrow width this session — no `resize_window`/iframe-trick narrow tab was available this session.
+    Treat mobile as unverified until a future session can re-check it with a genuinely narrow viewport.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/case-studies/development-for-we-are-egg-using-net-contentful/
 - **Local target:** `case-studies/development-for-we-are-egg-using-net-contentful.html` (flat file),
   `css/pages/case-study-we-are-egg.css` (`cs-egg-` prefix), no page-specific JS needed.

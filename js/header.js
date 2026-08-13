@@ -98,13 +98,13 @@ window.__PARTIALS.header = `
             <li><a href="/hire-erpnext-consultant.html">Hire ERPNext Consultant</a></li>
           </ul></div>
           <div class="mega-cases">
-            <a class="mega-card" href="#case-ozone">
+            <a class="mega-card" href="/case-studies/ozone.html">
               <span class="mega-card-img"><img src="/assets/images/ozone-thum.png" alt="Ozone.in project" loading="lazy" width="300" height="180"></span>
               <span class="mega-card-title">Ozone.in – Comprehensive Project Planning &amp; Quotation Platform &amp; Website Development</span>
               <span class="mega-card-text">Ozone is a global distributor of architectural hardware and high-end security solutions.</span>
               <span class="mega-card-more">Discover More</span>
             </a>
-            <a class="mega-card" href="#case-hirebrain">
+            <a class="mega-card" href="/case-studies/hirebrain.html">
               <span class="mega-card-img"><img src="/assets/images/hirebrain-pic.avif" alt="HireBrain platform" loading="lazy" width="300" height="180"></span>
               <span class="mega-card-title">Hiring Enablement Platform Specifically</span>
               <span class="mega-card-text">HireBrain is a unique hiring enablement platform designed specifically for managers, leaders</span>
@@ -123,13 +123,13 @@ window.__PARTIALS.header = `
             <li><a href="/shopify-support-and-maintenance-services.html">Shopify Support &amp; Maintenance Services</a></li>
           </ul></div>
           <div class="mega-cases">
-            <a class="mega-card" href="#case-helm-boots">
+            <a class="mega-card" href="/case-studies/portfolio-migration-of-helm-boots-to-shopify-plus.html">
               <span class="mega-card-img"><img src="/assets/images/hb-pic.avif" alt="Helm Boots migration" loading="lazy" width="300" height="180"></span>
               <span class="mega-card-title">Migration of Helm Boots to Shopify Plus</span>
               <span class="mega-card-text">The client manufacturer makes shoes, and primarily handmade boots.</span>
               <span class="mega-card-more">Discover More</span>
             </a>
-            <a class="mega-card" href="#case-pharmacy">
+            <a class="mega-card" href="case-studies/pharmacy-ecommerce-store.html">
               <span class="mega-card-img"><img src="/assets/images/hombhob-pic5.avif" alt="Healthcare ecommerce website" loading="lazy" width="300" height="180"></span>
               <span class="mega-card-title">Ecommerce Website For Healthcare Products</span>
               <span class="mega-card-text">The client wanted to develop an online platform which will cater to all Client health needs.</span>
@@ -148,13 +148,13 @@ window.__PARTIALS.header = `
             <li><a href="/azure-consulting-services.html">Microsoft Azure Consulting</a></li>
           </ul></div>
           <div class="mega-cases">
-            <a class="mega-card" href="#case-encardio">
+            <a class="mega-card" href="case-studies/migration-of-geotechnical-industry.html">
               <span class="mega-card-img"><img src="/assets/images/thum-encardio1.avif" alt="Encardio Rite enterprise IT" loading="lazy" width="300" height="180"></span>
               <span class="mega-card-title">Enterprise IT Optimization &amp; Cybersecurity for Market Leader</span>
               <span class="mega-card-text">Encardio Rite, a leader in geotechnical solutions, has made headlines using advanced technology</span>
               <span class="mega-card-more">Discover More</span>
             </a>
-            <a class="mega-card" href="#case-verve">
+            <a class="mega-card" href="case-studies/verve-portrait-photoshoot-session.html">
               <span class="mega-card-img"><img src="/assets/images/verve-thum.avif" alt="Verve Portrait photoshoot platform" loading="lazy" width="300" height="180"></span>
               <span class="mega-card-title">Verve Portrait - Photoshoot Session</span>
               <span class="mega-card-text">The client wanted to create a simple online integration platform for Verve Portraits, a company that offers photo sessions for families, couples, and newborns.</span>
@@ -171,13 +171,13 @@ window.__PARTIALS.header = `
             <li><a href="/google-ads-services.html">Google Ads Services</a></li>
           </ul></div>
           <div class="mega-cases">
-            <a class="mega-card" href="#case-encardio">
+            <a class="mega-card" href="/case-studies/migration-of-geotechnical-industry.html">
               <span class="mega-card-img"><img src="/assets/images/thum-encardio1.avif" alt="Encardio Rite enterprise IT" loading="lazy" width="300" height="180"></span>
               <span class="mega-card-title">Enterprise IT Optimization &amp; Cybersecurity for Market Leader</span>
               <span class="mega-card-text">Encardio Rite, a leader in geotechnical solutions, has made headlines using advanced technology</span>
               <span class="mega-card-more">Discover More</span>
             </a>
-            <a class="mega-card" href="#case-verve">
+            <a class="mega-card" href="case-studies/verve-portrait-photoshoot-session.html">
               <span class="mega-card-img"><img src="/assets/images/verve-thum.avif" alt="Verve Portrait photoshoot platform" loading="lazy" width="300" height="180"></span>
               <span class="mega-card-title">Verve Portrait - Photoshoot Session</span>
               <span class="mega-card-text">The client wanted to create a simple online integration platform for Verve Portraits, a company that offers photo sessions for families, couples, and newborns.</span>
@@ -196,13 +196,13 @@ window.__PARTIALS.header = `
             <li><a href="/ai-chatbot-development-services.html">AI Chatbot Development Company</a></li>
           </ul></div>
           <div class="mega-cases">
-            <a class="mega-card" href="#case-hirebrain">
+            <a class="mega-card" href="case-studies/hirebrain.html">
               <span class="mega-card-img"><img src="/assets/images/hirebrain-pic.avif" alt="HireBrain platform" loading="lazy" width="300" height="180"></span>
               <span class="mega-card-title">Hiring Enablement Platform Specifically</span>
               <span class="mega-card-text">HireBrain is a unique hiring enablement platform designed specifically for managers, leaders</span>
               <span class="mega-card-more">Discover More</span>
             </a>
-            <a class="mega-card" href="#case-fnb-chatbot">
+            <a class="mega-card" href="/case-studies/food-beverage-ai-powered-multilingual-chatbot.html">
               <span class="mega-card-img"><img src="/assets/images/ai-chat-thum.avif" alt="AI powered multilingual chatbot" loading="lazy" width="300" height="180"></span>
               <span class="mega-card-title">Food &amp; Beverage – AI Powered Multilingual Chatbot</span>
               <span class="mega-card-text">The Food &amp; Beverage industry is rapidly evolving with AI-driven personalization, real-time engagement, and data security needs.</span>

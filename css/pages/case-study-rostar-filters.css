@@ -1,0 +1,328 @@
+/* Case study: M365 Business Central Implementation for ROSTAR Filters
+   Reference: https://www.cloudconverge.io/case-studies/m365-business-central-implementation-for-rostar-filters/
+   Prefix: cs-rostar-
+   Content root confirmed via [data-elementor-id] audit is `.elementor-42578` (6 top-level children:
+   breadcrumb section + spacer e-con + intro 50/50 row + challenge 50/50 row + result single-column
+   row + conclusion single-column row).
+
+   GENUINE HERO DIFFERENCE FROM SIBLING CASE STUDIES: this page does NOT use the `.wraper_inner_banner`
+   CSS-background-image pattern used by we-are-egg/proleve/etc. (that class is confirmed `display:none`
+   on `.case-studies-template` pages via the theme's own stylesheet). Instead it uses a separate
+   `.case-studies-banner` wrapper containing a single full-width `<img>` (`Rostar-header2-2048x453-1.webp`,
+   natural `2048x453`) with the "End-to-End Implementation of Microsoft 365 Business Central" title and
+   the ROSTAR client logo baked directly into the graphic itself — confirmed via DOM audit there is NO
+   separate text/logo overlay element. Reproduced here as a plain `width:100%;height:auto` image (no
+   distortion: rendered height matched `containerWidth/2048*453` exactly on the live reference).
+
+   Structure: hero (full-width img) + breadcrumb + spacer (~40px) + intro 50/50 row (TEXT left: H1 +
+   1 paragraph / IMAGE right: `cs-rostar-b1` 768x608) + "Challenge & Solution" 50/50 row (IMAGE left:
+   `cs-rostar-b2` 540x694 / TEXT right: H2 + 1 paragraph + 3 bold-label paragraphs using inline `<b>`
+   tags, NOT separate headings — confirmed via raw innerHTML) + "Result" single centered column (H3 +
+   1 paragraph + full-width image `cs-rostar-b3` 1366x540, all in the SAME column, not a separate
+   image section) + "Conclusion" single centered column (H4 + 1 paragraph).
+
+   GENUINE DIFFERENCE FROM WE-ARE-EGG: "Result" and "Conclusion" headings on THIS page are ordinary
+   styled h3/h4 (20px/42px/600 and 20px/38px/600, both `rgb(29,26,78)` heading color) — confirmed fresh
+   via `getComputedStyle`, NOT the plain-div/unstyled-body-color treatment found on we-are-egg's Result/
+   Conclusion. Each page must be measured independently; patterns do not carry over automatically.
+
+   Container max-width 1140px (shared `.container` class, unmodified). Both 50/50 rows split evenly at
+   570/570 (confirmed via `getBoundingClientRect`), column padding 0 on the column element itself.
+   Section padding measured directly: intro 0, challenge `60px 0`, result `0 0 60px`, conclusion 0.
+
+   Typography measured directly, all LEFT-aligned (no centered headings on this page, unlike we-are-egg's
+   centered H1): H1 `36px/42px/600`; H2 `20px/50px/600`; H3 `20px/42px/600`; H4 `20px/38px/600`; all
+   `rgb(29,26,78)` heading color. Paragraphs `16px/26px`, left-aligned at desktop (confirmed via
+   `textAlign:"left"` on the intro paragraph).
+
+   All three case-study images (`cs-rostar-b1`, `cs-rostar-b2`, `cs-rostar-b3`) carry the reference's own
+   hover-slide treatment — confirmed via `getComputedStyle`: `border-radius:4px`, `box-shadow:0 0 10px
+   rgba(0,0,0,.5)` (the same `.5` alpha as we-are-egg's own sibling page implementing-dynamics-m365, NOT
+   we-are-egg's own `.2` alpha — measured fresh on THIS page's own reference, not copied), `transition:
+   transform .3s ease-in-out`, hover `translate3d(-10px,0,0)`. Column padding/inset follows the same
+   established mechanism as we-are-egg's Challenge row (image column `padding:0 15px`, image
+   `width:100%;height:auto`, no distortion — verified this pattern generalizes here too since the column
+   is the same 570px width).
+
+   Pagination: "Previous Post" -> `development-for-we-are-egg-using-net-contentful.html` (local, wired up
+   both directions — we-are-egg's own "Next Post" updated from the external reference URL to this new
+   local file); "Next Post" -> `https://www.cloudconverge.io/case-studies/ejmcdougall/` (kept external,
+   not yet replicated). */
+
+.cs-rostar-page .breadcrumb-list a,
+.cs-rostar-page .breadcrumb-list a:hover,
+.cs-rostar-page .breadcrumb-sep,
+.cs-rostar-page .breadcrumb-list li,
+.cs-rostar-page .breadcrumb-list [aria-current="page"] {
+  color: #000;
+}
+.cs-rostar-page .breadcrumb-list li:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------- Hero (single full-width img, text/logo baked into the graphic) ---------- */
+.cs-rostar-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Spacer ---------- */
+.cs-rostar-spacer {
+  height: 40px;
+}
+
+/* ---------- Shared row/container ---------- */
+.cs-rostar-row {
+  padding: 0;
+}
+.cs-rostar-row-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0;
+}
+.cs-rostar-row-inner h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-rostar-row-inner h3,
+.cs-rostar-row-inner h4 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-rostar-row-inner h3 {
+  line-height: 42px;
+}
+.cs-rostar-row-inner h4 {
+  line-height: 38px;
+}
+.cs-rostar-row-inner p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-rostar-row-inner p:last-of-type {
+  margin-bottom: 0;
+}
+.cs-rostar-result {
+  padding: 0 0 60px;
+}
+.cs-rostar-result img {
+  margin-top: 20px;
+}
+.cs-rostar-conclusion {
+  padding: 0;
+}
+
+/* ---------- 50/50 rows (intro: text left/image right; challenge: image left/text right) ---------- */
+.cs-rostar-intro .cs-rostar-row-inner,
+.cs-rostar-challenge .cs-rostar-row-inner {
+  display: flex;
+}
+.cs-rostar-challenge {
+  padding: 60px 0;
+}
+.cs-rostar-col {
+  flex: 0 0 50%;
+  width: 50%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.cs-rostar-text-col {
+  padding: 45px;
+}
+
+.cs-rostar-image-col {
+  padding: 0 15px;
+}
+.cs-rostar-text-col h2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 50px;
+  color: var(--color-heading);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-rostar-text-col p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.cs-rostar-text-col p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Shared image hover-slide treatment (all 3 case-study images) ---------- */
+.cs-rostar-image-col img,
+.cs-rostar-result img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+}
+.cs-rostar-image-col:hover img,
+.cs-rostar-result:hover img {
+  transform: translate3d(-10px, 0, 0);
+}
+
+/* ---------- Prev/next pagination (reused verbatim from the we-are-egg sibling page) ---------- */
+.cs-rostar-pagination {
+  padding: 50px 0 60px;
+}
+.cs-rostar-pagination-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.cs-rostar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  max-width: 460px;
+}
+.cs-rostar-nav-prev {
+  margin-right: auto;
+}
+.cs-rostar-nav-next {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.cs-rostar-nav-next .cs-rostar-nav-text {
+  align-items: flex-end;
+  text-align: right;
+}
+.cs-rostar-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+}
+.cs-rostar-nav-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.cs-rostar-nav-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color 0.2s ease;
+}
+.cs-rostar-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.cs-rostar-nav-link:hover .cs-rostar-nav-arrow {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ---------- Responsive ----------
+   User caught a real bug via screenshot: the intro row's image and the challenge row's image were
+   touching directly with no gap on mobile, unlike the reference. Re-measured via a true ~372px
+   same-origin-iframe render of this page's own reference and found the real mechanism: each image's
+   `.elementor-widget-wrap` margin is `0 15px` (horizontal only) at desktop but `15px` on ALL sides at
+   mobile — contributing a 15px+15px=30px gap between the two stacked images (confirmed exactly via
+   `getBoundingClientRect`). Fixed by giving `.cs-rostar-image-col` `padding:15px` (all sides) inside
+   this mobile block instead of carrying over the desktop-only horizontal `0 15px` value unchanged.
+   The rest of this block (50/50 rows stack to `flex-direction:column`, columns reset to `width:100%`,
+   text-col padding, H1 shrink, paragraph justify) still follows the established we-are-egg pattern and
+   has not been independently re-measured beyond the image-gap fix above. */
+@media (max-width: 1024px) {
+  .cs-rostar-hero img {
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  .cs-rostar-page .breadcrumb-list li {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .cs-rostar-spacer {
+    height: 20px;
+  }
+  .cs-rostar-row-inner {
+    padding: 42px;
+  }
+  .cs-rostar-intro .cs-rostar-row-inner,
+  .cs-rostar-challenge .cs-rostar-row-inner {
+    flex-direction: column;
+    padding: 0;
+  }
+  .cs-rostar-challenge {
+    padding: 0;
+  }
+  .cs-rostar-col {
+    width: 100%;
+  }
+  .cs-rostar-text-col {
+    padding: 42px;
+  }
+  .cs-rostar-image-col {
+    /* Confirmed via a true ~372px same-origin-iframe render of this page's own reference: the
+       image's `.elementor-widget-wrap` margin is `0 15px` (horizontal only) at desktop but becomes
+       `15px` on ALL sides at mobile — contributing 15px bottom on the intro row's image and 15px
+       top on the challenge row's image, which is exactly the 30px gap the reference shows between
+       the two stacked images. The desktop-only horizontal padding was wrongly carried over
+       unchanged into this mobile block, collapsing that gap to 0. */
+    padding: 15px;
+  }
+  .cs-rostar-row-inner h1 {
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+  }
+  .cs-rostar-row-inner p,
+  .cs-rostar-text-col p {
+    text-align: justify;
+  }
+  .cs-rostar-result {
+    padding: 0px;
+  }
+  .cs-rostar-text-col h2 {
+    text-align: center;
+  }
+  .cs-rostar-pagination-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-rostar-nav-prev,
+  .cs-rostar-nav-next {
+    margin: 0;
+  }
+  .cs-rostar-nav-next {
+    flex-direction: row;
+  }
+  .cs-rostar-nav-next .cs-rostar-nav-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
