@@ -16,7 +16,7 @@
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -47,14 +47,16 @@
 
 /* --- Career Listings Section --- */
 .career-listings-section {
-  padding: 60px 0 80px;
+  /* padding: 60px 0 80px; */
   background-color: #ffffff; /* Or transparent if body is light grey */
+  padding-top: 110px;
+  padding-bottom: 116px;
 }
 
 .section-title {
   font-family: "Poppins", sans-serif;
   color: #2b2b5c; /* Dark purplish-blue color */
-  font-size: 2.2rem;
+  font-size: 45px;
   font-weight: 600;
   margin-bottom: 50px;
 }
@@ -72,7 +74,7 @@
   background: #ffffff;
   border: 1px solid #eaeaea;
   border-radius: 8px;
-  padding: 30px;
+  padding: 50px 40px 32px 40px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
   transition:
     transform 0.3s ease,
@@ -81,10 +83,10 @@
   flex-direction: column;
 }
 
-.job-card:hover {
+/* .job-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-}
+} */
 
 .job-card-header {
   display: flex;
@@ -109,25 +111,25 @@
 
 /* Specific icons can be hooked up here */
 .icon-net {
-  background-image: url("../assets/images/icons/net-icon.png");
+  background-image: url("/assets/images/microsoft-150x150.jpg");
 }
 .icon-php-laravel {
-  background-image: url("../assets/images/icons/php-icon.png");
+  background-image: url("/assets/images/PHP-150x150.png");
 }
 .icon-wordpress {
-  background-image: url("../assets/images/icons/wordpress-icon.png");
+  background-image: url("/assets/images/wordpress-150x150.png");
 }
 .icon-net-core {
-  background-image: url("../assets/images/icons/net-core-icon.png");
+  background-image: url("/assets/images/microsoft-150x150.jpg");
 }
 .icon-bdm {
-  background-image: url("../assets/images/icons/bdm-icon.png");
+  background-image: url("/assets/images/Business-Development-Manager-150x150.avif");
 }
 .icon-sales {
-  background-image: url("../assets/images/icons/sales-icon.png");
+  background-image: url("/assets/images/Domestic-IT-Sales-Executive-150x150.avif");
 }
 .icon-seo {
-  background-image: url("../assets/images/icons/seo-icon.png");
+  background-image: url("/assets/images/seo-optimization-150x150.avif");
 }
 
 .job-card-header h3 {
@@ -168,23 +170,38 @@
 .job-actions {
   display: flex;
   gap: 15px;
+  margin-top: auto;
 }
 
+/* --- Buttons --- */
 .btn {
   display: inline-block;
-  padding: 10px 24px;
-  font-size: 0.9rem;
+  /* Increased horizontal padding to make the buttons wider */
+  padding: 14px 40px;
+  min-width: 150px; /* Ensures a consistent minimum width */
+  font-size: 0.95rem;
   font-weight: 600;
   text-decoration: none;
-  border-radius: 4px;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+  border-radius: 6px; /* Slightly softer corners */
   text-align: center;
+
+  /* Transitions for the hover lift effect */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
+.btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Primary Button (Apply Now) */
 .btn-primary {
-  background-color: #2152c1; /* CloudConverge Blue */
+  background-color: #2152c1; /* Matches the vibrant blue */
   color: #ffffff;
   border: 1px solid #2152c1;
 }
@@ -192,17 +209,19 @@
 .btn-primary:hover {
   background-color: #1a429b;
   border-color: #1a429b;
+  color: #ffffff;
 }
 
+/* Secondary Button (Job Details) */
 .btn-secondary {
-  background-color: #f2f4f8; /* Light grayish blue */
-  color: #444;
-  border: 1px solid #e0e4eb;
+  background-color: #f4f5f7; /* Light grayish-white background */
+  color: #161645; /* Dark navy/purplish text to match the reference */
+  border: 1px solid #f4f5f7; /* Border matches background */
 }
 
 .btn-secondary:hover {
   background-color: #e2e6f0;
-  color: #222;
+  color: #161645;
 }
 
 /* --- Bottom CTA --- */
@@ -212,21 +231,16 @@
 }
 
 .career-bottom-cta p {
-  font-size: 1.05rem;
+  font-size: 20px;
   color: #2b2b5c;
-  font-weight: 600;
+  font-weight: 800;
   max-width: 800px;
   margin: 0 auto;
   line-height: 1.5;
 }
 
 .career-bottom-cta a {
-  color: #2152c1;
   text-decoration: underline;
-}
-
-.career-bottom-cta a:hover {
-  color: #1a429b;
 }
 
 /* ==========================================================================
