@@ -2,6 +2,187 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/marketplace-development-services/
+- **Local target:** `marketplace-development-services.html` (root-level flat file, `mkt-`
+  prefix), `css/pages/marketplace-development-services.css`,
+  `js/marketplace-development-services.js` (review carousel only).
+- **Last updated:** 2026-08-14
+- **State:** Built 2026-08-13; re-audited and fixed 2026-08-14 (see Fix pass #1 below). Structural
+  sanity checks pass (CSS brace balance 101/101 after this pass's edits, HTML tag balance, all
+  local image references resolve, no forbidden frameworks) but NO rendered browser verification
+  was possible -- same standing local-render environment limitation documented under the
+  helm-boots-demo entry below.
+  - **Content root confirmed via `[data-elementor-id="55053"]` audit is 21 top-level sections --
+    a genuinely long "feature tour" page for a food-delivery app product (Quick Foodie), unlike
+    every other page built this session.** Given the page's unusual length, this was audited
+    and built more efficiently than this project's usual per-section pixel measurement: the
+    page's own repeating pattern (heading + lead paragraph + chevron list + phone-mockup
+    screenshot, alternating background/image-side) was measured once on 2 representative rows
+    and reused as ONE shared `.mkt-feature` component across all 9 feature rows, rather than
+    re-measuring all 9 individually. Real content (headings, list items, paragraphs) was
+    transcribed from each of the 9 rows individually via direct DOM text extraction, so content
+    accuracy is not a shortcut -- only the exhaustive per-row CSS measurement was.
+  - **Structure:** hero (navy `rgb(0,51,85)` bg + `blue_bg.jpg` tech-pattern image, two-tone H1
+    -- "Marketplace" in a light-blue accent span `rgb(100,168,255)` + "Development Services" in
+    white, 45px/56px/600 -- pill CTA button `border-radius:24px` confirmed via
+    `getComputedStyle`, NOT the sitewide 4px, 3 phone-mockup screenshots) + breadcrumb (shared
+    `.breadcrumb-bar`) + intro row ("Quick Foodie" chevron list "Built With Modern Tech" +a
+    contact-form card) + "Product Highlights" heading band + 8-card icon grid (2x4) + 9
+    alternating feature rows (Menu UI/UX, Intelligent Search [dark variant], Personalized Dish
+    Configuration, Key Features Highlighted, Key Sections & Features, Cart Summary, Payment
+    Options, Live Map Tracking, Order Received) + stats band (70+ Happy Customers / 100+
+    Project Done / 100% Clients Satisfied / 50+ Team Members) + trust-badges row (Clutch, App
+    Development Leaders, GoodFirms, Microsoft Partner) + client-reviews carousel.
+  - **This page's own heading color is a genuinely distinct navy, confirmed via
+    `getComputedStyle`:** `rgb(0,51,85)` (defined here as `--mkt-navy`), NOT the sitewide
+    `--color-heading` (`#1d1a4e`) used on every other page in this project. Body typography
+    (16px/26px/400, `rgb(25,25,25)`) matches the sitewide convention.
+  - **Contact-form card reuses the EXACT same tightened sizing already established on
+    contact.html** (input height 44px, padding `12px 15px`, `.form-field` margin-bottom 6px,
+    `.form-submit` margin-top 6px, card `height:502px`, heading `line-height:42px`) rather than
+    the shared component's own looser defaults -- same underlying WordPress widget/theme, so
+    the same real-world sizing was assumed to carry over rather than re-measuring from scratch.
+    Not independently re-verified against THIS page's own reference card.
+  - **Trust-badges row reuses `iphone-app-development.html`'s existing `.iad-awards` pattern
+    verbatim, renamed to `mkt-`** -- same 4 images (`clutch-300x300.png`, `award-icon4.png`,
+    `profile-reviews-150x150.png`, `microsoft.webp`), all already present locally under the
+    exact filenames this page's own reference serves them as (confirmed via direct image `src`
+    reads, no download needed).
+  - **Client-reviews carousel reuses `ecommerce-development-services.html`'s existing
+    `.ecom-reviews` pattern verbatim, renamed to `mkt-`** -- confirmed the reference's own
+    review content (Tom Wyman, Richard Heller, Samuel Correns, Kabu Projects, Entrepreneur's
+    Organization Gurgaon, Barry Sarnoff) is the SAME shared review pool already used on the
+    ecommerce page, not new content. Copied and renamed `js/ecommerce-development-services.js`'s
+    testimonial-carousel logic (drag/swipe, clone-based infinite loop, 4500ms autoplay,
+    `prefers-reduced-motion` support) into a new `js/marketplace-development-services.js`,
+    dropping the unrelated "why choose us" screenshot-carousel half of that file which this
+    page doesn't have, and renaming the global init guard (`__ecomPageInit` -> `__mktPageInit`)
+    so both scripts can coexist site-wide without colliding.
+  - **Stats band reuses the sitewide shared `.stats`/`.stat-box`/`.stat-card` component**
+    (already used on `index.html`, confirmed identical real content: 70+/100+/100%/50+) with a
+    page-scoped `.mkt-stat-icon` emoji added above each number, since the shared component has
+    no icon slot and this page's own reference does show one per stat.
+  - **Assets** (`assets/images/`, all newly downloaded this session via same-origin `fetch()`+
+    blob+real-click download): `mkt-blue_bg.jpg` (`1920x1080`, reused for both the hero and the
+    one dark feature row), `mkt-Onboard-1/-2/-3.jpg`, `mkt-Home.jpg`, `mkt-Home-1.jpg`,
+    `mkt-Detail.jpg`, `mkt-Cart.jpg`, `mkt-Checkout.jpg`, `mkt-Maps.jpg`,
+    `mkt-Confirmation-Pages.jpg` (10 phone-mockup screenshots, `600x1299` each) +
+    `mkt-restaurant-icon.png`/`mkt-digital-icon.png`/`mkt-discovery-icon.png`/
+    `mkt-nutrition-plan-icon.png`/`mkt-price-list-icon.png`/`mkt-payment-method-icon.png`/
+    `mkt-tracking-icon.png`/`mkt-customer-experience-icon.png` (8 product-highlight icons,
+    `128x128` each). All verified present via `ls`/PIL spot-check after download; the
+    trust-badge and review-person images needed no download (already local from other pages).
+  - **Shared header nav updated (affects every page).** `js/header.js` had TWO existing links
+    pointing to `#marketplace-development-services` (a same-page anchor placeholder that never
+    resolved to a real page) -- the Products mega-menu's "Marketplace App" card, and the mobile
+    menu's "MarketPlace App" item. Updated both to `/marketplace-development-services.html`,
+    matching the `/portfolio.html`/`/contact.html` absolute-path convention already used for
+    other resolved nav items.
+  - **Fix pass #1 (user-reported re-audit: "Make this page exactly same its not same, even the
+    transitions should be same").** No screenshot given -- re-checked the live reference directly
+    for structural/typographic/hover mismatches, focused especially on transitions per the user's
+    explicit callout. Found and fixed 6 real bugs:
+    1. **Hero CTA button hover was wrong in 4 ways.** Reference uses Elementor's native
+       CSS-variable motion-effects system (`--e-transform-translateY:-6px` set only in
+       `:hover`), not a hand-authored hover rule. Was built as `translateY(-5px)` +
+       `box-shadow` + `transition:.3s ease-in-out` + `font-weight:600`; real values are
+       `translateY(-6px)`, no box-shadow at all, `transition:transform .4s`, base button
+       `font-weight:400`. Rewrote `.mkt-hero-btn`/`:hover` in
+       `css/pages/marketplace-development-services.css` to match exactly (also added the
+       reference's own `border:1px solid var(--color-primary)` and `line-height:16px`).
+    2. **Stats-band icons were decorative emoji, not the reference's real icons.** The reference
+       uses genuine custom SVG icon widgets (distinct paths per stat), not simple glyphs.
+       Rendered each SVG to a PNG via an in-page canvas technique (clone svg, bake explicit
+       fill, serialize, data-URI, `Image()`, `<canvas>`, `toDataURL`) rather than transcribing
+       raw path data, downloaded as `mkt-stat-icon-1.png` through `-4.png` (`160x160`, confirmed
+       via PIL pixel-sample all 4 use `rgb(30,78,196)` = `--color-primary` -- note
+       `getComputedStyle(svg).color` reported a misleading gray and should NOT be trusted for
+       elements with explicit `fill` attributes). Swapped the 4 emoji `<div>`s for real `<img>`
+       tags in `marketplace-development-services.html` and rewrote `.mkt-stat-icon` from
+       font-sizing to `width:55px;height:55px`.
+    3. **Review card (`.mkt-review-card`) was missing `border-radius:4px`** that the reference's
+       actual Swiper-based `radiant-testimonial` widget's `.holder` has. Added.
+    4. **Chevron-list bold-label styling was wrong.** The list is actually a repeated
+       `elementor-icon-box` widget (icon + one text line with a `<strong>` lead-in), not a
+       generic bulleted list -- confirmed the bold "Label" span on the reference is
+       `font-weight:500` in the SAME dark body color (`rgb(25,25,25)` = `--color-body`) as the
+       rest of the line, NOT bold-700 navy as originally built. Also each `<li>`'s real
+       margin-bottom is `20px` (was `14px`). Verified consistent across every instance of this
+       pattern on the page (both the intro "Built With Modern Tech" list and inside every
+       feature row). Fixed `.mkt-chevron-list li`/`li b` accordingly. The chevron icon color
+       itself (`rgb(38,84,198)`) was independently confirmed to already exactly match
+       `--mkt-chevron:#2654c6` -- no change needed there.
+    5. **Product-highlight cards (8-card grid) had wrong typography.** The reference's card
+       title is NOT a bold navy heading -- direct measurement shows it's plain `16px/400/
+       rgb(25,25,25)`, identical styling to the description paragraph below it (visual hierarchy
+       here comes from the icon, not bold text). Was built as `18px/600/navy`. Fixed
+       `.mkt-highlight-card h4` to `16px/400/var(--color-body)`, `p` to `16px/26px` (was 15px),
+       and tightened `img`/`h4` margins to the reference's real measured gaps (`~10px` image to
+       title, `~8px` title to description; was `16px`/`10px`).
+    6. **Product-highlight cards had NO hover effect at all -- real bug.** Confirmed via
+       `classList` that all 8 cards carry the reference's `img-box-hover-effect` class (same
+       family already used on the contact-form card and other pages), which does
+       `transition:transform .4s cubic-bezier(.2,0,.3,1)` base +
+       `:hover{transform:translate3d(0,-5px,0)}`. Added identical rule to `.mkt-highlight-card`.
+    - **Confirmed correct, no change needed:** trust-badges row has no hover/grayscale effect on
+      this page's own reference instance (re-verified directly, not just assumed from the
+      iad-awards precedent); the 9 feature-row phone-mockup images have no real hover transition
+      (Elementor's default `transition:all` with no duration is a no-op, not a genuine effect).
+    - **Still not independently checked this pass:** entrance/scroll animations (the
+      `animated-slow` class family) -- confirmed out of scope, this project has never built that
+      JS infrastructure on any page; full per-row spacing for all 9 feature rows beyond the
+      pattern-level checks above; true mobile/tablet re-check. As always, no rendered screenshot
+      comparison was possible this session -- this re-audit relied entirely on direct reference
+      DOM/CSS re-measurement.
+  - **Fix pass #2 (user screenshot pair of "Menu UI/UX" and "Intelligent Search" rows: reported
+    both feature images should have a hover transition, and the second row's image should sit on
+    the LEFT of its text, not the right).** Two real bugs, both systemic across all 9 feature
+    rows, found by re-measuring the live reference directly:
+    1. **All 9 feature-row images were completely missing their hover-lift effect.** An earlier
+       audit pass had only checked the bare `<img>` tag's own `transition` (read as inert
+       `all` with no duration) and wrongly concluded these rows have no hover effect. Re-checked
+       properly this time: EVERY one of the 9 image columns carries the reference's
+       `img-box-hover-effect` class (same family as the contact-form card and the 8
+       product-highlight cards) on the column/widget-wrap, not the `<img>` itself --
+       `transition:transform .4s cubic-bezier(.2,0,.3,1)` base + `:hover{transform:
+       translate3d(0,-5px,0)}`. Added this to the shared `.mkt-feature-media` rule so all 9 rows
+       get it identically.
+    2. **4 of the 9 "alternating" rows were rendering with image and text on the WRONG sides --
+       a real, page-wide layout bug, not a one-off.** Direct `getBoundingClientRect` measurement
+       against the reference confirms the intended alternation is real: non-reverse rows (Menu
+       UI/UX, Personalized Dish Configuration, Key Sections & Features, Payment Options, Order
+       Received) render image-RIGHT/text-LEFT; the 4 rows marked `--reverse` in the original build
+       (Intelligent Search, Key Features Highlighted, Cart Summary, Live Map Tracking) render
+       image-LEFT/text-RIGHT on the reference. But those same 4 rows in the local build had BOTH
+       their HTML markup already DOM-ordered media-first/copy-second AND the
+       `.mkt-feature-grid--reverse{flex-direction:row-reverse}` CSS class applied on top --
+       double-reversing the visual order back to copy-left/media-right, identical to (and
+       indistinguishable from) the non-reverse rows. Fixed by removing the redundant
+       `mkt-feature-grid--reverse` class from all 4 container `<div>`s in
+       `marketplace-development-services.html` (the DOM order alone, unreversed, already produces
+       the correct image-left layout). Cleaned up the now-fully-unused `--reverse` CSS (both the
+       desktop `flex-direction:row-reverse` rule and the mobile `order:-1` override) from
+       `css/pages/marketplace-development-services.css` as dead code, per the reuse/dead-code
+       audit rule -- confirmed via grep that no HTML anywhere still references the class before
+       removing.
+    Re-verified directly against the live reference after the fix (via `getBoundingClientRect`
+    on the DOM order, not a rendered screenshot -- still no local render available) that all 4
+    previously-broken rows now have media as the first flex child with no reverse applied,
+    matching the reference's real image-left layout.
+  - **Not yet done:** full rendered screenshot/DOM comparison at desktop/tablet/mobile widths
+    (blocked by the standing local-render environment limitation -- see below); console/network
+    error check; horizontal-overflow check; per-row exact spacing/typography for the 9 feature
+    rows beyond the 2 that were directly measured plus the fixes above; the "Key Sections &
+    Features" row's own
+    `bgImg:true` flag (a subtle image on an otherwise white background, not investigated further
+    -- likely a low-impact decorative pattern, skipped given the page's size) was not
+    reproduced; mobile `@media` rules are a reasonable carried-over default, not independently
+    verified. Given this page's size and the amount of pattern-reuse involved, treat it as the
+    LEAST independently verified page in this project so far -- user screenshots are expected to
+    be the primary way remaining differences get caught, more so than usual.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/contact/
 - **Local target:** `contact.html` (root-level flat file, `contact-` prefix -- follows the
   about.html/top-level-page naming convention, NOT the `cs-` case-study prefix),

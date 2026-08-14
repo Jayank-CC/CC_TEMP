@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marketplace Development Services | Cloud Converge</title>
+  <meta name="description"
+    content="Marketplace development services from CloudConverge -- Flutter & PHP multi-vendor food ordering and delivery platforms, ready to deploy, scalable and secure on iOS & Android.">
+  <link rel="icon" href="assets/images/CloudConverge_Final_Logo_CC_Small_Color_V1-150x150.png" sizes="32x32">
+  <link rel="icon" href="assets/images/CloudConverge_Final_Logo_CC_Small_Color_V1-300x300.png" sizes="192x192">
+  <link rel="preload" as="image" href="assets/images/mkt-blue_bg.jpg">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/dm-sans-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/poppins-600-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/pages/marketplace-development-services.css">
+</head>
+
+<body class="mkt-page">
+
+  <div id="site-header-placeholder"></div>
+
+  <main id="content">
+
+    <!-- ============================= HERO =============================
+         Reference: full-width section, flat navy bg (rgb(0,51,85)) with a `blue_bg.jpg` tech-
+         pattern background image layered on top (confirmed via getComputedStyle -- same image
+         reused later on the "Intelligent Search" dark section). H1 is two lines: "Marketplace"
+         in a light-blue accent span (rgb(100,168,255)), "Development Services" in white,
+         45px/56px/600. Pill-shaped CTA button (border-radius:24px, NOT the sitewide 4px --
+         confirmed via getComputedStyle) in the site's --color-primary blue. 3 phone-mockup
+         screenshots on the right (natural 600x1299 each). -->
+    <section class="mkt-hero">
+      <div class="container mkt-hero-grid">
+        <div class="mkt-hero-copy">
+          <h1><span class="mkt-hero-accent">Marketplace</span><br>Development Services</h1>
+          <p class="mkt-hero-tagline">Built with Flutter &amp; PHP | Ready to Deploy | Scalable &amp; Secure | iOS
+            &amp; Android</p>
+          <p>We offering custom solutions with online ordering, real-time tracking, secure payments, and seamless
+            experiences.</p>
+          <a class="mkt-hero-btn" href="#contact">Get a Free Quote</a>
+        </div>
+        <div class="mkt-hero-media">
+          <img src="assets/images/mkt-Onboard-2.jpg" alt="Quick Foodie app search and discover screen" width="600"
+            height="1299" loading="eager" fetchpriority="high">
+          <img src="assets/images/mkt-Home.jpg" alt="Quick Foodie app home screen with menu categories" width="600"
+            height="1299" loading="eager" fetchpriority="high">
+          <img src="assets/images/mkt-Detail.jpg" alt="Quick Foodie app dish detail and package selection screen"
+            width="600" height="1299" loading="eager" fetchpriority="high">
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= BREADCRUMB ============================= -->
+    <div class="breadcrumb-bar">
+      <div class="container">
+        <ul class="breadcrumb-list">
+          <li><a href="index.html">Home</a></li>
+          <li aria-hidden="true" class="breadcrumb-sep">
+            <svg viewBox="0 0 448 512" width="12" height="12">
+              <path fill="currentColor"
+                d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
+              </path>
+            </svg>
+          </li>
+          <li><a href="services.html">Services</a></li>
+          <li aria-hidden="true" class="breadcrumb-sep">
+            <svg viewBox="0 0 448 512" width="12" height="12">
+              <path fill="currentColor"
+                d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
+              </path>
+            </svg>
+          </li>
+          <li><span aria-current="page">Marketplace Development Services</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============================= INTRO: "Quick Foodie" + contact form =============================
+         Chevron list ("Built With Modern Tech") + a contact-form card reusing the sitewide
+         shared `.contact-form`/`.form-field`/`.btn-submit` component (css/style.css) at its
+         DEFAULT sizing -- unlike contact.html, this page's own form was not independently
+         re-measured against a tightened value, so the shared defaults are used as-is here. -->
+    <section class="mkt-intro" id="contact">
+      <div class="container mkt-intro-grid">
+        <div class="mkt-intro-copy">
+          <h2>Quick Foodie &ndash; The Smart Food Ordering Platform for Restaurants</h2>
+          <p class="mkt-lead">Quick Foodie is a powerful multi-vendor food delivery platform that allows restaurant
+            brands to be managed from a single admin system, built end-to-end with Flutter and a secure PHP
+            backend.</p>
+          <p class="mkt-assist-heading">Built With Modern Tech</p>
+          <ul class="mkt-chevron-list">
+            <li><b>Flutter &ndash;</b> Cross-platform mobile UI for Android &amp; iOS</li>
+            <li><b>Firebase &ndash;</b> Real-time database and cloud notifications</li>
+            <li><b>PHP Backend &ndash;</b> Secure, fast, and scalable infrastructure</li>
+            <li><b>Clean Architecture &ndash;</b> Modular, testable, and easy to extend</li>
+          </ul>
+        </div>
+
+        <div class="mkt-form-card">
+          <h3 class="mkt-form-heading">Contact Us</h3>
+          <form class="contact-form" autocomplete="off">
+            <div class="form-field">
+              <input type="text" name="name" placeholder="Name*" required>
+              <span class="field-error"></span>
+            </div>
+            <div class="form-field">
+              <input type="email" name="email" placeholder="Email*" required>
+              <span class="field-error"></span>
+            </div>
+            <div class="form-field">
+              <input type="tel" name="phone" placeholder="Phone*" required>
+              <span class="field-error"></span>
+            </div>
+            <div class="form-field">
+              <textarea name="message" placeholder="Message*" required></textarea>
+              <span class="field-error"></span>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn btn-primary btn-submit">Submit Now</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= PRODUCT HIGHLIGHTS ============================= -->
+    <section class="mkt-highlights-head">
+      <div class="container">
+        <h2>Product Highlights</h2>
+      </div>
+    </section>
+    <section class="mkt-highlights">
+      <div class="container mkt-highlights-grid">
+        <div class="mkt-highlight-card">
+          <img src="assets/images/mkt-restaurant-icon.png" alt="" width="64" height="64" loading="lazy">
+          <h4>The Smart Marketplace for Food Ordering &amp; Delivery</h4>
+          <p>Quick Foodie is a powerful multi-vendor food delivery platform that allows restaurant brands to be
+            managed from a single admin system.</p>
+        </div>
+        <div class="mkt-highlight-card">
+          <img src="assets/images/mkt-digital-icon.png" alt="" width="64" height="64" loading="lazy">
+          <h4>Digital Menu Management</h4>
+          <p>Showcase dishes with high-quality images, real-time availability, and detailed customization
+            options.</p>
+        </div>
+        <div class="mkt-highlight-card">
+          <img src="assets/images/mkt-discovery-icon.png" alt="" width="64" height="64" loading="lazy">
+          <h4>Smart Search &amp; Voice Discovery</h4>
+          <p>Let customers find your restaurant through keyword, voice, or mood-based search filters.</p>
+        </div>
+        <div class="mkt-highlight-card">
+          <img src="assets/images/mkt-nutrition-plan-icon.png" alt="" width="64" height="64" loading="lazy">
+          <h4>Customizable Meals</h4>
+          <p>Support for ingredient selection, spice levels, dietary preferences (Vegan, Jain, Keto), and portion
+            upgrades.</p>
+        </div>
+        <div class="mkt-highlight-card">
+          <img src="assets/images/mkt-price-list-icon.png" alt="" width="64" height="64" loading="lazy">
+          <h4>Dynamic Cart &amp; Pricing Engine</h4>
+          <p>Real-time pricing, discount codes, and add-ons handled intelligently in the backend.</p>
+        </div>
+        <div class="mkt-highlight-card">
+          <img src="assets/images/mkt-payment-method-icon.png" alt="" width="64" height="64" loading="lazy">
+          <h4>Secure &amp; Seamless Payments</h4>
+          <p>Integrated with major payment gateways for quick and secure checkouts.</p>
+        </div>
+        <div class="mkt-highlight-card">
+          <img src="assets/images/mkt-tracking-icon.png" alt="" width="64" height="64" loading="lazy">
+          <h4>Live Order Tracking</h4>
+          <p>Real-time delivery tracking with GPS, ETA updates, and delivery person contact info.</p>
+        </div>
+        <div class="mkt-highlight-card">
+          <img src="assets/images/mkt-customer-experience-icon.png" alt="" width="64" height="64" loading="lazy">
+          <h4>Feedback-Driven Growth</h4>
+          <p>Built-in rating and review system to improve service quality and build brand loyalty.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= FEATURE TOUR ROWS =============================
+         9 alternating rows, all sharing ONE reusable component (`.mkt-feature`) rather than
+         one-off CSS per row -- confirmed via direct measurement on 2 representative rows that
+         they share the same container width (840px), column split (~60/40), heading style
+         (42px/600, this page's own navy rgb(0,51,85), NOT the sitewide --color-heading), and
+         chevron-list item styling. Background alternates white / light-blue tint
+         (rgb(245,251,255)); ONE row ("Intelligent Search") additionally uses the same dark
+         `blue_bg.jpg` photo as the hero with white text -- confirmed via screenshot, the only
+         one of the 9 with that treatment. Image side alternates per row, matching the
+         reference's own left/right order per section. -->
+    <section class="mkt-feature mkt-feature--white">
+      <div class="container mkt-feature-grid">
+        <div class="mkt-feature-copy">
+          <h2>Menu UI/UX + Data Handling + Dynamic Cart Interaction</h2>
+          <p>The Digital Menu Browsing Experience in Quick Foodie is designed to be highly interactive,
+            data-driven, and performance-optimized using Flutter, Firebase, and scalable backend services. Below
+            is a breakdown of the technical aspects that power the seamless customer experience:</p>
+          <ul class="mkt-chevron-list">
+            <li>Extensive Menu Access</li>
+            <li>Real-Time Availability</li>
+            <li>Visual-Based Selection</li>
+            <li>Personalized Recommendations</li>
+            <li>Menu Filtering Options</li>
+            <li>Quick Add to Cart</li>
+            <li>Multiple payment options</li>
+          </ul>
+        </div>
+        <div class="mkt-feature-media">
+          <img src="assets/images/mkt-Onboard-1.jpg" alt="Quick Foodie menu browsing screen" width="600" height="1299"
+            loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="mkt-feature mkt-feature--dark">
+      <div class="container mkt-feature-grid">
+        <div class="mkt-feature-media">
+          <img src="assets/images/mkt-Onboard-2.jpg" alt="Quick Foodie search and discover screen" width="600"
+            height="1299" loading="lazy">
+        </div>
+        <div class="mkt-feature-copy">
+          <h3>Intelligent Search + User Context + Voice Integration</h3>
+          <p>The Smart Search Capabilities in Quick Foodie are designed to deliver highly contextual, fast, and
+            intuitive discovery of dishes, restaurants, and cuisines. The search engine utilizes real-time
+            indexing, cloud functions, and local state management to ensure a lightning-fast and relevant user
+            experience.</p>
+          <ul class="mkt-chevron-list">
+            <li><b>Keyword Suggestions</b><br>Get auto-complete suggestions as you type.</li>
+            <li><b>Voice Search</b><br>Search hands-free using voice commands.</li>
+            <li><b>Filters &amp; Tags</b><br>Sort by dietary preferences, ingredients, time to deliver, pricing,
+              and more.</li>
+            <li><b>Recently Searched Items</b><br>Quickly revisit your past cravings.</li>
+            <li><b>Search by Mood or Occasion</b><br>E.g., &ldquo;party snacks,&rdquo; &ldquo;romantic
+              dinner,&rdquo; or &ldquo;comfort food.&rdquo;</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mkt-feature mkt-feature--white">
+      <div class="container mkt-feature-grid">
+        <div class="mkt-feature-copy">
+          <h4>Personalized Dish Configuration Engine</h4>
+          <p>The Customization Features enable users to personalize their meals to match their taste, dietary
+            needs, and lifestyle. It enhances user satisfaction and order accuracy through an intuitive, modular
+            customization interface tightly integrated with backend logic and cart calculations.</p>
+          <ul class="mkt-chevron-list">
+            <li>Add or remove ingredients</li>
+            <li>Select spice level (Mild / Medium / Hot)</li>
+            <li>Dietary filters (Vegan, Keto, Gluten-Free, Jain, etc.)</li>
+            <li>Choose portion sizes or add-ons (Extra toppings, double portion, etc.)</li>
+            <li>Special cooking instructions (e.g., “No onions,” “Cooked in olive oil”)</li>
+          </ul>
+        </div>
+        <div class="mkt-feature-media">
+          <img src="assets/images/mkt-Onboard-3.jpg" alt="Quick Foodie dish customization screen" width="600"
+            height="1299" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="mkt-feature mkt-feature--tint">
+      <div class="container mkt-feature-grid">
+        <div class="mkt-feature-media">
+          <img src="assets/images/mkt-Home-1.jpg" alt="Quick Foodie key features home screen" width="600" height="1299"
+            loading="lazy">
+        </div>
+        <div class="mkt-feature-copy">
+          <h5>Key Features Highlighted</h5>
+          <p>The core UI/UX components that make up the user&rsquo;s primary interaction with the food delivery
+            system. Designed with Flutter, integrated with Firebase, and built with clean architecture, each
+            feature plays a vital role in user engagement and operational flow.</p>
+          <ul class="mkt-chevron-list">
+            <li><b>Current Location</b><br>Shows the user&rsquo;s active delivery location for more accurate
+              restaurant and delivery time suggestions.</li>
+            <li><b>Search &amp; Filter</b><br>Allows users to search for specific dishes or restaurants and apply
+              filters based on preferences.</li>
+            <li><b>Category Tabs</b><br>Browse food types like Meat, Japanese, Drinks, etc. for faster discovery
+              and personalized experiences.</li>
+            <li><b>Quick Add to Cart</b><br>Each dish includes an &ldquo;Add to Cart&rdquo; icon with real-time
+              price and estimated preparation time (e.g., 2 min).</li>
+            <li><b>Navigation Menu</b><br>Easy access to: Home | Search | Cart | Orders | Profile</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mkt-feature mkt-feature--banner-bg">
+      <div class="container mkt-feature-grid">
+        <div class="mkt-feature-copy">
+          <h6>Key Sections &amp; Features &ndash; Quick Foodie App</h6>
+          <p>The food detail screen is thoughtfully designed to deliver a seamless, engaging, and highly
+            informative user experience. Every element is tailored to help users make quick and confident
+            ordering decisions while enjoying a visually rich and intuitive interface.</p>
+          <ul class="mkt-chevron-list">
+            <li><b>Dish Image &amp; Name</b><br>Eye-catching photo of the dish (Fried Rice Seafood) with the
+              name prominently displayed.</li>
+            <li><b>Restaurant Info</b><br>- Name: Grapant Kitchen<br>- A familiar cue for users who care about
+              the kitchen&rsquo;s brand or taste consistency.</li>
+            <li><b>Quick Info Panel</b><br>- Prep Time: 2 Minutes<br>- Reviews: 250 reviews with an average
+              rating of 4.0+ (based on 20 entries shown)</li>
+            <li><b>Package Variants</b><br>- Options like Fried Rice Meat, Onion Fried Rice, etc., offering
+              flavor and size variety.<br>- Each package has a thumbnail + brief description.</li>
+            <li><b>Dish Description</b><br>- Clearly explains ingredients and preparation style.<br>- Helps
+              users with dietary preferences or allergies.</li>
+            <li><b>Price &amp; Quantity Selector</b><br>- Smooth UX for adjusting quantity.<br>- Real-time Total
+              Calculation displayed at the bottom for transparency.</li>
+            <li><b>Floating Cart Icon</b><br>Easy access to the cart from the top right, promoting quicker
+              checkout.</li>
+          </ul>
+        </div>
+        <div class="mkt-feature-media">
+          <img src="assets/images/mkt-Detail.jpg" alt="Quick Foodie dish detail screen" width="600" height="1299"
+            loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="mkt-feature mkt-feature--tint">
+      <div class="container mkt-feature-grid">
+        <div class="mkt-feature-media">
+          <img src="assets/images/mkt-Cart.jpg" alt="Quick Foodie cart summary screen" width="600" height="1299"
+            loading="lazy">
+        </div>
+        <div class="mkt-feature-copy">
+          <h6>Cart Summary</h6>
+          <p>The Cart Summary is designed for maximum clarity and control, giving users a streamlined,
+            stress-free ordering experience right before checkout.</p>
+          <ul class="mkt-chevron-list">
+            <li>Adjust quantities</li>
+            <li>Remove items</li>
+            <li>Apply promo codes</li>
+            <li>View a breakdown of charges</li>
+            <li>Proceed to payment with one click</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mkt-feature mkt-feature--white">
+      <div class="container mkt-feature-grid">
+        <div class="mkt-feature-copy">
+          <h5>Payment Options</h5>
+          <p>The Payment Options in Quick Foodie is engineered for speed, security, and simplicity, making
+            checkout effortless across devices and user types.</p>
+          <ul class="mkt-chevron-list">
+            <li>Seamless payment method selection</li>
+            <li>Clear visibility of all costs</li>
+            <li>Intuitive CTA placement</li>
+            <li>Professional and minimalist layout</li>
+          </ul>
+        </div>
+        <div class="mkt-feature-media">
+          <img src="assets/images/mkt-Checkout.jpg" alt="Quick Foodie checkout screen" width="600" height="1299"
+            loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="mkt-feature mkt-feature--tint">
+      <div class="container mkt-feature-grid">
+        <div class="mkt-feature-media">
+          <img src="assets/images/mkt-Maps.jpg" alt="Quick Foodie live map tracking screen" width="600" height="1299"
+            loading="lazy">
+        </div>
+        <div class="mkt-feature-copy">
+          <h6>Live Map Tracking</h6>
+          <p>The Live Map Tracking feature is designed to bring real-time visibility, user confidence, and
+            communication efficiency during the order delivery process. The integrated map view (powered by
+            Google Maps SDK for Flutter) offers users a live GPS feed of the Delivery Person location, updated in
+            real-time.</p>
+          <ul class="mkt-chevron-list">
+            <li>Builds user trust with transparency</li>
+            <li>Enhances delivery experience through live tracking</li>
+            <li>Promotes proactive communication with Delivery Person</li>
+            <li>Clean, intuitive interface with direct action buttons</li>
+            <li class="mkt-chevron-subhead">Delivery Person Information</li>
+            <li><b>Delivery Person:</b> Name</li>
+            <li><b>Image:</b> Profile photo adds trust and relatability</li>
+            <li class="mkt-chevron-subhead">Quick Contact Options</li>
+            <li><b>Live Chat:</b> Support</li>
+            <li><b>Call:</b> Support</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mkt-feature mkt-feature--white">
+      <div class="container mkt-feature-grid">
+        <div class="mkt-feature-copy">
+          <h5>Order Received</h5>
+          <p>The Order Completion Module is designed to finalize the transaction loop while gathering valuable
+            user feedback and confirming delivery success.</p>
+          <ul class="mkt-chevron-list">
+            <li>Send Confirmation</li>
+            <li>Rate to Restaurant</li>
+            <li>Rate to Delivery Person</li>
+          </ul>
+        </div>
+        <div class="mkt-feature-media">
+          <img src="assets/images/mkt-Confirmation-Pages.jpg" alt="Quick Foodie order confirmation screen" width="600"
+            height="1299" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= STATS =============================
+         Reuses the sitewide shared `.stats`/`.stat-box`/`.stat-card` component (already used on
+         index.html) -- confirmed via direct DOM audit that THIS page's own reference instance has
+         NO section heading above the stat cards (index.html's own instance does; this page's does
+         not, so no heading is rendered here) and that the wording of each `.stat-desc` differs
+         slightly from index.html's own copy, so this page's exact wording is used verbatim rather
+         than assumed identical. Page adds an icon above each number via a page-scoped
+         `.mkt-stat-icon`, since the shared component itself has no icon slot. Counter `<span>`s
+         need `data-from`/`data-to`/`data-duration` -- the shared counter script
+         (js/script.js, section 6) reads those attributes and overwrites the static text with "0"
+         if they're missing (a real bug fixed here; see PROJECT_STATUS.md). -->
+    <section class="stats">
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-card">
+            <img class="mkt-stat-icon" src="assets/images/mkt-stat-icon-1.png" alt="" width="55" height="55"
+              loading="lazy">
+            <div class="stat-counter">
+              <div class="stat-label">Happy Customers</div>
+              <div class="stat-number-wrap"><span class="stat-number" data-from="70" data-to="70"
+                  data-duration="2000">70</span><span class="stat-suffix">+</span>
+              </div>
+            </div>
+            <div class="stat-spacer"></div>
+            <p class="stat-desc">We have clients from all over the world, including US, UK, Australia, Middle
+              East, Canada and India.</p>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-card">
+            <img class="mkt-stat-icon" src="assets/images/mkt-stat-icon-2.png" alt="" width="55" height="55"
+              loading="lazy">
+            <div class="stat-counter">
+              <div class="stat-label">Project Done</div>
+              <div class="stat-number-wrap"><span class="stat-number" data-from="100" data-to="100"
+                  data-duration="2000">100</span><span class="stat-suffix">+</span>
+              </div>
+            </div>
+            <div class="stat-spacer"></div>
+            <p class="stat-desc">We have developed numerous complete web &amp; mobile app for our clients across
+              the globe.</p>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-card">
+            <img class="mkt-stat-icon" src="assets/images/mkt-stat-icon-3.png" alt="" width="55" height="55"
+              loading="lazy">
+            <div class="stat-counter">
+              <div class="stat-label">Clients Satisfied</div>
+              <div class="stat-number-wrap"><span class="stat-number" data-from="100" data-to="100"
+                  data-duration="2000">100</span><span class="stat-suffix">%</span></div>
+            </div>
+            <div class="stat-spacer"></div>
+            <p class="stat-desc">We as an organization believe that client satisfaction begins from requirements
+              definition phase to design, feedback cycle and golive.</p>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-card">
+            <img class="mkt-stat-icon" src="assets/images/mkt-stat-icon-4.png" alt="" width="55" height="55"
+              loading="lazy">
+            <div class="stat-counter">
+              <div class="stat-label">Team Members</div>
+              <div class="stat-number-wrap"><span class="stat-number" data-from="50" data-to="50"
+                  data-duration="2000">50</span><span class="stat-suffix">+</span>
+              </div>
+            </div>
+            <div class="stat-spacer"></div>
+            <p class="stat-desc">We operate on all the top technology stacks such as .NET Core, MERN, MEAN, React
+              Native, Swift, Java and many more.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= TRUST BADGES =============================
+         Reuses the `.iad-awards`/`.iad-award-grid` pattern already established on
+         iphone-app-development.html (renamed to the `mkt-` prefix here), same 4 images in the
+         same order. -->
+    <section class="mkt-awards">
+      <div class="container">
+        <h2>Awards &amp; Recognition</h2>
+        <div class="mkt-award-grid">
+          <img src="assets/images/clutch-300x300.png" alt="Clutch" width="150" height="150" loading="lazy">
+          <img src="assets/images/award-icon4.png" alt="App Development Leaders" width="150" height="150"
+            loading="lazy">
+          <img src="assets/images/profile-reviews-150x150.png" alt="GoodFirms" width="150" height="150" loading="lazy">
+          <img class="mkt-microsoft" src="assets/images/microsoft.webp" alt="Microsoft Partner" width="300" height="77"
+            loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= CLIENT REVIEWS =============================
+         Reuses the ecommerce-development-services.html review-carousel pattern verbatim
+         (content is identical on this page's own reference too -- same shared review pool),
+         renamed from `ecom-` to `mkt-`, with its own copy of the carousel JS
+         (js/marketplace-development-services.js) since the drag/autoplay logic binds to
+         class names directly. -->
+    <section class="mkt-reviews" aria-labelledby="mkt-reviews-title">
+      <div class="container">
+        <h2 id="mkt-reviews-title">Some of our Client Reviews</h2>
+        <div class="mkt-review-viewport">
+          <div class="mkt-review-track">
+            <article class="mkt-review-card">
+              <div class="mkt-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <blockquote>&ldquo;Good experience overall. My 3rd project with them overall. Will highly recommend
+                using them.&rdquo;</blockquote>
+              <div class="mkt-review-person"><img src="assets/images/tom-wyman.webp" alt="Tom Wyman" width="90"
+                  height="90">
+                <p><strong>Tom Wyman</strong><span>Web Designer</span></p>
+              </div>
+            </article>
+            <article class="mkt-review-card">
+              <div class="mkt-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <blockquote>&ldquo;Its been a pleasure to work with CloudConverge.io team. They have a great team,
+                including their Customer Success Manager who was great help to us. We have been doing great
+                during our peak sale season, without any hickup. Great job guys.&rdquo;</blockquote>
+              <div class="mkt-review-person"><img src="assets/images/richard-heller.webp" alt="Richard Heller"
+                  width="90" height="90">
+                <p><strong>Richard Heller</strong><span>CEO</span></p>
+              </div>
+            </article>
+            <article class="mkt-review-card">
+              <div class="mkt-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <blockquote>&ldquo;We are really happy with how quickly we were able to launch the project, they
+                had a really seamless process of getting our existing database and agents onboard, manage their
+                leads &amp; properties. We will definitely recommend using them for any web solution project.
+                They have a great team in place with a talent to understand business intricacies.&rdquo;
+              </blockquote>
+              <div class="mkt-review-person"><img src="assets/images/samuel-correns.webp" alt="Samuel Correns"
+                  width="90" height="90">
+                <p><strong>Samuel Correns</strong><span>Long Island RE</span></p>
+              </div>
+            </article>
+            <article class="mkt-review-card">
+              <div class="mkt-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <blockquote>&ldquo;We were looking to modern a lot of aspects within our organization including
+                migration to Business Central as ERP, implementing Microsoft 365, Cloud Services and Web
+                Development. We at Kabu Projects and Atmos are happy to refer Cloud Converge team and all IT
+                services. They are well-versed with the best practices, have a good project management and
+                software team.&rdquo;</blockquote>
+              <div class="mkt-review-person"><img src="assets/images/kabu-projects-logo.webp" alt="Kabu Projects"
+                  width="90" height="90">
+                <p><strong>Kabu Projects</strong></p>
+              </div>
+            </article>
+            <article class="mkt-review-card mkt-review-long">
+              <div class="mkt-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <blockquote>&ldquo;We are a non-profit were organizing a large event which includes delegates and
+                attendees from all over the globe. The way Cloud Converge team handled our web presence, online
+                payment system was truly exceptional. The entire process including site design, implementation
+                of CRM, integration with partners, live dashboards were all delivered in record time. Most of
+                all, because of the high footfall on the event, we had thousands of registration on launch
+                itself, the way the entire system worked effortlessly was a great experience for all
+                stakeholders.&rdquo;</blockquote>
+              <div class="mkt-review-person"><img src="assets/images/entrepreneurs-organization-gurgaon.webp"
+                  alt="Entrepreneur&rsquo;s Organization Gurgaon" width="90" height="90">
+                <p><strong>Entrepreneur&rsquo;s Organization Gurgaon</strong></p>
+              </div>
+            </article>
+            <article class="mkt-review-card">
+              <div class="mkt-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <blockquote>&ldquo;We are very happy with the project delivered by the CC team. The entire
+                development process has worked seamlessly for us, with regular updates, thorough testing of
+                deliverables, great ideas throughout the development process.&rdquo;</blockquote>
+              <div class="mkt-review-person"><img src="assets/images/barry-sarnoff.jpg" alt="Barry Sarnoff" width="90"
+                  height="90">
+                <p><strong>Barry Sarnoff</strong><span>CEO</span></p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+
+  <script src="js/header.js?v=3" defer></script>
+  <script src="js/footer.js?v=3" defer></script>
+  <script src="js/script.js?v=3" defer></script>
+  <script src="js/include.js?v=3" defer></script>
+  <script src="js/marketplace-development-services.js?v=1" defer></script>
+</body>
+
+</html>

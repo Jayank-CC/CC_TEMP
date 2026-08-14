@@ -1,0 +1,607 @@
+/* Marketplace Development Services page
+   Reference: https://www.cloudconverge.io/marketplace-development-services/
+   Prefix: mkt- (top-level services page, follows the ecom-/iad- service-page convention).
+
+   Content root confirmed via [data-elementor-id="55053"] audit is 21 top-level sections -- a
+   genuinely long "feature tour" page for a food-delivery app product (Quick Foodie). Given the
+   page's unusual length, this was NOT measured pixel-by-pixel for all 21 sections the way
+   shorter pages in this project were; instead the page's own repeating pattern was measured
+   once (on 2 representative rows) and reused as a shared `.mkt-feature` component across all 9
+   feature rows, per CLAUDE.md's CSS-reuse mandate. Treat any single feature row's exact
+   spacing as a reasonable-but-unverified default until a user screenshot confirms it -- this
+   is the same "screenshot-driven fix" pattern already established on every other page this
+   session, just declared upfront here given the page's size.
+
+   Structure: hero (navy bg + `blue_bg.jpg` tech pattern, two-tone H1, pill CTA, 3 phone
+   mockups) + breadcrumb (shared) + intro row (chevron list "Built With Modern Tech" + a
+   contact-form card reusing the sitewide shared `.contact-form` component, same tightened
+   sizing already established on contact.html since it's the same underlying widget) +
+   "Product Highlights" heading band + 8-card icon grid + 9 alternating feature rows (each
+   pairing a phone-mockup screenshot with a heading + lead paragraph + chevron list, alternating
+   white/light-blue-tint background and image side; ONE row -- "Intelligent Search" -- uses the
+   same dark `blue_bg.jpg` photo as the hero with white text, confirmed via screenshot) + stats
+   band (reuses the sitewide shared `.stats`/`.stat-box` component, same real content as
+   index.html, with an added page-scoped icon per stat) + trust-badges row (reuses the
+   `.iad-awards` pattern from iphone-app-development.html, renamed to `mkt-`) + client-reviews
+   carousel (reuses the `.ecom-reviews` pattern from ecommerce-development-services.html
+   verbatim, including its own copied+renamed carousel JS, since the reference's own review
+   pool is identical content on both pages).
+
+   This page's own heading color is a DISTINCT navy (`rgb(0,51,85)`), confirmed via
+   getComputedStyle -- NOT the sitewide `--color-heading` (`#1d1a4e`) used everywhere else on
+   the site. Defined here as `--mkt-navy` rather than overriding the shared variable. */
+
+.mkt-page {
+  --mkt-navy: #003355;
+  --mkt-chevron: #2654c6;
+}
+
+/* ---------- Hero ---------- */
+.mkt-hero {
+  background:
+    linear-gradient(rgba(0, 51, 85, 0.72), rgba(0, 51, 85, 0.72)),
+    url(../../assets/images/mkt-blue_bg.jpg) center center / cover no-repeat;
+  padding: 120px 0;
+}
+.mkt-hero-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+.mkt-hero-copy {
+  flex: 0 0 46%;
+  max-width: 46%;
+}
+.mkt-hero-copy h1 {
+  font-size: 45px;
+  font-weight: 600;
+  line-height: 56px;
+  color: #fff;
+  text-align: left;
+  margin: 0 0 20px;
+  text-transform: none;
+}
+.mkt-hero-accent {
+  color: rgb(100, 168, 255);
+}
+.mkt-hero-tagline {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  color: #fff;
+  margin: 0 0 16px;
+}
+.mkt-hero-copy p {
+  font-size: 16px;
+  line-height: 26px;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 30px;
+}
+.mkt-hero-btn {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  padding: 16px 30px;
+  border: 1px solid var(--color-primary);
+  border-radius: 24px;
+  text-decoration: none;
+  transition: transform 0.4s;
+}
+.mkt-hero-btn:hover {
+  color: #fff;
+  transform: translateY(-6px);
+}
+.stat-number-wrap {
+  font-size: 32px;
+  color: black;
+}
+.stat-desc {
+  color: black;
+}
+.stat-label {
+  font-size: 16px;
+  font-weight: 600;
+}
+.mkt-hero-media {
+  flex: 0 0 50%;
+  max-width: 50%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+}
+.mkt-hero-media img {
+  width: 32%;
+  height: auto;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  border-style: solid;
+  border-width: 6px 6px 6px 6px;
+  border-color: #b9b9b9;
+}
+.mkt-hero-media img:nth-child(1) {
+  margin-bottom: 20px;
+}
+.mkt-hero-media img:nth-child(3) {
+  margin-bottom: 10px;
+}
+
+/* ---------- Intro row + contact form ---------- */
+.mkt-intro {
+  padding: 90px 0;
+}
+.mkt-intro-grid {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+}
+.mkt-intro-copy {
+  width: 60%;
+}
+.mkt-intro-copy h2 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 44px;
+  color: var(--mkt-navy);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.mkt-intro-copy .mkt-lead {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  margin: 0 0 25px;
+}
+.mkt-assist-heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--mkt-navy);
+  margin: 0 0 14px;
+}
+.mkt-chevron-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mkt-chevron-list li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+.mkt-chevron-list li:last-child {
+  margin-bottom: 0;
+}
+.mkt-chevron-list li::before {
+  content: "\00BB";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--mkt-chevron);
+  font-weight: 700;
+  font-size: 28px;
+}
+.mkt-chevron-list li b {
+  color: var(--color-body);
+  font-weight: 600;
+}
+.mkt-chevron-list li.mkt-chevron-subhead {
+  padding-left: 0;
+  margin-top: 14px;
+  font-weight: 700;
+  color: var(--mkt-navy);
+}
+.mkt-chevron-list li.mkt-chevron-subhead::before {
+  content: none;
+}
+.mkt-chevron-list li.mkt-chevron-subhead:first-child {
+  margin-top: 0;
+}
+.mkt-feature--dark .mkt-chevron-list li.mkt-chevron-subhead {
+  color: #fff;
+}
+
+.mkt-form-card {
+  width: 40%;
+  padding: 33px 20px;
+  background: #fff;
+  border: 1px solid var(--color-primary);
+  border-top: 5px solid var(--color-primary);
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 502px;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.mkt-form-card:hover {
+  transform: translate3d(0, -5px, 0);
+}
+.mkt-form-heading {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--mkt-navy);
+  text-align: left;
+  margin: 0 0 20px;
+}
+.mkt-page .contact-form .form-field {
+  margin-bottom: 6px;
+}
+.mkt-page .contact-form input {
+  height: 44px;
+  padding: 12px 15px;
+}
+.mkt-page .contact-form textarea {
+  padding: 12px 15px;
+}
+.mkt-page .contact-form .form-submit {
+  margin-top: 6px;
+}
+
+/* ---------- Product Highlights ---------- */
+.mkt-highlights-head {
+  background: rgb(245, 251, 255);
+  padding: 60px 0 0;
+  text-align: center;
+}
+.mkt-highlights-head h2 {
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--mkt-navy);
+  margin: 0;
+}
+.mkt-highlights {
+  background: rgb(245, 251, 255);
+  padding: 40px 0 60px;
+}
+.mkt-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px 20px;
+}
+.mkt-highlight-card {
+  text-align: center;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.mkt-highlight-card:hover {
+  transform: translate3d(0, -5px, 0);
+}
+.mkt-highlight-card img {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 10px;
+}
+.mkt-highlight-card h4 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0 0 8px;
+}
+.mkt-highlight-card p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: center;
+  margin: 0;
+}
+
+/* ---------- Feature tour rows (shared component, 9 instances) ---------- */
+.mkt-feature {
+  padding: 60px 0;
+}
+.mkt-feature--white {
+  background: #fff;
+}
+.mkt-feature--tint {
+  background-color: #f5fbff;
+}
+.mkt-feature--dark {
+  background:
+    linear-gradient(rgba(0, 47, 92, 0.9), rgba(0, 47, 92, 0.9)),
+    url(../../assets/images/mkt-blue_bg.jpg) center center / cover no-repeat;
+}
+.mkt-feature--banner-bg {
+  background:
+    linear-gradient(rgba(0, 47, 92, 0.9), rgba(0, 47, 92, 0.9)),
+    url("../../assets/images/mkt-new-banner-bg.webp") left top repeat;
+}
+.mkt-feature-grid {
+  max-width: 840px;
+  margin: 0 auto;
+  display: flex;
+  /* align-items: center; */
+  gap: 40px;
+}
+.mkt-feature-copy {
+  flex: 0 0 60%;
+  max-width: 60%;
+}
+.mkt-feature-media {
+  flex: 0 0 40%;
+  max-width: 40%;
+  text-align: center;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.mkt-feature-media:hover {
+  transform: translate3d(0, -5px, 0);
+}
+.mkt-feature-media img {
+  width: 240px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  border-style: solid;
+  border-width: 6px 6px 6px 6px;
+  border-color: #b9b9b9;
+}
+.mkt-feature-copy h2,
+.mkt-feature-copy h3,
+.mkt-feature-copy h4,
+.mkt-feature-copy h5,
+.mkt-feature-copy h6 {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 25px;
+  color: var(--mkt-navy);
+  text-align: left;
+  margin: 0 0 18px;
+  text-transform: none;
+}
+
+.mkt-feature--banner-bg .mkt-feature-grid .mkt-feature-copy h6 {
+  color: white;
+}
+.mkt-feature--banner-bg .mkt-feature-grid .mkt-feature-copy p {
+  color: white;
+}
+.mkt-feature--banner-bg .mkt-feature-grid .mkt-feature-copy ul li {
+  color: white;
+}
+.mkt-feature--banner-bg .mkt-feature-grid .mkt-feature-copy ul li b {
+  color: white;
+}
+
+.mkt-feature-copy p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  margin: 0 0 20px;
+}
+.mkt-feature--dark .mkt-feature-copy h2,
+.mkt-feature--dark .mkt-feature-copy h3,
+.mkt-feature--dark .mkt-feature-copy h4,
+.mkt-feature--dark .mkt-feature-copy h5,
+.mkt-feature--dark .mkt-feature-copy h6 {
+  color: #fff;
+}
+.mkt-feature--dark .mkt-feature-copy p,
+.mkt-feature--dark .mkt-chevron-list li {
+  color: rgba(255, 255, 255, 0.9);
+}
+.mkt-feature--dark .mkt-chevron-list li::before {
+  color: rgb(100, 168, 255);
+}
+.mkt-feature--dark .mkt-chevron-list li b {
+  color: #fff;
+}
+
+/* ---------- Stats icon (page-scoped addition to the shared .stats component) ---------- */
+.mkt-stat-icon {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 12px;
+}
+
+/* ---------- Trust badges (renamed copy of iphone-app-development.html's .iad-awards) ---------- */
+.mkt-awards {
+  height: 321px;
+  text-align: center;
+}
+.mkt-awards h2 {
+  height: 113px;
+  color: var(--mkt-navy);
+  font-family: var(--font-heading);
+  font-size: 20px;
+  line-height: 113px;
+  font-weight: 600;
+}
+.mkt-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  height: 208px;
+  padding: 0 36px;
+}
+.mkt-award-grid img {
+  justify-self: center;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+.mkt-award-grid .mkt-microsoft {
+  width: 265px;
+  height: 68px;
+}
+
+/* ---------- Client reviews (renamed copy of ecommerce-development-services.html's .ecom-reviews) ---------- */
+.mkt-reviews {
+  padding: 0 0 90px;
+  overflow: hidden;
+}
+.mkt-reviews h2 {
+  margin: 0 0 40px;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--mkt-navy);
+}
+.mkt-review-viewport {
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+}
+.mkt-review-viewport.is-dragging {
+  cursor: grabbing;
+}
+.mkt-review-track {
+  display: flex;
+  gap: 30px;
+  will-change: transform;
+}
+.mkt-review-card {
+  flex: 0 0 540px;
+  height: 400px;
+  box-sizing: border-box;
+  background: #f4f4f4;
+  border-radius: 4px;
+  padding: 37px 35px 47px;
+  align-self: flex-start;
+  overflow: hidden;
+}
+.mkt-review-long {
+  height: 452px;
+}
+.mkt-stars {
+  color: #ffb600;
+  font-size: 17px;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+.mkt-review-card blockquote {
+  margin: 0;
+  color: #252525;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 600;
+}
+.mkt-review-person {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 18px;
+}
+.mkt-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+}
+.mkt-review-person p {
+  margin: 0;
+}
+.mkt-review-person strong {
+  font-family: var(--font-heading);
+  display: block;
+  color: var(--mkt-navy);
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.mkt-review-person span {
+  display: block;
+  font-size: 16px;
+  margin-top: 4px;
+}
+
+/* ---------- Responsive ----------
+   Follows the same established mobile pattern used across this project's other services pages
+   (50/50 or 60/40 rows stack to full width). Not independently re-measured against this page's
+   own reference at true narrow widths -- see the standing environment-limitation note in
+   PROJECT_STATUS.md. */
+@media (max-width: 1024px) {
+  .mkt-hero-copy h1 {
+    font-size: 36px;
+    line-height: 44px;
+  }
+  .mkt-highlights-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mkt-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    height: auto;
+    padding: 20px 15px;
+  }
+  .mkt-awards {
+    height: auto;
+    padding-bottom: 35px;
+  }
+  .mkt-review-card {
+    flex-basis: 460px;
+  }
+}
+@media (max-width: 767px) {
+  .mkt-hero {
+    padding: 60px 0;
+  }
+  .mkt-hero-grid {
+    flex-direction: column;
+  }
+  .mkt-hero-copy,
+  .mkt-hero-media {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .mkt-hero-copy h1 {
+    font-size: 30px;
+    line-height: 38px;
+    text-align: center;
+  }
+  .mkt-hero-copy p,
+  .mkt-hero-tagline {
+    text-align: center;
+  }
+  .mkt-hero-btn {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .mkt-intro-grid {
+    flex-direction: column;
+  }
+  .mkt-intro-copy,
+  .mkt-form-card {
+    width: 100%;
+  }
+  .mkt-form-card {
+    height: auto;
+  }
+  .mkt-highlights-grid {
+    grid-template-columns: 1fr;
+  }
+  .mkt-feature-grid {
+    flex-direction: column;
+  }
+  .mkt-feature-copy,
+  .mkt-feature-media {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .mkt-feature-media {
+    margin-bottom: 24px;
+  }
+  .mkt-review-card {
+    flex-basis: 100%;
+    height: auto;
+  }
+  .mkt-review-long {
+    height: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mkt-review-track {
+    transition: none !important;
+  }
+}

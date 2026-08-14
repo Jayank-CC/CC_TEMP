@@ -1,0 +1,280 @@
+/* ==========================================================================
+   Career Page Styles (career.css)
+   ========================================================================== */
+
+/* --- General & Resets specific to this page --- */
+.career-page {
+  background-color: #f8f9fa; /* Light grey background for the whole page */
+  font-family: "DM Sans", sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* --- Hero Section --- */
+.career-hero {
+  width: 100%;
+  height: 350px;
+  background-image: url("/assets/images/careers-header.png"); /* Uses the preloaded image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Dark blue overlay to match the image header */
+  /* background: rgba(14, 60, 119, 0.75); */
+}
+
+/* --- Career Listings Section --- */
+.career-listings-section {
+  padding: 60px 0 80px;
+  background-color: #ffffff; /* Or transparent if body is light grey */
+}
+
+.section-title {
+  font-family: "Poppins", sans-serif;
+  color: #2b2b5c; /* Dark purplish-blue color */
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 50px;
+}
+
+/* --- Job Grid Layout --- */
+.job-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+/* --- Job Card Styles --- */
+.job-card {
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.job-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.job-card-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+/* Icon Placeholders (Assuming these would be background images/SVGs) */
+.job-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #f0f4f8;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Specific icons can be hooked up here */
+.icon-net {
+  background-image: url("../assets/images/icons/net-icon.png");
+}
+.icon-php-laravel {
+  background-image: url("../assets/images/icons/php-icon.png");
+}
+.icon-wordpress {
+  background-image: url("../assets/images/icons/wordpress-icon.png");
+}
+.icon-net-core {
+  background-image: url("../assets/images/icons/net-core-icon.png");
+}
+.icon-bdm {
+  background-image: url("../assets/images/icons/bdm-icon.png");
+}
+.icon-sales {
+  background-image: url("../assets/images/icons/sales-icon.png");
+}
+.icon-seo {
+  background-image: url("../assets/images/icons/seo-icon.png");
+}
+
+.job-card-header h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.15rem;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.company-name {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.job-meta {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.job-description {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  flex-grow: 1; /* Pushes buttons to the bottom if heights differ */
+
+  /* Optional: Clamp text to 2 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --- Buttons --- */
+.job-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: #2152c1; /* CloudConverge Blue */
+  color: #ffffff;
+  border: 1px solid #2152c1;
+}
+
+.btn-primary:hover {
+  background-color: #1a429b;
+  border-color: #1a429b;
+}
+
+.btn-secondary {
+  background-color: #f2f4f8; /* Light grayish blue */
+  color: #444;
+  border: 1px solid #e0e4eb;
+}
+
+.btn-secondary:hover {
+  background-color: #e2e6f0;
+  color: #222;
+}
+
+/* --- Bottom CTA --- */
+.career-bottom-cta {
+  margin-top: 20px;
+  padding: 20px 0;
+}
+
+.career-bottom-cta p {
+  font-size: 1.05rem;
+  color: #2b2b5c;
+  font-weight: 600;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.career-bottom-cta a {
+  color: #2152c1;
+  text-decoration: underline;
+}
+
+.career-bottom-cta a:hover {
+  color: #1a429b;
+}
+
+/* ==========================================================================
+   Responsive Design (Media Queries)
+   ========================================================================== */
+
+/* Tablets and smaller screens */
+@media screen and (max-width: 991px) {
+  .job-grid {
+    grid-template-columns: 1fr;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* Mobile Devices */
+@media screen and (max-width: 576px) {
+  .career-hero {
+    height: 250px;
+  }
+
+  .job-card {
+    padding: 20px;
+  }
+
+  .job-card-header h3 {
+    font-size: 1.05rem;
+  }
+
+  .job-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+
+  .career-bottom-cta p {
+    font-size: 0.95rem;
+  }
+}

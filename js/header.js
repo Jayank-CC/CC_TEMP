@@ -226,7 +226,7 @@ window.__PARTIALS.header = `
         <span class="mega-card-text">Our CRM &amp; Project Management platform streamlines client interactions, team collaboration, and everyday operations in one powerful system. Built for flexibility, it adapts to any business model-driving efficiency, productivity, and growth.</span>
         <span class="mega-card-more">Discover More</span>
       </a>
-      <a class="mega-card" href="#marketplace-development-services">
+      <a class="mega-card" href="/marketplace-development-services.html">
         <span class="mega-card-img"><img src="/assets/images/crm-thum-2.avif" alt="Marketplace app" loading="lazy" width="300" height="180"></span>
         <span class="mega-card-title">Marketplace App</span>
         <span class="mega-card-text">Our marketplace app is a smart, all-in-one food ordering and delivery platform that helps food businesses &amp; customers to order fast. From multi-vendor management to live order tracking, it streamlines menus, orders, and payments for a seamless user experience.</span>
@@ -314,7 +314,7 @@ window.__PARTIALS.header = `
       <li class="m-item has-sub">
         <a href="#">Products</a><button class="m-sub-toggle" aria-label="Toggle Products submenu" aria-expanded="false"></button>
         <ul class="m-sub">
-          <li><a href="#marketplace-development-services">MarketPlace App</a></li>
+          <li><a href="/marketplace-development-services.html">MarketPlace App</a></li>
           <li><a href="#crm-project-management-software">CRM &amp; Project Management Software</a></li>
         </ul>
       </li>
