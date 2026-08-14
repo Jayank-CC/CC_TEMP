@@ -207,8 +207,8 @@
 }
 
 .btn-primary:hover {
-  background-color: #1a429b;
-  border-color: #1a429b;
+  /* background-color: #1a429b; */
+  /* border-color: #1a429b; */
   color: #ffffff;
 }
 

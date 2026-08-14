@@ -1,0 +1,306 @@
+/* ==========================================================================
+   Job Details Page Exact Styles (job-detail.css)
+   ========================================================================== */
+
+.job-detail-page {
+  background-color: #ffffff; /* White body background */
+  font-family: "DM Sans", sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+/* --- Hero Section --- */
+.job-detail-hero {
+  width: 100%;
+  height: 400px;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-graphic-container {
+  width: 100%;
+  height: 100%;
+  /* max-width: 1400px; */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* --- Layout Grid --- */
+.job-detail-content-section {
+  padding: 120px 0 100px;
+}
+
+.job-layout-grid {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* ==========================================================================
+   Left Column: Split Cards Layout (The True Gap Fix)
+   ========================================================================== */
+.job-main-card {
+  /* Removed unified background and border so the gap shows the white page */
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Header Area (Card 1 Top) */
+.job-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 40px;
+  background-color: #f8f9fa; /* Grey */
+  border: 1px solid #eaeaea;
+  border-bottom: none; /* Connects to the banner seamlessly */
+  border-radius: 6px 6px 0 0; /* Rounded top corners only */
+}
+
+.job-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.job-logo-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #e8f0fe;
+  background-size: 500%;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.job-title-text h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.6rem;
+  color: #1a1a4b;
+  margin: 0 0 5px 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.job-title-text p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* Button Exact Styling */
+.btn {
+  display: inline-block;
+  padding: 12px 35px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #2152c1;
+  color: #ffffff;
+  border: 1px solid #2152c1;
+}
+
+.btn-primary:hover {
+  background-color: #1a429b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Grey Meta Banner (Card 1 Bottom) */
+.job-meta-banner {
+  background-color: #ffffff; /* White */
+  padding: 15px 40px;
+  font-size: 0.9rem;
+  color: #555;
+  border: 1px solid #eaeaea; /* Full border bounds this section */
+  border-radius: 0 0 6px 6px; /* Rounded bottom corners only */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.meta-arrow {
+  color: #888;
+  font-weight: bold;
+}
+
+.meta-divider {
+  color: #ccc;
+  margin: 0 5px;
+}
+
+/* Description Content (Card 2) */
+.job-description-body {
+  margin-top: 35px; /* THIS CREATES THE TRUE PHYSICAL GAP */
+  padding: 40px;
+  background-color: #f8f9fa; /* Grey */
+  border: 1px solid #eaeaea; /* Has its own standalone border */
+  border-radius: 6px; /* Fully rounded standalone card */
+}
+
+.job-description-body h4 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.15rem;
+  color: #1a1a4b;
+  margin: 25px 0 15px 0;
+  font-weight: 600;
+}
+
+.job-description-body h4:first-child {
+  margin-top: 0;
+}
+
+.job-description-body p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #444;
+  margin: 0 0 20px 0;
+}
+
+.job-description-body ul {
+  padding-left: 20px;
+  margin-bottom: 25px;
+}
+
+.job-description-body li {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 8px;
+  list-style-type: disc;
+}
+
+.text-blue {
+  color: #0d6efd;
+}
+
+/* ==========================================================================
+   Right Column: Sidebar (Bulletproof Layout)
+   ========================================================================== */
+.job-sidebar {
+  width: 100%;
+  border: 1px solid #eaeaea; /* Adds the grey border */
+  border-radius: 6px; /* Adds the rounded corners */
+  padding: 30px; /* Adds breathing room inside the box */
+  background-color: #ffffff; /* Keeps the background clean */
+}
+
+/* Explicitly styling to override any global style.css interference */
+.job-sidebar .sidebar-heading {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.4rem;
+  color: #1a1a4b;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #eaeaea;
+  display: block;
+  font-weight: 600;
+}
+
+.sidebar-job-list {
+  display: block;
+}
+
+.sidebar-item {
+  padding: 0 0 20px 0;
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.sidebar-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Forcing strict margins and sizes to block global CSS distortion */
+.sidebar-item h4 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.05rem;
+  color: #111;
+  margin: 0 0 8px 0 !important;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.sidebar-item p {
+  margin: 0;
+}
+
+.sidebar-item .sb-company {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 6px !important;
+}
+
+.sidebar-item .sb-meta {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 3px !important;
+}
+
+.sidebar-item .sb-desc {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #555;
+  margin-top: 12px !important;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media screen and (max-width: 991px) {
+  .job-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .job-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .job-action-btn,
+  .btn {
+    width: 100%;
+  }
+
+  .job-meta-banner {
+    padding: 12px 20px;
+    flex-wrap: wrap;
+  }
+
+  .job-description-body {
+    padding: 20px;
+    margin-top: 20px; /* Smaller gap on mobile */
+  }
+}
