@@ -220,7 +220,7 @@ window.__PARTIALS.header = `
       <div class="mega-intro">
         <p>CloudConverge has created powerful, user-friendly software products - Advanced CRM and Project Management Software and Marketplace apps - both software have been designed to streamline operations and boost productivity. These solutions are designed with scalability, cloud-native technology, and business growth in mind, helping organizations work smarter and achieve more.</p>
         </div>
-      <a class="mega-card" href="#crm-project-management-software">
+      <a class="mega-card" href="/crm-project-management-software.html">
         <span class="mega-card-img"><img src="/assets/images/crm-pms-thum.avif" alt="CRM and project management software" loading="lazy" width="300" height="180"></span>
         <span class="mega-card-title">CRM &amp; Project Management Software</span>
         <span class="mega-card-text">Our CRM &amp; Project Management platform streamlines client interactions, team collaboration, and everyday operations in one powerful system. Built for flexibility, it adapts to any business model-driving efficiency, productivity, and growth.</span>
@@ -315,7 +315,7 @@ window.__PARTIALS.header = `
         <a href="#">Products</a><button class="m-sub-toggle" aria-label="Toggle Products submenu" aria-expanded="false"></button>
         <ul class="m-sub">
           <li><a href="/marketplace-development-services.html">MarketPlace App</a></li>
-          <li><a href="#crm-project-management-software">CRM &amp; Project Management Software</a></li>
+          <li><a href="/crm-project-management-software.html">CRM &amp; Project Management Software</a></li>
         </ul>
       </li>
       <li class="m-item"><a href="/portfolio.html">Portfolio</a></li>

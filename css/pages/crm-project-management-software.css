@@ -1,0 +1,673 @@
+/* CRM Development Services - Project Management Software page
+   Reference: https://www.cloudconverge.io/crm-project-management-software/
+   Prefix: crm- (top-level services page, follows the ecom-/iad-/mkt- service-page convention).
+
+   IMPORTANT MISDIRECTION CAUGHT DURING AUDIT: an early DOM query against
+   `[data-elementor-id="15927"]` on the live reference looked like the page's body was 3 generic
+   blocks repeated verbatim 3 times with no real content -- that ID actually belongs to a
+   login/register modal + mega-menu preview panels living INSIDE the shared <header>, not the
+   page body. The real content root is `.site [data-elementor-id="56116"]`, a full 19-section
+   feature-tour page (task management, activity logs, client management, invoicing, timesheets,
+   deadlines, client permissions, stats, awards, reviews) -- same design system as the
+   marketplace-development-services.html page (same navy #003355 heading color, same chevron
+   list icon/color, same img-box-hover-effect image lift, same stats/awards/reviews shared
+   components with the exact same real content already fixed on that page).
+
+   This page's own `.wraper_inner_banner` (the shared hero/breadcrumb wrapper used by case-study
+   pages) is display:none on the reference -- there is no traditional hero banner or breadcrumb
+   inside it. The real "hero" is a single centered column (H1 52px/56px/600 white + 2 paragraphs
+   + a dashboard screenshot + a "Contact Us" pill button) on the same `blue_bg.jpg` dark navy
+   background reused from the marketplace page's hero, followed by a breadcrumb ("Home > Services
+   > CRM & Project Management Software") reproduced as its own row using the shared
+   `.breadcrumb-bar` component underneath -- both confirmed via direct measurement.
+
+   Structure: hero (centered, dark bg) + breadcrumb (shared) + centered lead-in heading + "Manage
+   Task" feature row (image left) + centered "Activity Logs:" sub-heading + 3-column tools grid +
+   dark full-bleed "Client Management" heading band (reuses blue_bg.jpg again) + 2-column
+   text-only row (no images) + centered "Project Management" heading + 4-column tools grid
+   (Orders/Invoice Management/Payments/Subscriptions) + 3-icon label row (Enhance Productivity /
+   Follow up Profit & Loss / Branding & Personalization) + "Timesheets" feature row (image right)
+   + "Never Miss a Deadline" feature row (image left, reuses the `new-banner-bg.webp` tiled
+   pattern already downloaded for the marketplace page) + "Enhanced Client Visibility" feature row
+   (image right) + stats band (shared, no heading on this page's own instance either, matches the
+   marketplace-page fix) + trust badges (reuses the same 4 already-local images) + client reviews
+   (reuses the exact same review pool/carousel logic, renamed to `crm-`). */
+
+.crm-page {
+  --crm-navy: #003355;
+  --crm-chevron: #2654c6;
+}
+
+/* ---------- Hero (single centered column, no split image side) ---------- */
+.crm-hero {
+  background:
+    linear-gradient(rgba(0, 51, 85, 0.72), rgba(0, 51, 85, 0.72)),
+    url(../../assets/images/mkt-blue_bg.jpg) center center / cover no-repeat;
+  padding: 125px 0 70px;
+  text-align: center;
+}
+.crm-hero-inner {
+  max-width: 1140px;
+}
+.crm-hero-inner h1 {
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 56px;
+  color: #fff;
+  margin: 0 0 24px;
+  text-transform: none;
+}
+.crm-hero-inner p {
+  /* max-width: 900px; */
+  margin: 0 auto 20px;
+  font-size: 16px;
+  line-height: 26px;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+}
+.crm-hero-inner img {
+  width: 100%;
+  max-width: 1008px;
+  height: auto;
+  margin: 20px auto 30px;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+.stat-number-wrap {
+  font-size: 32px;
+  color: black;
+  font-weight: 600;
+}
+.crm-hero-btn {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 16px;
+  padding: 12px 24px;
+  border: 1px solid var(--color-primary);
+  border-radius: 3px;
+  text-decoration: none;
+  transition: transform 0.4s;
+}
+.crm-hero-btn:hover {
+  color: #fff;
+  transform: translateY(-6px);
+}
+
+/* ---------- Centered lead-in / standalone heading bands ---------- */
+.crm-lead-band {
+  padding: 70px 0 50px;
+  text-align: center;
+}
+.crm-lead-band h2 {
+  /* max-width: 900px; */
+  margin: 0 auto;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--crm-navy);
+  text-transform: none;
+}
+.crm-band-heading {
+  padding: 40px 0;
+  text-align: center;
+}
+.crm-band-heading img {
+  display: block;
+  width: 100%;
+  max-width: 1008px;
+  height: auto;
+  margin: 30px auto 0;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+.crm-band-heading h4,
+.crm-band-heading h5,
+.crm-band-heading h6 {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--crm-navy);
+  text-transform: none;
+}
+.crm-band-heading--dark {
+  background:
+    linear-gradient(rgba(0, 47, 92, 0.9), rgba(0, 47, 92, 0.9)),
+    url(../../assets/images/mkt-blue_bg.jpg) center center / cover no-repeat;
+  padding: 60px 0;
+}
+.crm-band-heading--dark h5 {
+  font-size: 28px;
+  line-height: 42px;
+  color: #fff;
+  margin: 0 0 10px;
+}
+.crm-band-heading--dark p {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 26px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ---------- Bullet list ----------
+   NOTE: this page's own icon-box widgets use a FontAwesome CHECKMARK icon (`e-fas-check`),
+   confirmed via inspecting the live reference's SVG class -- NOT the double-chevron `»`
+   ("angle-double-right") icon used on the marketplace page. Same color (`rgb(38,84,198)`), same
+   10px icon-to-text gap, different glyph. Kept the `crm-chevron-list` class name for continuity
+   with the rest of this project's convention, only the bullet glyph itself changed. */
+.crm-chevron-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.crm-chevron-list li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+.crm-chevron-list li:last-child {
+  margin-bottom: 0;
+}
+.crm-chevron-list li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--crm-chevron);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 26px;
+}
+.crm-chevron-list li.crm-chevron-subhead {
+  padding-left: 0;
+  margin-top: 14px;
+  font-weight: 700;
+  color: var(--crm-navy);
+}
+.crm-chevron-list li.crm-chevron-subhead::before {
+  content: none;
+}
+.crm-chevron-list li.crm-chevron-subhead:first-child {
+  margin-top: 0;
+}
+.crm-feature--banner-bg .crm-chevron-list li.crm-chevron-subhead {
+  color: #fff;
+}
+
+/* ---------- Feature tour rows (image + heading + chevron list) ---------- */
+.crm-feature {
+  padding: 60px 0;
+}
+.crm-feature--white {
+  background: #fff;
+}
+.crm-feature--banner-bg {
+  background:
+    linear-gradient(rgba(0, 47, 92, 0.9), rgba(0, 47, 92, 0.9)),
+    url(../../assets/images/mkt-new-banner-bg.webp) left top repeat;
+}
+.crm-feature-grid {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+.crm-feature-copy {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.crm-feature-media {
+  flex: 0 0 45%;
+  max-width: 45%;
+  text-align: center;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.crm-feature-media:hover {
+  transform: translate3d(0, -5px, 0);
+}
+.crm-feature-media img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0px 14px 42px 0px rgba(0, 25.99999999999999, 87, 0.08);
+}
+.crm-feature-copy h3,
+.crm-feature-copy h5,
+.crm-feature-copy h6 {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--crm-navy);
+  text-align: left;
+  margin: 0 0 16px;
+  text-transform: none;
+}
+.crm-feature-copy p {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+  margin: 0 0 20px;
+}
+/* This row's heading + sub-heading are white (confirmed via getComputedStyle on the live
+   reference: rgb(255,255,255) on both "Never Miss a Deadline" and the "Key Features:"
+   sub-heading). Re-confirmed via an actual rendered screenshot of this local build (the user's
+   own local dev server) that `new-banner-bg.webp` renders as a dark navy dotted-grid pattern here,
+   not a light background -- so white text is correct/legible, not a contrast bug. */
+.crm-feature--banner-bg .crm-feature-copy h6 {
+  color: #fff;
+}
+.crm-feature--banner-bg .crm-feature-copy p {
+  color: #fff;
+}
+.crm-feature--banner-bg .crm-chevron-list li {
+  color: #fff;
+}
+
+/* ---------- 2/3-column tools grids (standalone text blocks, no per-row images) ---------- */
+.crm-tools {
+  padding: 50px 0;
+  background: #fff;
+}
+.crm-tools-grid {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: grid;
+  gap: 40px;
+}
+.crm-tools-grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.crm-tools-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.crm-tools-col h5,
+.crm-tools-col h6 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--crm-navy);
+  margin: 0 0 16px;
+  text-transform: none;
+}
+.crm-tools-col p {
+  font-size: 16px;
+  line-height: 15px;
+  color: var(--color-body);
+  margin: 0 0 14px;
+}
+
+/* ---------- Dark-continuation card row ("Effortless Client Management" /
+   "Streamline Your Sales Management") -----------
+   Confirmed via getComputedStyle on the live reference that this section shares the exact same
+   `blue_bg.jpg` background image as `.crm-band-heading--dark` immediately above it, just with a
+   complementary background-position (`50% 100%` here vs `50% 0%` above) -- Elementor's "one image,
+   two crops" trick to fake one continuous dark background spanning both sections. The two-column
+   content sitting on top of it is NOT plain text -- confirmed via a rendered screenshot that it's
+   two floating white rounded cards with a soft navy-tinted shadow, letting the dark dotted
+   background show around/behind them. */
+.crm-tools--dark-cards {
+  background:
+    linear-gradient(rgba(0, 47, 92, 0.9), rgba(0, 47, 92, 0.9)),
+    url(../../assets/images/mkt-blue_bg.jpg) center 100% / cover no-repeat;
+  padding: 60px 0 80px;
+}
+.crm-tools-col--card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: rgba(0, 26, 87, 0.08) 0px 14px 46px 0px;
+}
+.crm-tools-col--card h6 {
+  color: var(--crm-navy);
+}
+
+/* ---------- Orders/Invoice/Payments/Subscriptions split row (image left, 2x2 icon grid right)
+   IMPORTANT -- this row is a genuine outlier on the page: confirmed via climbing the DOM to the
+   actual TOP-LEVEL `.elementor-section` (not the inner 2x2-grid sub-section, which is what an
+   early measurement mistakenly climbed to and reported as the whole row) that this section alone
+   carries Elementor's `elementor-section-full_width` class -- it is NOT capped at the sitewide
+   1140px `.container` width like every other row on this page. Measured directly: at a 1685px
+   viewport the section itself renders ~1670px wide (99% of the viewport) and the actual row
+   content (image + grid) spans ~1605px, only ~65px short of the full section -- this is why the
+   image can be ~55% width and still leave room for a genuinely WIDE 2-card grid (cards measured
+   at 335.8px each, not the ~270px they'd be inside a 1140px cap). Media column is also TOP-aligned
+   with the grid (confirmed via getBoundingClientRect: image top exactly equals the first card
+   row's top, not vertically centered against the full 2-row grid height as first built --
+   centering pushed the image noticeably lower with a large blank gap above it, and capping the row
+   at 1140px made both the image and the cards render too small/short compared to the reference).
+   Card content (heading/paragraph/list) is CENTER-aligned, not left-aligned -- confirmed via
+   getComputedStyle on the "Orders"/"Invoice Management" cards (text-align:center on both the
+   heading and lead paragraph). Row-gap between the two card rows is a genuinely different value
+   from the column-gap between the two side-by-side cards (61px vs 30px), not one uniform `gap`
+   value as first built. ---------- */
+.crm-tools-split {
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 35px;
+}
+.crm-tools-media {
+  flex: 0 0 54%;
+  max-width: 54%;
+}
+.crm-tools-media img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.crm-tools-split .crm-tools-grid--4 {
+  flex: 1;
+  max-width: none;
+  margin: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 25px;
+  row-gap: 25px;
+}
+.crm-tools-split .crm-tools-col {
+  text-align: center;
+}
+.crm-tools-split .crm-tools-col .crm-chevron-list {
+  display: inline-block;
+  text-align: left;
+}
+.crm-tools-icon {
+  width: 55px;
+  height: 55px;
+  margin: 0 0 10px;
+}
+/* Same lighter/tighter shadow family as .crm-tools-col--card (used on the dark-continuation
+   2-column row), confirmed via getComputedStyle on the reference's widget-wrap for these 4 cards:
+   box-shadow rgba(0,26,87,.08) 0 14px 20px (vs the 46px spread on that other card), but this
+   variant has NO border-radius (0px, not 8px) and a fully transparent background (the shadow
+   alone creates the card outline against the page's own white background -- confirmed
+   backgroundColor is rgba(0,0,0,0), not an opaque white fill). */
+.crm-tools-col--card-soft {
+  background: transparent;
+  border-radius: 0;
+  padding: 25px;
+  box-shadow: rgba(0, 26, 87, 0.08) 0px 14px 20px 0px;
+}
+
+/* ---------- 3-icon label row -----------
+   Re-measured against the live reference (user-reported: no visible card/shadow, icon wrongly
+   centered above text, wrong font-size/weight): each item is a 350px-wide "soft card" (same
+   recipe as .crm-tools-col--card-soft -- transparent bg, no radius, box-shadow
+   rgba(0,26,87,.08) 0 14px 20px, 30px padding here specifically, not 25px), with the icon
+   TOP-RIGHT (not centered) and the two-line label LEFT-aligned directly below it (18px/400/
+   var(--color-body), not a bold centered navy label). Confirmed via getComputedStyle: icon and
+   label sit in normal document flow (icon block right-aligned via `align-self:flex-end` on a
+   flex column, not absolutely positioned). */
+.crm-badges {
+  padding: 50px 0;
+  background: #fff;
+}
+.crm-badges-grid {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+.crm-badge {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  box-sizing: border-box;
+  padding: 30px;
+  box-shadow: rgba(0, 26, 87, 0.08) 0px 14px 20px 0px;
+}
+.crm-badge-icon {
+  align-self: flex-end;
+  width: 55px;
+  height: 55px;
+  margin: 0 0 3px;
+}
+.crm-badge-title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  color: var(--color-body);
+  text-align: left;
+  margin: 0;
+}
+
+/* ---------- Stats overrides (this page's own instance of the shared .stats component) -----------
+   The shared component (css/style.css) is the bold-blue-number + divider-line look used by
+   index.html and marketplace-development-services.html. This page's own reference renders
+   noticeably differently -- confirmed via getComputedStyle only after letting the scroll-
+   triggered entrance animation actually finish (an early read mid-animation gave misleadingly
+   faded-out colors): no divider line at all, a plain dark 32px number (not bold blue), and a real
+   icon above each label that the shared markup has no slot for. Scoped to `.crm-page` so the
+   shared component's default look is untouched on every other page that uses it. */
+.crm-page .stat-icon {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+}
+.crm-page .stat-spacer {
+  display: none;
+}
+.crm-page .stat-label {
+  font-weight: 400;
+}
+.crm-page .stat-desc {
+  font-size: 14px;
+  color: var(--color-body);
+}
+
+/* ---------- Trust badges (renamed copy of the mkt-/iad- awards pattern) ---------- */
+.crm-awards {
+  height: 321px;
+  text-align: center;
+}
+.crm-awards h2 {
+  height: 113px;
+  color: var(--crm-navy);
+  font-family: var(--font-heading);
+  font-size: 20px;
+  line-height: 113px;
+  font-weight: 600;
+}
+.crm-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  height: 208px;
+  padding: 0 36px;
+}
+.crm-award-grid img {
+  justify-self: center;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+.crm-award-grid .crm-microsoft {
+  width: 265px;
+  height: 68px;
+}
+
+/* ---------- Client reviews (renamed copy of ecommerce-development-services.html's carousel) ---------- */
+.crm-reviews {
+  padding: 0 0 90px;
+  overflow: hidden;
+}
+.crm-reviews h2 {
+  margin: 0 0 40px;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--crm-navy);
+}
+.crm-review-viewport {
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+}
+.crm-review-viewport.is-dragging {
+  cursor: grabbing;
+}
+.crm-review-track {
+  display: flex;
+  gap: 30px;
+  will-change: transform;
+}
+.crm-review-card {
+  flex: 0 0 540px;
+  height: 400px;
+  box-sizing: border-box;
+  background: #f4f4f4;
+  border-radius: 4px;
+  padding: 37px 35px 47px;
+  align-self: flex-start;
+  overflow: hidden;
+}
+.crm-review-long {
+  height: 452px;
+}
+.crm-stars {
+  color: #ffb600;
+  font-size: 17px;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+.crm-review-card blockquote {
+  margin: 0;
+  color: #252525;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 600;
+}
+.crm-review-person {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 18px;
+}
+.crm-review-person img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+}
+.crm-review-person p {
+  margin: 0;
+}
+.crm-review-person strong {
+  font-family: var(--font-heading);
+  display: block;
+  color: var(--crm-navy);
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.crm-review-person span {
+  display: block;
+  font-size: 16px;
+  margin-top: 4px;
+}
+
+/* ---------- Responsive ----------
+   Follows the same established mobile pattern used on marketplace-development-services.css.
+   Not independently re-measured against this page's own reference at true narrow widths -- see
+   the standing environment-limitation note in PROJECT_STATUS.md. */
+@media (max-width: 1024px) {
+  .crm-hero-inner h1 {
+    font-size: 40px;
+    line-height: 48px;
+  }
+  .crm-tools-grid--3,
+  .crm-tools-grid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .crm-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    height: auto;
+    padding: 20px 15px;
+  }
+  .crm-awards {
+    height: auto;
+    padding-bottom: 35px;
+  }
+  .crm-review-card {
+    flex-basis: 460px;
+  }
+}
+@media (max-width: 767px) {
+  .crm-hero-inner h1 {
+    font-size: 30px;
+    line-height: 38px;
+  }
+  .crm-hero-inner p {
+    text-align: center;
+  }
+  .crm-feature-grid {
+    flex-direction: column;
+  }
+  .crm-feature-copy,
+  .crm-feature-media {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .crm-feature-media {
+    margin-bottom: 24px;
+  }
+  .crm-lead-band h2 {
+    line-height: 32px;
+  }
+  .crm-tools-grid--2,
+  .crm-tools-grid--3,
+  .crm-tools-grid--4 {
+    grid-template-columns: 1fr;
+  }
+  .crm-tools--dark-cards {
+    padding: 40px 0 50px;
+  }
+  .crm-tools-col--card {
+    padding: 22px;
+  }
+  .crm-tools-split {
+    flex-direction: column;
+  }
+  .crm-tools-media {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 24px;
+  }
+  .crm-badges-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .crm-badge {
+    width: 100%;
+    max-width: 350px;
+  }
+  .crm-review-card {
+    flex-basis: 100%;
+    height: auto;
+  }
+  .crm-review-long {
+    height: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .crm-review-track {
+    transition: none !important;
+  }
+}

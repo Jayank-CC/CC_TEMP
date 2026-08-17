@@ -2,6 +2,264 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/crm-project-management-software/
+- **Local target:** `crm-project-management-software.html` (root-level, `crm-` prefix),
+  `css/pages/crm-project-management-software.css`, `js/crm-project-management-software.js`
+  (review carousel only, copied from the marketplace page's carousel logic).
+- **Last updated:** 2026-08-17
+- **State:** Built and RENDER-VERIFIED this session -- the first page in this project to get an
+  actual screenshot-confirmed check against a live local dev server (the user's own
+  `127.0.0.1:5500`, reachable this session by the Claude-in-Chrome browser tool -- the standing
+  "no persistent local server" limitation documented on every other page in this file did NOT
+  apply here). Scrolled through the full rendered page desktop-width: hero, breadcrumb, every
+  feature row, both tools grids, the 3-icon badge row, stats (real numbers, not the "0+" bug seen
+  on marketplace), awards, and reviews all rendered correctly with zero console errors and no
+  horizontal overflow (`scrollWidth 1670` vs `innerWidth 1685`). `resize_window` still did not
+  affect the actual rendered viewport (same standing tool limitation as every other page), so
+  mobile/tablet remains visually unverified. Two fix passes applied and re-verified since (see
+  below): hero alignment/checkmark-icon/3-missing-images (#1), and the dark-background
+  continuation + white card styling on the 2-column row and the 4-card grid (#2).
+  - **IMPORTANT -- a costly mid-task misdiagnosis, corrected before any content was built.** The
+    first DOM audit queried `[data-elementor-id="15927"]`, which appeared to show the page's
+    entire body as 3 generic company/category blocks repeated verbatim 3 times with zero
+    CRM-specific content -- indistinguishable from this project's earlier confirmed-placeholder
+    pages (helm-boots-demo). This was surfaced to the user as a suspected broken reference page,
+    and they approved replicating it verbatim. Before acting on that, a follow-up structural check
+    (walking each duplicated section's parent chain) revealed id `15927` is actually the shared
+    HEADER's own Elementor instance (the account login/register modal + the mega-menu's hidden
+    category-preview panels, which legitimately repeat once per nav dropdown) -- NOT the page
+    body at all. The real content root is `.site [data-elementor-id="56116"]`, a full, unique
+    19-section page. The user was told about the correction and the "verbatim 3x" instruction was
+    discarded before any file was written. **Lesson for future pages:** when a reference page's
+    content looks suspiciously repeated or generic, verify the DOM root itself (check
+    `element.closest('header, footer, nav')`) before concluding the REFERENCE is broken --
+    it may be this project's own audit method querying the wrong subtree.
+  - **Structure (19 real top-level sections, confirmed via the correct root):** single-column
+    centered "hero" (no `.wraper_inner_banner` -- that shared element is `display:none` on this
+    page; H1 52px/56px/600 white + 2 paragraphs + `cc-dashboard.webp` screenshot + "Contact Us"
+    pill button, all on the same dark `blue_bg.jpg` background as the marketplace page's hero) +
+    breadcrumb (shared `.breadcrumb-bar`, reproduced as its own row since the reference's real
+    hero-wrapper that normally carries it is hidden) + centered lead-in heading + "Manage Task"
+    feature row (image left) + centered "Activity Logs:" sub-heading + 3-column tools grid (Track
+    team activities & follow-ups / Stay Focused on What Matters / Enhanced Project Management
+    Tools) + dark full-bleed "Client Management" heading band (reuses `blue_bg.jpg` again) +
+    2-column text-only row, no images (Effortless Client Management / Streamline Your Sales
+    Management) + centered "Project Management" heading + 4-column tools grid (Orders / Invoice
+    Management / Payments / Subscriptions) + 3-icon label row (Enhance Productivity / Follow up
+    Profit & Loss / Branding & Personalization) + "Timesheets" feature row (image right) + "Never
+    Miss a Deadline" feature row (image left, reuses `new-banner-bg.webp`) + "Enhanced Client
+    Visibility" feature row (image right) + stats band (shared, reused) + trust badges (shared,
+    reused) + client reviews (shared, reused).
+  - **Same design system as marketplace-development-services.html, confirmed via
+    `getComputedStyle`, not assumed:** heading color `rgb(0,51,85)` = `--crm-navy`; chevron bullet
+    `rgb(38,84,198)` = same `--mkt-chevron`/`--crm-chevron` value; body text `16px/26px`
+    `rgb(25,25,25)`; every feature-row image column carries the same `img-box-hover-effect`
+    5px-lift class (confirmed, not assumed, on 2 of the image rows before applying the hover rule
+    to `.crm-feature-media` universally, per the lesson already learned on the marketplace page).
+  - **Content-completeness lesson from the marketplace-page fix pass was applied proactively
+    here, not learned the hard way again:** every section's full text was extracted via
+    `.elementor-heading-title`/`.elementor-icon-box-title`/`.elementor-icon-box-description`
+    queries (not paraphrased or summarized), including catching a sub-heading ("Key Features:"
+    inside the "Never Miss a Deadline" row) that a first-pass extraction of that row missed
+    entirely -- re-checked every other feature row's heading count afterward specifically to make
+    sure no other sub-headings were silently dropped (none were).
+  - **`new-banner-bg.webp` renders as a DARK navy dotted-grid pattern on this specific row width,
+    not the light pattern the marketplace page's own instance showed** -- confirmed via the actual
+    rendered screenshot (not just `getComputedStyle`, which only reports the fallback
+    background-color, not what the tiled image itself looks like). This makes the row's white
+    heading/paragraph/list text correct and legible, not a contrast bug -- initially guessed as a
+    possible genuine-reference-quirk-to-preserve, then corrected in the CSS comment once the
+    render made it obvious it's simply a dark background working as intended.
+  - **Stats band has NO section heading on this page's own reference instance either** (8 heading
+    widgets total = 4 numbers + 4 labels, nothing else) -- same fix already applied to the
+    marketplace page reused directly here from the start, including the `data-from`/`data-to`
+    counter attributes (needed so `js/script.js`'s animated-counter logic doesn't reset the
+    numbers to "0+") and the page's own exact `.stat-desc` wording ("mobile app" singular, the
+    "We as an organization believe..." Clients-Satisfied sentence).
+  - **Assets** (`assets/images/`, all newly downloaded this session via same-origin `fetch()`+
+    blob+real-click download, verified via PIL): `crm-dashboard.webp` (`1501x899`),
+    `crm-product-thumb.webp` (`1230x750`), `crm-timesheets.webp`, `crm-never-miss-deadline.webp`,
+    `crm-client-visibility.webp` (`1003x751` each), `crm-enhance-productivity.png`,
+    `crm-follow-up.png`, `crm-branding.png` (`128x128` each -- note the first download attempt of
+    these 3 icons used a guessed `/2025/07/` upload-folder path and silently saved 404 HTML error
+    pages instead of images; caught via a PIL `UnidentifiedImageError`, fixed by reading the real
+    `/2025/03/` path directly off the reference's own `<img src>` attributes instead of guessing,
+    then re-downloading -- the browser auto-renamed the corrected files to `(1).png` since a
+    same-named 404 file already existed locally, so the corrected copies had to be pulled from
+    those `(1)` filenames specifically). `mkt-blue_bg.jpg` and `mkt-new-banner-bg.webp` (both
+    already local from the marketplace page) and the 4 trust-badge images plus review-person
+    photos (already local from other pages) were reused directly, no re-download needed.
+  - **Shared header nav updated (affects every page).** `js/header.js` had two existing links
+    pointing to `#crm-project-management-software` (a same-page anchor placeholder) -- the
+    Products mega-menu's "CRM & Project Management Software" card, and the mobile menu's matching
+    list item. Updated both to `/crm-project-management-software.html`, matching the
+    `/marketplace-development-services.html` absolute-path convention already used for the
+    sibling nav item. The mega-menu's own thumbnail images (`crm-pms-thum.avif`,
+    `crm-thum-2.avif`) were already present locally from an earlier session, no download needed.
+  - **Fix pass #1 (user-reported: hero text alignment wrong, many images missing).** Both real
+    bugs, found by re-checking the reference directly and re-rendering the local build on the
+    user's dev server:
+    1. **Hero paragraph text-align was `left`, reference is `center`.** Confirmed via a
+       side-by-side screenshot (reference vs. local render) -- the H1 was already centered, but
+       the two paragraphs below it were left-aligned text inside a centered block, which reads
+       very differently from the reference's fully-centered paragraphs. Fixed
+       `.crm-hero-inner p` to `text-align: center`.
+    2. **Every icon-box bullet on this page uses the WRONG glyph.** Assumed (without checking) that
+       this page reused the marketplace page's `»` double-chevron bullet -- direct inspection of
+       the reference's SVG classes (`e-fas-check`, confirmed on 7 different sections) shows this
+       page actually uses a FontAwesome CHECKMARK icon, same color (`rgb(38,84,198)`) but a
+       different shape entirely. Changed `.crm-chevron-list li::before` content from `\00BB` to
+       `\2713` (a checkmark character) sitewide on this page.
+    3. **Three real content images were missing entirely, all from sections that were built as
+       "text-only" without checking for images at all:**
+       - The "Activity Logs:" standalone heading band is missing a screenshot (`cc-tickets.webp`,
+         `1501x899`) that sits below the heading -- added.
+       - The dark "Client Management" band is missing a screenshot (`clients.webp`, `1611x934`)
+         below its heading/paragraph -- added.
+       - The "Orders / Invoice Management / Payments / Subscriptions" section was built as a flat
+         4-column text grid with no images at all. Re-measuring the reference
+         (`getBoundingClientRect`) shows it's actually a 2-column ~52/48 split: a large image
+         (`project-management_1.webp`, `1157x897`) on the left, and a 2x2 icon grid on the right --
+         each of the 4 cards has its OWN 128x128 icon (`order-processing-1.png`, `invoice-1.png`,
+         `payment-method.png`, `subscriber.png`) AND its own lead paragraph before the bullet list
+         (e.g. "Orders" has "Streamline online orders for projects, services, and products." before
+         its 3 bullets) -- both the icons and the lead paragraphs had been silently dropped because
+         the original extraction only checked the bullet-list ITEMS for images/text, never the
+         column-level widgets sitting above them. Restructured the section's HTML into
+         `.crm-tools-split` (media + 2x2 `.crm-tools-grid--4`) and added the new `.crm-tools-icon`/
+         `.crm-tools-col p` CSS rules.
+    - **Root cause pattern across all 3 missing-image bugs:** every one of them was a section whose
+      FIRST widget-count check only looked for `<img>` tags nested inside `.elementor-widget-image-box`
+      /`.elementor-widget-icon-box` (the list items), never a plain `.elementor-widget-image` widget
+      sitting as a sibling at the column or section level. Given this pattern recurred 3 times on
+      this one page (on top of the marketplace page's own separate content-completeness fix pass),
+      any future page's "no image here" conclusion should be double-checked with a direct
+      `section.querySelectorAll('img')` sweep, not just a check of the repeating list-item pattern.
+    - **Assets added this pass** (`assets/images/`, all via same-origin `fetch()`+blob download,
+      verified via PIL): `crm-tickets.webp` (`1501x899`), `crm-clients.webp` (`1611x934`),
+      `crm-project-mgmt.webp` (`1157x897`), `crm-order-processing.png`, `crm-invoice.png`,
+      `crm-payment-method.png`, `crm-subscriber.png` (`128x128` each).
+    - Re-verified the whole page against the user's own local dev server after these fixes
+      (screenshot scroll-through): hero alignment now matches, checkmarks render correctly, all 3
+      new images display, no console errors, CSS brace balance and HTML tag balance both re-checked
+      (91/91 and clean respectively) and all 25 referenced images confirmed to resolve on disk.
+  - **Fix pass #2 (user screenshot of the "Effortless Client Management"/"Streamline Your Sales
+    Management" row: reported this content belongs to the same blue background section above it,
+    not a separate plain-white section).** One real bug, an Elementor background-continuation
+    trick that had been missed entirely in the original build:
+    1. **The dark "Client Management" heading band and the following 2-column row share the SAME
+       `blue_bg.jpg` background image, at complementary `background-position` values** --
+       confirmed via `getComputedStyle` on the live reference: `50% 0%` on the heading band, `50%
+       100%` on the row below it. This is Elementor's "one image, two crops" technique to fake one
+       continuous dark background spanning two separate top-level sections. The original build
+       only reproduced the dark background on the heading band and left the row below it plain
+       white, breaking the illusion.
+    2. **The "Effortless Client Management"/"Streamline Your Sales Management" content itself
+       is NOT plain text on that background -- it's two floating white rounded cards with a soft
+       navy-tinted shadow**, confirmed via a rendered screenshot of the actual reference scrolled
+       to this section (dark navy dotted pattern clearly visible around/behind the white cards).
+       Drilled into the DOM for the exact recipe: `background:#fff`, `border-radius:8px`,
+       `padding:30px`, `box-shadow: rgba(0,26,87,.08) 0px 14px 46px 0px`.
+    3. **Proactively re-checked the Orders/Invoice Management/Payments/Subscriptions 4-card grid
+       (built in fix pass #1) for the same card treatment and found it too** -- a lighter/tighter
+       variant: `padding:25px`, `box-shadow: rgba(0,26,87,.08) 0px 14px 20px 0px` (page background
+       there is already white, so no background-continuation trick needed, just the card shadow).
+    - Added `.crm-tools--dark-cards` (continues `blue_bg.jpg` at `center 100%`, matching
+      `.crm-band-heading--dark`'s `center 0%`) and `.crm-tools-col--card` to the 2-column row's
+      `<section>`/column divs; added `.crm-tools-col--card-soft` to all 4 cards in the
+      Orders/Invoice/Payments/Subscriptions grid; added matching mobile padding tweaks at
+      `<=767px`. Verified CSS brace balance (97/97) and HTML tag balance (81 div/div, 16
+      section/section) after the edit.
+    - Re-verified against the user's own local dev server: both sections now render correctly --
+      white shadowed cards floating on the continuous dark navy dotted background for the
+      2-column row, and matching soft-shadow cards for the 4-card grid below "Project
+      Management." No console errors on a fresh reload.
+  - **Fix pass #3 (user screenshot pair: local vs. reference of the 3-icon "Enhance Productivity"
+    badge row -- missing icon, missing card shadow, wrong font -- plus a self-caught bug found
+    while investigating: the "Payments"/"Subscriptions" cards in the Orders grid never actually
+    got the `--card-soft` class applied in fix pass #2, only "Orders"/"Invoice Management" did).**
+    Several real bugs, found by re-measuring the live reference directly (and, critically, only
+    after letting the stats section's scroll-triggered entrance animation actually finish before
+    reading `getComputedStyle` -- an early read mid-animation gave misleadingly faded/near-
+    invisible colors and sent the investigation down the wrong path briefly):
+    1. **"Payments"/"Subscriptions" cards were missing their card styling entirely** -- fix pass
+       #2's class-adding edit only reached the first 2 of 4 cards in that section. Added
+       `crm-tools-col--card-soft` to the remaining 2.
+    2. **The Orders/Invoice/Payments/Subscriptions grid had 3 more real layout bugs**, found while
+       re-measuring this section for the fix above: heading/paragraph text is CENTER-aligned on
+       the reference (was left-aligned), the bullet list is a centered block with left-aligned
+       text inside it (fixed via `display:inline-block` on `.crm-chevron-list` scoped to this
+       section only), the media image is TOP-aligned with the card grid (was vertically centered
+       via `align-items:center`, which pushed the image noticeably lower with a large blank gap
+       above it -- confirmed via `getBoundingClientRect` that image-top exactly equals the first
+       card row's top on the reference), and the row-gap between the two card rows (61px) is
+       genuinely different from the column-gap between side-by-side cards (30px), not one uniform
+       `gap` value. Also corrected `.crm-tools-col--card-soft` to `border-radius:0` and
+       `background:transparent` (was `8px`/`#fff`) after direct measurement showed the reference's
+       own card has no radius and a fully transparent fill, relying purely on the box-shadow for
+       definition.
+    3. **The 3-icon badge row ("Enhance Productivity" etc.) was built with the wrong pattern
+       entirely.** Confirmed via `getComputedStyle` this is the same "soft card" component as the
+       Orders grid (350px wide, 30px padding, `box-shadow rgba(0,26,87,.08) 0 14px 20px`, no
+       radius, transparent bg) -- not a plain centered icon-over-text block with no visible card
+       at all. The icon sits in the TOP-RIGHT corner (`align-self:flex-end` on a flex column, not
+       centered above the text), and the two-line label is LEFT-aligned directly below it at
+       `18px/400/rgb(25,25,25)` (was centered, bold, navy). Rewrote `.crm-badge`/`-icon`/`-title`
+       accordingly; no new assets needed (the existing `crm-enhance-productivity.png`/
+       `crm-follow-up.png`/`crm-branding.png` icons were already correct, just laid out wrong).
+    4. **Stats section: real functional/content gaps, not just styling.** This page's own stats
+       instance renders NOTHING like the shared `.stats` component's default look (the bold-blue-
+       number + divider-line pattern used by index.html and the marketplace page) -- confirmed via
+       `getComputedStyle` (after properly waiting for the entrance animation) that this page's
+       version has NO divider line at all, a plain dark `32px` number (not bold blue `40px`), and a
+       real per-stat icon (single-path SVG, fill `rgb(30,78,196)` = `--color-primary`, 4 distinct
+       shapes: support-headset / stacked-documents / lightbulb-in-hand / people-with-checkmark)
+       that the shared markup has no slot for at all. Rendered all 4 reference SVGs to PNG via the
+       same in-page canvas technique used for the marketplace page's own stat icons (clone svg,
+       bake explicit `fill`, serialize, data-URI, `Image()`, `<canvas>`, `toDataURL`), downloaded as
+       `crm-stat-icon-1.png` through `-4.png` (`160x160`, verified via PIL), added an `<img
+       class="stat-icon">` to each `.stat-card`, and added `.crm-page`-scoped overrides
+       (`.crm-page .stat-spacer{display:none}`, `.crm-page .stat-label{font-weight:400}`,
+       `.crm-page .stat-desc{font-size:14px;color:var(--color-body)}`) so the shared component's
+       default look on every OTHER page stays untouched.
+    - **Environment note worth flagging for future sessions on this page:** partway through this
+      fix pass, an entire just-written CSS block (the stats overrides) disappeared from the file
+      between one edit and the next read, while an unrelated single-property tweak elsewhere
+      persisted normally -- re-added the missing block and re-verified via a fresh `Read` (not
+      assumption) that it stuck. If a future session sees CSS it just wrote go missing, don't
+      assume the fix was wrong -- re-read the file to check before redoing the analysis.
+    - Re-verified against the user's own local dev server after all of the above: the 2x2 grid's
+      centered text/top-aligned image/row-vs-column gap, the badge row's icon-top-right/card-
+      shadow/left-aligned-text layout, and the stats section's icons/dark-number/no-divider look
+      all now match the reference. No console errors on a fresh reload.
+  - **Fix pass #4 (user-reported: the Orders/Invoice/Payments/Subscriptions image height should be
+    almost equal to the height of the 2-row card grid next to it, and separately, that whole
+    section consumes 90-95% of the page width with visibly wider cards than what was built).**
+    One root cause explaining both reports: this row is a genuine outlier on the page. An earlier
+    measurement had climbed the DOM only as far as the 2x2 grid's own inner `.elementor-section`
+    (a nested `elementor-inner-section`) and reported ITS width as the row's width -- climbing
+    one level further to the actual top-level section revealed it carries Elementor's
+    `elementor-section-full_width` class, confirmed via direct measurement: at a 1685px viewport
+    the section itself is ~1670px wide (99% of viewport) and the real row content (image + grid)
+    spans ~1605px -- NOT capped at the sitewide 1140px `.container` width like every other row on
+    this page. Inside that much wider row, the image is ~55% width (vs. the ~52% guessed
+    originally) and the 2-card grid is genuinely ~336px per card (not the ~270px it would be
+    forced down to inside a 1140px cap) -- both user reports traced to the same undersized
+    container. Fixed by widening `.crm-tools-split` from `max-width:1140px` to `max-width:1600px`
+    (gap tightened from the guessed 50px to the measured ~35px) and `.crm-tools-media` from
+    `flex:0 0 52%` to `54%`. Re-verified against the user's own local dev server: the image now
+    spans very close to the full 2-row card height, the section visibly occupies most of the
+    viewport width, and the cards render noticeably wider, matching the reference. No console
+    errors on a fresh reload.
+  - **Not yet done:** true mobile/tablet viewport re-check (blocked by `resize_window` not
+    affecting the rendered viewport this session, same as every other page); console/network
+    check was done only at desktop width; the 2-column and 3/4-column tools-grid components are
+    novel to this page (not reused from marketplace) and their exact spacing/typography is a
+    reasonable measured-but-not-pixel-perfect default, same caveat as every other page's feature
+    rows.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/marketplace-development-services/
 - **Local target:** `marketplace-development-services.html` (root-level flat file, `mkt-`
   prefix), `css/pages/marketplace-development-services.css`,
@@ -169,6 +427,70 @@
     on the DOM order, not a rendered screenshot -- still no local render available) that all 4
     previously-broken rows now have media as the first flex child with no reverse applied,
     matching the reference's real image-left layout.
+  - **Fix pass #3 (user's OWN screenshots of the actual rendered local page -- first real
+    rendered-browser verification this project has had, via the user's own local dev server at
+    `127.0.0.1:5500`).** This surfaced content-completeness bugs that no prior DOM/CSS-only audit
+    caught, because they were about missing/wrong TEXT CONTENT, not layout or styling. Re-extracted
+    every one of the 9 feature rows' full text content directly from the reference's own
+    icon-box/heading widgets (title + description, not just a flattened guess) and found:
+    1. **"Key Sections & Features" row was badly incomplete AND missing its background image.**
+       The reference actually has 7 icon-box items (Dish Image & Name, Restaurant Info, Quick Info
+       Panel, Package Variants, Dish Description, Price & Quantity Selector, Floating Cart Icon),
+       each with its own description line(s) -- the local build had compressed this down to 4 items
+       with paraphrased/wrong text (e.g. "Rating & Reviews: 20 Reviews (250)" instead of the real
+       "Reviews: 250 reviews with an average rating of 4.0+ (based on 20 entries shown)"). Also
+       confirmed via `getComputedStyle` that this section alone (of all 9 rows) carries a real
+       tiled background-image, `new-banner-bg.webp`, on a white base -- downloaded via same-origin
+       `fetch()`+blob (`mkt-new-banner-bg.webp`, `1920x1080`, confirmed RGB via PIL) and added a new
+       `.mkt-feature--banner-bg` section variant. Rewrote the row's full HTML content to all 7 items
+       and added a `.mkt-chevron-subhead` modifier class (bold, no chevron marker) for later reuse.
+    2. **"Live Map Tracking" row was missing more than half its content -- 4 of 10 real items.**
+       The reference has 4 plain trust-benefit bullets PLUS two labeled sub-groups ("Delivery Person
+       Information" / "Quick Contact Options", confirmed via `getComputedStyle` to have NO icon --
+       genuine sub-headings, not regular chevron bullets) each containing 2 bold-label bullets
+       (Delivery Person: Name / Image: ...; Live Chat: Support / Call: Support). The local build
+       only had the first 4 plain bullets. Added the new `.mkt-chevron-subhead` class (shared with
+       fix 1 above) for the two sub-headings and added the missing 6 list items.
+    3. **"Intelligent Search" row's lead paragraph was truncated/reworded.** Reference has TWO
+       sentences ("The Smart Search Capabilities in Quick Foodie are designed to deliver highly
+       contextual, fast, and intuitive discovery of dishes, restaurants, and cuisines. The search
+       engine utilizes real-time indexing..."); local build only had a paraphrased second half.
+       Fixed to the full text.
+    4. **"Personalized Dish Configuration Engine" row had one wrong word:** "double meat" should be
+       "double portion" (a genuine one-word transcription error, confirmed via direct re-read).
+    5. **Stats band had 3 separate real bugs**, found from the user's own screenshot showing "0+"
+       for every counter instead of the real numbers:
+       - **Extra heading that doesn't exist on this page's reference.** The local build added a
+         "Trusted by Growing Businesses" `<h2>` above the stat cards, copying index.html's own
+         instance of this shared component -- but this page's own reference instance has NO section
+         heading at all (confirmed via direct widget-count audit: exactly 8 heading widgets in the
+         reference section, 4 numbers + 4 labels, nothing else). Removed the `.stats-head` section
+         entirely from this page.
+       - **Counter `<span>` elements were missing `data-from`/`data-to`/`data-duration` attributes
+         -- a real functional bug, not just a content-accuracy issue.** The shared counter script
+         (`js/script.js`, section 6) reads `data-to`/`data-from` off each `.stat-number` and
+         overwrites its text once it scrolls into view; with no attributes present it defaults both
+         to `0`, so the correct static "70"/"100"/"100"/"50" text gets silently replaced with "0"
+         the moment the user scrolls to it -- exactly what the screenshot showed. index.html's own
+         markup already sets `data-from`/`data-to` equal to the real number specifically to make
+         this a no-op animation; the marketplace page never had these attributes at all. Added them
+         to all 4 counters.
+       - **`.stat-desc` wording didn't match this page's own reference text.** Confirmed via direct
+         text extraction that this page's copy genuinely differs from index.html's (not just
+         reused verbatim as previously assumed): "mobile app" not "mobile apps"; the "Clients
+         Satisfied" paragraph is a different sentence entirely ("We as an organization believe that
+         client satisfaction begins from requirements definition phase to design, feedback cycle
+         and golive." vs. the previously-built "We believe client satisfaction begins from
+         requirements definition through design, feedback cycles and go-live."). Fixed both.
+    - **Key lesson from this fix pass, worth remembering for future pages:** DOM/CSS-only audits
+      (via `getComputedStyle`/`getBoundingClientRect` on the live reference) are good at catching
+      layout, spacing, and hover/transition bugs, but are NOT reliable for catching content-
+      completeness bugs -- paraphrased, truncated, or dropped list items only surfaced once the
+      user actually rendered and read the local page themselves. Every one of this page's 9 feature
+      rows should be treated as needing a full text re-verification pass, not just the ones already
+      checked here, if further discrepancies turn up.
+    - Verified CSS brace balance (112/112) and HTML tag balance (correcting for the `<link>`/`<li>`
+      substring false-positive from a naive count) after all edits in this fix pass.
   - **Not yet done:** full rendered screenshot/DOM comparison at desktop/tablet/mobile widths
     (blocked by the standing local-render environment limitation -- see below); console/network
     error check; horizontal-overflow check; per-row exact spacing/typography for the 9 feature
