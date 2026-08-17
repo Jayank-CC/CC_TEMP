@@ -2,6 +2,129 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/shopify-development-services-ppc/
+- **Local target:** `shopify-development-services-ppc.html` (root-level, `shppc-` prefix -- a
+  DIFFERENT page from the sibling `shopify-development-services.html`, which stays untouched),
+  `css/pages/shopify-development-services-ppc.css`, `js/shopify-development-services-ppc.js`
+  (portfolio carousel, adapted from the sibling page's `workCarousel` IIFE).
+- **Last updated:** 2026-08-17
+- **State:** Built and rendered/verified this session on the user's own local dev server
+  (`127.0.0.1:5500`, reachable via the Claude-in-Chrome browser tool). Full scroll-through at
+  desktop width shows zero console errors (one unrelated browser-extension warning only) and all
+  22 captured network requests returning 200 (no hotlinked production assets -- every image is
+  local). No horizontal overflow at any of the 9 required breakpoints (1920/1440/1366/1280/1024/
+  768/480/390/360px, all checked via `scrollWidth` vs `innerWidth` -- exact match to zero overflow
+  at every width) using the same-origin-iframe mobile-viewport technique documented in this file's
+  CRM entry below; screenshots additionally taken and visually compared at desktop, 768px, and
+  390px/360px.
+  - **Content root confirmed via `[data-elementor-id="51739"]`, 17 top-level sections (0-16).**
+    Sections 11-16 all carry every one of Elementor's seven `elementor-hidden-*` breakpoint
+    classes simultaneously (widescreen/desktop/laptop/tablet_extra/tablet/mobile_extra/mobile) --
+    confirmed via direct `classList` read -- meaning they never render to any real visitor at any
+    viewport (an 8-bullet "why choose us" grid, a stats band, awards, trust badges, and a
+    client-reviews carousel, all duplicating the sibling `shpd-` page's own content). Excluded
+    entirely per CLAUDE.md's replicate-genuine-quirks-verbatim principle. Section 10 is a
+    genuinely empty 2-column spacer (~91px tall, bg `#f5fbff`) -- folded into the tail of the
+    "why" section's own light band rather than built as a separate empty section.
+  - **No breadcrumb on this page, confirmed as a genuine quirk not an omission:** the reference's
+    own `.wraper_inner_banner_breadcrumb` computes `display:none` (same pattern already documented
+    on the CRM page below) -- the hero fills that visual role instead.
+  - **Structure:** dark-navy hero (badge image + H1 + animated-look price H2 with a red
+    underline on "$25 Per Hour" + a wide partner/certification-badge strip image + green CTA
+    button linking to `#cwu`) + a narrow dark/light "Empowering Brands" side panel (measured via
+    `getBoundingClientRect` as ~18% of the row width, NOT a literal 50/50 split despite the
+    reference's own `elementor-col-50` class name on both columns -- reproduced as a calibrated
+    CSS radial-gradient "blob" approximation of the reference's own rounded light cutout, since no
+    DOM element/pseudo-element carrying the actual shape could be located) + a wide portfolio
+    carousel (Elementor Swiper settings read directly: `slides_to_show:4`, `autoplay:yes`,
+    `infinite:yes`, navigation arrows -- rebuilt via the sibling page's own clone-based
+    infinite-loop pattern, retuned to 4/3/2/1 visible slides across breakpoints) + 3-column client
+    testimonials (2 real client logos already local + one unusually wide `tarun_tahiliani.png`
+    wordmark image, confirmed via `getComputedStyle` to render as a thin ~200x19px strip on the
+    reference, not a normal logo box) + `id="cwu"` lead-capture section (heading + 2 paragraphs +
+    a static 60/40 form reusing the sitewide `.contact-form`/`.form-field`/`.btn-submit`/
+    `.field-error` classes already established on `contact.html`, including the reference's own
+    hidden anti-spam fields and honeypot) + "Shopify Certified Partner" heading + 3 paragraphs +
+    a 3x3 icon grid of 9 Shopify services (confirmed via direct DOM audit that NONE of the 9 items
+    have description text, despite the task brief flagging this as unverified) + a continuous
+    light-blue "Why Cloud Converge?" zone (media/heading row + a 2-column, 5-item chevron-bullet
+    list split 3-left/2-right, confirmed via the reference's own 3 separate top-level sections
+    stacking 2+2+1 items -- reuses the sitewide `»` chevron-bullet glyph/color already established
+    on the marketplace/CRM pages, confirmed via the reference's own SVG path data matching
+    FontAwesome's check/chevron family at the same `rgb(38,84,198)` color).
+  - **Assets** (`assets/images/`, 17 newly downloaded this session via same-origin `fetch()`+
+    blob+real-click download into the mounted Downloads folder, then copied into the repo and
+    verified via PIL): `shopify-partner1.webp` (`523x90`), `iso-certificate-and-our-partners1-
+    1536x56-1.png` (`1536x56`), `shopify-site-thum-1` through `-6.webp` (`473x520` each, the
+    carousel slides), `tarun_tahiliani.png` (`1776x168` -- the task brief's guessed `1685x159` was
+    close but not exact; used the real measured/downloaded dimensions), and 9 service-icon images
+    for the 3x3 grid (`shopify-store-development.webp`, `shopify-app-commerce.webp`,
+    `shopify-migration.webp`, `loading-blue.png`, `web-optimization-blue.png`, `Shopify-Third-
+    Party-Integration.webp`, `dedicated-shopify-developer.webp`, `synchronization-blue.png`,
+    `conversion-rate-optimizer.webp`, all `64x64`). Reused existing local assets without
+    re-downloading: `clients-logo1.png`/`clients-logo6.png` (client testimonial logos) and
+    `shopify-theme-work.webp` (the "why" section's own media image, already local from the sibling
+    `shopify-development-services.html` page and confirmed as the exact same file the reference
+    serves here too).
+  - **Two real bugs found and fixed during the render-verification pass (both would have shipped
+    unnoticed from DOM/CSS audit alone):**
+    1. **The sitewide `h1-h6 { text-transform: capitalize }` rule (css/style.css) wrecked several
+       headings' mid-sentence lowercase words** -- confirmed via a rendered screenshot showing
+       "Shopify Experts with over 10+ years of experience" as "...With Over 10+ Years Of
+       Experience" and "End-to-End Support" as "End-To-End Support". Same recurring quirk already
+       fixed on several other pages in this project (grep `capitalize` across `css/pages/*.css` for
+       the full precedent list). Fixed with a `.shppc-page h1..h5 { text-transform: none; }` reset;
+       the hero H1's own intentional uppercase treatment is re-applied by a later, equally-specific
+       rule that wins the cascade tie by source order (verified, not assumed).
+    2. **The "Empowering Brands" panel text was missing the reference's own uppercase treatment**
+       (reference renders literally as "EMPOWERING BRANDS WITH" / "TRANSFORMATIVE ECOMMERCE
+       STRATEGIES") -- added `text-transform: uppercase` to `.shppc-empower-line`.
+  - **Carousel JS note (environment-specific, not a real bug, but worth flagging for future
+    pages):** the original `requestAnimationFrame`-gated init (copied verbatim from the sibling
+    page's `workCarousel`) never fired in this session's browser tab because `document.hidden`
+    reports `true` permanently in this Claude-in-Chrome-controlled tab regardless of actual tab
+    focus (confirmed by closing every other tab and re-checking -- still `hidden:true`). Changed
+    `shopify-development-services-ppc.js`'s `build()` to call `measure()`/`start()` synchronously
+    instead of waiting on `requestAnimationFrame` (safe, since `getBoundingClientRect` already
+    forces a synchronous layout pass) -- this both fixed testability in this environment AND is a
+    strictly more robust pattern for real visitors too. The sibling page's own `shopify-
+    development-services.js` still uses the older rAF-gated pattern and was NOT touched (out of
+    scope, not broken for real users, no reported issue) -- worth applying the same synchronous-init
+    fix there proactively in a future session if that page ever needs another edit.
+  - **Screenshot-tool flakiness encountered this session (environment artifact, not a page bug):**
+    the CDP `Page.captureScreenshot` call intermittently returned stale/blank/duplicated-content
+    frames after `window.scrollTo` calls on this particular tab; always resolved by re-issuing the
+    screenshot call once more or opening a fresh tab. Cross-checked every suspicious blank
+    screenshot against direct DOM measurement (`getBoundingClientRect`/`getComputedStyle`) before
+    concluding anything was actually broken -- in every case the DOM was correct and only the
+    screenshot capture was stale.
+  - **Viewports:** 1920/1440/1366/1280/1024/768/480/390/360px all checked for horizontal overflow
+    (all pass, zero overflow) via the same-origin-iframe technique; 1920/1440/1366/1280 desktop
+    tiers additionally spot-verified via direct screenshot at the page's native width; 768px and
+    390px/360px additionally screenshot-verified through the iframe showing correct stacked
+    layouts (empower panel full-width dark band, single-column testimonials union not
+    re-verified independently at 768 -- see below, cwu form full-width, single-column services
+    grid, single-column why-grid). Carousel prev/next arrows and autoplay both confirmed working
+    (autoplay interval observed advancing the track position between separate tool calls); static
+    form submit confirmed NOT navigating away (preventDefault working).
+  - **Known remaining gaps, honestly listed:**
+    - The "Empowering Brands" panel's rounded light-blob cutout is a calibrated CSS approximation,
+      not a pixel-exact reproduction of the reference's own (never-located) shape mechanism --
+      flagged in the CSS file's own comment.
+    - Testimonials section (3-column row) was screenshot-verified at desktop and 850px-scroll
+      mobile but not independently re-confirmed at exactly the 768px tablet tier's own 1-column
+      fallback (the `@media max-width:991px` rule should apply based on the same pattern used
+      elsewhere on this page, but wasn't individually screenshotted at that exact breakpoint this
+      session).
+    - No true device testing (the iframe technique renders real CSS at a real pixel width inside a
+      desktop browser engine, not an actual mobile browser) -- same standing caveat as every other
+      page using this technique.
+    - Header nav was NOT modified -- this PPC page is intentionally not linked from the main
+      site navigation (ad-campaign-only landing page), matching how PPC/campaign pages are
+      typically kept off primary nav; confirm with the user if a nav entry is actually wanted.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/crm-project-management-software/
 - **Local target:** `crm-project-management-software.html` (root-level, `crm-` prefix),
   `css/pages/crm-project-management-software.css`, `js/crm-project-management-software.js`

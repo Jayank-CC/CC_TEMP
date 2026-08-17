@@ -1,0 +1,865 @@
+/* Shopify Development Services -- PPC landing page
+   Reference: https://www.cloudconverge.io/shopify-development-services-ppc/
+   Prefix: shppc- (distinct from the sibling shpd- non-PPC page already in this repo).
+
+   Content root confirmed via [data-elementor-id="51739"], 17 top-level sections (0-16). Sections
+   11-16 carry ALL SEVEN elementor-hidden-* breakpoint classes simultaneously (widescreen, desktop,
+   laptop, tablet_extra, tablet, mobile_extra, mobile) -- they never render to any real visitor at
+   any viewport, so they are intentionally excluded from this rebuild (a "why choose us" 8-bullet
+   grid, stats band, awards, trust badges, and a client-reviews carousel that duplicate the sibling
+   shpd- page's own content). Section 10 is a genuine empty two-column spacer (~91px, bg #f5fbff)
+   between the "why" grid and the footer -- represented here as a tail spacer on .shppc-why rather
+   than an empty section, since it is visually a continuation of the same light band.
+
+   The reference's own .wraper_inner_banner_breadcrumb is display:none on this template (confirmed
+   via getComputedStyle) -- same genuine no-breadcrumb quirk already documented on the CRM page --
+   so this page has no breadcrumb row at all, by design, not by omission.
+
+   Heading navy (#1d1a4e) and chevron blue (#2654c6) match the sitewide --color-heading value and
+   the mkt-/crm- pages' own --chevron value exactly (confirmed via getComputedStyle) -- reused
+   directly rather than redefined as new page tokens except where a local alias reads more clearly
+   below. */
+
+.shppc-page {
+  --shppc-chevron: #2654c6;
+  --shppc-light-bg: #f5fbff;
+}
+
+/* The shared base stylesheet applies text-transform:capitalize to every h1-h6 site-wide
+   (css/style.css), which wrecks mid-sentence lowercase function words in this page's own
+   headings (confirmed via a rendered screenshot: "with over 10+ years of experience" became
+   "With Over 10+ Years Of Experience", "End-to-End" became "End-To-End") -- same recurring
+   quirk already fixed on several other pages in this project. Reset it for every heading on
+   this page; the hero H1's own intentional uppercase treatment is re-applied after this rule. */
+.shppc-page h1,
+.shppc-page h2,
+.shppc-page h3,
+.shppc-page h4,
+.shppc-page h5 {
+  text-transform: none;
+}
+
+/* ---------- Hero (dark navy, centered, no split image side) ---------- */
+.shppc-hero {
+  background: #101b27;
+  padding: 100px 0 70px;
+  text-align: center;
+}
+/* .shppc-hero-inner {
+  max-width: 900px;
+} */
+.shppc-hero-badge {
+  display: block;
+  width: 30%;
+  height: auto;
+  margin: 0 auto 30px;
+}
+.shppc-hero h1 {
+  margin: 0 0 20px;
+  font-size: 42px;
+  line-height: 52px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+}
+.shppc-hero-price {
+  margin: 0 0 20px;
+  font-size: 40px;
+  font-weight: 300;
+  color: #fff;
+}
+.footer-contact {
+  display: none;
+}
+.form-field input,
+.form-field textarea {
+  background-color: #eff5fc !important;
+}
+.shppc-hero-price-lead {
+  font-weight: 700;
+}
+.shppc-hero-price-amount {
+  display: inline-block;
+  font-size: 42px;
+  font-weight: 700;
+  border-bottom: 3px solid #e2402e;
+  padding-bottom: 4px;
+}
+.shppc-hero-partners {
+  display: block;
+  width: 80%;
+  /* max-width: 820px; */
+  height: auto;
+  margin: 45px auto 30px;
+}
+.shppc-services-grid article h4 {
+  font-weight: 600;
+}
+
+.shppc-services-grid article {
+  box-shadow: 0px 20px 20px 0px rgba(0, 25.99999999999999, 87, 0.08);
+  padding: 28px;
+  /* Reference's own "img-box-hover-effect" hover-lift utility (same sitewide pattern already
+     confirmed on the testimonial cards, CWU form card, and "why" list items in this project):
+     lifts the card 0.4s cubic-bezier(.2,0,.3,1) on hover, translate3d(0,-5px,0). */
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.shppc-services-grid article:hover {
+  transform: translate3d(0, -5px, 0);
+}
+
+.shppc-hero-btn {
+  display: inline-block;
+  background: #97bf49;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  padding: 12px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: transform 0.3s ease-in-out;
+  margin-top: 35px;
+}
+.shppc-hero-btn:hover {
+  transform: translateY(-4px);
+  /* background: #86ac3f; */
+}
+
+/* ---------- "Empowering Brands" panel + wide portfolio carousel ----------
+   Reference's own left column measures ~18% of the row width (a narrow sidebar, not a literal
+   50/50 split despite carrying Elementor's elementor-col-50 class name -- confirmed via direct
+   getBoundingClientRect on the live reference: 291.6px of a 1620px row). There is NO blob/shape
+   element at all -- re-confirmed via getComputedStyle: the left column itself has
+   background:transparent, and the dark-over-light two-tone effect is simply the SECTION's own
+   background-image: linear-gradient(rgb(16,27,39) 50%, rgb(239,245,252) 0%) -- a hard split at
+   the row's own 50% height (a browser-clamped gradient stop, not a shape). The carousel's own
+   photos cover this gradient on the right; only the text column reveals it. Reproduced directly
+   below instead of the earlier radial-gradient blob approximation. */
+.shppc-empower {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-height: 340px;
+  background: linear-gradient(#101b27 50%, var(--shppc-light-bg) 50%);
+}
+/* Reference's own bottom shape-divider on this section (re-confirmed directly on the live DOM:
+   .elementor-shape-bottom, fill #fff, data-negative="true") -- a white wavy band overlapping the
+   section's own lower edge, cutting into the light-blue bottom half just above the testimonials
+   section below. Reproduced with the reference's own exact path. */
+.shppc-empower-shape {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 90px;
+  line-height: 0;
+  pointer-events: none;
+}
+.shppc-empower-shape svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.shppc-empower-shape path {
+  fill: #fff;
+}
+/* The two text lines are vertically centered in the panel by design -- confirmed directly on the
+   live reference: at every measured viewport, "EMPOWERING BRANDS WITH" sits entirely inside the
+   dark top half and "TRANSFORMATIVE ECOMMERCE STRATEGIES" sits entirely inside the light bottom
+   half, with the 50% gradient split passing through the gap between the two lines. That only
+   happens because the whole two-line block is centered in the panel (not top-padded), so it
+   self-aligns with the split at any panel height/breakpoint. */
+.shppc-empower-panel {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 24%;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: transparent;
+  text-align: center;
+}
+/* Re-confirmed directly on the live reference: both lines compute to font-size:16px, not a
+   larger display size -- an earlier pass here used 22px, which wraps "Transformative Ecommerce
+   Strategies" onto a second line inside this narrow column and breaks the dark/light color split
+   (part of the wrapped text lands back in the wrong-color zone, reading as overlapping/illegible
+   text). 16px keeps each line on a single row at this column width, matching the reference. */
+.shppc-empower-line {
+  margin: 0;
+  padding: 0 30px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.shppc-empower-line--dark {
+  color: #fff;
+}
+/* Reference's own computed color here is rgb(16,27,39) -- the exact same navy as the section's
+   dark half, i.e. dark text once the background turns light, not a distinct navy-purple token. */
+.shppc-empower-line--light {
+  color: #101b27;
+  padding: 0 32px;
+  text-align: center;
+}
+.shppc-work {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 0 44px;
+}
+.shppc-work-viewport {
+  overflow: hidden;
+  height: 100%;
+}
+.shppc-work-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+/* Reference's own slide has a genuine 20px padding on all sides (re-confirmed directly:
+   getComputedStyle on the live .swiper-slide-inner figure returns padding:20px), with the image
+   stretched (object-fit:fill, not cover) to exactly fill the remaining box. That deliberate white
+   gutter is the correct look, not a bug -- reproduced with the same values below instead of the
+   earlier edge-to-edge/cover approximation. */
+.shppc-work-track figure {
+  flex: 0 0 25%;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.shppc-work-track img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+.shppc-work-arrow {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  color: #1d1a4e;
+  cursor: pointer;
+}
+.shppc-work-arrow svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+.shppc-work-prev {
+  left: 8px;
+}
+/* Reference's own .elementor-swiper-button-next is display:none on this widget instance (confirmed
+   via getComputedStyle on the live reference -- a genuine site quirk, only the prev arrow ever
+   renders). Reproduced verbatim rather than showing a next arrow that never appears live. */
+.shppc-work-next {
+  display: none;
+}
+
+/* ---------- 3-column client testimonials ----------
+   The card styling (background, box-shadow, quote-mark icon) is NOT on the outer column -- it's
+   on the reference's own nested Elementor "inner section" wrapper one level deeper, which an
+   earlier pass here missed entirely (checking only the column found background:transparent,
+   box-shadow:none and wrongly concluded there was no card at all). Re-confirmed directly on that
+   inner element: background #f5fbff, background-image the reference's own marketing-quote1.png
+   at size 10%/position "10px 18px"/no-repeat, box-shadow rgba(0,0,0,.15) 0 10px 20px 0, padding
+   25px, and a transition on background/border/border-radius/box-shadow 0.3s (present on the
+   reference itself, though no distinct :hover value was found for this specific instance). The
+   rounded bottom is the same white shape-divider wave used elsewhere, one per card (~54px tall).
+   The quote is a heading widget (not a paragraph), color rgb(25,25,25), 16px/500/center/22px.
+   Images are NOT forced into squares -- re-confirmed once fully loaded (not mid-lazy-load): each
+   is a fixed WIDTH with height:auto preserving its own natural aspect ratio (100px wide for
+   helm/verve, 200px wide for tarun_tahiliani -- twice the width, not a forced square). */
+.shppc-testimonials {
+  padding: 60px 0;
+  background: #fff;
+}
+.shppc-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  text-align: center;
+  max-width: none;
+}
+.shppc-testimonials-grid article {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  /* Grid rows already stretch article height to match the tallest card by default; the card div
+     inside just needs to actually fill that stretched height (and center its own shorter content,
+     e.g. the "tarun_tahiliani" logo is much shorter than the other two logos) so all three cards
+     read as the same height like the reference, instead of shrink-wrapping to their own content. */
+  display: flex;
+}
+/* Re-confirmed directly on the live reference: this card is NOT just statically visible -- it
+   carries Elementor's own scroll-triggered entrance animation (data-settings:
+   {"animation":"fadeInUp"}, class "animated-fast"). Before it plays, the element sits at
+   opacity:0 / translateY(20px) (elementor-invisible); once it scrolls into view, JS adds
+   ".shppc-in-view" (mirroring Elementor's own "animated" trigger class) and it fades/slides up
+   over 0.45s -- the more specific ".animated.animated-fast{animation-duration:.45s!important}"
+   rule wins over a competing "2s" rule elsewhere on the reference by specificity, and the actual
+   fadeInUp keyframe in play there is the small 20px slide, not animate.css's dramatic
+   full-height version. Implemented here as a plain CSS transition driven by an
+   IntersectionObserver in shopify-development-services-ppc.js, rather than a duplicated keyframe,
+   since the visual result is identical and simpler to maintain. */
+.shppc-testimonial-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  background-color: #f5fbff;
+  background-image: url(../../assets/images/marketing-quote1.png);
+  background-repeat: no-repeat;
+  background-position: 10px 18px;
+  background-size: 10%;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px 0px;
+  padding: 25px;
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition:
+    background 0.3s,
+    border 0.3s,
+    border-radius 0.3s,
+    box-shadow 0.3s,
+    opacity 0.45s ease-out,
+    transform 0.45s ease-out;
+}
+.shppc-testimonial-card.shppc-in-view {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .shppc-testimonial-card {
+    opacity: 1;
+    transform: none;
+    transition:
+      background 0.3s,
+      border 0.3s,
+      border-radius 0.3s,
+      box-shadow 0.3s;
+  }
+}
+/* Reference's own "img-box-hover-effect" hover-lift utility (same sitewide class already
+   confirmed on the form card in this page and on other pages in this project) lives on the
+   testimonial card too -- lifts the INNER content translate3d(0,-5px,0) over 0.4s
+   cubic-bezier(.2,0,.3,1) on hover. Kept on a separate inner wrapper (not the card itself) since
+   the card's own transform is already driving the fade/slide-up entrance animation above. */
+.shppc-testimonial-content {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.shppc-testimonial-card:hover .shppc-testimonial-content {
+  transform: translate3d(0, -5px, 0);
+}
+.shppc-testimonial-shape {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 54px;
+  line-height: 0;
+  pointer-events: none;
+}
+.shppc-testimonial-shape svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.shppc-testimonial-shape path {
+  fill: #fff;
+}
+.shppc-testimonial p {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 20px;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 22px;
+  color: rgb(25, 25, 25);
+}
+.shppc-testimonial img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin: 0 auto;
+  width: 100px;
+  height: auto;
+}
+.shppc-testimonial-wide {
+  width: 200px !important;
+}
+
+/* ---------- "One Stop Ecommerce Solution" + lead-capture form (60/40, id="cwu") ---------- */
+.shppc-cwu {
+  padding: 30px 0 90px;
+  background: #fff;
+}
+.shppc-cwu-grid {
+  display: flex;
+  gap: 0;
+  align-items: center;
+}
+.shppc-cwu-copy {
+  flex: 0 0 60%;
+  max-width: 60%;
+  padding-right: 75px;
+}
+.shppc-cwu-copy h2 {
+  margin: 0 0 20px;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-heading);
+}
+.shppc-cwu-copy p {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+/* Reference's own class here is "img-box-hover-effect" -- a sitewide hover-lift utility (already
+   reused on other pages in this project): the widget-wrap transitions 0.4s
+   cubic-bezier(.2,0,.3,1) and lifts translate3d(0,-5px,0) on hover. Applied to the whole form
+   wrap so hovering anywhere on the card lifts it slightly, matching the reference exactly. */
+.shppc-cwu-form-wrap {
+  flex: 0 0 40%;
+  max-width: 40%;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.shppc-cwu-form-wrap:hover {
+  transform: translate3d(0, -5px, 0);
+}
+.shppc-cwu-form-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 45px;
+  box-shadow: var(--shadow-card);
+}
+.shppc-cwu-form-title {
+  margin: 0 0 12px;
+  font-size: 32px;
+  font-weight: 500;
+  text-align: center;
+  color: rgb(29, 26, 78);
+}
+.shppc-cwu-form-desc {
+  margin: 0 0 24px;
+  font-size: 16px;
+  text-align: center;
+  color: rgb(25, 25, 25);
+}
+.shppc-honeypot {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0;
+}
+
+/* ---------- "Shopify Certified Partner" ----------
+   Reference is a full-width, 2-column (50/50) Elementor section: text copy on the left, a
+   hosted autoplay/muted/loop video on the right (object-fit:cover, edge-to-edge, no radius,
+   overflow:hidden wrapper). Section background is a light blue (rgb(245,251,255)); a cream
+   wave shape-divider (fill rgb(240,239,234), viewBox 0 0 1000 100, top variant flipped 180°
+   via data-negative="true") overlays the very top of the section, all measured directly off
+   the live DOM. */
+.shppc-partner {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  background: rgb(245, 251, 255);
+  overflow: hidden;
+}
+.shppc-partner-shape {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 336px;
+  line-height: 0;
+  pointer-events: none;
+  transform: matrix(-1, 0, 0, -1, 0, 0);
+}
+.shppc-partner-shape svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.shppc-partner-shape path {
+  fill: rgb(240, 239, 234);
+}
+.shppc-partner-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+/* The reference's text column is a 50%-wide Elementor column, but the actual content block
+   inside it does NOT stretch to fill that column -- measured directly off the live DOM: column
+   width 835px, but the inner ".elementor-widget-wrap" (heading+paragraphs) is only 595px wide
+   (519px content + 38px padding each side), leaving a visible ~240px gap of the section's own
+   background between the text block and the video. Reproduced here by keeping the outer col at
+   a true 50% (so the video still starts exactly at the halfway line) while capping the copy
+   block itself to the same ~71% of that column and left-aligning it. */
+.shppc-partner-copy-col {
+  flex: 0 0 50%;
+  max-width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.shppc-partner-copy {
+  box-sizing: border-box;
+  max-width: 71.3%;
+  padding: 38px;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.shppc-partner-copy:hover {
+  transform: translate3d(0, -5px, 0);
+}
+.shppc-partner h3 {
+  margin: 0 0 20px;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  color: var(--color-heading);
+}
+.shppc-partner p {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+.shppc-partner p:last-child {
+  margin-bottom: 0;
+}
+.shppc-partner-media {
+  flex: 0 0 50%;
+  max-width: 50%;
+  overflow: hidden;
+}
+.shppc-partner-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- 3x3 Shopify services icon grid ----------
+   Each item DOES carry a text-editor description widget on the reference (re-confirmed directly:
+   [data-widget_type="text-editor.default"] appears once per item, 9 total) -- an earlier pass of
+   this audit wrongly reported no description text and dropped it; restored here with the exact
+   text pulled from each item's own widget, plus the reference's own centered/gray description
+   styling (16px, line-height 22px, color rgb(33,37,41), heading weight 400 not bold). */
+.shppc-services {
+  padding: 90px 0;
+  background: #fff;
+}
+/* Reference's own section heading ("Our Shopify Development Services") lives in a separate
+   top-level section directly above the icon grid; measured gap between the heading text and the
+   first card is exactly 90px, coming entirely from the grid section's own 90px top padding (not
+   the heading), so margin-bottom here reproduces that same 90px gap. */
+.shppc-services-title {
+  margin: 0 0 90px;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 38px;
+  text-align: center;
+  color: var(--color-heading);
+}
+.shppc-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px 40px;
+  text-align: center;
+}
+.shppc-services-grid article img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+}
+.shppc-services-grid h4 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-heading);
+}
+.shppc-services-grid p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 22px;
+  color: #212529;
+}
+
+/* ---------- "Why Cloud Converge?" continuous light-blue zone ----------
+   Media+heading row followed by a 2-column chevron-bullet list (5 items total, 3 left / 2 right --
+   confirmed via the reference's own 3 separate top-level sections stacking 2+2+1 items). */
+.shppc-why {
+  background: var(--shppc-light-bg);
+  padding-top: 60px;
+}
+.shppc-why-top {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  padding-bottom: 40px;
+}
+.shppc-why-media {
+  flex: 0 0 54%;
+  max-width: 54%;
+}
+.shppc-why-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.shppc-why-copy {
+  flex: 1 1 auto;
+}
+.shppc-why-copy h2 {
+  margin: 0 0 16px;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+.shppc-why-copy p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+.shppc-why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px 60px;
+  padding-bottom: 90px;
+}
+.shppc-why-col {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+/* Reference's real icon is an inline FontAwesome "angle-double-right" SVG (16x16,
+   fill rgb(38,84,198) = #2654c6, positioned left of the heading+description text) --
+   re-confirmed directly on the live DOM. Replaced the plain "\00BB" text-character bullet
+   with the actual icon markup below rather than approximating it as a font glyph. */
+.shppc-chevron-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  /* Same sitewide "img-box-hover-effect" hover-lift utility confirmed on this item's own
+     reference column (elementor-col-100, elementor-inner-column): 0.4s cubic-bezier(.2,0,.3,1),
+     translate3d(0,-5px,0) on hover. */
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.shppc-chevron-item:hover {
+  transform: translate3d(0, -5px, 0);
+}
+.shppc-chevron-item svg {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin-top: 5px;
+  fill: var(--shppc-chevron);
+}
+.shppc-chevron-item-text {
+  flex: 1 1 auto;
+}
+.shppc-chevron-item h5 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-body);
+  line-height: 26px;
+}
+.shppc-chevron-item p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+.shppc-why-spacer {
+  height: 91px;
+}
+
+/* ==========================================================================
+   Responsive overrides -- own file per CLAUDE.md, no shared-CSS edits.
+   ========================================================================== */
+@media (max-width: 1199px) {
+  .shppc-empower-panel {
+    flex: 0 0 22%;
+  }
+  .shppc-work-track figure {
+    flex: 0 0 33.333%;
+  }
+  .shppc-why-media {
+    flex: 0 0 46%;
+    max-width: 46%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .shppc-hero h1 {
+    font-size: 30px;
+  }
+  .shppc-hero-price {
+    font-size: 26px;
+  }
+  .shppc-cwu-grid {
+    flex-direction: column;
+  }
+  .shppc-cwu-copy,
+  .shppc-cwu-form-wrap {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .shppc-cwu-copy {
+    padding-right: 0;
+    margin-bottom: 30px;
+  }
+  .shppc-why-top {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 991px) {
+  .shppc-empower {
+    flex-direction: column;
+    min-height: 0;
+  }
+  .shppc-empower {
+    background: var(--shppc-light-bg);
+  }
+  .shppc-empower-panel {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+    padding-bottom: 20px;
+    background: #101b27;
+  }
+  .shppc-empower-line {
+    padding: 20px 24px 0;
+    font-size: 20px;
+  }
+  .shppc-empower-line--light {
+    color: #fff;
+    padding-top: 4px;
+    padding-bottom: 20px;
+  }
+  .shppc-work {
+    padding: 30px 40px;
+  }
+  .shppc-work-track figure {
+    flex: 0 0 50%;
+  }
+  .shppc-testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .shppc-services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .shppc-why-top {
+    flex-direction: column;
+  }
+  .shppc-why-media,
+  .shppc-why-copy {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .shppc-why-copy {
+    margin-top: 24px;
+  }
+  .shppc-why-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .shppc-partner {
+    display: block;
+  }
+  .shppc-partner-shape {
+    height: 120px;
+  }
+  .shppc-partner-inner {
+    flex-direction: column;
+  }
+  .shppc-partner-copy-col,
+  .shppc-partner-media {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .shppc-partner-copy {
+    max-width: 100%;
+  }
+  .shppc-partner-media {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 767px) {
+  .shppc-hero {
+    padding: 70px 0 50px;
+  }
+  .shppc-hero-badge {
+    width: 200px;
+  }
+  .shppc-hero h1 {
+    font-size: 24px;
+  }
+  .shppc-hero-price {
+    font-size: 22px;
+  }
+  .shppc-work-track figure {
+    flex: 0 0 100%;
+  }
+  .shppc-partner h3,
+  .shppc-why-copy h2 {
+    font-size: 26px;
+  }
+  .shppc-cwu-copy h2 {
+    font-size: 26px;
+  }
+  .shppc-services-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .shppc-services {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .shppc-hero-partners {
+    max-width: 100%;
+  }
+  .shppc-cwu-form-card {
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shppc-work-track {
+    transition: none;
+  }
+  .shppc-hero-btn {
+    transition: none;
+  }
+}
