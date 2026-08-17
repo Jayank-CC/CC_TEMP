@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description"
+    content="CloudConverge WordPress &amp; WooCommerce maintenance and support services -- 24/7 expert help, &lt;12 hour turnaround, security fixes, performance optimization and more.">
+  <title>WordPress &amp; WooCommerce Support Services | Cloud Converge</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/pages/wordpress-support.css">
+</head>
+
+<body class="wps-page has-minimal-header">
+  <div id="site-header-placeholder"></div>
+
+  <main>
+    <!-- Section 0: Hero -- dark navy (#14255b) section, reference's own bg-slice10.webp wavy-blob
+         background image. Left column: eyebrow label, H1 (white "WordPress & WooCommerce" /
+         gradient-fill "Maintenance" with a real hand-drawn SVG underline reveal animation
+         (confirmed directly on the live DOM: an inline <svg> inside .rt-underline-txt, fill
+         #FFA901, animated via a clip-path inset->full "my-animation" keyframe, 1s ease, once) /
+         white "Services"), intro paragraph, Clutch + WordPress Contributors badge images (both
+         are self-contained images -- re-confirmed directly: neither has any surrounding caption
+         text on the reference, the "REVIEWED ON / Clutch / 5.0 RATING" and "WordPress
+         Contributors" text are baked into the images themselves). Right column: white "Connect
+         with us" card reusing the sitewide .contact-form/.form-field/.btn-submit component. -->
+    <section class="wps-hero">
+      <img class="wps-hero-particle" src="assets/images/hm12-yellow-circle.svg" alt="" width="8" height="8"
+        aria-hidden="true">
+      <div class="container wps-hero-grid">
+        <div class="wps-hero-content">
+          <p class="wps-hero-eyebrow">Get Instant WordPress Help Anytime!</p>
+          <h1 class="wps-hero-heading">WordPress &amp; WooCommerce
+            <span class="wps-hero-highlight">Maintenance<span class="wps-hero-underline" aria-hidden="true">
+                <svg viewBox="0 0 224 13" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                  <path
+                    d="M3.04644 6.35248C10.6697 1.32873 162.696 -4.2718 220.288 9.8076C221.438 10.0589 222.418 10.3116 223.22 10.564C222.272 10.3058 221.294 10.0537 220.288 9.8076C195.385 4.36529 91.0253 -0.435459 5.97211 12.559C-0.153387 13.4948 -0.777905 8.12674 3.04644 6.35248Z" />
+                </svg>
+              </span></span>
+            Services
+          </h1>
+          <p class="wps-hero-desc">Struggling with WordPress issues? Our expert team is available 24/7 to fix,
+            maintain, and optimize your website.</p>
+          <div class="wps-hero-badges">
+            <img src="assets/images/clutch-logo1.png" alt="Clutch 5.0 rating" width="195" height="46"
+              fetchpriority="high">
+            <img src="assets/images/wordpress-logo.png" alt="WordPress Contributors" width="101" height="122"
+              loading="lazy">
+          </div>
+        </div>
+        <div class="wps-hero-form-wrap">
+          <div class="contact-form-card wps-hero-form-card">
+            <h3 class="wps-hero-form-title">Connect with us</h3>
+            <form class="contact-form" action="#" autocomplete="off">
+              <input type="hidden" name="ccl_nonce" value="">
+              <input type="hidden" name="_wp_http_referer" value="">
+              <input type="hidden" name="ccl_form_id" value="wordpress-support-hero">
+              <input type="hidden" name="ccl_page_url" value="">
+              <input class="wps-honeypot" type="text" name="ccl_hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <div class="form-field">
+                <label class="visually-hidden" for="wps-hero-name">Name</label>
+                <input id="wps-hero-name" type="text" name="ccl_field_name" placeholder="Name*" required>
+                <span class="field-error"></span>
+              </div>
+              <div class="form-field">
+                <label class="visually-hidden" for="wps-hero-email">Email</label>
+                <input id="wps-hero-email" type="email" name="ccl_field_email" placeholder="Email*" required>
+                <span class="field-error"></span>
+              </div>
+              <div class="form-field">
+                <label class="visually-hidden" for="wps-hero-phone">Phone</label>
+                <input id="wps-hero-phone" type="tel" name="ccl_field_phone" placeholder="Phone*" required>
+                <span class="field-error"></span>
+              </div>
+              <div class="form-field">
+                <label class="visually-hidden" for="wps-hero-website">Website URL</label>
+                <input id="wps-hero-website" type="url" name="ccl_field_website" placeholder="Website URL">
+                <span class="field-error"></span>
+              </div>
+              <div class="form-field">
+                <label class="visually-hidden" for="wps-hero-message">Message</label>
+                <textarea id="wps-hero-message" name="ccl_field_message" placeholder="Message"></textarea>
+                <span class="field-error"></span>
+              </div>
+              <div class="form-submit">
+                <button type="submit" class="btn btn-submit wps-submit-btn wps-submit-btn--orange">Submit
+                  Now</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: 4-stat band overlapping the bottom of the hero. Reference's own numbers are
+         plain static heading text (re-confirmed directly on the live DOM: widget_type
+         "heading.default", no data-from/data-to counter markup) -- NOT animated counters, so
+         they are reproduced here as static text rather than wired into the sitewide
+         .stat-number counter script, per this project's own "do not animate a static value"
+         rule. -->
+    <section class="wps-stats">
+      <div class="container wps-stats-grid">
+        <div class="wps-stat-card">
+          <div class="wps-stat-number">200<span class="wps-stat-suffix">+</span></div>
+          <div class="wps-stat-label">Websites Being Managed Monthly</div>
+        </div>
+        <div class="wps-stat-card">
+          <div class="wps-stat-number">1,000<span class="wps-stat-suffix">+</span></div>
+          <div class="wps-stat-label">Issues Resolved</div>
+        </div>
+        <div class="wps-stat-card">
+          <div class="wps-stat-number">&lt;12 Hours</div>
+          <div class="wps-stat-label">Turnaround Time</div>
+        </div>
+        <div class="wps-stat-card">
+          <div class="wps-stat-number">100<span class="wps-stat-suffix">%</span></div>
+          <div class="wps-stat-label">UpTime</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2-3: "Facing Website Issues?" heading/intro + 6-card icon grid (3x2, blue outline
+         icons re-using this project's already-downloaded shared icon set) + a second "Connect
+         with us" contact-form card beside the grid (confirmed directly on the live DOM -- this
+         is a genuine second, distinct lead-capture form on this page, not a duplicate of the
+         hero form; its own Submit button is the sitewide default blue, not the hero's orange). -->
+    <section class="wps-problems">
+      <div class="container">
+        <div class="wps-problems-head">
+          <h2>Facing Website Issues? Get WordPress Support Now</h2>
+          <p>Even minor WordPress issues can turn into major headaches if left unresolved. These glitches can slow
+            down your site, disrupt functionality, and even impact your revenue. Don&rsquo;t wait for small
+            problems to become big ones-get expert WordPress support today!</p>
+        </div>
+        <div class="wps-problems-row">
+          <div class="wps-problems-grid">
+            <article class="wps-problem-card">
+              <img src="assets/images/downtime-blue.png" alt="Website Downtime" width="64" height="64" loading="lazy">
+              <h3>Website Downtime</h3>
+              <p>Website downtime can result in lost revenue and harm your brand&rsquo;s reputation. Keep your
+                WordPress site running smoothly with reliable support.</p>
+            </article>
+            <article class="wps-problem-card">
+              <img src="assets/images/error-blue.png" alt="eCommerce Functionality Issues" width="64" height="64"
+                loading="lazy">
+              <h3>eCommerce Functionality Issues</h3>
+              <p>Glitches in your online store can lead to lost sales and frustrated customers. Ensure a seamless
+                shopping experience with expert WordPress support.</p>
+            </article>
+            <article class="wps-problem-card">
+              <img src="assets/images/vulnerability-blue.png" alt="Security Vulnerabilities" width="64" height="64"
+                loading="lazy">
+              <h3>Security Vulnerabilities</h3>
+              <p>Weak security can expose your website to hacking, data breaches, and malware attacks. Protect your
+                site with expert WordPress security solutions.</p>
+            </article>
+            <article class="wps-problem-card">
+              <img src="assets/images/web-optimization-blue.png" alt="Performance Optimization" width="64" height="64"
+                loading="lazy">
+              <h3>Performance Optimization</h3>
+              <p>Slow load times can frustrate visitors and hurt your site&rsquo;s user experience. Boost your
+                WordPress performance for a faster, smoother experience.</p>
+            </article>
+            <article class="wps-problem-card">
+              <img src="assets/images/synchronization-blue.png" alt="Outdated WordPress" width="64" height="64"
+                loading="lazy">
+              <h3>Outdated WordPress</h3>
+              <p>Using an outdated WordPress version, Theme, Plugins can lead to security vulnerabilities and
+                compatibility issues. Keep your site secure and up to date with regular updates.</p>
+            </article>
+            <article class="wps-problem-card">
+              <img src="assets/images/loading-blue.png" alt="Slow Loading Times" width="64" height="64" loading="lazy">
+              <h3>Slow Loading Times</h3>
+              <p>A slow website can drive visitors away, increase bounce rates, and hurt your search rankings.
+                Optimize your WordPress site for speed and performance.</p>
+            </article>
+          </div>
+          <div class="wps-contact-card-wrap">
+            <div class="contact-form-card wps-contact-card">
+              <h3 class="wps-contact-title">Connect with us</h3>
+              <p class="wps-contact-desc">Contact us today for expert WordPress support and hassle-free website
+                management!</p>
+              <form class="contact-form" action="#" autocomplete="off">
+                <input type="hidden" name="ccl_nonce" value="">
+                <input type="hidden" name="_wp_http_referer" value="">
+                <input type="hidden" name="ccl_form_id" value="wordpress-support-mid">
+                <input type="hidden" name="ccl_page_url" value="">
+                <input class="wps-honeypot" type="text" name="ccl_hp" tabindex="-1" autocomplete="off"
+                  aria-hidden="true">
+                <div class="form-field">
+                  <label class="visually-hidden" for="wps-mid-name">Name</label>
+                  <input id="wps-mid-name" type="text" name="ccl_field_name" placeholder="Name*" required>
+                  <span class="field-error"></span>
+                </div>
+                <div class="form-field">
+                  <label class="visually-hidden" for="wps-mid-email">Email</label>
+                  <input id="wps-mid-email" type="email" name="ccl_field_email" placeholder="Email*" required>
+                  <span class="field-error"></span>
+                </div>
+                <div class="form-field">
+                  <label class="visually-hidden" for="wps-mid-phone">Phone</label>
+                  <input id="wps-mid-phone" type="tel" name="ccl_field_phone" placeholder="Phone*" required>
+                  <span class="field-error"></span>
+                </div>
+                <div class="form-field">
+                  <label class="visually-hidden" for="wps-mid-website">Website URL</label>
+                  <input id="wps-mid-website" type="url" name="ccl_field_website" placeholder="Website URL">
+                  <span class="field-error"></span>
+                </div>
+                <div class="form-field">
+                  <label class="visually-hidden" for="wps-mid-message">Message</label>
+                  <textarea id="wps-mid-message" name="ccl_field_message" placeholder="Message"></textarea>
+                  <span class="field-error"></span>
+                </div>
+                <div class="form-submit">
+                  <button type="submit" class="btn btn-submit wps-submit-btn wps-submit-btn--orange">Submit
+                    Now</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4-5: "HOW WE WORK" heading + 3-step row with large faded 01/02/03 numerals.
+         Reference's step icons are the site's own hand-drawn inline SVGs; reproduced here with
+         stylistically matching outline icons (handshake / document-check / globe) rather than a
+         byte-exact path copy of the reference's multi-thousand-point custom artwork, documented
+         as a known minor gap in PROJECT_STATUS.md. -->
+    <section class="wps-how">
+      <div class="container">
+        <h2 class="wps-how-title">HOW WE WORK</h2>
+        <div class="wps-steps">
+          <div class="wps-step">
+            <span class="wps-step-number">01</span>
+            <div class="wps-step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M8 12l3 3 6-7" />
+                <path d="M3 13l3-3 4 1 3-3 3 1 5 5" />
+                <path d="M2 16l4 4 3-2M22 16l-4 4-3-2" />
+              </svg>
+            </div>
+            <div class="wps-step-text">
+              <h3>Connect With Us With Your Requirements</h3>
+              <p>Reach out to us, sharing the nature of support you require</p>
+            </div>
+          </div>
+          <div class="wps-step">
+            <span class="wps-step-number">02</span>
+            <div class="wps-step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M6 2h9l3 3v17H6z" />
+                <path d="M9 8h6M9 12h4" />
+                <circle cx="17" cy="16" r="4" />
+                <path d="M15.3 16l1 1 2-2" />
+              </svg>
+            </div>
+            <div class="wps-step-text">
+              <h3>Receive Our Proposal In &lt;12 Hours</h3>
+              <p>Finalize on the proposal received to kick start on the project.</p>
+            </div>
+          </div>
+          <div class="wps-step">
+            <span class="wps-step-number">03</span>
+            <div class="wps-step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M3 12h18M12 3c2.5 2.6 4 6 4 9s-1.5 6.4-4 9c-2.5-2.6-4-6-4-9s1.5-6.4 4-9z" />
+              </svg>
+            </div>
+            <div class="wps-step-text">
+              <h3>Team Resolves Your Website Issues</h3>
+              <p>We have a turnaround time of &lt;12 hours for most WordPress issue resolution</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: dark navy band -- heading/paragraph + team photo (528x472) + 3 badge cards.
+         Middle "5 Star Rated By Over 200 Clients" badge has the reference's own solid brand-blue
+         highlight background (re-confirmed via getComputedStyle: rgb(30,78,196), i.e. exactly
+         --color-primary) -- the other two badges use a lighter translucent navy card
+         (rgb(40,57,108)). All three columns carry the sitewide img-box-hover-effect hover-lift
+         (re-confirmed directly on the reference's own column class list). Badge icons are
+         reproduced as stylistically matching outline SVGs (trophy / thumbs-up-star / user),
+         same documented approximation as the step icons above. -->
+    <section class="wps-band">
+      <div class="container wps-band-grid">
+        <div class="wps-band-media">
+          <img src="assets/images/reliable-wordpress-support.webp" alt="CloudConverge WordPress support team"
+            width="528" height="472" loading="lazy">
+        </div>
+        <div class="wps-band-content">
+          <h2>Reliable WordPress Support For A Secure And High-Performing Website</h2>
+          <p>Our team of expert WordPress developers has worked on hundreds of websites, tackling critical errors,
+            resolving security vulnerabilities, ensuring regular maintenance, optimizing performance, and much
+            more. With our experience, your website stays secure, fast, and fully functional.</p>
+          <div class="wps-badges">
+            <div class="wps-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 512.000000 512.000000"
+                preserveAspectRatio="xMidYMid meet">
+                <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#ffffff" stroke="none">
+                  <path
+                    d="M970 4960 c-19 -19 -20 -33 -20 -240 l0 -219 -386 -3 -386 -3 -20 -24 c-19 -24 -19 -38 -16 -485 4 -461 4 -461 30 -558 51 -187 136 -335 271 -475 154 -158 348 -264 553 -302 31 -6 58 -12 59 -13 2 -2 25 -50 53 -108 189 -394 542 -702 952 -833 l100 -32 0 -386 0 -386 -104 -6 c-68 -4 -124 -14 -160 -28 -74 -27 -158 -105 -199 -183 l-32 -61 -3 -217 c-3 -208 -3 -217 17 -237 21 -21 25 -21 881 -21 854 0 860 0 881 21 19 19 20 29 17 232 -3 210 -3 213 -32 275 -37 81 -123 162 -201 191 -37 14 -93 24 -161 28 l-104 6 0 386 0 386 100 32 c412 132 759 436 953 835 l52 108 55 10 c213 42 406 147 556 302 124 127 198 249 249 405 49 148 55 224 55 674 0 395 -1 418 -19 440 l-19 24 -386 3 -386 3 0 219 c0 207 -1 221 -20 240 -20 20 -33 20 -1590 20 -1557 0 -1570 0 -1590 -20z m3065 -1005 c0 -888 0 -890 -23 -1003 -82 -406 -310 -743 -655 -966 -155 -102 -305 -163 -508 -207 -149 -33 -428 -33 -574 -1 -200 44 -362 110 -512 208 -342 222 -570 556 -654 959 -23 109 -24 116 -27 994 -1 486 -1 890 2 898 5 11 253 13 1478 11 l1473 -3 0 -890z m-3085 -227 c0 -654 4 -731 44 -885 l15 -55 -37 7 c-133 25 -323 136 -438 257 -154 162 -232 334 -254 558 -11 108 -14 733 -3 743 3 4 156 7 340 7 l333 0 0 -632z m3895 242 c-1 -336 -3 -395 -19 -465 -57 -250 -199 -456 -409 -593 -78 -51 -200 -104 -269 -117 l-37 -7 15 55 c40 154 44 231 44 885 l0 632 338 -2 337 -3 0 -385z m-2285 -2345 c113 0 220 3 238 7 l32 8 0 -375 0 -375 -270 0 -270 0 0 375 0 375 33 -8 c17 -4 124 -7 237 -7z m601 -887 c51 -15 114 -69 142 -122 20 -37 22 -55 22 -191 l0 -150 -765 0 -765 0 0 150 c0 136 2 154 22 192 26 48 86 102 134 119 47 17 1154 19 1210 2z">
+                  </path>
+                  <path
+                    d="M2513 4168 c-6 -7 -60 -112 -121 -234 l-110 -221 -243 -34 c-265 -37 -289 -45 -289 -100 0 -26 26 -56 182 -208 l183 -179 -39 -228 c-22 -126 -40 -244 -40 -263 0 -38 24 -61 63 -61 14 0 124 52 244 114 l218 114 217 -114 c234 -123 269 -133 298 -90 14 23 13 41 -27 277 l-43 252 182 177 c156 152 182 181 182 207 0 57 -19 64 -287 103 l-245 36 -117 229 -116 230 -41 3 c-25 2 -45 -2 -51 -10z m141 -388 c101 -209 68 -185 316 -220 85 -12 161 -24 169 -26 10 -3 -34 -54 -127 -147 -122 -123 -142 -147 -142 -174 0 -17 13 -109 30 -204 16 -95 28 -174 27 -176 -2 -1 -80 38 -175 87 -94 50 -180 90 -192 90 -12 0 -98 -41 -192 -90 -94 -50 -172 -89 -174 -87 -2 1 10 82 26 178 16 95 30 187 30 204 0 25 -22 52 -142 172 -94 94 -137 144 -127 147 8 2 84 14 169 26 247 34 214 11 316 220 48 99 90 180 94 180 4 0 46 -81 94 -180z">
+                  </path>
+                </g>
+              </svg>
+              <span>Certified Partner</span>
+            </div>
+            <div class="wps-badge wps-badge--highlight">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 512.000000 512.000000"
+                preserveAspectRatio="xMidYMid meet">
+                <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#ffffff" stroke="none">
+                  <path
+                    d="M3788 5094 c-92 -28 -128 -74 -262 -339 -98 -195 -127 -243 -152 -257 -19 -11 -119 -31 -274 -53 -153 -23 -262 -44 -292 -57 -106 -45 -177 -167 -165 -283 10 -95 35 -130 237 -329 139 -136 191 -194 198 -219 7 -26 1 -87 -30 -263 -47 -277 -49 -335 -13 -409 48 -99 139 -156 248 -156 80 0 94 5 349 139 147 76 226 112 248 112 23 0 104 -38 264 -122 l231 -123 90 0 c102 0 145 15 203 73 73 74 97 171 72 303 -16 87 -80 118 -130 64 -23 -25 -24 -27 -12 -98 14 -81 6 -126 -29 -163 -28 -30 -82 -48 -122 -40 -17 3 -129 58 -249 121 -135 72 -237 119 -268 125 -86 16 -136 -1 -374 -127 -190 -101 -228 -117 -268 -118 -55 0 -93 24 -123 78 l-20 36 43 253 c47 282 49 304 25 374 -14 42 -46 79 -220 255 l-203 206 0 47 c0 56 19 96 56 121 19 12 104 29 279 55 158 24 268 45 297 57 81 37 111 78 234 328 127 260 139 275 227 275 75 0 94 -24 222 -280 62 -124 125 -240 138 -256 55 -65 103 -80 383 -122 174 -26 269 -45 286 -56 52 -34 73 -118 44 -174 -8 -15 -96 -108 -196 -206 -207 -204 -230 -238 -230 -344 0 -92 19 -122 77 -122 47 0 76 40 67 96 -4 29 -1 52 10 76 9 19 97 112 196 207 142 137 184 183 207 229 70 142 6 318 -137 381 -28 12 -138 33 -288 55 -234 35 -284 48 -311 79 -6 8 -63 118 -126 244 -96 194 -121 236 -159 270 -76 67 -178 88 -278 57z">
+                  </path>
+                  <path
+                    d="M1975 3807 c-42 -19 -92 -79 -104 -124 -6 -22 -11 -143 -11 -283 0 -318 -19 -453 -87 -620 -59 -144 -180 -290 -286 -343 -75 -39 -174 -57 -309 -57 l-118 0 0 78 c0 95 -28 161 -90 215 -77 65 -98 68 -457 65 l-318 -3 -54 -30 c-30 -16 -67 -48 -83 -69 -55 -76 -58 -103 -58 -533 0 -449 1 -453 75 -453 74 0 75 3 75 455 0 332 2 401 15 425 31 60 31 60 366 60 295 0 307 -1 333 -21 59 -47 56 22 56 -1189 0 -1206 2 -1153 -55 -1198 -27 -21 -35 -22 -327 -22 -248 0 -304 3 -328 15 -61 32 -60 18 -60 650 l0 576 -25 24 c-31 32 -69 32 -100 0 l-25 -24 0 -574 c0 -649 -1 -644 73 -724 81 -88 79 -88 435 -91 353 -3 387 1 459 63 23 19 53 58 67 87 22 44 26 65 26 141 l0 89 93 -4 c105 -3 96 1 261 -128 49 -38 121 -84 160 -103 145 -71 97 -68 1216 -65 l1005 3 47 22 c67 31 143 106 175 172 23 48 27 69 28 146 0 83 -3 96 -33 158 -19 38 -32 69 -30 70 1 1 21 11 43 22 58 29 123 98 153 163 22 47 27 71 27 142 0 78 -3 92 -35 155 -19 39 -36 73 -38 76 -1 3 9 11 23 17 50 23 122 101 149 163 52 115 41 246 -28 343 -33 47 -95 101 -127 111 -22 7 -25 28 -5 44 34 29 60 114 61 201 0 77 -3 92 -33 152 -38 77 -92 130 -171 167 l-56 26 -613 3 -613 3 -21 47 c-25 56 -26 87 -10 297 34 451 -13 662 -187 836 -83 83 -151 126 -251 159 -83 27 -232 36 -275 17z m215 -154 c127 -34 240 -129 297 -248 55 -117 66 -204 59 -460 -3 -121 -9 -263 -12 -315 -5 -91 -4 -99 30 -192 19 -54 38 -126 42 -161 8 -83 -15 -193 -58 -267 -41 -73 -129 -157 -206 -198 -89 -47 -112 -89 -76 -140 11 -16 25 -22 55 -22 64 0 136 44 243 148 121 117 174 234 185 407 l6 100 88 3 c48 1 87 1 87 -2 0 -2 -12 -28 -27 -58 -25 -47 -28 -64 -28 -148 0 -85 3 -101 28 -150 34 -66 77 -113 135 -147 23 -14 42 -27 42 -29 0 -1 -11 -20 -25 -40 -72 -106 -72 -267 0 -376 15 -22 25 -41 23 -42 -2 -1 -19 -12 -39 -24 -51 -31 -117 -105 -142 -160 -17 -37 -22 -66 -22 -137 0 -82 3 -96 33 -158 19 -38 32 -69 30 -70 -1 -1 -21 -11 -43 -22 -98 -49 -173 -164 -182 -279 -6 -65 15 -161 43 -200 8 -11 14 -24 14 -28 0 -11 -913 -10 -982 1 -112 19 -220 76 -343 182 -33 28 -89 65 -125 82 -56 27 -79 32 -162 35 l-98 4 0 843 0 842 148 6 c81 4 176 14 211 22 188 45 368 208 471 427 86 184 111 328 117 691 4 213 9 281 19 291 16 16 82 12 164 -11z m1753 -1369 c155 -79 158 -287 5 -365 -35 -18 -63 -19 -407 -19 -236 0 -380 4 -398 11 -15 5 -45 27 -66 47 -62 61 -80 157 -42 232 17 33 74 86 105 99 15 6 177 10 398 10 325 1 377 -1 405 -15z m158 -569 c63 -44 91 -104 87 -181 -5 -75 -37 -128 -101 -165 -42 -24 -42 -24 -397 -27 -249 -2 -367 0 -395 8 -184 54 -200 307 -25 384 30 13 91 15 412 13 l376 -2 43 -30z m-185 -530 c84 -25 144 -105 144 -192 -1 -86 -46 -156 -122 -188 -55 -23 -741 -23 -796 1 -83 34 -140 131 -126 214 14 81 79 152 158 170 17 5 180 8 362 9 264 1 340 -2 380 -14z m-138 -560 c151 -64 167 -273 27 -360 l-48 -30 -331 -3 c-376 -4 -418 -1 -473 34 -60 39 -87 86 -91 159 -6 93 36 163 118 199 53 23 743 23 798 1z">
+                  </path>
+                </g>
+              </svg>
+              <span>5 Star Rated By Over 200 Clients</span>
+            </div>
+            <div class="wps-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 512.000000 512.000000"
+                preserveAspectRatio="xMidYMid meet">
+                <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#ffffff" stroke="none">
+                  <path
+                    d="M2310 5110 c-508 -60 -955 -441 -1081 -922 -46 -175 -35 -447 28 -693 l25 -100 -35 -52 c-19 -29 -40 -75 -46 -103 -25 -114 -5 -350 40 -487 37 -114 126 -225 237 -299 47 -32 52 -39 52 -71 0 -120 75 -282 186 -401 l74 -80 0 -254 0 -253 -93 -82 c-127 -113 -280 -226 -356 -263 -35 -18 -124 -47 -198 -66 -150 -38 -250 -81 -445 -187 -420 -231 -417 -229 -427 -258 -23 -67 16 -103 211 -194 501 -233 1433 -367 2328 -335 619 23 1100 91 1505 212 171 51 419 159 493 215 70 53 62 118 -22 160 -28 14 -156 84 -285 156 -269 150 -344 182 -531 232 -73 20 -161 49 -195 66 -75 37 -221 145 -349 259 l-95 85 -1 254 0 253 75 80 c107 114 185 282 185 400 0 34 5 40 53 71 106 69 196 182 237 299 51 146 65 439 26 535 -18 42 -18 42 12 120 125 323 119 655 -14 915 -92 177 -251 301 -441 344 -60 13 -82 23 -97 43 -42 57 -158 161 -239 215 -226 150 -531 219 -817 186z m336 -175 c256 -44 446 -154 601 -347 47 -59 58 -68 86 -68 47 0 144 -27 207 -57 82 -39 182 -144 225 -234 51 -109 66 -178 72 -329 6 -154 -15 -284 -66 -413 l-29 -72 -49 -6 c-27 -4 -59 -9 -71 -13 -25 -8 -23 -14 -48 144 -49 311 -187 608 -319 686 -60 35 -84 26 -149 -55 -124 -155 -255 -244 -468 -319 -152 -54 -213 -62 -475 -62 -365 0 -465 -19 -563 -107 -65 -58 -100 -127 -108 -212 -10 -92 -29 -89 -59 9 -66 213 -85 491 -45 654 45 182 144 347 295 493 136 131 271 214 444 272 148 50 354 64 519 36z m609 -960 c105 -164 177 -470 191 -815 5 -112 3 -174 -6 -225 -9 -46 -14 -158 -15 -330 -1 -241 -3 -264 -23 -320 -32 -87 -81 -154 -196 -271 -57 -57 -122 -130 -144 -161 -23 -32 -72 -101 -110 -153 -112 -158 -156 -175 -432 -168 -237 6 -238 7 -386 215 -84 118 -136 179 -284 336 -65 69 -105 133 -131 207 -20 60 -22 85 -24 305 -1 145 -8 304 -18 401 -10 89 -18 235 -20 325 -2 184 5 211 71 256 54 36 119 43 396 43 283 0 353 8 515 56 202 61 382 163 499 283 37 37 70 68 75 69 4 1 23 -23 42 -53z m-1779 -757 c10 -10 18 -55 24 -139 6 -68 15 -154 20 -191 6 -37 10 -113 10 -170 l-1 -103 -43 47 c-85 92 -128 237 -129 438 -1 133 7 150 64 140 22 -4 47 -14 55 -22z m2280 0 c13 -40 7 -220 -11 -313 -20 -109 -52 -179 -110 -242 l-44 -48 -1 106 c0 59 7 144 16 189 9 50 14 121 12 182 -2 99 -2 101 25 124 39 33 102 34 113 2z m-1727 -1610 c32 -46 81 -104 108 -129 105 -99 143 -109 424 -109 323 0 363 17 521 228 l73 97 2 -345 c2 -230 7 -352 14 -366 12 -24 49 -44 79 -44 10 0 31 11 46 24 26 21 28 30 32 115 l4 91 42 -38 c50 -45 140 -114 222 -170 l62 -41 -9 -48 c-57 -302 -216 -556 -409 -649 -63 -31 -74 -32 -255 -43 -240 -14 -607 -14 -846 0 -179 10 -186 11 -257 44 -196 92 -354 341 -411 648 l-9 48 62 41 c82 56 172 125 222 170 l42 38 4 -91 c4 -85 6 -94 32 -115 30 -26 56 -30 89 -12 46 24 46 25 47 391 0 191 2 347 4 347 3 0 32 -37 65 -82z m-710 -820 c31 -152 119 -349 216 -481 29 -40 52 -73 51 -74 -5 -5 -320 47 -409 68 -209 48 -648 189 -647 208 1 8 353 200 445 243 57 27 279 94 320 97 6 1 17 -27 24 -61z m2624 31 c67 -17 160 -48 207 -70 100 -47 439 -232 440 -240 0 -9 -270 -106 -415 -149 -147 -43 -367 -90 -534 -114 -58 -9 -106 -14 -107 -13 -1 1 22 34 51 74 97 132 185 329 216 481 7 34 15 62 17 62 2 0 58 -14 125 -31z">
+                  </path>
+                </g>
+              </svg>
+              <span>Account Manager</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: "Our Clients" logo grid -- 12 logos, 3 rows of 4. Every src below was read
+         directly off the live DOM (alt text + real uploads path), not guessed. Two genuine
+         reference quirks worth noting: "pathkind" and "Superior Group" are two DIFFERENT images
+         that both happen to be named clients-logo7.png in different upload folders on the live
+         site, and likewise "made brave" / "rostar" both happen to be named clients-logo8.png --
+         downloaded here under disambiguated local filenames (clients-logo7.png vs
+         clients-logo7-superior.png, and the existing clients-logo8.png vs a new clients-logo9.png)
+         so neither local copy overwrites the other. -->
+    <section class="wps-clients">
+      <div class="container">
+        <h2>Our Clients</h2>
+        <div class="wps-clients-grid">
+          <img src="assets/images/clients-logo6.png" alt="verve" width="144" height="61" loading="lazy">
+          <img src="assets/images/clients-logo8.png" alt="made brave" width="144" height="61" loading="lazy">
+          <img src="assets/images/clients-logo4.png" alt="packed" width="144" height="61" loading="lazy">
+          <img src="assets/images/clients-logo11.png" alt="flavia tschanz" width="144" height="61" loading="lazy">
+          <img src="assets/images/clients-logo7.png" alt="pathkind" width="144" height="61" loading="lazy">
+          <img src="assets/images/clients-logo9.png" alt="rostar" width="144" height="61" loading="lazy">
+          <img src="assets/images/clients-logo1.png" alt="helm" width="144" height="61" loading="lazy">
+          <img src="assets/images/clients-logo3.png" alt="dainty jewells" width="144" height="61" loading="lazy">
+          <img src="assets/images/clients-logo2.png" alt="encardio rite" width="144" height="61" loading="lazy">
+          <img src="assets/images/clients-logo10.png" alt="Targus tech" width="144" height="61" loading="lazy">
+          <img src="assets/images/clients-logo7-superior.png" alt="Superior Group" width="144" height="61"
+            loading="lazy">
+          <img src="assets/images/clients-logo5.png" alt="ozone" width="144" height="61" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 8: dark navy CTA band, reusing the existing local shape-for-service.png
+         decorative background already present in assets/images from a prior page build. -->
+    <section class="wps-cta">
+      <div class="container wps-cta-inner">
+        <h2 class="wps-cta-heading">Get WordPress Support,<br>Talk To A WordPress Expert</h2>
+        <a class="btn wps-cta-btn" href="contact.html">Contact Us</a>
+      </div>
+    </section>
+
+    <!-- Section 9: FAQ -- reuses this project's own established accordion pattern (single-open,
+         "+"/"-" toggle, blue open-state header) already implemented on
+         shopify-support-and-maintenance-services.html (.ssm-acc-item/.ssm-acc-btn/.ssm-acc-panel),
+         renamed under the wps- prefix here and driven by the same idempotent JS approach in
+         js/wordpress-support.js. First item open by default, matching the reference. All 8
+         question/answer pairs were read directly off the live DOM (Bootstrap-style
+         .card/.card-body markup keeps every answer in the DOM regardless of collapsed state). -->
+    <section class="wps-faq" aria-labelledby="wps-faq-title">
+      <div class="container">
+        <h2 id="wps-faq-title">Frequently Asked Questions</h2>
+        <div class="wps-accordion">
+          <div class="wps-acc-item is-open">
+            <button class="wps-acc-btn" type="button" aria-expanded="true" aria-controls="wps-acc-1">
+              <span class="wps-acc-q">Do you have a standard billing rate?</span>
+            </button>
+            <div class="wps-acc-panel" id="wps-acc-1">
+              <div class="wps-acc-body">Yes, we do. Our hourly rates starts from USD 25 per hour.</div>
+            </div>
+          </div>
+          <div class="wps-acc-item">
+            <button class="wps-acc-btn" type="button" aria-expanded="false" aria-controls="wps-acc-2">
+              <span class="wps-acc-q">Are you willing to sign an NDA?</span>
+            </button>
+            <div class="wps-acc-panel" id="wps-acc-2" hidden>
+              <div class="wps-acc-body">Absolutely. We would be happy to sign an NDA prior to discussing project
+                specifics. In case you donot have a NDA ready, we have an industry standard NDA that we can share
+                with you and you can customize this per your requirements.</div>
+            </div>
+          </div>
+          <div class="wps-acc-item">
+            <button class="wps-acc-btn" type="button" aria-expanded="false" aria-controls="wps-acc-3">
+              <span class="wps-acc-q">How much does your WordPress support service cost?</span>
+            </button>
+            <div class="wps-acc-panel" id="wps-acc-3" hidden>
+              <div class="wps-acc-body">We can provide you with a quote, once we understand your requirements. Our
+                hourly rates starts from USD 25 per hour.</div>
+            </div>
+          </div>
+          <div class="wps-acc-item">
+            <button class="wps-acc-btn" type="button" aria-expanded="false" aria-controls="wps-acc-4">
+              <span class="wps-acc-q">How can I contact your support team?</span>
+            </button>
+            <div class="wps-acc-panel" id="wps-acc-4" hidden>
+              <div class="wps-acc-body">Our Sales Team will provide you details of our Support team, including
+                email addresses, Live Chat details, or phone number. We also provide a dedicated client portal
+                where you can submit and track support tickets.</div>
+            </div>
+          </div>
+          <div class="wps-acc-item">
+            <button class="wps-acc-btn" type="button" aria-expanded="false" aria-controls="wps-acc-5">
+              <span class="wps-acc-q">Do you offer website backup and restoration services?</span>
+            </button>
+            <div class="wps-acc-panel" id="wps-acc-5" hidden>
+              <div class="wps-acc-body">Yes, we provide automated backups and can quickly restore your website to a
+                previous version if needed.</div>
+            </div>
+          </div>
+          <div class="wps-acc-item">
+            <button class="wps-acc-btn" type="button" aria-expanded="false" aria-controls="wps-acc-6">
+              <span class="wps-acc-q">Is your support plan suitable for WooCommerce websites?</span>
+            </button>
+            <div class="wps-acc-panel" id="wps-acc-6" hidden>
+              <div class="wps-acc-body">Yes, we offer full support for both WordPress and WooCommerce sites,
+                including product management, checkout troubleshooting, and performance optimization.</div>
+            </div>
+          </div>
+          <div class="wps-acc-item">
+            <button class="wps-acc-btn" type="button" aria-expanded="false" aria-controls="wps-acc-7">
+              <span class="wps-acc-q">Can you help with custom development tasks?</span>
+            </button>
+            <div class="wps-acc-panel" id="wps-acc-7" hidden>
+              <div class="wps-acc-body">Yes, our team can assist with customizations and development tasks as part
+                of our ongoing maintenance plans.</div>
+            </div>
+          </div>
+          <div class="wps-acc-item">
+            <button class="wps-acc-btn" type="button" aria-expanded="false" aria-controls="wps-acc-8">
+              <span class="wps-acc-q">My site is down-what should I do?</span>
+            </button>
+            <div class="wps-acc-panel" id="wps-acc-8" hidden>
+              <div class="wps-acc-body">Contact us immediately via our emergency support form, Email, and Phone
+                number. We prioritize critical issues like downtime.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script defer src="js/header.js"></script>
+  <script defer src="js/footer.js"></script>
+  <script defer src="js/script.js"></script>
+  <script defer src="js/include.js"></script>
+  <script defer src="js/wordpress-support.js"></script>
+</body>
+
+</html>

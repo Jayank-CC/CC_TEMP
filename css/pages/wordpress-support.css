@@ -1,0 +1,753 @@
+/* WordPress & WooCommerce Support Services
+   Reference: https://www.cloudconverge.io/wordpress-support/
+   Prefix: wps- (distinct from every other page prefix already used in this project).
+
+   Content root confirmed via [data-elementor-id="16702"], 9 top-level sections (0-8 in the
+   DOM, mapped to 10 visual sections below since the "problems" heading/intro and the 6-card
+   grid + second contact form are two separate top-level sections on the reference but read as
+   one continuous visual block here).
+
+   Brand tokens reused directly from css/style.css rather than redefined: --color-primary
+   (#1e4ec4) is the exact same blue as this page's own FAQ open-state header and the "5 Star
+   Rated" badge highlight (both re-confirmed via getComputedStyle: rgb(30,78,196)); --shadow-card
+   matches the reference's own icon-box shadow (0px 14px 46px rgba(0,26,87,.08)) exactly. */
+
+.wps-page {
+  --wps-navy: #14255b;
+  --wps-navy-light: #9cacd4;
+  --wps-orange: #ffab08;
+  --wps-badge-bg: #28396c;
+}
+
+.header-inner {
+  padding: 0 276px;
+}
+/* Sitewide h1-h6 text-transform:capitalize (css/style.css) wrecks this page's own mixed-case
+   copy ("eCommerce Functionality Issues" -> "ECommerce...", "<12 Hours" mid-sentence words) --
+   same recurring quirk already fixed on other pages in this project. */
+.wps-page h1,
+.wps-page h2,
+.wps-page h3,
+.wps-page h4,
+.wps-page h5 {
+  text-transform: none;
+}
+
+/* ---------- Hero ---------- */
+.wps-hero {
+  position: relative;
+  background: var(--wps-navy) url(../../assets/images/bg-slice10.webp) center
+    top no-repeat;
+  background-size: cover;
+  padding: 140px 0 180px;
+  overflow: hidden;
+}
+.wps-hero-grid {
+  display: flex;
+  align-items: flex-start;
+  gap: 70px;
+}
+/* Reference's own tiny floating decorative dot (confirmed directly: an 8x8 img,
+   hm12-yellow-circle.svg, fill #FFA901, class "particle-moving-2" -- a drifting float, not a
+   bounce) sitting just below the header, above the eyebrow label. */
+.wps-hero-particle {
+  position: absolute;
+  top: 95px;
+  left: 555px;
+  width: 8px;
+  height: 8px;
+  z-index: 1;
+  animation: wps-particle-move 4.5s linear infinite;
+}
+@keyframes wps-particle-move {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(10px, 10px);
+  }
+  50% {
+    transform: translate(5px, 5px);
+  }
+  75% {
+    transform: translate(10px, -5px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+.wps-hero-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.wps-hero-eyebrow {
+  margin: 0 0 14px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--wps-navy-light);
+}
+.wps-hero-heading {
+  margin: 0 0 20px;
+  font-size: 66px;
+  font-weight: 700;
+  line-height: 1.24;
+  color: #fff;
+}
+.wps-problems .container {
+  max-width: none;
+  margin: 0;
+}
+.wps-hero-highlight {
+  position: relative;
+  display: inline-block;
+  color: #2893f5;
+  background: linear-gradient(to top, #70c3ff 0%, #a98bfe 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.wps-hero-underline {
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+  width: 49%;
+  line-height: 0;
+  clip-path: inset(0 100% 0 0);
+  animation: wps-underline-reveal 1s ease 0.5s 1 forwards;
+}
+.wps-hero-underline svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.wps-hero-underline path {
+  fill: #ffa901;
+}
+@keyframes wps-underline-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+.wps-hero-desc {
+  margin: 0 0 30px;
+  max-width: 520px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--wps-navy-light);
+}
+.wps-hero-badges {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.wps-hero-badges img:first-child {
+  width: 195px;
+  height: auto;
+}
+.wps-hero-badges img:last-child {
+  width: 74px;
+  height: auto;
+}
+
+/* Hero form card -- reuses the sitewide .contact-form/.form-field/.btn-submit component; only
+   the card chrome and this page's own orange submit modifier are page-specific. */
+.wps-hero-form-wrap {
+  flex: 0 0 380px;
+  width: 380px;
+}
+.wps-hero-form-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: var(--shadow-card);
+}
+.wps-hero-form-title {
+  margin: 0 0 24px;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-heading);
+}
+.wps-honeypot {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0;
+}
+.wps-page .form-field input,
+.wps-page .form-field textarea {
+  background-color: #eff5fc !important;
+}
+.wps-submit-btn {
+  width: 100%;
+  text-align: center;
+  background: var(--color-primary);
+}
+.wps-submit-btn--orange {
+  background: var(--wps-orange);
+}
+.wps-submit-btn--orange:hover {
+  background: #e69a00;
+}
+
+/* ---------- Stats band (static values -- not animated counters, confirmed on the reference) --------- */
+.wps-stats {
+  position: relative;
+  z-index: 1;
+  margin-top: -73px;
+  padding-bottom: 60px;
+}
+.wps-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.wps-stat-card {
+  background: #fff;
+  border-radius: 4px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.wps-stat-card:hover {
+  transform: translate3d(0, -5px, 0);
+}
+.wps-stat-number {
+  font-family: var(--font-heading);
+  font-size: 42px;
+  font-weight: 600;
+  color: #122587;
+}
+.wps-stat-suffix {
+  font-size: 32px;
+}
+.wps-stat-label {
+  margin-top: 6px;
+  font-size: 16px;
+  color: var(--color-body);
+}
+
+/* ---------- "Facing Website Issues?" heading/intro + 6-card grid + second contact form ---------- */
+.wps-problems {
+  padding: 90px 0 100px;
+  background: #fff;
+}
+.wps-problems-head {
+  max-width: 920px;
+  margin: 0 auto 50px;
+  text-align: center;
+}
+.wps-problems-head h2 {
+  margin: 0 0 20px;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-heading);
+}
+.wps-problems-head p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+.wps-problems-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+.wps-problems-grid {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.wps-problem-card {
+  background: #fff;
+  border-radius: 4px;
+  padding: 48px 24px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.wps-problem-card:hover {
+  transform: translate3d(0, -5px, 0);
+}
+.wps-problem-card img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+}
+.wps-problem-card h3 {
+  margin: 0 0 12px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+.wps-problem-card p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-body);
+}
+.wps-contact-card-wrap {
+  flex: 0 0 320px;
+  width: 320px;
+  align-self: stretch;
+}
+.wps-contact-card {
+  height: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 8px;
+  padding: 32px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.wps-contact-card:hover {
+  transform: translate3d(0, -5px, 0);
+}
+.wps-contact-title {
+  margin: 0 0 12px;
+  font-size: 32px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-heading);
+}
+.wps-contact-desc {
+  margin: 0 0 20px;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: center;
+  color: var(--color-body);
+}
+
+/* ---------- HOW WE WORK ---------- */
+.wps-how {
+  padding: 90px 0 30px;
+  background: #fff;
+  text-align: center;
+}
+.wps-how-title {
+  margin: 0 0 60px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--color-heading);
+}
+.wps-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  text-align: left;
+}
+.wps-step {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding-left: 60px;
+  border-left: 1px solid #cfd7ea;
+}
+.wps-step-number {
+  position: absolute;
+  top: -18px;
+  left: -10px;
+  font-family: var(--font-heading);
+  font-size: 64px;
+  font-weight: 700;
+  color: #e8ecf6;
+  line-height: 1;
+  z-index: 0;
+}
+.wps-step-icon {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  color: var(--color-primary);
+}
+.wps-step-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.wps-step-text {
+  position: relative;
+  z-index: 1;
+}
+.wps-step-text h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+.wps-step-text p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--color-body);
+}
+
+/* ---------- Dark navy "Reliable WordPress Support" band ---------- */
+.wps-band {
+  background: var(--wps-navy);
+  padding: 90px 0;
+}
+.wps-band-grid {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+.wps-band-media {
+  flex: 0 0 44%;
+  max-width: 44%;
+}
+.wps-band-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.wps-band-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.wps-band-content h2 {
+  margin: 0 0 20px;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.28;
+  color: #fff;
+}
+.wps-band-content p {
+  margin: 0 0 30px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--wps-navy-light);
+}
+.wps-badges {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.wps-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 27px 10px 22px;
+  border-radius: 4px;
+  background: var(--wps-badge-bg);
+  color: #fff;
+  text-align: center;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.wps-badge:hover {
+  transform: translate3d(0, -5px, 0);
+}
+.wps-badge--highlight {
+  background: var(--color-primary);
+}
+.wps-badge svg {
+  width: 30px;
+  height: 30px;
+}
+.wps-badge span {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* ---------- Our Clients ---------- */
+.wps-clients {
+  padding: 90px 0;
+  background: #fff;
+  text-align: center;
+}
+.wps-clients h2 {
+  margin: 0 0 50px;
+  font-size: 32px;
+  font-weight: 600;
+  color: #191919;
+}
+.wps-clients-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+  gap: 50px 30px;
+}
+.wps-clients-grid img {
+  width: 144px;
+  height: auto;
+  max-height: 61px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.75;
+  transition:
+    opacity 0.3s,
+    filter 0.3s,
+    transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.wps-clients-grid img:hover {
+  opacity: 1;
+  filter: none;
+  transform: translate3d(0, -5px, 0);
+}
+
+/* ---------- CTA band ---------- */
+.wps-cta {
+  position: relative;
+  background: var(--wps-navy) url(../../assets/images/shape-for-service.png)
+    right center no-repeat;
+  background-size: contain;
+  padding: 111px 0;
+  overflow: hidden;
+}
+.wps-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+.wps-cta-heading {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #fff;
+}
+.wps-cta-btn {
+  display: inline-block;
+  flex: 0 0 auto;
+  background: var(--wps-orange);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 16px 40px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: transform 0.3s ease-in-out;
+}
+.wps-cta-btn:hover {
+  transform: translateY(-4px);
+}
+
+/* ---------- FAQ accordion (reused pattern from ssm-accordion, renamed wps-) ---------- */
+.wps-faq {
+  padding: 70px 0;
+  background: rgb(247, 251, 255);
+}
+.wps-faq h2 {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1d1a4e;
+  text-align: center;
+}
+.wps-accordion {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.wps-acc-item {
+  margin: 0 0 10px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.wps-acc-item:last-child {
+  margin-bottom: 0;
+}
+.wps-acc-btn {
+  display: block;
+  width: 100%;
+  padding: 0 20px;
+  min-height: 60px;
+  font: inherit;
+  text-align: left;
+  background: #fff;
+  border: 0;
+  cursor: pointer;
+}
+.wps-acc-item.is-open .wps-acc-btn {
+  background: var(--color-primary);
+}
+.wps-acc-q {
+  position: relative;
+  display: block;
+  padding: 20px 40px 20px 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1d1a4e;
+}
+.wps-acc-item.is-open .wps-acc-q {
+  color: #fff;
+}
+.wps-acc-q::before {
+  content: "+";
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 20px;
+  color: #000;
+  text-align: center;
+}
+.wps-acc-item.is-open .wps-acc-q::before {
+  content: "-";
+  color: #fff;
+}
+.wps-acc-body {
+  padding: 20px;
+  font-size: 16px;
+  line-height: 26px;
+  color: #191919;
+  background: transparent;
+}
+
+/* ==========================================================================
+   Responsive overrides -- own file per CLAUDE.md, no shared-CSS edits.
+   ========================================================================== */
+@media (max-width: 1199px) {
+  .wps-hero-form-wrap {
+    flex: 0 0 340px;
+    width: 340px;
+  }
+  .wps-hero-heading {
+    font-size: 46px;
+  }
+  .wps-problems-grid {
+    gap: 18px;
+  }
+  .wps-contact-card-wrap {
+    flex: 0 0 280px;
+    width: 280px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .wps-hero {
+    padding: 100px 0 130px;
+  }
+  .wps-hero-grid {
+    flex-direction: column;
+  }
+  .wps-hero-form-wrap {
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 460px;
+  }
+  .wps-stats {
+    margin-top: -90px;
+  }
+  .wps-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .wps-problems-row {
+    flex-direction: column;
+  }
+  .wps-contact-card-wrap {
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+  .wps-steps {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .wps-band-grid {
+    flex-direction: column;
+  }
+  .wps-band-media,
+  .wps-band-content {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .wps-clients-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .wps-cta-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .wps-hero {
+    padding: 70px 0 100px;
+  }
+  .wps-hero-heading {
+    font-size: 32px;
+  }
+  .wps-hero-badges {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .wps-stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .wps-problems {
+    padding: 60px 0 70px;
+  }
+  .wps-problems-head h2 {
+    font-size: 26px;
+  }
+  .wps-problems-grid {
+    grid-template-columns: 1fr;
+  }
+  .wps-badges {
+    grid-template-columns: 1fr;
+  }
+  .wps-band-content h2 {
+    font-size: 26px;
+  }
+  .wps-clients-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 20px;
+  }
+  .wps-cta-heading {
+    font-size: 24px;
+  }
+  .wps-faq h2 {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wps-hero-form-card {
+    padding: 24px;
+  }
+  .wps-stat-number {
+    font-size: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wps-hero-underline {
+    animation: none;
+    clip-path: inset(0);
+  }
+  .wps-hero-particle {
+    animation: none;
+  }
+  .wps-stat-card,
+  .wps-problem-card,
+  .wps-contact-card,
+  .wps-badge,
+  .wps-clients-grid img,
+  .wps-cta-btn {
+    transition: none;
+  }
+}

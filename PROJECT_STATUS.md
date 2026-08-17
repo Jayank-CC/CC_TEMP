@@ -2,6 +2,99 @@
 
 ## Current task
 
+- **Reference:** https://www.cloudconverge.io/wordpress-support/
+- **Local target:** `wordpress-support.html` (root-level, `wps-` prefix), `css/pages/wordpress-support.css`,
+  `js/wordpress-support.js` (FAQ accordion, single-open, reused pattern from
+  `shopify-support-and-maintenance-services.html`'s `.ssm-acc-item` + honeypot/fake-success handlers
+  for the page's two lead-capture forms).
+- **Last updated:** 2026-08-17
+- **State:** Built and rendered/verified this session on the user's own local dev server
+  (`127.0.0.1:5500`). Zero console errors, all network requests (43 checked, including every
+  lazy-loaded image scrolled into view) returned 200, no hotlinked production assets. FAQ
+  accordion click-tested directly (single-open behavior confirmed: clicking a second question
+  closes the first and opens the new one, toggling the blue background + "+"/"-" glyph). Hero
+  underline entrance animation confirmed actually playing (caught mid-reveal on a fresh-load
+  screenshot, not just its end state).
+  - **Content root confirmed via `[data-elementor-id="16702"]`, 9 top-level DOM sections**, mapped
+    to 10 visual sections in the rebuild (the "Facing Website Issues?" heading/intro and the 6-card
+    problem grid + a SECOND, distinct contact-form card are two separate top-level sections on the
+    reference but read here as one continuous `.wps-problems` block).
+  - **Structure implemented:** dark-navy hero (`bg-slice10.webp` wavy background, eyebrow label,
+    H1 with a gradient-fill "Maintenance" word carrying a real hand-drawn SVG underline -- path
+    data copied verbatim from the reference's own inline `<svg>` inside `.rt-underline-txt`, fill
+    `#FFA901`, revealed via a `clip-path: inset()` animation matching the reference's own
+    `my-animation` keyframe exactly -- + Clutch/WordPress-Contributors badge images + a "Connect
+    with us" form reusing `.contact-form`/`.form-field`/`.btn-submit`) + a 4-stat band (confirmed
+    via DOM audit these are STATIC `heading.default` widgets, NOT counter widgets -- no
+    `data-from`/`data-to` present -- so reproduced as plain text, not wired into the sitewide
+    `.stat-number` counter script, per this project's "don't animate a static value" rule) + a
+    heading/intro + 6-card icon grid (Website Downtime / eCommerce Functionality Issues / Security
+    Vulnerabilities / Performance Optimization / Outdated WordPress / Slow Loading Times) beside a
+    SECOND "Connect with us" form card (its own Submit button is the sitewide default blue, the
+    hero's is a page-only orange modifier) + "HOW WE WORK" + a 3-step row with large faded 01/02/03
+    numerals + a dark-navy "Reliable WordPress Support..." band (team photo + 3 badge cards, the
+    middle "5 Star Rated By Over 200 Clients" one confirmed via `getComputedStyle` to use the exact
+    sitewide `--color-primary` blue `rgb(30,78,196)` as a solid highlight, the other two a lighter
+    translucent navy `rgb(40,57,108)`) + a 12-logo "Our Clients" grid + a dark CTA band (reuses the
+    already-local `shape-for-service.png`) + an 8-item FAQ accordion (first item open by default,
+    all 8 Q&A pairs read directly off the live DOM's Bootstrap-style `.card`/`.card-body` markup,
+    which keeps every answer present regardless of collapsed state).
+  - **Assets** (`assets/images/`, 12 newly downloaded this session via same-origin `fetch()` +
+    blob + real-click download into the mounted Downloads folder, then copied into the repo and
+    verified via PIL): `clutch-logo1.png` (`195x46`), `wordpress-logo.png` (`101x122`),
+    `downtime-blue.png`/`error-blue.png`/`vulnerability-blue.png` (`64x64` each),
+    `reliable-wordpress-support.webp` (`528x472`), `bg-slice10.webp` (`1920x1280`, hero background),
+    and 5 client-logo files. Reused existing local assets without re-downloading:
+    `web-optimization-blue.png`/`synchronization-blue.png`/`loading-blue.png` (same exact icon set
+    already local from the `shopify-development-services-ppc.html` build), `shape-for-service.png`,
+    and `clients-logo1.png`/`2`/`3`/`4`/`5`/`6`/`8.png`.
+  - **Genuine reference data quirk found and handled, not guessed:** the live site reuses the
+    SAME filename (`clients-logo7.png` and, separately, `clients-logo8.png`) for two DIFFERENT
+    client logos each, served from two different upload-date folders (`pathkind` vs `Superior
+    Group` both as `clients-logo7.png`; the already-local `made brave` vs a new `rostar` both as
+    `clients-logo8.png`). Confirmed via each `<img>`'s real `src` (not alt-text guessing) and
+    downloaded both variants under disambiguated local names so neither overwrites the other:
+    `clients-logo7.png` (pathkind) / `clients-logo7-superior.png` (Superior Group), and the
+    existing `clients-logo8.png` (made brave, verified by opening the file) / `clients-logo9.png`
+    (rostar, a new number picked since 9 wasn't otherwise in use).
+  - **Documented approximation (honest gap):** the 3-step "HOW WE WORK" icons (handshake /
+    document-check / globe) and the 3 badge icons (trophy / thumbs-up-star / user) are the
+    reference's own custom multi-thousand-point hand-drawn inline SVGs; extracting their exact
+    path data was not practical within this session's effort budget, so they were reproduced as
+    stylistically-matching simple outline SVGs (same blue stroke color/weight, same general
+    silhouette) rather than byte-exact copies. Everything else with meaningful visual weight
+    (the hero underline SVG, all logos, all photographic/icon `<img>` assets, all text) was
+    extracted directly from the live DOM, not approximated.
+  - **Header nav:** checked `js/header.js` for any existing unresolved WordPress-support
+    placeholder link (per the CRM/marketplace precedent in this file) -- none exists; the
+    "Ecommerce Solutions" mega-menu group currently lists only Ecommerce Web & App Dev / Shopify
+    Development / Integration / Migration / Support & Maintenance, with no WordPress entry at all,
+    resolved or not. Left `js/header.js` untouched this session rather than inventing a new
+    mega-menu entry without a precedent to follow -- flag to the user if a nav link to this new
+    page is actually wanted.
+  - **Viewports:** 1920/1440/1366/1280/1024/768/480/390/360px all checked for zero horizontal
+    overflow using the same-origin-iframe technique documented elsewhere in this file (the
+    standing `resize_window` tool limitation was reconfirmed this session -- it still does not
+    change a tab's actual `window.innerWidth`). 390px and 768px and 1024px additionally
+    screenshot-verified section-by-section (hero, stats, 6-card grid + second form, 3-step "HOW WE
+    WORK", dark band + badges, clients grid, CTA, FAQ) showing correct single/double-column
+    stacking and no overlapping content at any of them.
+  - **Known remaining gaps, honestly listed:**
+    - The 6 decorative icon SVGs described above (3 step icons + 3 badge icons) are stylistic
+      approximations, not exact path-for-path copies of the reference's own custom artwork.
+    - The dark band's own subtle hexagon-dot decorative texture (visible behind the team photo on
+      the live reference) was not reproduced -- its source element could not be located in the
+      time available (not a plain section `background-image`; likely a positioned decorative
+      overlay nested deeper in the markup) and was judged low-impact enough to skip rather than
+      guess at a shape.
+    - No true device testing -- same standing caveat as every other page using the iframe
+      technique (it renders real CSS at a real pixel width inside a desktop browser engine, not an
+      actual mobile browser).
+    - The hero's small decorative dashed-circle-with-arrow graphic and the tiny orange dot near the
+      logo (both visible on the reference, very low visual weight) were not reproduced.
+
+## Previous completed page
+
 - **Reference:** https://www.cloudconverge.io/shopify-development-services-ppc/
 - **Local target:** `shopify-development-services-ppc.html` (root-level, `shppc-` prefix -- a
   DIFFERENT page from the sibling `shopify-development-services.html`, which stays untouched),

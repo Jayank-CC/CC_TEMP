@@ -231,6 +231,39 @@ textarea:focus-visible {
   display: none;
 }
 
+/* "Minimal header" variant -- reference's own stripped header used on some landing/campaign
+   pages (confirmed directly on the live wordpress-support page: the real <header> there has zero
+   nav items, just the logo + a phone/email contact line, overlaid transparently on the hero).
+   Hidden by default so every existing page's normal logo+nav+CTA header is untouched; a page
+   opts in by adding "has-minimal-header" to its <body>. */
+.header-contact-bar {
+  display: none;
+}
+.has-minimal-header .main-nav,
+.has-minimal-header .header-cta,
+.has-minimal-header .mobile-toggle {
+  display: none;
+}
+.has-minimal-header .header-inner {
+  justify-content: space-between;
+}
+.has-minimal-header .header-contact-bar {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.header-contact-bar a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+}
+.header-contact-bar svg {
+  flex-shrink: 0;
+}
+
 .main-nav {
   margin-left: auto;
 }
