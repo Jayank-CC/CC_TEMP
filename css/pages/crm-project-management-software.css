@@ -85,7 +85,7 @@
   color: #fff;
   font-family: var(--font-heading);
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 16px;
   padding: 12px 24px;
   border: 1px solid var(--color-primary);
@@ -252,7 +252,7 @@
   color: var(--crm-navy);
   text-align: left;
   margin: 0 0 16px;
-  text-transform: none;
+  text-transform: capitalize;
 }
 .crm-feature-copy p {
   font-size: 16px;
@@ -379,6 +379,11 @@
 .crm-tools-split .crm-tools-col {
   text-align: center;
 }
+
+.crm-tools-col {
+  box-shadow: 0px 14px 20px 0px rgba(0, 25.99999999999999, 87, 0.08);
+}
+
 .crm-tools-split .crm-tools-col .crm-chevron-list {
   display: inline-block;
   text-align: left;
@@ -445,28 +450,52 @@
 }
 
 /* ---------- Stats overrides (this page's own instance of the shared .stats component) -----------
-   The shared component (css/style.css) is the bold-blue-number + divider-line look used by
-   index.html and marketplace-development-services.html. This page's own reference renders
-   noticeably differently -- confirmed via getComputedStyle only after letting the scroll-
-   triggered entrance animation actually finish (an early read mid-animation gave misleadingly
-   faded-out colors): no divider line at all, a plain dark 32px number (not bold blue), and a real
-   icon above each label that the shared markup has no slot for. Scoped to `.crm-page` so the
-   shared component's default look is untouched on every other page that uses it. */
+   The shared component (css/style.css) is the bold-blue-number + short-blue-underline-divider
+   look used by index.html and marketplace-development-services.html. This page's own reference
+   renders noticeably differently -- confirmed via getComputedStyle only after letting the
+   scroll-triggered entrance animation actually finish (an early read mid-animation gave
+   misleadingly faded-out colors): that short blue underline is genuinely ABSENT here, replaced
+   with a plain dark 32px number (not bold blue) and a real icon above each label that the shared
+   markup has no slot for. A DIFFERENT kind of divider is present that an earlier pass missed
+   entirely: a thin `1px solid rgb(228,228,228)` vertical line separating each of the 4 columns
+   (confirmed via zoomed screenshot -- computed border-width read as a sub-pixel `0.877px` on the
+   live reference, rounded to a clean 1px here). Each column also carries the same
+   `img-box-hover-effect` hover-lift class already used elsewhere on this page (translate3d lift on
+   hover), which this page's build had not reproduced on the stats cards at all. Scoped to
+   `.crm-page` so the shared component's default look is untouched on every other page that uses
+   it. */
 .crm-page .stat-icon {
   display: block;
   width: 55px;
   height: 55px;
   margin: 0 auto 17px;
+  transition: transform 0.3s ease-in-out;
+}
+/* The icon has its OWN separate hover animation from the card's lift -- confirmed via reading the
+   reference's actual stylesheet rule (`.moving-icon-left-right:hover .elementor-icon svg`): the
+   icon alone slides 10px to the LEFT on hover (not up, not with the card), while the whole
+   `.stat-card` lifts 5px up. Two independent hover transforms happening at once. */
+.crm-page .stat-card:hover .stat-icon {
+  transform: translate3d(-10px, 0, 0);
 }
 .crm-page .stat-spacer {
   display: none;
 }
 .crm-page .stat-label {
-  font-weight: 400;
+  font-weight: 600;
 }
 .crm-page .stat-desc {
   font-size: 14px;
   color: var(--color-body);
+}
+.crm-page .stat-box:not(:first-child) {
+  border-left: 1px solid #e4e4e4;
+}
+.crm-page .stat-card {
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.crm-page .stat-card:hover {
+  transform: translate3d(0, -5px, 0);
 }
 
 /* ---------- Trust badges (renamed copy of the mkt-/iad- awards pattern) ---------- */
@@ -583,13 +612,17 @@
 }
 
 /* ---------- Responsive ----------
-   Follows the same established mobile pattern used on marketplace-development-services.css.
-   Not independently re-measured against this page's own reference at true narrow widths -- see
-   the standing environment-limitation note in PROJECT_STATUS.md. */
+   Re-measured directly against the live reference at true narrow widths this session, using a
+   same-origin `<iframe>` embedded in a normal browser tab (set to an explicit pixel width) as a
+   workaround for this session's standing `resize_window` limitation (it does not affect the
+   actual top-level tab viewport, but a same-origin iframe's OWN `contentWindow.innerWidth` genuinely
+   reflects its element width, so `@media` queries inside it evaluate for real). Confirmed via this
+   technique that the real breakpoint tiers are exactly 1024px and 767px (checked 1023/900/800/767
+   directly -- the value changes precisely at the 767/768 boundary, not gradually). */
 @media (max-width: 1024px) {
   .crm-hero-inner h1 {
-    font-size: 40px;
-    line-height: 48px;
+    font-size: 32px;
+    line-height: 42px;
   }
   .crm-tools-grid--3,
   .crm-tools-grid--4 {
@@ -611,14 +644,38 @@
 }
 @media (max-width: 767px) {
   .crm-hero-inner h1 {
-    font-size: 30px;
-    line-height: 38px;
+    font-size: 24px;
+    line-height: 32px;
   }
-  .crm-hero-inner p {
+  .crm-feature-copy h3,
+  .crm-feature-copy h5,
+  .crm-feature-copy h6 {
+    font-size: 24px;
     text-align: center;
   }
+
+  .crm-tools-col h6 {
+    font-size: 24px;
+    text-align: center;
+    line-height: 32px;
+  }
+
+  .crm-feature {
+    padding: 22px 0;
+  }
+
+  .crm-hero {
+    padding: 35px 5px 70px;
+  }
+
+  .crm-tools-split .crm-tools-grid--4 {
+    grid-template-columns: none;
+  }
+  .crm-hero-inner p {
+    text-align: justify;
+  }
   .crm-feature-grid {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
   .crm-feature-copy,
   .crm-feature-media {
@@ -630,11 +687,28 @@
   }
   .crm-lead-band h2 {
     line-height: 32px;
+    text-transform: capitalize;
   }
   .crm-tools-grid--2,
   .crm-tools-grid--3,
   .crm-tools-grid--4 {
     grid-template-columns: 1fr;
+  }
+  .crm-tools-col h5 {
+    font-size: 24px;
+    text-align: center;
+    line-height: 32px;
+  }
+  .crm-tools-grid--3 > :nth-child(1) {
+    order: 3;
+  }
+
+  .crm-tools-grid--3 > :nth-child(2) {
+    order: 2;
+  }
+
+  .crm-tools-grid--3 > :nth-child(3) {
+    order: 1;
   }
   .crm-tools--dark-cards {
     padding: 40px 0 50px;
@@ -642,21 +716,69 @@
   .crm-tools-col--card {
     padding: 22px;
   }
+  /* Confirmed via the iframe-viewport technique: at mobile the media image moves to the BOTTOM of
+     this row (after all 4 cards), not the top -- the reference's outer full-width section carries
+     `elementor-reverse-mobile`, an Elementor setting that only reverses stacking order at the
+     mobile tier, unlike the desktop/tablet order where media comes first. Card text also switches
+     from center-aligned (desktop) to left-aligned (mobile) -- confirmed via getComputedStyle. */
   .crm-tools-split {
     flex-direction: column;
   }
   .crm-tools-media {
     flex: 0 0 100%;
     max-width: 100%;
+    order: 2;
+    margin-bottom: 0;
+  }
+  .crm-tools-split .crm-tools-grid--4 {
+    order: 1;
     margin-bottom: 24px;
   }
+  /* .crm-tools-split .crm-tools-col {
+    text-align: left;
+  } */
+  .crm-tools-col p {
+    text-align: justify;
+  }
+  .crm-tools-col {
+    padding: 35px;
+  }
+  .crm-tools-split .crm-tools-col .crm-chevron-list {
+    display: block;
+    text-align: left;
+  }
+  .crm-chevron-list li {
+    margin-bottom: 5px;
+  }
+  /* Confirmed via the same technique: the badge card's icon switches from top-right (desktop) to
+     CENTERED above the text at mobile (Elementor's per-breakpoint image-box "position" setting
+     changes from Right to Top), and padding tightens from 30px to 20px. */
   .crm-badges-grid {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
+  }
+
+  .crm-chevron-list li.crm-chevron-subhead:first-child {
+    /* margin-top: 0; */
+    text-align: center;
+    font-size: 25px;
   }
   .crm-badge {
     width: 100%;
     max-width: 350px;
+    align-items: center;
+    padding: 20px;
+  }
+  .crm-badge-icon {
+    align-self: center;
+  }
+  .crm-badge-title {
+    text-align: center;
+  }
+  /* Confirmed via the same technique: the vertical column divider is genuinely absent once the
+     stats stack to one column per row at mobile (border computes to 0 on every column). */
+  .crm-page .stat-box:not(:first-child) {
+    border-left: none;
   }
   .crm-review-card {
     flex-basis: 100%;

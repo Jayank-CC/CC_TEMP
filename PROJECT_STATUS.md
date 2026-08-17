@@ -15,10 +15,13 @@
   feature row, both tools grids, the 3-icon badge row, stats (real numbers, not the "0+" bug seen
   on marketplace), awards, and reviews all rendered correctly with zero console errors and no
   horizontal overflow (`scrollWidth 1670` vs `innerWidth 1685`). `resize_window` still did not
-  affect the actual rendered viewport (same standing tool limitation as every other page), so
-  mobile/tablet remains visually unverified. Two fix passes applied and re-verified since (see
-  below): hero alignment/checkmark-icon/3-missing-images (#1), and the dark-background
-  continuation + white card styling on the 2-column row and the 4-card grid (#2).
+  affect the actual rendered viewport (same standing tool limitation as every other page). Six fix
+  passes applied and re-verified since (see below): hero alignment/checkmark-icon/3-missing-images
+  (#1), dark-background continuation + white card styling on the 2-column row and 4-card grid (#2),
+  the badges-row/stats-icons/2x2-grid alignment fixes (#3), the Orders-grid width/height fix (#4),
+  the stats divider/hover-transition fix (#5), and a genuine mobile-viewport verification pass (#6)
+  using a same-origin-iframe workaround that finally got around the standing `resize_window`
+  limitation -- see #6 for the technique, since it may be reusable on future pages.
   - **IMPORTANT -- a costly mid-task misdiagnosis, corrected before any content was built.** The
     first DOM audit queried `[data-elementor-id="15927"]`, which appeared to show the page's
     entire body as 3 generic company/category blocks repeated verbatim 3 times with zero
@@ -251,13 +254,79 @@
     spans very close to the full 2-row card height, the section visibly occupies most of the
     viewport width, and the cards render noticeably wider, matching the reference. No console
     errors on a fresh reload.
-  - **Not yet done:** true mobile/tablet viewport re-check (blocked by `resize_window` not
-    affecting the rendered viewport this session, same as every other page); console/network
-    check was done only at desktop width; the 2-column and 3/4-column tools-grid components are
-    novel to this page (not reused from marketplace) and their exact spacing/typography is a
-    reasonable measured-but-not-pixel-perfect default, same caveat as every other page's feature
-    rows.
-
+  - **Fix pass #5 (user-reported: the stats section should have transitions and vertical lines
+    between the 4 columns, which fix pass #3 missed).** Two real gaps, found by zooming into the
+    live reference's actual rendered pixels (a `getComputedStyle` sweep of `.stat-box` borders in
+    fix pass #3 had checked border-left/right and found `0px` on most columns, wrongly concluding
+    no divider existed -- a fractional sub-pixel border-width (`0.877px`, likely an Elementor
+    rounding artifact of a `1px` setting) reads as `0px` in some computed-style checks but still
+    paints a crisp visible line, confirmed via a zoomed screenshot of all 3 column gaps):
+    1. Added a `1px solid #e4e4e4` vertical divider between each stat column
+       (`.crm-page .stat-box:not(:first-child)`), rounding the reference's sub-pixel `0.877px` up
+       to a clean `1px`.
+    2. Added the same `img-box-hover-effect`-family lift this page already uses elsewhere
+       (`.crm-page .stat-card:hover{transform:translate3d(0,-5px,0)}`) -- confirmed via `className`
+       that all 4 stat columns on the reference carry that class, which this page's stats section
+       had not reproduced at all.
+    3. **User follow-up, caught a second independent hover effect the first fix missed:** the
+       icon moves separately from the card. Read the reference's actual stylesheet rule for
+       `.moving-icon-left-right` (present on the icon widget's class list) directly via
+       `document.styleSheets` rather than guessing: `.moving-icon-left-right:hover .elementor-icon
+       svg { transform: translate3d(-10px, 0, 0) }` -- the icon alone slides 10px LEFT on hover,
+       independent of the card's own upward lift. Added
+       `.crm-page .stat-card:hover .stat-icon{transform:translate3d(-10px,0,0)}` with its own
+       `transition:transform .3s ease-in-out` (a different timing from the card's `.4s`, matching
+       the reference exactly).
+    - Verified all three (divider lines, card lift, icon slide) against the user's own local dev
+      server. No console errors.
+  - **Fix pass #6 (user-requested: make mobile screens match the reference exactly too).**
+    **Breakthrough this pass: found a working workaround for the standing `resize_window`
+    limitation** (documented as blocking true mobile/tablet verification on every page in this
+    project so far). `resize_window` still does not affect a tab's own top-level viewport, but
+    embedding the SAME URL in a same-origin `<iframe>` set to an explicit CSS pixel width, inside a
+    normal tab, genuinely works: the iframe's own `contentWindow.innerWidth` reflects that width
+    for real, so its `@media` queries evaluate correctly and `getComputedStyle`/screenshots inside
+    it show the true mobile render. (Cross-origin note: the reference's own domain needed the
+    iframe's parent tab to already be on that same domain first, e.g. navigate to the reference
+    URL, THEN inject an iframe pointing at the same URL, to avoid X-Frame-Options friction; same
+    pattern used for the local dev server via `127.0.0.1`.) Used this to directly re-measure the
+    reference at 1024/767/480/390/360px and compare against this page's own mobile CSS:
+    1. **Hero H1 size was wrong at BOTH responsive tiers** -- confirmed real values are exactly
+       `32px/42px` at the tablet tier (`<=1024px`, was guessed as `40px/48px`) and `24px/32px` at
+       the mobile tier (`<=767px`, was guessed as `30px/38px`) -- the breakpoint itself is exactly
+       at 767/768, confirmed by checking 767 vs 768 directly, not a gradual clamp.
+    2. **`.crm-feature-copy` headings (Timesheets, Never Miss a Deadline, Enhanced Client
+       Visibility, Manage Task) never shrank at mobile at all** -- reference drops them from `28px`
+       to `24px` at `<=767px`; added the missing rule.
+    3. **The Orders/Invoice/Payments/Subscriptions row has THREE genuine mobile-only behavior
+       changes, not just a simple stack:** the media image moves to the BOTTOM (after all 4 cards,
+       confirmed via the reference's outer section carrying Elementor's `elementor-reverse-mobile`
+       class -- a per-breakpoint stacking-order override), the card text switches from
+       center-aligned (desktop) to LEFT-aligned (mobile), and the chevron list stops being a
+       centered inline-block (matches the reference exactly once left-aligned). Added `order`
+       values to reorder media after the grid, and a mobile-scoped `text-align:left` override.
+    4. **Badge cards (`Enhance Productivity` etc.) have a genuine per-breakpoint layout swap:** the
+       icon is top-right at desktop but CENTERED above the text at mobile (Elementor's image-box
+       widget has its own responsive "position" setting, confirmed via the widget's own
+       `elementor-position-top` class only appearing at the mobile tier), and padding tightens from
+       `30px` to `20px`. Added a mobile override centering the icon/title and reducing padding.
+    5. **Stats column divider disappears entirely once stacked to one column per row at mobile**
+       (confirmed via `getComputedStyle`: border computes to `0` on every column at narrow widths,
+       unlike the visible `1px` lines at desktop) -- added `border-left:none` at `<=767px`.
+    - Verified all five against the user's own local dev server using the same iframe technique at
+      exactly 390px (true phone width) and spot-checked 768px (tablet tier) -- both now match the
+      reference's real computed values exactly, not just a plausible-looking guess. Also confirmed
+      no horizontal overflow at 390px (`scrollWidth` equals `clientWidth`) and no console errors.
+    - **This iframe-viewport technique is a genuine capability upgrade for this project, not just a
+      one-off for this page** -- future pages/fix-passes should use it instead of treating
+      mobile/tablet as unverifiable, though it is still more effort than a native resize, so it's
+      worth reserving for viewports the user specifically flags or a final pre-completion sweep at
+      the 8 required breakpoints, rather than checking every single edit at every width by default.
+  - **Not yet done:** a full section-by-section mobile sweep of the ENTIRE 19-section page (only
+    the sections already touched in fix passes #1-#5 were re-verified at mobile widths this pass);
+    360px/480px were not independently re-checked (only 390/767/768/1024); tablet-range spot-checks
+    beyond the hero heading; true device testing (this technique renders real CSS at a real pixel
+    width, but still runs in a desktop browser engine, not an actual mobile browser).
 ## Previous completed page
 
 - **Reference:** https://www.cloudconverge.io/marketplace-development-services/
