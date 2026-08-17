@@ -78,12 +78,43 @@
 .shppc-hero-price-lead {
   font-weight: 700;
 }
+/* Reference's underline is not a static border -- it's the "loading bar" effect of a
+   rotating-text (radiant-animated-heading) widget: confirmed directly off the live DOM/CSS
+   as a `.rt-words-wrapper::after` bar that grows 0->100% width over 3s then resets 100->0
+   over 0.3s, looping continuously (data-settings loading_delay:3800, bar_waiting:300 govern
+   the hold/pause between cycles). Reproduced here as a looping keyframe underline since our
+   markup has only the one static price word (no other rotating words on the reference either). */
 .shppc-hero-price-amount {
+  position: relative;
   display: inline-block;
   font-size: 42px;
   font-weight: 700;
-  border-bottom: 3px solid #e2402e;
   padding-bottom: 4px;
+}
+.shppc-hero-price-amount::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background: #e2402e;
+  animation: shppc-price-bar 7.1s ease-in-out infinite;
+}
+@keyframes shppc-price-bar {
+  0%,
+  4% {
+    width: 0;
+  }
+  46% {
+    width: 100%;
+  }
+  92% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
 }
 .shppc-hero-partners {
   display: block;
@@ -523,7 +554,7 @@
   max-width: 50%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 }
 .shppc-partner-copy {
   box-sizing: border-box;
@@ -861,5 +892,9 @@
   }
   .shppc-hero-btn {
     transition: none;
+  }
+  .shppc-hero-price-amount::after {
+    animation: none;
+    width: 100%;
   }
 }
