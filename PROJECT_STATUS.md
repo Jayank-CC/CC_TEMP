@@ -176,6 +176,83 @@
     - The hero's small decorative dashed-circle-with-arrow graphic and the tiny orange dot near the
       logo (both visible on the reference, very low visual weight) were not reproduced.
 
+## Shared infrastructure note (affects every page, not just wordpress-support)
+
+- **New shared partial added: `js/meta.js`** (favicon + font-preload `<link>` tags). User asked for
+  a "Meta include file" using a `<div id="site-meta-placeholder"></div>` marker, mirroring
+  `js/header.js`/`js/footer.js`. Clarified with the user first (AskUserQuestion) that the intended
+  content is shared `<head>` tags (favicon/viewport/preloads), not a Meta/Facebook pixel or JSON-LD
+  block. **A literal `<div>` cannot live inside `<head>`** -- per the HTML5 parsing spec, the
+  parser closes `</head>` and starts `<body>` the instant it meets a non-metadata element, silently
+  relocating that div (and anything meant to follow it in `<head>`) into `<body>` instead. So
+  `js/meta.js` is instead loaded via a plain, non-deferred `<script src="/js/meta.js"></script>`
+  placed directly in `<head>`, which calls `document.write()` to insert the shared favicon +
+  font-preload tags at that exact parse position -- the one technique that can still add real
+  nodes to `<head>` while the parser is there (needed so the font preloads actually preload,
+  unlike the header/footer's post-DOMContentLoaded injection pattern, which would be too late).
+  Charset/viewport meta tags are NOT centralized -- they must stay written directly in each page's
+  own `<head>` since no script can safely stand in for them before first render. Uses root-absolute
+  `/assets/...` paths (matching header.js/footer.js's existing convention) so the same file works
+  unmodified from root-level pages and nested pages (`case-studies/*.html`, `job/*.html`) alike.
+  Verified on `wordpress-support.html`: `document.head` ends up with the 2 favicon links + 2 font
+  preloads correctly inserted, `document.body`'s first child is still the header (nothing
+  misplaced), zero console errors on reload.
+- **Superseded (see below): the original `document.write()`-based version of this mechanism.**
+  It genuinely worked (single edit to `js/meta.js` updated every page live), but the user pointed
+  out "View Page Source" never showed the actual `<link>` tags -- only the bare `<script
+  src="/js/meta.js">` tag -- since that view only shows the raw HTML a server sent, never anything
+  `document.write()` adds afterward. Confirmed this is correct, unavoidable browser behavior (not
+  a bug), then asked the user how to reconcile "tags visible in real HTML" with "edit one file" on
+  a static site with no build step. They chose: bake the real tags into every page now, AND add a
+  regenerate script for future edits.
+- **Current mechanism: tags are physically baked into every page's `<head>`, with a script to
+  re-bake them from one source file.** `js/meta.js` no longer runs in any browser -- it now just
+  `module.exports`s the tag block as a template literal (a pure Node-readable data file). Added
+  `apply-meta.js` (project root, no npm dependencies, uses only Node's built-in `fs`/`path`):
+  walks every `.html` file in the repo, finds either the old placeholder marker or a previously
+  baked `<!-- site-meta:start -->`...`<!-- site-meta:end -->` block, and replaces it with the
+  current contents of `js/meta.js` -- idempotent, safe to re-run any time after editing
+  `js/meta.js`. Workflow going forward: edit the tags in `js/meta.js`, then run `node apply-meta.js`
+  once from the project root to propagate the change to every page.
+  - **Could not test-execute `apply-meta.js` itself this session** -- the sandbox's shell tool
+    stayed down (`VM_DISK_SPACE_INSUFFICIENT`) for this entire session, so the actual first bake
+    was performed by 3 parallel subagents doing the equivalent text replacement directly via file
+    edit tools (same exact marker text/tag content the script itself would produce, confirmed by
+    each subagent reading `apply-meta.js`'s expected output before editing). The script exists and
+    its logic was reasoned through carefully, but its first real run (`node apply-meta.js`) is
+    still unverified -- worth actually running it once the sandbox recovers, both to confirm it
+    works and because it should report "unchanged" for every file (proving the manual bake already
+    matches exactly what it would have produced).
+- **Rolled out site-wide (user confirmed): every HTML page in the repo now has the real, baked
+  favicon + font-preload tags.** Done via subagents across the same file groups used for the
+  original rollout (root batch A/B, case-studies/+job/) -- roughly 100 files total, all now
+  containing the literal tags rather than a script reference.
+    - 35 pages had existing inline favicon+font-preload tags swapped for the script reference
+      (2 in batch A, 6 in batch B, all 27 in case-studies/+job/).
+    - 28 root-level pages turned out to have NO favicon/font-preload tags at all (a pre-existing
+      gap, not something this task introduced) -- these got the script tag freshly inserted
+      right after `<title>` instead of a swap (16 in one follow-up batch, 12 in another).
+    - `career.html` was flagged by its subagent as already using an inconsistent `../assets/...`/
+      `../css/...` path convention despite being a root-level file (pre-existing quirk, left
+      as-is -- only the favicon/font-preload swap was in scope, not a path audit).
+  - **Reviewed an automated security-scanner flag on both "insert" batches** (it flagged the new
+    `<script src="/js/meta.js">` tag as an unreviewed/undocumented script-inclusion pattern, since
+    `js/meta.js` wasn't yet listed in this file's "existing architecture" section). Spot-checked
+    3 of the edited files directly (`web-app-development-services.html`, `services.html`,
+    `shopify-development-services-ppc.html`) and confirmed the inserted content is exactly the
+    intended plain `<script src="/js/meta.js"></script>` + comment, nothing else -- a false
+    positive from the scanner not yet knowing about this session's new shared file, not an actual
+    issue. Added `js/meta.js` to `CLAUDE.md`'s documented architecture list so this doesn't
+    re-trigger in future sessions.
+  - **Verified via local dev server render** (not just static file inspection) on 3 pages spanning
+    every path depth/edit-path combination: `index.html` (root, had existing tags, swapped),
+    `services.html` (root, had no tags, freshly inserted), `case-studies/helm-boots-demo.html`
+    (nested, `../` prefix originally, had existing tags, swapped). All 3: favicon links + font
+    preloads present with correct absolute `/assets/...` hrefs, each page's own page-specific
+    `as="image"` hero preload left untouched in its original relative path, `document.body`'s
+    first child is still the header (nothing got relocated into `<body>` incorrectly), all
+    stylesheets loaded, zero console errors.
+
 ## Previous completed page
 
 - **Reference:** https://www.cloudconverge.io/shopify-development-services-ppc/

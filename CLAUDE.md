@@ -16,7 +16,20 @@ Build and maintain pixel-accurate replicas of supplied reference pages using the
 - `index.html` and additional page HTML files contain page-specific content.
 - `js/header.js` contains the reusable shared header markup.
 - `js/footer.js` contains the reusable shared footer markup.
-- `js/include.js` injects the shared partials without `fetch()`.
+- `js/meta.js` is the single source of truth for the shared favicon + font-preload `<link>` tags,
+  but it is NOT loaded by any page (no page contains a `<script src="js/meta.js">`). An earlier
+  version of this file ran in-browser via `document.write()`, which did update every page live,
+  but meant "View Page Source" never showed the actual tags (document.write output is invisible
+  there, since that view never runs JavaScript) — the site owner wants the real tags visible in
+  every page's raw HTML. So instead, every page has the real tags physically baked into its own
+  `<head>` between `<!-- site-meta:start -->` / `<!-- site-meta:end -->` markers, and
+  `apply-meta.js` (project root) re-bakes them from `js/meta.js` into every page on demand: after
+  editing the tags in `js/meta.js`, run `node apply-meta.js` once to propagate the change
+  site-wide. (Unlike header/footer, this couldn't use a body-level placeholder div either way — a
+  `<div>` cannot legally sit inside `<head>`, since the HTML5 parser closes `</head>` and starts
+  `<body>` on any non-metadata element.) Charset and viewport meta tags stay written directly in
+  each page's own `<head>` and are never centralized here.
+- `js/include.js` injects the shared body-level partials (header/footer) without `fetch()`.
 - `js/script.js` defines shared interactions through `window.initSite`.
 - `css/style.css` contains base and shared component styling.
 - `css/responsive.css` contains shared responsive overrides.

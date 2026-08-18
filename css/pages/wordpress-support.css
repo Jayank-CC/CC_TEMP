@@ -531,12 +531,22 @@
 }
 .wps-band-overlay::before {
   left: 0;
-  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 30%, transparent 85%);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    #000 0%,
+    #000 30%,
+    transparent 85%
+  );
   mask-image: linear-gradient(to right, #000 0%, #000 30%, transparent 85%);
 }
 .wps-band-overlay::after {
   right: 0;
-  -webkit-mask-image: linear-gradient(to left, #000 0%, #000 30%, transparent 85%);
+  -webkit-mask-image: linear-gradient(
+    to left,
+    #000 0%,
+    #000 30%,
+    transparent 85%
+  );
   mask-image: linear-gradient(to left, #000 0%, #000 30%, transparent 85%);
 }
 .wps-band-grid {
