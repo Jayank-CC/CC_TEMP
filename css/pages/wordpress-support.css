@@ -549,18 +549,19 @@
 .wps-band-media {
   flex: 0 0 44%;
   max-width: 44%;
-  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
-}
-/* Reference's team-photo column carries the sitewide img-box-hover-effect 5px lift, confirmed via
-   the reference's own column class list. */
-.wps-band-media:hover {
-  transform: translate3d(0, -5px, 0);
 }
 .wps-band-media img {
   display: block;
   width: 100%;
   height: auto;
   border-radius: 4px;
+  transition: transform 0.3s ease-in-out;
+}
+/* Reference's team photo carries its own "move-image-left-right" class (confirmed directly via
+   the reference's stylesheet), NOT the vertical img-box-hover-effect lift used elsewhere on this
+   page -- the IMAGE ITSELF slides 10px left on hover, the column/card does not move at all. */
+.wps-band-media:hover img {
+  transform: translate3d(-10px, 0, 0);
 }
 .wps-band-content {
   flex: 1 1 auto;

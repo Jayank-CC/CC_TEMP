@@ -68,8 +68,16 @@
     7. **HOW WE WORK icon hover + dark band missing hover/background (user-reported).** Added the
        icon-slide hover to `.wps-step-icon svg` (`translate3d(-10px,0,0)`, `0.3s ease-in-out`,
        matching the reference's own `moving-icon-left-right` rule read directly from its
-       stylesheet) and a 5px hover-lift to `.wps-band-media` (the team photo, matching the
-       reference's `img-box-hover-effect` class on that column). Also found the dark
+       stylesheet). First attempt at the team photo's hover used the wrong effect (a 5px vertical
+       `img-box-hover-effect`-style lift on the column, guessed by pattern-matching every other
+       hover-lift on this page) -- **user caught it: the reference actually slides the image 10px
+       LEFT, not up.** Re-checked the reference's real DOM/CSS directly and found the image widget
+       itself carries a different class entirely, `move-image-left-right` (not
+       `img-box-hover-effect`): `.move-image-left-right:hover img { transform:
+       translate3d(-10px,0,0); transition: 0.3s ease-in-out; }` -- the IMG itself moves, not the
+       column/card. Corrected `.wps-band-media:hover img` accordingly and re-verified via
+       `getComputedStyle` mid-hover on the local render: `matrix(1,0,0,1,-10,0)`, matching exactly.
+       Also found the dark
        "Reliable WordPress Support" band carries a full-bleed decorative background overlay
        (`.elementor-background-overlay`, a 1920x618 `hm12-grp15.png` faint diamond/hex line-mesh
        over the navy fill, fading to nothing toward the horizontal center and reappearing at both
