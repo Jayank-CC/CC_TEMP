@@ -36,6 +36,27 @@
     });
   }
 
+  // ---- Scroll-triggered fade-in entrance (reference's own "animation":"fadeIn" -- a plain
+  // opacity fade, no slide, confirmed via data-settings on the live reference). One-time per
+  // element via IntersectionObserver, with a prefers-reduced-motion fallback. ----
+  function initFadeIn() {
+    const els = document.querySelectorAll(".wps-fade-in");
+    if (!els.length) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!("IntersectionObserver" in window) || reducedMotion.matches) {
+      els.forEach(function (el) { el.classList.add("wps-in-view"); });
+      return;
+    }
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("wps-in-view");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.2 });
+    els.forEach(function (el) { observer.observe(el); });
+  }
+
   // ---- Lead-capture forms (honeypot + fake success; static replica, no backend) ----
   function initForms() {
     document.querySelectorAll(".wps-hero-form-card form, .wps-contact-card form").forEach(function (form) {
@@ -53,6 +74,7 @@
 
   function init() {
     initAccordion();
+    initFadeIn();
     initForms();
   }
 

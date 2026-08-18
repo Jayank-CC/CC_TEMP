@@ -7,14 +7,89 @@
   `js/wordpress-support.js` (FAQ accordion, single-open, reused pattern from
   `shopify-support-and-maintenance-services.html`'s `.ssm-acc-item` + honeypot/fake-success handlers
   for the page's two lead-capture forms).
-- **Last updated:** 2026-08-17
-- **State:** Built and rendered/verified this session on the user's own local dev server
-  (`127.0.0.1:5500`). Zero console errors, all network requests (43 checked, including every
-  lazy-loaded image scrolled into view) returned 200, no hotlinked production assets. FAQ
-  accordion click-tested directly (single-open behavior confirmed: clicking a second question
-  closes the first and opens the new one, toggling the blue background + "+"/"-" glyph). Hero
-  underline entrance animation confirmed actually playing (caught mid-reveal on a fresh-load
-  screenshot, not just its end state).
+- **Last updated:** 2026-08-18
+- **State:** Built and rendered/verified on the user's own local dev server (`127.0.0.1:5500`).
+  Zero console errors, all network requests (43 checked, including every lazy-loaded image
+  scrolled into view) returned 200, no hotlinked production assets. FAQ accordion click-tested
+  directly (single-open behavior confirmed: clicking a second question closes the first and opens
+  the new one, toggling the blue background + "+"/"-" glyph). Hero underline entrance animation
+  confirmed actually playing (caught mid-reveal on a fresh-load screenshot, not just its end
+  state).
+  - **Fix passes applied after the initial build (2026-08-18), all user-reported, all
+    render-verified against the live reference via direct DOM measurement:**
+    1. Mid-page ("problems grid") contact-form submit button was the plain sitewide blue with
+       text "Submit" -- reference uses the orange modifier + "Submit Now"; fixed.
+    2. Font-size corrections found via direct `getComputedStyle` diffs: problem-card `h3` 18→17px,
+       problem-card `p` 15/24px→16/26px line-height, mid-form title 24→32px.
+    3. **Header was entirely missing** (user had removed `#site-header-placeholder`) because this
+       specific reference page renders a genuinely nav-less "minimal" header (phone + email only,
+       confirmed via DOM: 0 nav items). Rather than duplicate the shared header partial (forbidden
+       by this project's architecture), added a reusable `.has-minimal-header` body-class variant
+       to the ONE shared `js/header.js`/`css/style.css`: a new `.header-contact-bar` (phone +
+       email links, hidden by default) that only shows when the body opts in, with nav/CTA/mobile
+       toggle hidden instead. User confirmed this approach via AskUserQuestion. Also added the
+       missing bouncing-yellow-dot particle (`hm12-yellow-circle.svg`, animated via
+       `@keyframes wps-particle-move`, matching the reference's own `particlemove2` keyframe) and
+       the hero's dashed-arrow doodle SVG (path data copied directly from the reference's inline
+       icon widget).
+    4. **Linked hover effect, hero doodle arrow <-> "Connect with us" form:** the doodle is a DOM
+       child of `.wps-hero-form-wrap` specifically so hovering either one triggers both via CSS
+       `:hover` bubbling. One real bug found and fixed along the way: giving the WRAP itself a
+       `:hover` transform made it a new CSS containing block for its absolutely-positioned doodle
+       child, so the icon "jumped" instead of sliding smoothly on hover (per spec: any element with
+       `transform != none` becomes the containing block for `position:absolute` descendants).
+       Fixed by moving the hover-lift transform down to a nested `.wps-hero-form-card` instead,
+       leaving the wrap itself transform-free.
+    5. Added independent hover-lift to the Clutch/WordPress-Contributors hero badge images, and a
+       scroll-triggered fade-in (`initFadeIn()` in `js/wordpress-support.js`, one-time
+       `IntersectionObserver`, `prefers-reduced-motion` fallback) + hover-lift to the "Facing
+       Website Issues?" heading/intro block.
+    6. **"HOW WE WORK" 3-step section, rebuilt twice.** First pass fixed the missing numeral SVGs
+       (real downloaded assets `hm5-01/02/03.svg`, not text/pseudo-content). User flagged it as
+       still "a lot of differences" on a second look; a full direct-DOM re-measurement of the live
+       reference's real box model revealed several compounding errors, all now fixed:
+       - Heading was `22px/700/letter-spacing:1px` -- reference is `28px/600`, no letter-spacing.
+       - The icon was being force-shrunk to `44px` -- reference's own SVG is a fixed `70px`
+         (confirmed via `getBoundingClientRect`), sitting in a 77px-wide column.
+       - The vertical divider was on `.wps-step` itself, BEFORE the icon, in gray `#cfd7ea` --
+         reference's real divider is `border-left:1.75px solid rgb(30,78,196)` (`--color-primary`)
+         on the TEXT column's own wrap, i.e. it sits between the icon and the heading/paragraph.
+       - Paragraph text was `15px/22px` -- reference is `16px/26px`; heading also needs
+         `text-transform:capitalize` (reference's real text content is sentence-case, rendered
+         capitalized via CSS, not authored that way).
+       - The numeral background-image actually paints across the FULL icon+text content box
+         (350x213px at this breakpoint), not just a small icon-sized span -- restructured the
+         markup to a `.wps-step > .wps-step-inner > .wps-step-row` (icon + text) so the numeral
+         background (`background-position:35% 10%`, `background-size:auto`, matching the
+         reference exactly) sits on `.wps-step-inner`, inset 15px each side + 60px top padding,
+         reproducing the reference's own margin/padding recipe measured directly off its DOM.
+       Re-verified with a side-by-side screenshot against the live reference: heading size/weight,
+       icon size/position, numeral placement, and divider position/color now all match.
+    7. **HOW WE WORK icon hover + dark band missing hover/background (user-reported).** Added the
+       icon-slide hover to `.wps-step-icon svg` (`translate3d(-10px,0,0)`, `0.3s ease-in-out`,
+       matching the reference's own `moving-icon-left-right` rule read directly from its
+       stylesheet) and a 5px hover-lift to `.wps-band-media` (the team photo, matching the
+       reference's `img-box-hover-effect` class on that column). Also found the dark
+       "Reliable WordPress Support" band carries a full-bleed decorative background overlay
+       (`.elementor-background-overlay`, a 1920x618 `hm12-grp15.png` faint diamond/hex line-mesh
+       over the navy fill, fading to nothing toward the horizontal center and reappearing at both
+       edges, confirmed via `getComputedStyle` + pixel-sampling the real asset: line color
+       `rgb(32,52,115)` at ~40% alpha) that the original build never reproduced at all.
+       **Could not download the real source PNG this session** -- the sandbox's shell tool failed
+       with a `VM_DISK_SPACE_INSUFFICIENT` error partway through this fix pass (confirmed via
+       repeated retries, not a one-off), which blocked the usual fetch+blob+download-then-`cp`
+       asset pipeline used everywhere else in this project. Reproduced the same visual effect
+       instead with a self-authored, tileable inline-SVG hex/diamond pattern (`.wps-band-overlay`,
+       two absolutely-positioned `::before`/`::after` bands at the left/right edges, each with a
+       `mask-image` linear-gradient fading toward the center) at a matching low-contrast line
+       color/opacity -- no external file, no hotlinking, pure CSS3/SVG per this project's tech
+       rules. Re-verified via side-by-side screenshot against the live reference: same subtle,
+       barely-visible mesh texture at the edges fading out behind the photo/text, same general
+       proportions. **Follow-up flagged for a future session:** swap `.wps-band-overlay`'s inline
+       SVG for the real `hm12-grp15.png` (URL known:
+       `https://www.cloudconverge.io/wp-content/uploads/2021/12/hm12-grp15.png`, `1920x618`) once
+       the sandbox's shell/download pipeline is working again, for a byte-exact match instead of
+       an approximation.
   - **Content root confirmed via `[data-elementor-id="16702"]`, 9 top-level DOM sections**, mapped
     to 10 visual sections in the rebuild (the "Facing Website Issues?" heading/intro and the 6-card
     problem grid + a SECOND, distinct contact-form card are two separate top-level sections on the

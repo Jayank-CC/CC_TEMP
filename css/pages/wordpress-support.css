@@ -47,6 +47,43 @@
   align-items: flex-start;
   gap: 70px;
 }
+/* Reference's dashed-circle + arrow doodle (confirmed directly: an inline SVG "elementor-icon"
+   widget, 224x178 viewBox, positioned absolute at roughly x:625/y:370 within a 1670x925 hero on
+   the live reference) -- a solid arrowhead path (fill rgb(133,150,199)) plus a hand-drawn dashed
+   circle stroke (same color, 2px, dasharray 12/13) pointing toward the form card. */
+.wps-hero-doodle {
+  position: absolute;
+  z-index: 1;
+  left: 625px;
+  top: 370px;
+  width: 224px;
+  height: 224px;
+}
+/* Reference's own "moving-icon-left-right" class lives on the SAME column as the form's
+   "img-box-hover-effect" (confirmed directly: the icon widget is a DOM descendant of the form's
+   hover column on the live reference, not a sibling) -- so hovering either one triggers both:
+   hovering the icon counts as hovering its ancestor .wps-hero-form-wrap (standard CSS bubbling,
+   even though the icon is absolutely-positioned outside the wrap's own visual box), which lifts
+   the form; hovering anywhere on the form slides the icon via the descendant selector below. */
+.wps-hero-doodle svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+.wps-hero-form-wrap:hover .wps-hero-doodle svg {
+  transform: translate3d(-10px, 0, 0);
+}
+.wps-hero-doodle path:first-child {
+  fill: #8596c7;
+}
+.wps-hero-doodle path:last-child {
+  fill: none;
+  stroke: #8596c7;
+  stroke-width: 2px;
+  stroke-dasharray: 12px 13px;
+}
+
 /* Reference's own tiny floating decorative dot (confirmed directly: an 8x8 img,
    hm12-yellow-circle.svg, fill #FFA901, class "particle-moving-2" -- a drifting float, not a
    bounce) sitting just below the header, above the eyebrow label. */
@@ -133,7 +170,7 @@
 }
 .wps-hero-desc {
   margin: 0 0 30px;
-  max-width: 520px;
+  max-width: 450px;
   font-size: 16px;
   line-height: 26px;
   color: var(--wps-navy-light);
@@ -151,17 +188,39 @@
   width: 74px;
   height: auto;
 }
+/* Reference's own Clutch/WordPress-Contributors badges each sit in their own
+   "img-box-hover-effect" column (confirmed directly) -- the same sitewide hover-lift used
+   everywhere else in this project, applied per-image since they're independent columns here
+   (not nested like the doodle/form pair), so each lifts on its own hover only. */
+.wps-hero-badges img {
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.wps-hero-badges img:hover {
+  transform: translate3d(0, -5px, 0);
+}
 
 /* Hero form card -- reuses the sitewide .contact-form/.form-field/.btn-submit component; only
-   the card chrome and this page's own orange submit modifier are page-specific. */
+   the card chrome and this page's own orange submit modifier are page-specific. Reference's own
+   column here carries "img-box-hover-effect" (confirmed directly), the same sitewide hover-lift
+   used on every other card in this project: 0.4s cubic-bezier(.2,0,.3,1), translate3d(0,-5px,0). */
 .wps-hero-form-wrap {
   flex: 0 0 380px;
   width: 380px;
+}
+/* The hover-lift transform must live on the CARD, not this wrap -- putting a transform on
+   .wps-hero-form-wrap would make it establish a new CSS containing block for its
+   absolutely-positioned .wps-hero-doodle sibling, so the doodle's position:absolute would
+   suddenly be measured from the wrap's own (small, right-aligned) box instead of .wps-hero the
+   moment you hover, making it jump across the hero instead of sliding 10px. Keeping the
+   transform scoped to the card avoids that entirely while still lifting on the same hover. */
+.wps-hero-form-wrap:hover .wps-hero-form-card {
+  transform: translate3d(0, -5px, 0);
 }
 .wps-hero-form-card {
   background: #fff;
   border-radius: 8px;
   padding: 40px;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
   box-shadow: var(--shadow-card);
 }
 .wps-hero-form-title {
@@ -227,7 +286,7 @@
   font-size: 32px;
 }
 .wps-stat-label {
-  margin-top: 6px;
+  margin-top: 16px;
   font-size: 16px;
   color: var(--color-body);
 }
@@ -237,10 +296,25 @@
   padding: 90px 0 100px;
   background: #fff;
 }
+/* Reference's own column here carries BOTH "animation":"fadeIn" (a scroll-triggered plain fade,
+   confirmed via data-settings -- no slide/transform, unlike the fadeInUp pattern used elsewhere
+   in this project) AND "img-box-hover-effect" (the same sitewide hover-lift). Reproduced as a
+   one-time IntersectionObserver-driven fade (see js/wordpress-support.js) plus the usual
+   0.4s cubic-bezier(.2,0,.3,1) hover-lift. */
 .wps-problems-head {
   max-width: 920px;
   margin: 0 auto 50px;
   text-align: center;
+  opacity: 0;
+  transition:
+    opacity 0.45s ease-out,
+    transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+.wps-problems-head.wps-in-view {
+  opacity: 1;
+}
+.wps-problems-head:hover {
+  transform: translate3d(0, -5px, 0);
 }
 .wps-problems-head h2 {
   margin: 0 0 20px;
@@ -330,77 +404,144 @@
 
 /* ---------- HOW WE WORK ---------- */
 .wps-how {
-  padding: 90px 0 30px;
+  padding: 90px 0 100px;
   background: #fff;
   text-align: center;
 }
 .wps-how-title {
-  margin: 0 0 60px;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  margin: 0 0 50px;
+  font-size: 28px;
+  font-weight: 600;
   color: var(--color-heading);
 }
 .wps-steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+  gap: 0;
   text-align: left;
 }
 .wps-step {
   position: relative;
+}
+/* Reference's "01"/"02"/"03" numerals are NOT text -- they're real vector-outline SVG assets
+   (hm5-01.svg/hm5-02.svg/hm5-03.svg, fill #ECECEC, downloaded directly from the live reference)
+   set as a background-image on an inner wrap inset 15px from each side of the step's grid column
+   and padded 60px on top, confirmed directly via getComputedStyle on the live DOM: the wrap is
+   350px wide (380px column minus 15px margins each side) with background-position 35% 10% and
+   background-size auto (the asset's native pixel dimensions -- 82x73 / 111x73 / 111x74). */
+.wps-step-inner {
+  margin: 0 15px;
+  padding-top: 60px;
+  background-repeat: no-repeat;
+  background-position: 35% 10%;
+}
+.wps-step--01 .wps-step-inner {
+  background-image: url(../../assets/images/hm5-01.svg);
+}
+.wps-step--02 .wps-step-inner {
+  background-image: url(../../assets/images/hm5-02.svg);
+}
+.wps-step--03 .wps-step-inner {
+  background-image: url(../../assets/images/hm5-03.svg);
+}
+.wps-step-row {
   display: flex;
   align-items: flex-start;
-  gap: 16px;
-  padding-left: 60px;
-  border-left: 1px solid #cfd7ea;
 }
-.wps-step-number {
-  position: absolute;
-  top: -18px;
-  left: -10px;
-  font-family: var(--font-heading);
-  font-size: 64px;
-  font-weight: 700;
-  color: #e8ecf6;
-  line-height: 1;
-  z-index: 0;
-}
+/* Reference's icon renders at a fixed 70x70px (its own SVG has width="70px" height="70px"),
+   sitting in a 77px-wide column -- confirmed via getBoundingClientRect on the live DOM. It was
+   previously being force-shrunk to 44px by this stylesheet; that was the main size mismatch. */
 .wps-step-icon {
   position: relative;
   z-index: 1;
-  flex: 0 0 32px;
-  width: 32px;
-  height: 32px;
-  color: var(--color-primary);
+  flex: 0 0 77px;
+  width: 70px;
+  height: 70px;
 }
 .wps-step-icon svg {
-  width: 100%;
-  height: 100%;
+  display: block;
+  width: 70px;
+  height: 70px;
+  transition: transform 0.3s ease-in-out;
 }
+/* Reference's own icon widget carries the sitewide "moving-icon-left-right" class (same hover
+   pattern already reused elsewhere on this page for the hero doodle): the icon slides 10px left
+   on hover, independent of any card-level lift. Confirmed directly via the reference's own
+   stylesheet rule rather than assumed. */
+.wps-step-icon:hover svg {
+  transform: translate3d(-10px, 0, 0);
+}
+/* Reference's divider is NOT at the very start of the step (before the icon) -- it's a border on
+   the TEXT column's own wrap, i.e. it sits between the icon and the heading/paragraph, and its
+   real color is the site's primary blue (rgb(30,78,196)), not a neutral gray (confirmed directly
+   via getComputedStyle: border-left 1.75px solid rgb(30,78,196) on the text column's wrap). */
 .wps-step-text {
   position: relative;
   z-index: 1;
+  padding-left: 30px;
+  border-left: 2px solid var(--color-primary);
 }
 .wps-step-text h3 {
-  margin: 0 0 8px;
+  margin: 0;
   font-size: 17px;
   font-weight: 600;
+  line-height: 27px;
+  text-transform: capitalize;
   color: var(--color-heading);
 }
 .wps-step-text p {
   margin: 0;
-  font-size: 15px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 26px;
   color: var(--color-body);
 }
 
 /* ---------- Dark navy "Reliable WordPress Support" band ---------- */
+/* Reference carries a decorative full-bleed background overlay behind this section's content
+   (`.elementor-background-overlay`, a 1920x618 image, background-size:cover, positioned center,
+   confirmed via getComputedStyle on the live DOM) -- a faint diamond/hex line-mesh over the navy
+   fill that fades to nothing toward the horizontal center and re-appears at both edges. The
+   reference's own source file (hm12-grp15.png) could not be downloaded into assets/images this
+   session (sandbox/storage failure mid-session, not a content decision) so the same visual effect
+   is reproduced with a self-authored, tileable inline SVG pattern (no external/hotlinked asset)
+   at a matching line color/weight, faded via a CSS mask-image gradient rather than baked into a
+   raster file. Flagged in PROJECT_STATUS.md as a follow-up if the exact source asset is wanted. */
 .wps-band {
+  position: relative;
   background: var(--wps-navy);
   padding: 90px 0;
+  overflow: hidden;
+}
+.wps-band-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.wps-band-overlay::before,
+.wps-band-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 46%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='69' viewBox='0 0 60 69'%3E%3Cpath d='M30 0 L60 17.3 L60 51.9 L30 69 L0 51.9 L0 17.3 Z' fill='none' stroke='rgba(70,95,165,0.4)' stroke-width='1'/%3E%3Cpath d='M30 0 L30 69 M0 17.3 L60 51.9 M60 17.3 L0 51.9' stroke='rgba(70,95,165,0.25)' stroke-width='0.75'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 60px 69px;
+}
+.wps-band-overlay::before {
+  left: 0;
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 30%, transparent 85%);
+  mask-image: linear-gradient(to right, #000 0%, #000 30%, transparent 85%);
+}
+.wps-band-overlay::after {
+  right: 0;
+  -webkit-mask-image: linear-gradient(to left, #000 0%, #000 30%, transparent 85%);
+  mask-image: linear-gradient(to left, #000 0%, #000 30%, transparent 85%);
 }
 .wps-band-grid {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 60px;
@@ -408,6 +549,12 @@
 .wps-band-media {
   flex: 0 0 44%;
   max-width: 44%;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+/* Reference's team-photo column carries the sitewide img-box-hover-effect 5px lift, confirmed via
+   the reference's own column class list. */
+.wps-band-media:hover {
+  transform: translate3d(0, -5px, 0);
 }
 .wps-band-media img {
   display: block;
@@ -741,6 +888,9 @@
   }
   .wps-hero-particle {
     animation: none;
+  }
+  .wps-problems-head {
+    opacity: 1;
   }
   .wps-stat-card,
   .wps-problem-card,
