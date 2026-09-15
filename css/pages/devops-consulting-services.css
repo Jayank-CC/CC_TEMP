@@ -1,0 +1,629 @@
+/* ==========================================================================
+   DevOps Consulting Services — page stylesheet
+   Reference: https://www.cloudconverge.io/devops-consulting-services/
+   Measured at 1920px. The reference content column is 1140px with no gutter of
+   its own; each block carries its own 10px / 15px inner gutter, so the shared
+   .container padding is neutralised here and re-applied per block.
+   ========================================================================== */
+
+.dvo-page main .container {
+  max-width: var(--container);
+  padding: 0;
+}
+
+/* ---- top banner band ----
+   The theme's `.wraper_inner_banner`: a 380px full-bleed band whose artwork
+   (page title included) is baked into the image, with the shared transparent
+   header overlaying it. */
+
+.dvo-banner {
+  height: 380px;
+  background: url("../../assets/images/header-devops-consult.jpg") center / cover no-repeat;
+}
+
+/* ---- breadcrumb ---- */
+
+.dvo-breadcrumb {
+  padding: 10px 0;
+  background-color: #fbfbfb;
+}
+
+.dvo-page main .dvo-breadcrumb .container {
+  padding: 0 10px;
+}
+
+.dvo-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 -8px;
+  padding: 0;
+  list-style: none;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+}
+
+.dvo-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+  margin: 0 8px;
+}
+
+.dvo-breadcrumb a {
+  color: var(--color-body);
+  text-decoration: none;
+}
+
+.dvo-breadcrumb a:hover {
+  color: var(--color-primary);
+}
+
+.dvo-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.dvo-breadcrumb-sep svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  fill: #6d6d6d;
+}
+
+/* ---- intro: copy + consultation card ---- */
+
+.dvo-intro {
+  padding: 60px 10px;
+}
+
+.dvo-intro-grid {
+  display: grid;
+  grid-template-columns: 65% 35%;
+}
+
+.dvo-intro-copy {
+  padding: 10px;
+}
+
+.dvo-intro-copy h1 {
+  margin: 0 0 20px;
+  font:
+    600 45px/52px var(--font-heading);
+  color: var(--color-heading);
+  text-transform: capitalize;
+}
+
+.dvo-intro-sub {
+  margin: 0 0 20px;
+  font:
+    600 20px/30px var(--font-heading);
+  color: var(--color-heading);
+  text-transform: capitalize;
+}
+
+.dvo-intro-copy p {
+  margin: 0 0 20px;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+}
+
+.dvo-intro-copy a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.dvo-intro-copy a:hover {
+  text-decoration: underline;
+}
+
+.dvo-intro-aside {
+  padding: 10px 10px 10px 40px;
+}
+
+.dvo-consult-card {
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  box-shadow: 0 6px 60px 0 rgba(0, 0, 0, 0.05);
+}
+
+.dvo-consult-eyebrow {
+  margin: 0;
+  padding-bottom: 7px;
+  font:
+    400 16px/25px var(--font-heading);
+  color: var(--color-primary);
+}
+
+.dvo-consult-heading {
+  margin: 0;
+  padding-bottom: 20px;
+  font:
+    400 32px/48px var(--font-heading);
+  color: var(--color-body);
+}
+
+.dvo-consult-form .form-field {
+  margin-bottom: 10px;
+}
+
+.dvo-consult-form .form-submit {
+  margin-top: 10px;
+}
+
+.dvo-consult-form input,
+.dvo-consult-form textarea,
+.dvo-git-form input,
+.dvo-git-form textarea {
+  padding: 12px 15px;
+  border-radius: 4px;
+}
+
+/* ---- service cards ---- */
+
+.dvo-services {
+  padding: 21px 0 35px;
+}
+
+.dvo-page main .container.dvo-service-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 30px;
+  padding: 15px;
+}
+
+.dvo-page main .container.dvo-service-row--last {
+  margin-top: 38px;
+}
+
+.dvo-service-card {
+  display: flex;
+  flex-direction: column;
+  padding-top: 4px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+
+.dvo-service-card:hover {
+  transform: translate3d(0, -5px, 0);
+}
+
+.dvo-service-copy {
+  flex: 1 1 auto;
+  min-height: 337px;
+}
+
+.dvo-service-head {
+  padding: 29px 35px 0 43px;
+}
+
+.dvo-service-head h3 {
+  margin: 0;
+  font:
+    600 17px/27px var(--font-heading);
+  color: var(--color-heading);
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.dvo-service-body {
+  padding: 12px 12px 0;
+}
+
+.dvo-service-body p {
+  margin: 0;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+}
+
+.dvo-service-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: auto;
+}
+
+/* ---- "Other Factors to consider" ---- */
+
+.dvo-page main .dvo-factors-head .container {
+  padding: 10px 0;
+}
+
+.dvo-factors-head h2,
+.dvo-industries h2,
+.dvo-awards h2,
+.dvo-reviews h2 {
+  margin: 0;
+  font:
+    600 20px/30px var(--font-heading);
+  color: var(--color-heading);
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.dvo-factors {
+  padding: 25px 0 0;
+}
+
+.dvo-factors-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.dvo-factors-col {
+  padding: 10px;
+}
+
+.dvo-factors-col h3 {
+  margin: 0;
+  font:
+    600 17px/27px var(--font-heading);
+  color: var(--color-heading);
+  text-transform: capitalize;
+}
+
+.dvo-factors-col p {
+  margin: 0 0 20px;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+}
+
+/* ---- stats ---- */
+
+.dvo-stats {
+  padding: 120px 0;
+  background: #fff;
+}
+
+.dvo-page main .container.dvo-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.dvo-stat-grid article {
+  text-align: center;
+}
+
+.dvo-stat-grid img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+}
+
+.dvo-stat-grid strong {
+  display: block;
+  font:
+    400 32px/48px var(--font-heading);
+  color: var(--color-body);
+}
+
+.dvo-stat-grid h3 {
+  margin: 0 0 8px;
+  font:
+    400 16px/25px var(--font-heading);
+  color: var(--color-body);
+}
+
+.dvo-stat-grid p {
+  margin: 0 0 20px;
+  padding: 0 20px;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+}
+
+/* ---- industries ---- */
+
+.dvo-page main .dvo-industries > .container:first-child {
+  padding: 10px 0;
+}
+
+.dvo-page main .container.dvo-industries-media {
+  padding: 10px;
+  text-align: center;
+}
+
+.dvo-industries-media img {
+  display: inline-block;
+  width: 960px;
+  max-width: 100%;
+  height: 960px;
+  object-fit: fill;
+}
+
+/* ---- awards ---- */
+
+.dvo-awards {
+  padding: 55px 0 38px;
+}
+
+.dvo-awards h2 {
+  margin: 10px 0 18px;
+}
+
+.dvo-awards h2 span {
+  text-decoration: underline;
+}
+
+.dvo-page main .container.dvo-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+  min-height: 323px;
+  padding: 10px 0;
+}
+
+.dvo-award-grid img {
+  display: block;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.dvo-award-grid .dvo-award-ms {
+  width: 265px;
+  height: 265px;
+}
+
+/* ---- Get In Touch ---- */
+
+.dvo-git {
+  padding: 120px 0;
+  background: url("../../assets/images/contactsection-1.webp") left center / cover no-repeat;
+}
+
+.dvo-git-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.dvo-git-card {
+  margin: 0 15px;
+  padding: 33px 30px 40px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.dvo-git-card h2 {
+  margin: 0 0 20px;
+  font:
+    600 32px/42px var(--font-heading);
+  color: var(--color-heading);
+  text-transform: capitalize;
+}
+
+.dvo-git-form {
+  padding: 0 10px;
+}
+
+.dvo-git-form .form-field {
+  margin-bottom: 30px;
+}
+
+.dvo-git-form .form-submit {
+  margin: 21px 0 40px;
+}
+
+.dvo-git-submit {
+  padding: 11px 33px;
+}
+
+/* ---- client reviews ---- */
+
+.dvo-reviews {
+  padding: 60px 0;
+}
+
+.dvo-page main .dvo-reviews > .container:first-child {
+  padding: 10px 0;
+}
+
+.dvo-page main .container.dvo-review-viewport {
+  margin-top: 30px;
+  padding: 0 15px;
+  overflow: hidden;
+}
+
+.dvo-review-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  transition: transform 0.3s ease;
+}
+
+.dvo-review-card {
+  flex: 0 0 calc(50% - 15px);
+  min-height: 400px;
+  padding: 37px 35px 47px;
+  background: #f4f4f4;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.dvo-stars {
+  padding-bottom: 5px;
+  line-height: 0;
+}
+
+.dvo-stars svg {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  fill: #fac01e;
+}
+
+.dvo-review-card blockquote {
+  margin: 0;
+}
+
+.dvo-review-card blockquote p {
+  margin: 0 0 12px;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+}
+
+.dvo-review-person {
+  display: flex;
+  align-items: flex-start;
+  gap: 25px;
+  padding-top: 22px;
+}
+
+.dvo-review-person img {
+  flex: 0 0 auto;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.dvo-review-person h3 {
+  margin: 0;
+  font:
+    600 20px/42px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.dvo-review-person p {
+  margin: 0 0 20px;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+}
+
+/* ==========================================================================
+   Responsive — the reference uses Elementor's 1024px (tablet) and 767px
+   (mobile) breakpoints and keeps the content column full-bleed.
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .dvo-intro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dvo-intro-aside {
+    padding: 30px 10px 10px;
+  }
+
+  .dvo-consult-card {
+    max-width: 480px;
+  }
+
+  .dvo-service-copy {
+    min-height: 0;
+  }
+
+  .dvo-page main .container.dvo-stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 40px;
+  }
+
+  .dvo-git-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1023px) {
+  .dvo-review-card {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .dvo-industries-media img {
+    height: auto;
+  }
+
+  .dvo-banner {
+    height: 320px;
+    background-position: 40% 50%;
+  }
+
+  .dvo-intro {
+    padding: 40px 10px;
+  }
+
+  .dvo-intro-copy h1 {
+    font-size: 30px;
+    line-height: 38px;
+  }
+
+  .dvo-intro-sub {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .dvo-page main .container.dvo-service-row {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+
+  .dvo-factors-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dvo-stats {
+    padding: 70px 0;
+  }
+
+  .dvo-page main .container.dvo-stat-grid {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+  }
+
+  .dvo-page main .container.dvo-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+    min-height: 0;
+    row-gap: 24px;
+  }
+
+  .dvo-award-grid .dvo-award-ms {
+    width: 195px;
+    height: 195px;
+  }
+
+  .dvo-git {
+    padding: 70px 0;
+  }
+
+  .dvo-git-card {
+    margin: 0 10px;
+    padding: 28px 20px 30px;
+  }
+
+  .dvo-git-card h2 {
+    font-size: 26px;
+    line-height: 36px;
+  }
+
+  .dvo-git-form {
+    padding: 0;
+  }
+
+  .dvo-git-form .form-field {
+    margin-bottom: 20px;
+  }
+
+  .dvo-git-form .form-submit {
+    margin: 10px 0 0;
+  }
+
+  .dvo-page main .container.dvo-review-viewport {
+    padding: 0 10px;
+  }
+
+  .dvo-review-card {
+    padding: 30px 25px 40px;
+  }
+}

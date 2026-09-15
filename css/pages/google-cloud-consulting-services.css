@@ -12,6 +12,16 @@
   padding: 0;
 }
 
+/* ---- top banner band ----
+   The reference page opens with the theme's `.wraper_inner_banner`: a 380px
+   full-bleed band whose artwork (including the page title) is baked into the
+   image, with the shared transparent header overlaying it. */
+
+.gcp-banner {
+  height: 380px;
+  background: url("../../assets/images/gcp-hero.webp") center / cover no-repeat;
+}
+
 /* ---- breadcrumb ---- */
 
 .gcp-breadcrumb {
@@ -434,6 +444,11 @@
 }
 
 @media (max-width: 767px) {
+  .gcp-banner {
+    height: 320px;
+    background-position: 40% 50%;
+  }
+
   .gcp-title {
     padding-top: 30px;
   }
