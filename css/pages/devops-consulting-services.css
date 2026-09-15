@@ -226,7 +226,11 @@
 .dvo-service-card img {
   display: block;
   width: 100%;
-  height: auto;
+  /* the reference forces the 860x528 source into a 350x350 box (object-fit
+     fill) at desktop and only lets it keep its own ratio below the tablet
+     breakpoint - reproduced rather than corrected */
+  height: 350px;
+  object-fit: fill;
   margin-top: auto;
 }
 
@@ -329,6 +333,7 @@
 
 .dvo-page main .container.dvo-industries-media {
   padding: 10px;
+  line-height: 0;
   text-align: center;
 }
 
@@ -508,16 +513,22 @@
    ========================================================================== */
 
 @media (max-width: 1024px) {
+  .dvo-service-card img {
+    height: auto;
+  }
+
   .dvo-intro-grid {
     grid-template-columns: 1fr;
   }
 
   .dvo-intro-aside {
-    padding: 30px 10px 10px;
+    width: 50%;
+    margin: 0 auto;
+    padding: 10px;
   }
 
-  .dvo-consult-card {
-    max-width: 480px;
+  .dvo-industries-media img {
+    height: auto;
   }
 
   .dvo-service-copy {
@@ -541,10 +552,6 @@
 }
 
 @media (max-width: 767px) {
-  .dvo-industries-media img {
-    height: auto;
-  }
-
   .dvo-banner {
     height: 320px;
     background-position: 40% 50%;
@@ -552,6 +559,11 @@
 
   .dvo-intro {
     padding: 40px 10px;
+  }
+
+  .dvo-intro-aside {
+    width: auto;
+    margin: 0;
   }
 
   .dvo-intro-copy h1 {

@@ -2,10 +2,94 @@
 
 ## Current task
 
-- **Reference:** https://www.cloudconverge.io/google-cloud-consulting-services/
-- **Local target:** `google-cloud-consulting-services.html`, `css/pages/google-cloud-consulting-services.css`, `js/google-cloud-consulting-services.js`.
+- **Reference:** https://www.cloudconverge.io/devops-consulting-services/
+- **Local target:** `devops-consulting-services.html`, `css/pages/devops-consulting-services.css`, `js/devops-consulting-services.js`.
 - **Last updated:** 2026-09-15
-- **State:** Page rebuilt from a direct DOM audit of the live reference. Desktop geometry matches measurement-for-measurement; tablet/mobile match structurally with small text-wrap deltas listed below.
+- **State:** Phase 12 complete. Desktop geometry matches the reference block-for-block; tablet/mobile match structurally with the deltas listed below.
+
+### DevOps consulting replica — 2026-09-15
+
+- **Prefix** `dvo-`. Shared header/footer placeholders, `js/include.js` injection and
+  `window.initSite` all reused unchanged; no page-specific header/footer markup.
+- **Section order** (reference top to bottom): theme banner band → breadcrumb → 2-column intro
+  (copy + Free Consultation card) → 2 rows of 3 image cards → "Other Factors to consider:" →
+  2-column factor list (5 + 5) → stats → "Industries we serve:" + graphic →
+  "Awards & recognition" + 4 logos → full-bleed "Get In Touch" card over a background photo →
+  "Some of our Client Reviews:" → 2-review drag carousel.
+  Note the reference puts Get In Touch **between awards and reviews**, not at the end, and it is
+  page content — distinct from the shared footer's own "Contact Us" block, which still renders below.
+- **Verbatim copy throughout.** The reference renders several headings through
+  `text-transform: capitalize`, so the source text is sentence case ("Other Factors to consider:",
+  "Industries we serve:", "Awards & recognition", "Some of our Client Reviews:",
+  "Reduced Time-to-Market") and the capitalisation is reproduced in CSS, not baked into the markup.
+- **Measured reference values reproduced (1920px):** content column `1140px`, no gutter of its own;
+  banner `380px` (`320px` + `background-position:40% 50%` ≤767); breadcrumb band `46px` on `#fbfbfb`;
+  intro section `60px 10px`, columns 65% / 35%, H1 `Poppins 600 45/52 #1d1a4e` capitalize,
+  subtitle `Poppins 600 20/30`, body `DM Sans 16/26 #191919` 20px apart;
+  consult card `349px`, `30px` padding, `1px #e7e7e7`, `0 6px 60px rgba(0,0,0,.05)`, eyebrow
+  `Poppins 400 16 #1e4ec4`, heading `Poppins 400 32 #191919`, fields 10px apart;
+  service card `350px`, `4px` radius, `var(--shadow-card)`, `4px` top padding, head
+  `29px 35px 0 43px` with `Poppins 600 17/27` centred title, body `12px 12px 0` `DM Sans 16/26`,
+  copy block fixed `337px`, image forced into a `350×350` box — rows land at `721px` each with a
+  `38px` gap, exactly as on the reference;
+  factor list columns `570px`/`10px` padding, `Poppins 600 17/27` headings, `DM Sans 16/26` bodies 20px apart;
+  stats `120px 0`, 4 × `285px`, icon `55px` + `17px`, number `Poppins 400 32/48`, label
+  `Poppins 400 16/25` + 8px, body `DM Sans 16/26` with `0 20px`;
+  industries graphic forced to `960×960`; awards 4 × `285px`, logos `150×150`, Microsoft `265×265`;
+  Get In Touch `120px 0` over `contactsection-1.webp` (cover, left centre), card `540px`
+  `33px 30px 40px` radius 4, H2 `Poppins 600 32/42`, form fields on an `80px` pitch;
+  reviews cards `540px` (`calc(50% - 15px)` of `1110px`, `30px` gap), `min-height:400px`,
+  `37px 35px 47px` on `#f4f4f4`, stars `14px #fac01e`, quote `DM Sans 16/26` + 12px,
+  avatar `90px` circle + `25px`, name `Poppins 600 20/42`, role `DM Sans 16/26` + 20px.
+- **Reused rather than rebuilt:** the shared `.contact-form` / `.form-field` / `.field-error` /
+  `.btn.btn-primary.btn-submit` / `.form-success` pattern and its validation in `window.initSite`
+  (both forms on the page), `.fc-eyebrow` / `.fc-form-heading`, `var(--shadow-card)`,
+  `var(--container)`, the `--color-*` / `--font-*` tokens, the stat icons
+  (`icon-maintenance`, `icon-project-done`, `icon-design-thinking`, `webapp-custom-applications`),
+  the award logos, `industries-sectors.webp`, `samuel-correns.webp`, `kabu-projects-logo.webp`,
+  and the review-carousel implementation from the Google Cloud page (class names swapped,
+  per-view breakpoint already at 1023).
+- **New local assets (8, downloaded from the reference by the site owner):**
+  `header-devops-consult.jpg`, `cicdconsultation.jpg`, `cloudnativeapp.jpg`,
+  `InfrastructureCodeImplementation-1.png`, `cicdtraining.jpg`, `cicdimplementation.jpg`,
+  `DevOpsImplementation.jpg`, `contactsection-1.webp`. Nothing is hotlinked; the only external URLs
+  are the two intent-preserving links in the intro copy (cloudconverge.io home, Wikipedia "DevOps").
+- **Responsive** follows the reference's own Elementor breakpoints (1024 tablet / 767 mobile):
+  tablet keeps 3-up service cards (`221px`) and 2-up factor columns, stacks the intro with the
+  consult card at 50% centred, releases the forced image heights; mobile stacks everything
+  (awards stay 2-up), banner `320px`, H1 `30/38`.
+- **QA (rendered, not source-read):** 1920 / 768 / 390 — zero console errors, zero broken images,
+  no horizontal overflow (`scrollWidth` 1905 / 753 / 390), header and footer inject correctly,
+  both contact forms validate independently, carousel drags and loops.
+  Block heights at 1920 vs the reference: banner 380/380, breadcrumb 46/46, intro 964/964,
+  services 1536/1536, factors head 50/50, factors 722/722, awards 474/474, stats 543/573,
+  industries 1030/1030, Get In Touch 847/856, reviews 609/707.
+- **Remaining differences (all text-wrap / reserved space, none structural):**
+  1. Reviews −98px: the reference's swiper reserves a `507px` slide row for a `431px` card
+     (~76px of dead space) and its card wraps one line longer than ours.
+  2. Stats −30px and Get In Touch −9px: the reference's copy wraps one line further at the same
+     width and font stack — renderer-level wrap variance, same effect already logged on the
+     Google Cloud page.
+  3. Tablet only: the reference insets the intro and industries containers by 25px per side where
+     ours uses 10px (its service rows keep the 15px gutter, which we match exactly), so those two
+     blocks are 30px wider than the reference at 768.
+- **Next action:** rendered side-by-side screenshot pass at 1440 / 1366 / 1280 / 1024 / 480 / 360,
+  which have not been checked yet.
+
+### Google Cloud consulting replica — 2026-09-15 (fix)
+
+- Restored the top banner band that an earlier pass wrongly removed. It is the theme's
+  `.wraper_inner_banner`, which lives **outside** `[data-elementor-type="wp-page"]` and so is
+  invisible to an audit that only walks the Elementor page content — check for it on every
+  inner-page reference from now on. It is a `380px` full-bleed band
+  (`320px` + `background-position:40% 50%` ≤767) whose artwork, page title included, is baked into
+  `header-google-cloud.webp` = the local `gcp-hero.webp` (90,126 bytes, byte-identical), with the
+  shared `position:absolute; background:transparent` header overlaying it. No header override was
+  needed — `css/style.css` already ships that behaviour.
+- `gcp-hero.webp` is therefore **in use**, not an orphan as previously recorded. `gcp-industries.webp`
+  and `gcp-service-support.webp` remain unreferenced duplicates of `industries-sectors.webp` and
+  `database-2.webp` and are still safe to delete.
+- Rest of that page unchanged; its full measurements are in the block below.
 
 ### Google Cloud consulting replica — rebuilt 2026-09-15
 
