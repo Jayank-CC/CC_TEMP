@@ -1,0 +1,500 @@
+/* ==========================================================================
+   Google Cloud Consulting Services — page stylesheet
+   Reference: https://www.cloudconverge.io/google-cloud-consulting-services/
+   Measured at 1920px. The reference content column is 1140px wide with no
+   gutter of its own; each block carries its own 10px / 15px inner gutter,
+   so the shared .container padding is neutralised for this page and
+   re-applied per block.
+   ========================================================================== */
+
+.gcp-page main .container {
+  max-width: var(--container);
+  padding: 0;
+}
+
+/* ---- breadcrumb ---- */
+
+.gcp-breadcrumb {
+  padding: 10px 0;
+  background-color: #fbfbfb;
+}
+
+.gcp-page main .gcp-breadcrumb .container {
+  padding: 0 10px;
+}
+
+.gcp-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 -8px;
+  padding: 0;
+  list-style: none;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+}
+
+.gcp-breadcrumb-list li {
+  display: flex;
+  align-items: center;
+  margin: 0 8px;
+}
+
+.gcp-breadcrumb a {
+  color: var(--color-body);
+  text-decoration: none;
+}
+
+.gcp-breadcrumb a:hover {
+  color: var(--color-primary);
+}
+
+.gcp-breadcrumb-sep {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.gcp-breadcrumb-sep svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  fill: #6d6d6d;
+}
+
+/* ---- page title ---- */
+
+.gcp-title {
+  padding: 50px 0 0;
+}
+
+.gcp-page main .gcp-title .container {
+  padding: 0 15px;
+}
+
+.gcp-title h1 {
+  margin: 0 0 20px;
+  font:
+    600 45px/1.5 var(--font-heading);
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.gcp-subtitle {
+  margin: 0;
+  font:
+    400 20px/1.5 var(--font-heading);
+  color: var(--color-heading);
+  text-align: center;
+}
+
+/* ---- intro copy ---- */
+
+.gcp-intro {
+  margin-bottom: 40px;
+}
+
+.gcp-page main .gcp-intro .container {
+  padding: 0 10px;
+}
+
+.gcp-intro p {
+  margin: 0 0 20px;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+  text-align: center;
+}
+
+.gcp-intro p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- service cards ---- */
+
+.gcp-page main .container.gcp-service-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 30px;
+  padding: 10px 15px;
+}
+
+.gcp-service-card {
+  display: flex;
+  flex-direction: column;
+  padding-top: 4px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.3, 1);
+}
+
+.gcp-service-card:hover {
+  transform: translate3d(0, -5px, 0);
+}
+
+.gcp-service-head {
+  padding: 30px 30px 20px 38px;
+}
+
+.gcp-service-head h2 {
+  margin: 0;
+  font:
+    400 18px/27px var(--font-heading);
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.gcp-service-body {
+  min-height: 235px;
+  margin-bottom: 20px;
+  padding: 0 30px;
+}
+
+.gcp-service-body p {
+  margin: 0;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+}
+
+.gcp-service-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: auto;
+}
+
+/* ---- differentiators / why GCP ---- */
+
+.gcp-diff {
+  padding: 43px 0 0;
+}
+
+.gcp-diff-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.gcp-diff-col {
+  padding: 10px;
+}
+
+.gcp-diff-col h2 {
+  margin: 0 0 20px;
+  font:
+    600 18px/50px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.gcp-diff-why h2 {
+  line-height: 42px;
+}
+
+.gcp-diff-col h3 {
+  margin: 0 0 5px;
+  font:
+    400 18px/27px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.gcp-diff-col p {
+  margin: 0 0 20px;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+}
+
+.gcp-diff-col p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- stats ---- */
+
+.gcp-stats {
+  padding: 120px 0;
+  background: #fff;
+}
+
+.gcp-page main .container.gcp-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.gcp-stat-grid article {
+  text-align: center;
+}
+
+.gcp-stat-grid img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+}
+
+.gcp-stat-grid strong {
+  display: block;
+  font:
+    400 32px/48px var(--font-heading);
+  color: var(--color-body);
+}
+
+.gcp-stat-grid h3 {
+  margin: 0 0 8px;
+  font:
+    400 16px/24px var(--font-heading);
+  color: var(--color-body);
+}
+
+.gcp-stat-grid p {
+  margin: 0;
+  padding: 0 20px;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+}
+
+/* ---- industries ---- */
+
+.gcp-industries h2 {
+  margin: 10px 0;
+  font:
+    400 20px/30px var(--font-heading);
+  color: var(--color-body);
+  text-align: center;
+}
+
+.gcp-page main .container.gcp-industries-media {
+  padding: 0 10px;
+  text-align: center;
+}
+
+.gcp-industries-media img {
+  display: inline-block;
+  width: 960px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---- awards ---- */
+
+.gcp-awards {
+  padding: 55px 0 0;
+}
+
+.gcp-awards h2 {
+  margin: 10px 0 18px;
+  font:
+    400 20px/30px var(--font-heading);
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.gcp-page main .container.gcp-award-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+  padding: 10px 0;
+}
+
+.gcp-award-grid img {
+  display: block;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.gcp-award-grid .gcp-award-ms {
+  width: 265px;
+  height: 68px;
+}
+
+/* ---- client reviews ---- */
+
+.gcp-reviews {
+  padding: 50px 0 30px;
+}
+
+.gcp-reviews h2 {
+  margin: 10px 0;
+  font:
+    400 26px/39px var(--font-heading);
+  color: var(--color-heading);
+  text-align: center;
+}
+
+.gcp-page main .container.gcp-review-viewport {
+  margin-top: 30px;
+  padding: 0 15px;
+  overflow: hidden;
+}
+
+.gcp-review-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  transition: transform 0.3s ease;
+}
+
+.gcp-review-card {
+  flex: 0 0 calc(50% - 15px);
+  min-height: 400px;
+  padding: 37px 35px 47px;
+  background: #f4f4f4;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.gcp-stars {
+  padding-bottom: 5px;
+  line-height: 0;
+}
+
+.gcp-stars svg {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  fill: #fac01e;
+}
+
+.gcp-review-card blockquote {
+  margin: 0;
+}
+
+.gcp-review-card blockquote p {
+  margin: 0;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+}
+
+.gcp-review-person {
+  display: flex;
+  align-items: flex-start;
+  gap: 25px;
+  padding-top: 22px;
+}
+
+.gcp-review-person img {
+  flex: 0 0 auto;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.gcp-review-person h3 {
+  margin: 0;
+  font:
+    600 20px/42px var(--font-heading);
+  color: var(--color-heading);
+}
+
+.gcp-review-person p {
+  margin: 0;
+  font:
+    400 16px/26px var(--font-body);
+  color: var(--color-body);
+}
+
+/* ==========================================================================
+   Responsive — the reference uses Elementor's 1024px (tablet) and 767px
+   (mobile) breakpoints and keeps the content column full-bleed, so no
+   container gutter is introduced here either.
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .gcp-page main .container.gcp-service-row {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .gcp-service-head {
+    padding: 10px 30px 0;
+  }
+
+  .gcp-service-body {
+    min-height: 360px;
+    margin-bottom: 18px;
+  }
+
+  .gcp-page main .container.gcp-stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 40px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .gcp-review-card {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .gcp-title {
+    padding-top: 30px;
+  }
+
+  .gcp-title h1 {
+    font-size: 30px;
+    line-height: 38px;
+  }
+
+  .gcp-subtitle {
+    font-size: 18px;
+  }
+
+  .gcp-page main .container.gcp-service-row {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .gcp-service-head {
+    padding: 30px 20px 0 28px;
+  }
+
+  .gcp-service-body {
+    min-height: 0;
+    margin-bottom: 25px;
+  }
+
+  .gcp-diff-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gcp-diff-why {
+    padding-top: 30px;
+  }
+
+  .gcp-stats {
+    padding: 70px 0;
+  }
+
+  .gcp-page main .container.gcp-stat-grid {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+  }
+
+  .gcp-page main .container.gcp-award-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 24px;
+  }
+
+  .gcp-reviews h2 {
+    font-size: 22px;
+    line-height: 32px;
+  }
+
+  .gcp-page main .container.gcp-review-viewport {
+    padding: 0 10px;
+  }
+
+  .gcp-review-card {
+    padding: 30px 25px 40px;
+  }
+}

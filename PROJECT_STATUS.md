@@ -2,13 +2,73 @@
 
 ## Current task
 
-- **Reference:** https://www.cloudconverge.io/wordpress-support/
-- **Local target:** `wordpress-support.html` (root-level, `wps-` prefix), `css/pages/wordpress-support.css`,
-  `js/wordpress-support.js` (FAQ accordion, single-open, reused pattern from
-  `shopify-support-and-maintenance-services.html`'s `.ssm-acc-item` + honeypot/fake-success handlers
-  for the page's two lead-capture forms).
-- **Last updated:** 2026-08-18
-- **State:** Built and rendered/verified on the user's own local dev server (`127.0.0.1:5500`).
+- **Reference:** https://www.cloudconverge.io/google-cloud-consulting-services/
+- **Local target:** `google-cloud-consulting-services.html`, `css/pages/google-cloud-consulting-services.css`, `js/google-cloud-consulting-services.js`.
+- **Last updated:** 2026-09-15
+- **State:** Page rebuilt from a direct DOM audit of the live reference. Desktop geometry matches measurement-for-measurement; tablet/mobile match structurally with small text-wrap deltas listed below.
+
+### Google Cloud consulting replica — rebuilt 2026-09-15
+
+- **What changed.** The earlier draft was an invented layout (380px hero banner, 4-up differentiator
+  cards, 3-up "why" cards, 6 short service cards, 4 reviews). The live reference has none of that.
+  Rebuilt to the reference's real structure, in order: breadcrumb → centred H1 + subtitle →
+  4 centred intro paragraphs → 2 rows of 3 image cards (title, body, image at the bottom) →
+  a 2-column text block (left: "Our Google Cloud Services Differentiators" + 4 items, right:
+  "Why GCP Cloud Consulting Services?" + 6 items) → 4 stats → "Industries We Serve" + graphic →
+  "Awards & Recognition" + 4 logos → "Some of Our Client Reviews" (6 reviews, 2-up drag carousel).
+  The invented hero section was removed — the reference page starts at the breadcrumb.
+- **All copy is verbatim from the reference**, including the reference's own typo
+  "GCP MigrationServices" (no space) in the third service card.
+- **Measured reference values reproduced (audited at 1920px via getBoundingClientRect):**
+  content column `1140px` with no gutter of its own (text blocks carry `0 10px`, card rows and the
+  review viewport `0 15px`); breadcrumb band `46px` on `#fbfbfb`, items `16/26 DM Sans`, 16px
+  caret-right separators `#6d6d6d`; H1 `Poppins 600 45px/1.5 #1d1a4e` centred, subtitle
+  `Poppins 400 20px/1.5`; intro paragraphs `DM Sans 16/26 #191919` centred, 20px apart, 40px below;
+  service card `350px` wide, `#fff`, `4px` radius, `var(--shadow-card)`, head `30px 30px 20px 38px`
+  with `Poppins 400 18/27` centred title, body `min-height:235px` + `0 30px` + `20px` bottom margin,
+  image `350×215` flush at the bottom, hover `translate3d(0,-5px,0)` over `.4s cubic-bezier(.2,0,.3,1)`;
+  row heights land at `578` (row 1) and `602` (row 2), exactly as on the reference.
+  Two-column text block: `43px` top padding, columns `570px` with `10px` padding, section headings
+  `Poppins 600 18px` (`50px` line-height left, `42px` right), item headings `Poppins 400 18/27` with
+  a `5px` gap, bodies `DM Sans 16/26`, `20px` apart — column height `790px` vs the reference's `791px`.
+  Stats: `120px 0`, 4 × `285px`, icon `55px` + `17px`, number `Poppins 400 32/48`, label
+  `Poppins 400 16/24` + `8px`, body `DM Sans 16/26` with `0 20px` — column height `282px`, exact.
+  Awards: heading `Poppins 400 20/30 #1d1a4e`, 4 × `285px`, logos `150×150`, Microsoft `265×68`.
+  Reviews: cards `540px` (`calc(50% - 15px)` of a `1110px` viewport, `30px` gap), `min-height:400px`,
+  `37px 35px 47px`, `#f4f4f4`, `4px` radius, five `14px` `#fac01e` stars, quote `DM Sans 16/26`,
+  avatar `90px` circle + `25px` gap, name `Poppins 600 20/42 #1d1a4e`, role `DM Sans 16/26`.
+  Note the "Industries We Serve" heading is `#191919` while "Awards & Recognition" is `#1d1a4e` —
+  that asymmetry is in the reference and is reproduced.
+- **Assets.** No new files added. The six `gcp-service-*.webp` files already in the project are
+  byte-identical to the reference originals (verified by fetching each and comparing byte length).
+  Two were duplicates of assets already present, so the page now points at the canonical copies:
+  `assets/images/database-2.webp` (GCP Support card) and `assets/images/industries-sectors.webp`
+  (industries graphic). That leaves `gcp-industries.webp`, `gcp-service-support.webp` and
+  `gcp-hero.webp` unreferenced by any page — safe to delete.
+- **Carousel.** `js/google-cloud-consulting-services.js` keeps the existing drag/loop implementation
+  with prebuilt edge clones; only the per-view breakpoint changed from `767` to `1023` to match the
+  reference swiper (`slidesPerView` 2 at ≥1024, 1 below, `spaceBetween:30`, `loop:true`, autoplay
+  disabled, no arrows or dots).
+- **Responsive.** Rebuilt on the reference's own Elementor breakpoints (`1024px` tablet, `767px`
+  mobile) rather than the draft's 991/767. Tablet: service cards stay 3-up (`221px`), the two text
+  columns stay side by side (`377px`), stats go 2-up, awards stay 4-up, card head becomes
+  `10px 30px 0` and card body `min-height:360px` + `18px`. Mobile: everything stacks to one column
+  (awards stay 2-up), cards `360px` inside a `15px` gutter, head `30px 20px 0 28px`, body
+  `min-height:0` + `25px`, H1 `30px/38px`, subtitle `18px`.
+- **Verified.** 1920 / 1440 / 768 / 390: zero console errors, zero broken images, no horizontal
+  overflow, shared header and footer inject correctly through `window.initSite`.
+- **Remaining known differences (all text-wrap / reserved-space, none structural):**
+  1. Reviews: the reference's swiper reserves a `621px` slide row while its tallest card is `545px`,
+     leaving ~76px of dead space below the cards. The local track sizes to its content, so the
+     block is ~104px shorter before the footer.
+  2. The longest review (Entrepreneur's Organization Gurgaon) renders `527px` locally vs `545px`
+     on the reference — one line of wrap difference.
+  3. Tablet (768): tallest service card `717px` vs `699px`; mobile (390): two stat blocks render one
+     line taller than the reference. Same font stack and widths, so this is renderer-level wrap
+     variance rather than a style difference.
+- **Next action:** collect a user-supplied side-by-side screenshot at 1920 and 390 to confirm the
+  three items above are acceptable, or tune the review-track reserved height if exact page height
+  matters.
   Zero console errors, all network requests (43 checked, including every lazy-loaded image
   scrolled into view) returned 200, no hotlinked production assets. FAQ accordion click-tested
   directly (single-open behavior confirmed: clicking a second question closes the first and opens
